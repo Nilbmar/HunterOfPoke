@@ -1,0 +1,138 @@
+
+ammo_and_effects.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+shockwave
+  rotate: false
+  xy: 1, 47
+  size: 720, 80
+  orig: 720, 80
+  offset: 0, 0
+  index: -1
+mine_drop
+  rotate: false
+  xy: 1, 13
+  size: 192, 32
+  orig: 192, 32
+  offset: 0, 0
+  index: -1
+explode1
+  rotate: false
+  xy: 723, 77
+  size: 150, 50
+  orig: 150, 50
+  offset: 0, 0
+  index: -1
+effect2
+  rotate: false
+  xy: 875, 90
+  size: 148, 37
+  orig: 148, 37
+  offset: 0, 0
+  index: -1
+bullet_onion
+  rotate: false
+  xy: 195, 16
+  size: 168, 29
+  orig: 168, 29
+  offset: 0, 0
+  index: -1
+bullet_tomato
+  rotate: false
+  xy: 723, 53
+  size: 132, 22
+  orig: 132, 22
+  offset: 0, 0
+  index: -1
+mine2
+  rotate: false
+  xy: 365, 28
+  size: 136, 17
+  orig: 136, 17
+  offset: 0, 0
+  index: -1
+speedflames
+  rotate: false
+  xy: 503, 31
+  size: 120, 14
+  orig: 120, 14
+  offset: 0, 0
+  index: -1
+burning
+  rotate: false
+  xy: 195, 1
+  size: 64, 13
+  orig: 64, 13
+  offset: 0, 0
+  index: -1
+mine1
+  rotate: false
+  xy: 875, 71
+  size: 102, 17
+  orig: 102, 17
+  offset: 0, 0
+  index: -1
+effect1
+  rotate: false
+  xy: 625, 21
+  size: 96, 24
+  orig: 96, 24
+  offset: 0, 0
+  index: -1
+flamethrower_bullet
+  rotate: false
+  xy: 1, 1
+  size: 26, 10
+  orig: 26, 10
+  offset: 0, 0
+  index: -1
+explode2
+  rotate: false
+  xy: 723, 39
+  size: 36, 12
+  orig: 36, 12
+  offset: 0, 0
+  index: -1
+cannonball
+  rotate: false
+  xy: 979, 71
+  size: 17, 17
+  orig: 17, 17
+  offset: 0, 0
+  index: -1
+rocket
+  rotate: false
+  xy: 261, 7
+  size: 13, 7
+  orig: 13, 7
+  offset: 0, 0
+  index: -1
+bulletc
+  rotate: false
+  xy: 857, 67
+  size: 11, 8
+  orig: 11, 8
+  offset: 0, 0
+  index: -1
+bulletb
+  rotate: false
+  xy: 365, 18
+  size: 10, 8
+  orig: 10, 8
+  offset: 0, 0
+  index: -1
+bulleta
+  rotate: false
+  xy: 29, 5
+  size: 6, 6
+  orig: 6, 6
+  offset: 0, 0
+  index: -1
+bulletd
+  rotate: false
+  xy: 723, 30
+  size: 4, 7
+  orig: 4, 7
+  offset: 0, 0
+  index: -1

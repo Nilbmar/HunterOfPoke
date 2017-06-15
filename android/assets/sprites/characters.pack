@@ -1,0 +1,159 @@
+
+characters.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+players
+  rotate: false
+  xy: 1, 36
+  size: 161, 219
+  orig: 161, 219
+  offset: 0, 0
+  index: -1
+goo
+  rotate: false
+  xy: 1, 1
+  size: 96, 33
+  orig: 96, 33
+  offset: 0, 0
+  index: -1
+notlink
+  rotate: false
+  xy: 164, 188
+  size: 129, 67
+  orig: 129, 67
+  offset: 0, 0
+  index: -1
+spider
+  rotate: false
+  xy: 164, 120
+  size: 128, 66
+  orig: 128, 66
+  offset: 0, 0
+  index: -1
+bats
+  rotate: false
+  xy: 99, 1
+  size: 96, 33
+  orig: 96, 33
+  offset: 0, 0
+  index: -1
+whelp
+  rotate: false
+  xy: 295, 190
+  size: 128, 65
+  orig: 128, 65
+  offset: 0, 0
+  index: -1
+swarm
+  rotate: false
+  xy: 164, 68
+  size: 64, 50
+  orig: 64, 50
+  offset: 0, 0
+  index: -1
+axebeast
+  rotate: false
+  xy: 425, 205
+  size: 64, 50
+  orig: 64, 50
+  offset: 0, 0
+  index: -1
+macebeast
+  rotate: false
+  xy: 491, 205
+  size: 64, 50
+  orig: 64, 50
+  offset: 0, 0
+  index: -1
+swordbeast
+  rotate: false
+  xy: 557, 205
+  size: 64, 50
+  orig: 64, 50
+  offset: 0, 0
+  index: -1
+hoodfang
+  rotate: false
+  xy: 623, 205
+  size: 64, 50
+  orig: 64, 50
+  offset: 0, 0
+  index: -1
+bladebones
+  rotate: false
+  xy: 689, 205
+  size: 64, 50
+  orig: 64, 50
+  offset: 0, 0
+  index: -1
+armorlancer
+  rotate: false
+  xy: 755, 205
+  size: 64, 50
+  orig: 64, 50
+  offset: 0, 0
+  index: -1
+floateye
+  rotate: false
+  xy: 821, 205
+  size: 64, 50
+  orig: 64, 50
+  offset: 0, 0
+  index: -1
+beast
+  rotate: false
+  xy: 887, 205
+  size: 64, 50
+  orig: 64, 50
+  offset: 0, 0
+  index: -1
+bones
+  rotate: false
+  xy: 953, 205
+  size: 64, 50
+  orig: 64, 50
+  offset: 0, 0
+  index: -1
+kultist
+  rotate: false
+  xy: 230, 68
+  size: 64, 50
+  orig: 64, 50
+  offset: 0, 0
+  index: -1
+fang
+  rotate: false
+  xy: 197, 16
+  size: 64, 50
+  orig: 64, 50
+  offset: 0, 0
+  index: -1
+cloak
+  rotate: false
+  xy: 263, 17
+  size: 62, 49
+  orig: 62, 49
+  offset: 0, 0
+  index: -1
+horns
+  rotate: false
+  xy: 425, 154
+  size: 62, 49
+  orig: 62, 49
+  offset: 0, 0
+  index: -1
+locks
+  rotate: false
+  xy: 489, 154
+  size: 62, 49
+  orig: 62, 49
+  offset: 0, 0
+  index: -1
+feather
+  rotate: false
+  xy: 553, 154
+  size: 62, 49
+  orig: 62, 49
+  offset: 0, 0
+  index: -1

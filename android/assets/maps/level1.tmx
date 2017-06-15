@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="16" tileheight="16" nextobjectid="189">
+ <tileset firstgid="1" name="pokedawn" tilewidth="16" tileheight="16" spacing="2" margin="1" tilecount="25651">
+  <image source="../tiles/pokedawn_gutter.png" width="2048" height="4096"/>
+ </tileset>
+ <layer name="background" width="64" height="64">
+  <data encoding="base64" compression="zlib">
+   eJztzzERgDAUBcE3GaIREAI4BmTwBdCnyBbb37UkDQB+HEtylmsZ3zLCXd9PeSf9X3uylb2PbwEAAAAAAAAAAAAAAACAGXzn+SU1
+  </data>
+ </layer>
+ <layer name="scenery1" width="64" height="64">
+  <data encoding="base64" compression="zlib">
+   eJztzkERAAAIA6DV0f4BPVPsAwlIeNsOFE07AAAAAAAAAAAAAAAAAAAAQA6DOABU
+  </data>
+ </layer>
+ <layer name="graphics" width="64" height="64">
+  <data encoding="base64" compression="zlib">
+   eJzt1T0KwjAYgOEPKkhb8BJuxSOoNxE38Sj+rG7qpOfwBoLnUQeTQTBpsE1MKer7wIdLW/KmP+5ykV3Lc8pEFl3/WSXlWavx0euIFOq373daVEXebr9u3zRSVk+b/fre63a9D3psk1RklJkzTWNUv6whsH+u1nFLzLkH9Lu6n86O1otnv+saxhoC+we53zpcDmq/jm/27Nf77WfbnnFWPid2/9bxnzBLy8+6fcw+Qn+I2P0uy8Ts9/2uNenf+4cV70ydd6jK9cPvOgAAAAAAAAAAAAAAAAAAAAAAAADguz0ARwB79A==
+  </data>
+ </layer>
+ <layer name="scenery2" width="64" height="64">
+  <data encoding="base64" compression="zlib">
+   eJzt090JwjAYBdAP2iJu4E/3UgdRZxDfnMs51DFsH0pjUfTJWnsOXJJCArkNifgNxyziPG1zmrRjk/p7Vq2bd7LIHtcNUfmiT/oP6vkhe7936Mond9rc/fIP+n2i+x7G1L1Wdt74L3ff5hG7JPu87xN916Xqe01y039UVkXEOsmm6PtEAAAAAAAAAAAAAAAAADBsdw+eI14=
+  </data>
+ </layer>
+ <objectgroup name="ground">
+  <object id="156" x="-4" y="100" width="148" height="12"/>
+  <object id="157" x="132" y="52" width="12" height="60"/>
+  <object id="158" x="132" y="52" width="84" height="12"/>
+  <object id="159" x="208" y="52" width="12" height="108"/>
+  <object id="161" x="208" y="148" width="208" height="12"/>
+  <object id="162" x="404" y="64" width="12" height="96"/>
+  <object id="163" x="-8" y="-12" width="552" height="28"/>
+  <object id="164" x="528" y="0" width="16" height="108"/>
+  <object id="165" x="528" y="96" width="92" height="12"/>
+  <object id="166" x="672" y="96" width="92" height="12"/>
+  <object id="168" x="752" y="48" width="16" height="60"/>
+  <object id="170" x="548" y="-52" width="512" height="48"/>
+  <object id="172" x="0" y="16" width="48" height="48"/>
+  <object id="173" x="0" y="64" width="32" height="32"/>
+  <object id="176" x="48" y="48" width="16" height="16"/>
+  <object id="181" x="-32" y="112" width="32" height="912"/>
+  <object id="183" x="1024" y="0" width="16" height="1024"/>
+  <object id="186" x="-16" y="1024" width="1056" height="16"/>
+ </objectgroup>
+ <objectgroup name="pickups">
+  <object id="147" x="32" y="64" width="16" height="16">
+   <properties>
+    <property name="woodpile" value=""/>
+   </properties>
+  </object>
+  <object id="148" x="112" y="80" width="16" height="16">
+   <properties>
+    <property name="plant" value=""/>
+   </properties>
+  </object>
+  <object id="151" x="256" y="64" width="16" height="16">
+   <properties>
+    <property name="woodpile" value=""/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="spawn">
+  <object id="153" x="304" y="100" width="16" height="16">
+   <properties>
+    <property name="monster" value=""/>
+   </properties>
+  </object>
+  <object id="154" x="640" y="32" width="16" height="16">
+   <properties>
+    <property name="monster" value=""/>
+   </properties>
+  </object>
+  <object id="155" x="160" y="112" width="16" height="16">
+   <properties>
+    <property name="monster" value=""/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="player">
+  <object id="180" x="84" y="32" width="16" height="16">
+   <properties>
+    <property name="player" value=""/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

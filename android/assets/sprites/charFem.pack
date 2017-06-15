@@ -1,0 +1,54 @@
+
+charFem.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+1_south2
+  rotate: false
+  xy: 1, 1
+  size: 80, 24
+  orig: 80, 24
+  offset: 0, 0
+  index: -1
+1_side
+  rotate: false
+  xy: 83, 1
+  size: 80, 24
+  orig: 80, 24
+  offset: 0, 0
+  index: -1
+1_diagup
+  rotate: false
+  xy: 165, 1
+  size: 80, 24
+  orig: 80, 24
+  offset: 0, 0
+  index: -1
+1_south
+  rotate: false
+  xy: 247, 1
+  size: 80, 24
+  orig: 80, 24
+  offset: 0, 0
+  index: -1
+1_diagdown
+  rotate: false
+  xy: 329, 1
+  size: 80, 24
+  orig: 80, 24
+  offset: 0, 0
+  index: -1
+1_north
+  rotate: false
+  xy: 411, 1
+  size: 80, 24
+  orig: 80, 24
+  offset: 0, 0
+  index: -1
+default
+  rotate: false
+  xy: 493, 1
+  size: 20, 24
+  orig: 20, 24
+  offset: 0, 0
+  index: -1

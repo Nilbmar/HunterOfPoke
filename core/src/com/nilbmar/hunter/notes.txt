@@ -1,0 +1,28 @@
+// TODO: CHANGE CHARMALE AND CHARALIEN TO MATCH CHARFEM PACK
+// REMOVE THE #_ FROM ALL PACKS
+// CHANGE THE "2" AND "3" DEFAULT STANCE NAMES TO SAY "DEFAULT"
+// EDIT THE DEFAULT STANCES TO BE 20/24, BOTTOM HAS ONE PIXEL CLEAR
+
+1_south2
+1_side
+1_diagup
+1_south
+1_diagdown
+1_north
+default
+
+2_south
+2_south2
+2_diagdown
+2_side
+2_diagup
+2_north
+2
+
+3_south2
+3_side
+3_diagup
+3_diagdown
+3_south
+3_north
+3
