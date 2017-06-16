@@ -54,18 +54,57 @@ public class BulletPatternHandler {
         return dirToShoot;
     }
 
+    private float getBulletRotation(Direction dir) {
+        float rotateBulletTexture = 270;
+
+        switch (dir) {
+            case UP:
+                rotateBulletTexture = 180f;
+                break;
+            case UP_LEFT:
+                rotateBulletTexture = 225f;
+                break;
+            case UP_RIGHT:
+                rotateBulletTexture = 135f;
+                break;
+            case DOWN:
+                rotateBulletTexture = 0f;
+                break;
+            case DOWN_LEFT:
+                rotateBulletTexture = -45f;
+                break;
+            case DOWN_RIGHT:
+                rotateBulletTexture = 45f;
+                break;
+            case LEFT:
+                rotateBulletTexture = -90f;
+                break;
+            case RIGHT:
+                rotateBulletTexture = 90f;
+                break;
+        }
+
+        return rotateBulletTexture;
+    }
+
     public void singleShot(BulletType type, Direction dir, float spawnX, float spawnY) {
         Vector2 direction = getDirToShoot(dir);
 
+        // Make non-evenly shaped bullets look right
+        bulletCreator.setRotation(getBulletRotation(dir));
+
         bulletCreator.setBulletType(type);
         bulletCreator.setBulletsPerShot(1);
+
         bulletCreator.spawnBullet(spawnX, spawnY, direction);
     }
 
     public void twinShot(BulletType type, Direction dir, float spawnX, float spawnY) {
         Vector2 direction = getDirToShoot(dir);
 
-        bulletCreator.setBulletType(type);
+        // Make non-evenly shaped bullets look right
+        bulletCreator.setRotation(getBulletRotation(dir));
+
 
         // On Diagonals slightly rotate shots
         Vector2 altDir = new Vector2(direction.x, direction.y);
@@ -134,9 +173,8 @@ public class BulletPatternHandler {
                 break;
         }
 
-
-
         // Spawn Bullets
+        bulletCreator.setBulletType(type);
         bulletCreator.setBulletsPerShot(2);
         bulletCreator.spawnBullet(spawnX, spawnY, direction);
         bulletCreator.spawnBullet(altSpawnX, altSpawnY, altDir);

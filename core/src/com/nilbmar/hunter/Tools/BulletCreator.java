@@ -25,6 +25,7 @@ public class BulletCreator {
     private float coolOffTime;
     private boolean readyToFire;
     private int bulletsOnScreen;
+    private float rotation;
 
 
     // TODO: MIGHT NOT NEED THESE
@@ -35,6 +36,7 @@ public class BulletCreator {
         this.screen = screen;
         bullets = new Array<Bullet>();
         stateTime = 0;
+        rotation = 0;
         readyToFire = true;
         coolOffTime = 0;
         bulletsOnScreen = 0;
@@ -89,16 +91,17 @@ public class BulletCreator {
     public Array<Bullet> getAllBulletsArray() { return bullets; }
 
     public void setBulletType(BulletType type) { this.type = type; }
+    public void setRotation(float rotation) { this.rotation = rotation; }
 
     public Bullet getBullet(BulletType type, float posX, float posY, Vector2 direction) {
         Bullet bullet = null;
         switch(type) {
             case FIRE:  // TODO: CREATE NEW BULLET TYPE
-                bullet = new FireBullet(screen, posX, posY, direction);
+                bullet = new FireBullet(screen, posX, posY, direction, rotation);
                 break;
             case BALL:
             default:
-                bullet = new BulletA(screen, posX, posY, direction);
+                bullet = new BulletA(screen, posX, posY, direction, rotation);
                 break;
         }
 

@@ -1,6 +1,8 @@
 package com.nilbmar.hunter.Entities.Bullets;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -8,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.nilbmar.hunter.Components.BodyComponent;
@@ -31,31 +34,30 @@ public abstract class Bullet  extends Entity implements Poolable {
     protected MoveComponent movement;
     protected float acceleration = 1;
 
+    protected Animation animation;
+    protected Array<TextureRegion> frames;
+    protected TextureRegion regionToDraw;
+
     protected float lifespan;
     protected boolean setToDestroy;
     protected boolean destroyed;
 
     protected float stateTime;
     protected float coolOffTime;
+    protected float rotation;
 
-    public Bullet(PlayScreen screen, float startInWorldX, float startInWorldY, Vector2 v) {
+    public Bullet(PlayScreen screen, float startInWorldX, float startInWorldY, Vector2 v, float rotation) {
         super(screen, startInWorldX, startInWorldY);
         this.world = screen.getWorld();
         this.screen = screen;
         this.bulletCreator = screen.getBulletCreator();
+        this.rotation = rotation;
 
         setPosition(startInWorldX, startInWorldY);
     }
 
-    public TextureRegion getRotatedRegion(int originX, int originY, int width, int height) {
-        Sprite sprite = new Sprite(screen.getBulletAtlas().findRegion(regionName).getTexture());
-        sprite.setRegion(originX, originY, width, height);
-        sprite.setOrigin(originX + .5f, originY + .5f);
-        sprite.rotate90(true);
-
-        TextureRegion region = new TextureRegion(
-                screen.getBulletAtlas().findRegion(regionName).getTexture(), originX, originY, width, height);
-        return region;
+    public TextureRegion getFrame(float deltaTime, float stateTime) {
+        return (TextureRegion) animation.getKeyFrame(stateTime, true);
     }
 
     public float getCoolOffTime() { return coolOffTime; }
@@ -165,7 +167,28 @@ public abstract class Bullet  extends Entity implements Poolable {
 
     public void draw(Batch batch) {
         if (!destroyed) {
-            super.draw(batch);
+            //super.draw(batch);
+            // Have to rotate Bullet - angle is handled by BulletPatternHandler.getRotation(Direction dir)
+            regionToDraw = (TextureRegion) animation.getKeyFrame(stateTime);
+            batch.draw(regionToDraw, getX(), getY(),
+                    regionToDraw.getRegionWidth() / 2 / HunterOfPoke.PPM,
+                    regionToDraw.getRegionHeight() / 2 / HunterOfPoke.PPM,
+                    regionToDraw.getRegionWidth() / HunterOfPoke.PPM,
+                    regionToDraw.getRegionHeight() / HunterOfPoke.PPM,
+                    regionToDraw.getRegionHeight() / (float) regionToDraw.getRegionWidth(),
+                    2 - (regionToDraw.getRegionHeight() / (float) regionToDraw.getRegionWidth()),
+                    rotation, false);
+
+            /*
+            batch.draw(keyFrame, planePosition.x, planePosition.y,
+                    keyFrame.getRegionWidth() / 2.0f,
+                    keyFrame.getRegionHeight() / 2.0f,
+                    keyFrame.getRegionWidth(),
+                    keyFrame.getRegionHeight(),
+                    keyFrame.getRegionHeight() / (float) keyFrame.getRegionWidth(),
+                    2 - (keyFrame.getRegionHeight() / (float) keyFrame.getRegionWidth()),
+                    rotation, false);
+             */
         }
     }
 }
