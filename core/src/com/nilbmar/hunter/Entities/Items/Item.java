@@ -7,6 +7,7 @@ import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Tools.Enums.Action;
 import com.nilbmar.hunter.Tools.Enums.Direction;
+import com.nilbmar.hunter.Tools.Enums.InventorySlotType;
 import com.nilbmar.hunter.Tools.Enums.TimerType;
 
 /**
@@ -18,6 +19,7 @@ public abstract class Item extends Entity {
     protected float stateTimer;
     protected TimerType timerType;
     protected float itemEffectTime;
+    protected InventorySlotType inventoryType;
 
     public Item(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);

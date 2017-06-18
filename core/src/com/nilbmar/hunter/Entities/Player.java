@@ -8,12 +8,14 @@ import com.nilbmar.hunter.Commands.AccelerationCommand;
 import com.nilbmar.hunter.Commands.UpdateHudCommand;
 import com.nilbmar.hunter.Components.AnimationComponent;
 import com.nilbmar.hunter.Components.FramesComponent;
+import com.nilbmar.hunter.Components.InventoryComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Tools.Enums.Action;
 import com.nilbmar.hunter.Tools.Enums.Direction;
 import com.nilbmar.hunter.Tools.Enums.HudLabels;
+import com.nilbmar.hunter.Tools.Enums.InventorySlotType;
 import com.nilbmar.hunter.Tools.Enums.TimerType;
 
 /**
@@ -29,6 +31,8 @@ public class Player extends Entity {
     private Animation charWalk; // TODO: CHANGE TO charAnim
     private int walkSteps; // How many images in a full walk cycle
 
+    // Componenets
+    private InventoryComponent inventoryComponent;
 
     private UpdateHudCommand hudUpdate;
     private AccelerationCommand accelerationCommand;
@@ -43,6 +47,9 @@ public class Player extends Entity {
         currentAction = Action.STILL;
         previousAction = Action.STILL;
         stateTimer = 0;
+
+        // int is inventory slots available
+        inventoryComponent = new InventoryComponent(this, 5);
 
         // Setup Animations
         //regionName = "default"; // Will need to change in charMale and charAlien pack files
@@ -264,6 +271,9 @@ public class Player extends Entity {
                 accelerationCommand = new AccelerationCommand(this, 1);
                 accelerationCommand.execute(this);
                 setTimerComponent(setTimer, timerType);
+
+                // TODO: CHANGE WHEN ADD IN NEW INVENTORY TYPES
+                inventoryComponent.placeInInventory(InventorySlotType.ITEM);
                 break;
             case DEATH:
                 // TODO: KILL ME!
@@ -324,6 +334,7 @@ public class Player extends Entity {
         setAction(movement.getCurrentAction());
         setRegion(getFrame(deltaTime));
 
+        // TODO: THIS NEEDS TO BE SIMPLIFIED
         if (timerComponent != null) {
             if (timerComponent.endTimer()) {
                 TimerType type = TimerType.ACCELERATION;

@@ -3,6 +3,7 @@ package com.nilbmar.hunter.Entities.Items;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
+import com.nilbmar.hunter.Tools.Enums.InventorySlotType;
 import com.nilbmar.hunter.Tools.Enums.TimerType;
 
 /**
@@ -14,6 +15,7 @@ public class SpeedBoostItem extends Item {
     public SpeedBoostItem(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
 
+        inventoryType = InventorySlotType.ITEM;
         setItemEffectTime(10f);
         setTimerType(TimerType.ACCELERATION);
 
