@@ -5,7 +5,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -18,9 +17,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.nilbmar.hunter.Entities.Bullets.Bullet;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.Entity;
-import com.nilbmar.hunter.Entities.Items.Item;
-import com.nilbmar.hunter.Entities.Items.SpeedBoostItem;
-import com.nilbmar.hunter.Entities.Pickup;
 import com.nilbmar.hunter.Entities.Player;
 import com.nilbmar.hunter.Entities.Spawns;
 import com.nilbmar.hunter.HunterOfPoke;
@@ -263,8 +259,6 @@ public class PlayScreen implements Screen {
             entity.draw(game.batch);
         }
 
-        player.draw(game.batch);
-
         /*for (Enemy enemy : enemies) {
             enemy.draw(game.batch);
         }*/
@@ -272,6 +266,8 @@ public class PlayScreen implements Screen {
         for (Bullet bullets : bulletCreator.getAllBulletsArray()) {
             bullets.draw(game.batch);
         }
+
+        player.draw(game.batch);
 
         game.batch.end();
 
@@ -282,8 +278,6 @@ public class PlayScreen implements Screen {
             game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
             hud.stage.draw();
         }
-
-        //hud.stage.draw();
 
     }
 
@@ -316,6 +310,8 @@ public class PlayScreen implements Screen {
         hud.dispose();
         playerAtlas.dispose();
         bulletAtlas.dispose();
+        enemyAtlas.dispose();
+        itemAtlas.dispose();
         //sound.dispose();
     }
 }
