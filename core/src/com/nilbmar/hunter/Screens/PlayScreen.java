@@ -61,7 +61,6 @@ public class PlayScreen implements Screen {
     private World world;
     private B2WorldCreator worldCreator;
 
-    // TODO: RENDER LINES - FIND IN RENDER AND COMMENT OUT
     private Box2DDebugRenderer b2dr;
     private boolean viewRenderLines;
 
@@ -122,8 +121,6 @@ public class PlayScreen implements Screen {
 
         player = new Player(this, worldCreator.getPlayerSpawnX(), worldCreator.getPlayerSpawnY());
         hud.setPlayerName(player.getName());
-        //entities.add(player); // TODO: REMOVE IF NOT USED
-        // WANT TO UPDATE/DRAW SEPARATELY
 
         input = new InputHandler(this);
 
@@ -146,15 +143,12 @@ public class PlayScreen implements Screen {
     public boolean getViewRenderLines() { return viewRenderLines; }
     public boolean getViewHUD() { return viewHUD; }
 
-    public void setViewRenderLines(boolean viewRenderLines) {
-        this.viewRenderLines = viewRenderLines;
-    }
+    public void setViewRenderLines(boolean viewRenderLines) { this.viewRenderLines = viewRenderLines; }
     public void setViewHUD(boolean viewHUD) {
         this.viewHUD = viewHUD;
     }
 
     public void update(float deltaTime) {
-        //handleInput(deltaTime);
         input.update(deltaTime);
 
         // How often Box2D calculates per second
@@ -163,7 +157,7 @@ public class PlayScreen implements Screen {
         world.step(1 / 60f, 6, 2);
 
         player.update(deltaTime);
-        // TODO: PUT THIS IN A REAL UPDATE LOOP FOR ALL ITEMS
+
         bulletCreator.update(deltaTime);
 
         for (Spawns spawn : worldCreator.getAllSpawnsArray()) {
@@ -180,6 +174,8 @@ public class PlayScreen implements Screen {
             }
         }
 
+        // TODO: SEPARATE INTO UPDATES FOR ENEMIES/ITEMS/ETC..
+        // Will allow better control of layering items
         for (Entity entity : entities) {
             entity.update(deltaTime);
         }
@@ -187,7 +183,6 @@ public class PlayScreen implements Screen {
         /*for (Enemy enemy : enemies) {
             enemy.update(deltaTime);
         }*/
-
 
         // Update for all bullets
         for (Bullet bullet : bulletCreator.getAllBulletsArray()) {
@@ -246,18 +241,20 @@ public class PlayScreen implements Screen {
 
         renderer.render();
 
-        // TODO: REMOVE - SHOWS RENDER LINES
+        // TODO: possibly remove when game is finished
+        // Toggle on and off render lines
         if (viewRenderLines) {
             b2dr.render(world, gameCam.combined);
         }
 
         // Only render what the camera can see
-        //game.batch.setProjectionMatrix(gameCam.combined);
         game.batch.setProjectionMatrix(gameCam.combined);
         game.batch.begin();
 
-
-
+        /* TODO: SEPARATE OUT INTO ENEMIES/ITEMS/ETC...
+                Will allow better control of what is layered
+                on top of each other
+         */
         for (Entity entity : entities) {
             entity.draw(game.batch);
         }
@@ -266,6 +263,11 @@ public class PlayScreen implements Screen {
             enemy.draw(game.batch);
         }*/
 
+        /* TODO: CHECK PLAYER'S DIRECTION
+                Will allow rendering on top of player
+                if facing down
+                Behind player, if facing up
+         */
         for (Bullet bullets : bulletCreator.getAllBulletsArray()) {
             bullets.draw(game.batch);
         }
