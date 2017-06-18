@@ -10,6 +10,7 @@ import com.nilbmar.hunter.Components.AnimationComponent;
 import com.nilbmar.hunter.Components.FramesComponent;
 import com.nilbmar.hunter.Components.InventoryComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
+import com.nilbmar.hunter.Entities.Items.Item;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Tools.Enums.Action;
@@ -262,7 +263,7 @@ public class Player extends Entity {
         framesComp.setStillFrames(Direction.LEFT, scaleSizeX, 0);
     }
 
-    public void onPickup(float setTimer, TimerType timerType) {
+    public void onPickup(Item item, float setTimer, TimerType timerType) {
         switch (timerType){
             case ACCELERATION:
                 hudUpdate = new UpdateHudCommand(screen.getHUD(), HudLabels.USER_INFO, "Speed Boost!");
@@ -273,7 +274,7 @@ public class Player extends Entity {
                 setTimerComponent(setTimer, timerType);
 
                 // TODO: CHANGE WHEN ADD IN NEW INVENTORY TYPES
-                inventoryComponent.placeInInventory(InventorySlotType.ITEM);
+                inventoryComponent.placeInInventory(item, item.getAddToCountOnPickup());
                 break;
             case DEATH:
                 // TODO: KILL ME!

@@ -15,7 +15,10 @@ public class SpeedBoostItem extends Item {
     public SpeedBoostItem(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
 
-        inventoryType = InventorySlotType.ITEM;
+        inventoryType = InventorySlotType.ACCELERATION;
+        inventoryLimit = 5;
+        addToCountOnPickup = 1;
+
         setItemEffectTime(10f);
         setTimerType(TimerType.ACCELERATION);
 

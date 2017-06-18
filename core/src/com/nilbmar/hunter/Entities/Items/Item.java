@@ -20,6 +20,9 @@ public abstract class Item extends Entity {
     protected TimerType timerType;
     protected float itemEffectTime;
     protected InventorySlotType inventoryType;
+    protected int inventoryIndex;
+    protected int addToCountOnPickup;
+    protected int inventoryLimit;
 
     public Item(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
@@ -45,6 +48,12 @@ public abstract class Item extends Entity {
     public void setItemEffectTime(float itemEffectTime) {
         this.itemEffectTime = itemEffectTime;
     }
+    public int getInventoryIndex() { return inventoryIndex; }
+    public void setInventoryIndex(int inventoryIndex) { this.inventoryIndex = inventoryIndex; }
+    public int getAddToCountOnPickup() { return addToCountOnPickup; }
+    public InventorySlotType getInventoryType() { return inventoryType; }
+    public int getInventoryLimit() { return inventoryLimit; }
+
 
     @Override
     public float getSpawnOtherX() {return getX() + getWidth() / 2; }

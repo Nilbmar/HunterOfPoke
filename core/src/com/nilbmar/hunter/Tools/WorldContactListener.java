@@ -57,14 +57,16 @@ public class WorldContactListener implements ContactListener {
                 if (fixtA.getFilterData().categoryBits == HunterOfPoke.PLAYER_BIT) {
                     float itemEffectTime = ((Item) fixtB.getUserData()).getItemEffectTime();
                     TimerType timerType = ((Item) fixtB.getUserData()).getTimerType();
-                    ((Player) fixtA.getUserData()).onPickup(itemEffectTime, timerType);
+                    ((Player) fixtA.getUserData()).onPickup((Item) fixtB.getUserData(),
+                            itemEffectTime, timerType);
 
                     // TODO: CREATE DESTROY METHOD
                     //((Item) fixtB.getUserData()).destroy();
                 } else {
                     float itemEffectTime = ((Item) fixtA.getUserData()).getItemEffectTime();
                     TimerType timerType = ((Item) fixtA.getUserData()).getTimerType();
-                    ((Player) fixtB.getUserData()).onPickup(itemEffectTime, timerType);
+                    ((Player) fixtB.getUserData()).onPickup((Item) fixtA.getUserData(),
+                            itemEffectTime, timerType);
 
                     Gdx.app.log("Item Pickup", ((Item) fixtA.getUserData()).getName());
                     // TODO: CREATE DESTROY METHOD
