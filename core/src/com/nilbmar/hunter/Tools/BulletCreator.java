@@ -87,13 +87,7 @@ public class BulletCreator {
         stateTime += deltaTime;
     }
 
-    public Pool<Bullet> getAllBulletsPool() { return bulletPool; }
-    public Array<Bullet> getAllBulletsArray() { return bullets; }
-
-    public void setBulletType(BulletType type) { this.type = type; }
-    public void setRotation(float rotation) { this.rotation = rotation; }
-
-    public Bullet getBullet(BulletType type, float posX, float posY, Vector2 direction) {
+    private Bullet getBullet(BulletType type, float posX, float posY, Vector2 direction) {
         Bullet bullet = null;
         switch(type) {
             case FIRE:  // TODO: CREATE NEW BULLET TYPE
@@ -107,4 +101,10 @@ public class BulletCreator {
 
         return bullet;
     }
+
+    public Pool<Bullet> getAllBulletsPool() { return bulletPool; }
+    public Array<Bullet> getAllBulletsArray() { return bullets; }
+
+    public void setBulletType(BulletType type) { this.type = type; }
+    public void setRotation(float rotation) { this.rotation = rotation; }
 }
