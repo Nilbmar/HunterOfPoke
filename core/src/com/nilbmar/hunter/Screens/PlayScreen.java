@@ -31,6 +31,9 @@ import com.nilbmar.hunter.Tools.WorldContactListener;
 
 /**
  * Created by sysgeek on 4/7/17.
+ *
+ * Basic battle screen for game
+ * TODO: Currently using hardcoded map
  */
 
 public class PlayScreen implements Screen {
