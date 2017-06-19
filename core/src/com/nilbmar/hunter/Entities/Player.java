@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.nilbmar.hunter.Commands.AccelerationCommand;
 import com.nilbmar.hunter.Commands.UpdateHudCommand;
+import com.nilbmar.hunter.Commands.UseCommand;
 import com.nilbmar.hunter.Components.AnimationComponent;
 import com.nilbmar.hunter.Components.FramesComponent;
 import com.nilbmar.hunter.Components.InventoryComponent;
@@ -15,6 +16,7 @@ import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Tools.Enums.Action;
 import com.nilbmar.hunter.Tools.Enums.Direction;
+import com.nilbmar.hunter.Tools.Enums.EntityType;
 import com.nilbmar.hunter.Tools.Enums.HudLabels;
 import com.nilbmar.hunter.Tools.Enums.InventorySlotType;
 import com.nilbmar.hunter.Tools.Enums.TimerType;
@@ -25,6 +27,8 @@ import com.nilbmar.hunter.Tools.Enums.TimerType;
 
 public class Player extends Entity {
     private float stateTimer; // Used to getFrame() of animation
+    private int hitPoints;
+    private int maxHitPoints;
 
     // Textures and Animations
     private FramesComponent framesComp;
@@ -41,7 +45,10 @@ public class Player extends Entity {
     public Player(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
 
-        setName("Dlumps"); // TODO: GET THIS FROM USER
+        setName("Dlumps");  // TODO: GET THIS FROM USER
+        hitPoints = 10;     // TODO: GET FROM GAMEMANGER
+        maxHitPoints = 20;
+        entityType = EntityType.PLAYER;
 
         currentDirection = Direction.DOWN;
         previousDirection = Direction.DOWN;
@@ -70,6 +77,16 @@ public class Player extends Entity {
         TextureRegion charStill = new TextureRegion(screen.getPlayerAtlas().findRegion(regionName), 0, 0, 20, 24);
         setBounds(0, 0, 20 / HunterOfPoke.PPM, 24 / HunterOfPoke.PPM);
         setRegion(charStill);
+    }
+
+    public int getHitPoints() { return hitPoints; }
+    public void recoverHitPoints(int hitPointsToAdd) {
+        int tempHP = hitPoints + hitPointsToAdd;
+        if (tempHP >= maxHitPoints) {
+            hitPoints = maxHitPoints;
+        } else {
+            hitPoints = tempHP;
+        }
     }
 
     public float getSpawnOtherX() {
@@ -275,12 +292,18 @@ public class Player extends Entity {
 
                 // TODO: CHANGE WHEN ADD IN NEW INVENTORY TYPES
                 inventoryComponent.placeInInventory(item, item.getAddToCountOnPickup());
+                useItem(item);  // TODO: THIS SHOULD BE EXECUTED BY INPUTHANDLER
                 break;
             case DEATH:
                 // TODO: KILL ME!
                 timerComponent = null;
                 break;
         }
+    }
+
+    private void useItem(Item item) {
+        UseCommand use = new UseCommand(item);
+        use.execute(this);
     }
 
     /* TODO: CURRENTLY ONLY RESETS COLLISION TO COLLISION WITH ENEMY_BIT

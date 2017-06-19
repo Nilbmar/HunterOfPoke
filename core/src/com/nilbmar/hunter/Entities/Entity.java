@@ -13,6 +13,7 @@ import com.nilbmar.hunter.Components.TimerComponent;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Tools.Enums.Action;
 import com.nilbmar.hunter.Tools.Enums.Direction;
+import com.nilbmar.hunter.Tools.Enums.EntityType;
 import com.nilbmar.hunter.Tools.Enums.TimerType;
 
 /**
@@ -34,6 +35,8 @@ public abstract class Entity extends Sprite {
 
     protected String regionName;
     protected String name;
+
+    protected EntityType entityType;
 
     protected float deltaTime; // Used for TimerComponent - set in update()
 
@@ -69,6 +72,7 @@ public abstract class Entity extends Sprite {
         //defineBody();
     }
 
+    public EntityType getEntityType() { return entityType; }
     public String getName() { return name; }
     protected void setName(String name) {
         this.name = name;

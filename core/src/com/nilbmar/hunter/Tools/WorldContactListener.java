@@ -73,6 +73,23 @@ public class WorldContactListener implements ContactListener {
                     //((Item) fixtA.getUserData()).destroy();
                 }
                 break;
+
+            // Enemy tramples item pickup
+            case HunterOfPoke.ITEM_BIT | HunterOfPoke.ENEMY_BIT:
+                if (fixtA.getFilterData().categoryBits == HunterOfPoke.ENEMY_BIT) {
+                    Gdx.app.log("Item", ((Enemy) fixtA.getUserData()).getEntityType()
+                            + " " + ((Enemy) fixtA.getUserData()).getName()
+                            + " trampled item.");
+                    // TODO: CREATE DESTROY METHOD
+                    //((Item) fixtB.getUserData()).destroy();
+                } else {
+                    Gdx.app.log("Item", ((Enemy) fixtB.getUserData()).getEntityType()
+                            + " " + ((Enemy) fixtB.getUserData()).getName()
+                            + " trampled item.");
+                    // TODO: CREATE DESTROY METHOD
+                    //((Item) fixtA.getUserData()).destroy();
+                }
+                break;
         }
     }
 

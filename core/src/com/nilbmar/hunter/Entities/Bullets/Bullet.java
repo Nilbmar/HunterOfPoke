@@ -19,6 +19,7 @@ import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Tools.BulletCreator;
+import com.nilbmar.hunter.Tools.Enums.EntityType;
 
 /**
  * Created by sysgeek on 4/22/17.
@@ -52,6 +53,8 @@ public abstract class Bullet  extends Entity implements Poolable {
         this.screen = screen;
         this.bulletCreator = screen.getBulletCreator();
         this.rotation = rotation;
+
+        entityType = EntityType.BULLET;
 
         setPosition(startInWorldX, startInWorldY);
     }

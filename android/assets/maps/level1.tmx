@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="16" tileheight="16" nextobjectid="189">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="16" tileheight="16" nextobjectid="191">
  <tileset firstgid="1" name="pokedawn" tilewidth="16" tileheight="16" spacing="2" margin="1" tilecount="25651">
   <image source="../tiles/pokedawn_gutter.png" width="2048" height="4096"/>
  </tileset>
@@ -55,6 +55,11 @@
    </properties>
   </object>
   <object id="151" x="256" y="64" width="16" height="16">
+   <properties>
+    <property name="woodpile" value=""/>
+   </properties>
+  </object>
+  <object id="190" x="304" y="64" width="16" height="16">
    <properties>
     <property name="woodpile" value=""/>
    </properties>

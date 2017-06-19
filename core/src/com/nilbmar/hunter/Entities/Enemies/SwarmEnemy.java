@@ -20,7 +20,9 @@ public class SwarmEnemy extends Enemy {
     public SwarmEnemy(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
 
-        setName("Batty");
+        setName("Batty");   // TODO: SET FROM CONFIG FILE
+        hitPoints = 2;      // TODO: SET FROM CONFIG FILE
+        maxHitPoints = 4;
 
         defineBody();
         regionName = "bats"; // "swarm"

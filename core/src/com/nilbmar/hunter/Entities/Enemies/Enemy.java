@@ -4,10 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.nilbmar.hunter.Entities.Entity;
+import com.nilbmar.hunter.Entities.Items.Item;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Tools.Enums.Action;
 import com.nilbmar.hunter.Tools.Enums.Direction;
+import com.nilbmar.hunter.Tools.Enums.EntityType;
 
 /**
  * Created by sysgeek on 5/26/17.
@@ -22,11 +24,14 @@ public abstract class Enemy extends Entity {
     protected boolean destroyed;
 
     protected float stateTimer; // Used to getFrame() of animation
+    protected int hitPoints;
+    protected int maxHitPoints;
 
     public Enemy(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
 
         setName("Generic Enemy");
+        entityType = EntityType.ENEMY;
 
         // do not remove these
         this.startInWorldX = startInWorldX;
@@ -41,6 +46,16 @@ public abstract class Enemy extends Entity {
         stateTimer = 0;
     }
 
+    public int getHitPoints() { return hitPoints; }
+    public void recoverHitPoints(int hitPointsToAdd) {
+        int tempHP = hitPoints + hitPointsToAdd;
+        if (tempHP >= maxHitPoints) {
+            hitPoints = maxHitPoints;
+        } else {
+            hitPoints = tempHP;
+        }
+    }
+
     @Override
     protected void defineShape() {
         //bodyComponent.setFixtureDef(Shape.Type.Circle, 5); // CircleShape - radius of 5
@@ -51,7 +66,8 @@ public abstract class Enemy extends Entity {
     protected void defineBody() {
         createBody(startInWorldX, startInWorldY);
         defineShape();
-        defineBits((short) (HunterOfPoke.PLAYER_BIT | HunterOfPoke.GROUND_BIT | HunterOfPoke.ENEMY_BIT));
+        defineBits((short) (HunterOfPoke.PLAYER_BIT | HunterOfPoke.GROUND_BIT
+                | HunterOfPoke.ENEMY_BIT | HunterOfPoke.ITEM_BIT));
         finalizeBody();
     }
 
