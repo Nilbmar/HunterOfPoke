@@ -1,6 +1,5 @@
 package com.nilbmar.hunter.Entities;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -14,7 +13,7 @@ import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Tools.Enums.Action;
 import com.nilbmar.hunter.Tools.Enums.Direction;
 import com.nilbmar.hunter.Tools.Enums.EntityType;
-import com.nilbmar.hunter.Tools.Enums.TimerType;
+import com.nilbmar.hunter.Tools.Enums.ItemType;
 
 /**
  * Created by sysgeek on 5/22/17.
@@ -81,8 +80,8 @@ public abstract class Entity extends Sprite {
     public abstract float getSpawnOtherY();
 
     public MoveComponent getMoveComponent() { return movement; }
-    protected void setTimerComponent(float setTimer, TimerType timerType) {
-        timerComponent = new TimerComponent(this, setTimer, timerType, deltaTime);
+    protected void setTimerComponent(float setTimer, ItemType itemType) {
+        timerComponent = new TimerComponent(this, setTimer, itemType, deltaTime);
     }
 
     // Boosts from items or reset

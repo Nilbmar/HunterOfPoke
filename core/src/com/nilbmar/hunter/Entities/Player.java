@@ -1,6 +1,5 @@
 package com.nilbmar.hunter.Entities;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.physics.box2d.Shape;
@@ -18,8 +17,7 @@ import com.nilbmar.hunter.Tools.Enums.Action;
 import com.nilbmar.hunter.Tools.Enums.Direction;
 import com.nilbmar.hunter.Tools.Enums.EntityType;
 import com.nilbmar.hunter.Tools.Enums.HudLabels;
-import com.nilbmar.hunter.Tools.Enums.InventorySlotType;
-import com.nilbmar.hunter.Tools.Enums.TimerType;
+import com.nilbmar.hunter.Tools.Enums.ItemType;
 
 /**
  * Created by sysgeek on 4/7/17.
@@ -283,7 +281,7 @@ public class Player extends Entity {
     }
 
     public void onPickup(Item item) {
-        switch (item.getTimerType()){
+        switch (item.getItemType()){
             case DEATH:
                 // TODO: KILL ME!
                 timerComponent = null;
@@ -300,7 +298,7 @@ public class Player extends Entity {
 
     public void useItem() {
         String newText = "";
-        switch (holdItem.getTimerType()) {
+        switch (holdItem.getItemType()) {
             case ACCELERATION:
                 timerComponent = null;
                 accelerationCommand = new AccelerationCommand(this, 1);
@@ -312,7 +310,7 @@ public class Player extends Entity {
         use.execute(this);
 
         if (holdItem.getItemEffectTime() > 0) {
-            setTimerComponent(holdItem.getItemEffectTime(), holdItem.getTimerType());
+            setTimerComponent(holdItem.getItemEffectTime(), holdItem.getItemType());
         }
 
         hudUpdate = new UpdateHudCommand(screen.getHUD(), HudLabels.USER_INFO, newText);
@@ -377,7 +375,7 @@ public class Player extends Entity {
         // TODO: THIS NEEDS TO BE SIMPLIFIED
         if (timerComponent != null) {
             if (timerComponent.endTimer()) {
-                TimerType type = TimerType.ACCELERATION;
+                ItemType type = ItemType.ACCELERATION;
                 switch (type){
                     case ACCELERATION:
                         accelerationCommand.undo(this);

@@ -1,10 +1,7 @@
 package com.nilbmar.hunter.Components;
 
-import com.badlogic.gdx.utils.Disposable;
 import com.nilbmar.hunter.Entities.Entity;
-import com.nilbmar.hunter.Tools.Enums.TimerType;
-
-import java.sql.Time;
+import com.nilbmar.hunter.Tools.Enums.ItemType;
 
 /**
  * Created by sysgeek on 6/13/17.
@@ -15,12 +12,12 @@ public class TimerComponent {
     private float stateTime;
     private float setTime;
     private boolean endTimer;
-    private TimerType timerType;
+    private ItemType itemType;
 
-    public TimerComponent(Entity entity, float setTime, TimerType timerType, float deltaTime) {
+    public TimerComponent(Entity entity, float setTime, ItemType itemType, float deltaTime) {
         this.entity = entity;
         this.setTime = setTime;
-        this.timerType = timerType;
+        this.itemType = itemType;
         endTimer = false;
         stateTime = stateTime + deltaTime;
     }
@@ -28,7 +25,7 @@ public class TimerComponent {
     public boolean endTimer() {
         return endTimer;
     }
-    public TimerType getTimerType() { return timerType; }
+    public ItemType getItemType() { return itemType; }
 
     public void update(float deltaTime) {
         if (stateTime >= setTime) {

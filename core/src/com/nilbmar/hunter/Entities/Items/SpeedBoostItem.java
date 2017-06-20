@@ -9,7 +9,7 @@ import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Tools.Enums.EntityType;
 import com.nilbmar.hunter.Tools.Enums.InventorySlotType;
-import com.nilbmar.hunter.Tools.Enums.TimerType;
+import com.nilbmar.hunter.Tools.Enums.ItemType;
 
 /**
  * Created by sysgeek on 6/12/17.
@@ -26,9 +26,9 @@ public class SpeedBoostItem extends Item {
         amountOfEffect = 2;  // amountOfEffect of HP to recover
 
         setItemEffectTime(10f);
-        setTimerType(TimerType.ACCELERATION);
+        setItemType(ItemType.ACCELERATION);
 
-        setName(timerType.getName() + ": " + getItemEffectTime());
+        setName(itemType.getName() + ": " + getItemEffectTime());
 
         regionName = "swarm"; // TODO: CREATE ITEM.PACK - CURRENTLY USING CHARACTER PACK
         // TODO: CHANGE FROM ENEMY ATLAS TO ITEM ATLAS

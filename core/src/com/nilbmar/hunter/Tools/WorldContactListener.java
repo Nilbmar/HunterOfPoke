@@ -6,16 +6,11 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.nilbmar.hunter.Commands.UpdateHudCommand;
 import com.nilbmar.hunter.Entities.Bullets.Bullet;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.Items.Item;
 import com.nilbmar.hunter.Entities.Player;
 import com.nilbmar.hunter.HunterOfPoke;
-import com.nilbmar.hunter.Scenes.Hud;
-import com.nilbmar.hunter.Screens.PlayScreen;
-import com.nilbmar.hunter.Tools.Enums.HudLabels;
-import com.nilbmar.hunter.Tools.Enums.TimerType;
 
 /**
  * Created by sysgeek on 4/23/17.

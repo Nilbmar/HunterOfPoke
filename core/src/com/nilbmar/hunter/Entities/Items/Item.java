@@ -8,7 +8,7 @@ import com.nilbmar.hunter.Tools.Enums.Action;
 import com.nilbmar.hunter.Tools.Enums.Direction;
 import com.nilbmar.hunter.Tools.Enums.EntityType;
 import com.nilbmar.hunter.Tools.Enums.InventorySlotType;
-import com.nilbmar.hunter.Tools.Enums.TimerType;
+import com.nilbmar.hunter.Tools.Enums.ItemType;
 
 /**
  * Created by sysgeek on 6/12/17.
@@ -17,7 +17,7 @@ import com.nilbmar.hunter.Tools.Enums.TimerType;
 public abstract class Item extends Entity {
     protected boolean destroyed;
     protected float stateTimer;
-    protected TimerType timerType;
+    protected ItemType itemType;
     protected float itemEffectTime;
     protected InventorySlotType inventoryType;
     protected int inventoryIndex;
@@ -45,9 +45,9 @@ public abstract class Item extends Entity {
     public abstract void use(Entity entity);
 
     public float getAmountOfEffect() { return amountOfEffect; }
-    public TimerType getTimerType() { return timerType; }
-    public void setTimerType(TimerType timerType) {
-        this.timerType = timerType;
+    public ItemType getItemType() { return itemType; }
+    public void setItemType(ItemType itemType) {
+        this.itemType = itemType;
     }
     public float getItemEffectTime() { return itemEffectTime; }
     public void setItemEffectTime(float itemEffectTime) {
