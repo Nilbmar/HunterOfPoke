@@ -29,6 +29,7 @@ public class Player extends Entity {
     private float stateTimer; // Used to getFrame() of animation
     private int hitPoints;
     private int maxHitPoints;
+    private Item holdItem;
 
     // Textures and Animations
     private FramesComponent framesComp;
@@ -58,6 +59,7 @@ public class Player extends Entity {
 
         // int is inventory slots available
         inventoryComponent = new InventoryComponent(this, 5);
+        holdItem = null;
 
         // Setup Animations
         //regionName = "default"; // Will need to change in charMale and charAlien pack files
@@ -280,31 +282,45 @@ public class Player extends Entity {
         framesComp.setStillFrames(Direction.LEFT, scaleSizeX, 0);
     }
 
-    public void onPickup(Item item, float setTimer, TimerType timerType) {
-        switch (timerType){
-            case ACCELERATION:
-                hudUpdate = new UpdateHudCommand(screen.getHUD(), HudLabels.USER_INFO, "Speed Boost!");
-                hudUpdate.execute(this);
-                timerComponent = null;
-                accelerationCommand = new AccelerationCommand(this, 1);
-                accelerationCommand.execute(this);
-                setTimerComponent(setTimer, timerType);
-
-                // TODO: CHANGE WHEN ADD IN NEW INVENTORY TYPES
-                inventoryComponent.placeInInventory(item, item.getAddToCountOnPickup());
-                useItem(item);  // TODO: THIS SHOULD BE EXECUTED BY INPUTHANDLER
-                break;
+    public void onPickup(Item item) {
+        switch (item.getTimerType()){
             case DEATH:
                 // TODO: KILL ME!
                 timerComponent = null;
                 break;
+            default:
+                // TODO: CHANGE WHEN ADD IN NEW INVENTORY TYPES
+                inventoryComponent.placeInInventory(item, item.getAddToCountOnPickup());
+                break;
         }
+
+        // TODO: SHOULD DO BY SWITCHING BETWEEN INVENTORY ITEMS
+        setHoldItem(item);
     }
 
-    private void useItem(Item item) {
-        UseCommand use = new UseCommand(item);
+    public void useItem() {
+        String newText = "";
+        switch (holdItem.getTimerType()) {
+            case ACCELERATION:
+                timerComponent = null;
+                accelerationCommand = new AccelerationCommand(this, 1);
+                accelerationCommand.execute(this);
+                newText = "Speed Boost!";
+                break;
+        }
+        UseCommand use = new UseCommand(holdItem);
         use.execute(this);
+
+        if (holdItem.getItemEffectTime() > 0) {
+            setTimerComponent(holdItem.getItemEffectTime(), holdItem.getTimerType());
+        }
+
+        hudUpdate = new UpdateHudCommand(screen.getHUD(), HudLabels.USER_INFO, newText);
+        hudUpdate.execute(this);
     }
+
+    public Item getHoldItem() { return holdItem; }
+    public void setHoldItem(Item item) { holdItem = item; }
 
     /* TODO: CURRENTLY ONLY RESETS COLLISION TO COLLISION WITH ENEMY_BIT
      * This was done to test the reset by disallowing ground collision

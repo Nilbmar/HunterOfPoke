@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.nilbmar.hunter.Commands.AccelerationCommand;
 import com.nilbmar.hunter.Commands.FireCommand;
 import com.nilbmar.hunter.Commands.MoveCommand;
+import com.nilbmar.hunter.Commands.UseCommand;
+import com.nilbmar.hunter.Entities.Items.Item;
 import com.nilbmar.hunter.Entities.Player;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Tools.Enums.BulletType;
@@ -71,6 +73,14 @@ public class InputHandler {
         moveCommand.execute(player);
     }
 
+    private void useItem(float deltaTime) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.I)) {
+            if (player.getHoldItem() != null) {
+                player.useItem();
+            }
+        }
+    }
+
 
 
     private void fireWeapon(float deltaTime) {
@@ -118,7 +128,7 @@ public class InputHandler {
         }
     }
 
-    // Toggles Render Lines On or Off
+    // Toggles Heads Up Display On or Off
     private void viewHUD() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.H)) {
             boolean view = !screen.getViewHUD();
@@ -127,10 +137,11 @@ public class InputHandler {
     }
 
     public void update(float deltaTime) {
-        int auto = 0;
+        int auto = 0;       // value sets acceleration speed in auto movement
         if (auto <= 0) {
             //accelerate(deltaTime);
             movement(deltaTime);
+            useItem(deltaTime);
             fireWeapon(deltaTime);
         } else {
             int moveX = 1;
