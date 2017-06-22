@@ -1,19 +1,14 @@
 package com.nilbmar.hunter.Entities.Bullets;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
+
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Pool.Poolable;
-import com.nilbmar.hunter.Components.BodyComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
 import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.HunterOfPoke;
@@ -23,6 +18,9 @@ import com.nilbmar.hunter.Tools.Enums.EntityType;
 
 /**
  * Created by sysgeek on 4/22/17.
+ *
+ * Abstract Class: Bullet
+ * Purpose: Base class for all Bullets
  */
 
 public abstract class Bullet  extends Entity implements Poolable {
@@ -156,7 +154,6 @@ public abstract class Bullet  extends Entity implements Poolable {
     }
 
     public void update(float deltaTime) {
-
         if (setToDestroy && !destroyed) {
             destroy();
         } else if (!destroyed) {
@@ -170,28 +167,27 @@ public abstract class Bullet  extends Entity implements Poolable {
 
     public void draw(Batch batch) {
         if (!destroyed) {
+            // Have to rotate Bullet instead of simply drawing
+            // so commented out the super.draw
             //super.draw(batch);
-            // Have to rotate Bullet - angle is handled by BulletPatternHandler.getRotation(Direction dir)
-            regionToDraw = (TextureRegion) animation.getKeyFrame(stateTime);
-            batch.draw(regionToDraw, getX(), getY(),
-                    regionToDraw.getRegionWidth() / 2 / HunterOfPoke.PPM,
-                    regionToDraw.getRegionHeight() / 2 / HunterOfPoke.PPM,
-                    regionToDraw.getRegionWidth() / HunterOfPoke.PPM,
-                    regionToDraw.getRegionHeight() / HunterOfPoke.PPM,
-                    regionToDraw.getRegionHeight() / (float) regionToDraw.getRegionWidth(),
-                    2 - (regionToDraw.getRegionHeight() / (float) regionToDraw.getRegionWidth()),
-                    rotation, false);
 
-            /*
-            batch.draw(keyFrame, planePosition.x, planePosition.y,
-                    keyFrame.getRegionWidth() / 2.0f,
-                    keyFrame.getRegionHeight() / 2.0f,
-                    keyFrame.getRegionWidth(),
-                    keyFrame.getRegionHeight(),
-                    keyFrame.getRegionHeight() / (float) keyFrame.getRegionWidth(),
-                    2 - (keyFrame.getRegionHeight() / (float) keyFrame.getRegionWidth()),
-                    rotation, false);
-             */
+            // NOT SURE IF THIS WORKS OR JUST HARD TO REPRODUCE BAD EFFECT
+            // Waiting till bullet is alive and has an angle before drawing
+            // because some would show up at the wrong angle/wrong offset
+            if (stateTime > 1 / HunterOfPoke.PPM) {
+                regionToDraw = (TextureRegion) animation.getKeyFrame(stateTime);
+
+                // Rotate bullet and send to batch
+                // angle is handled by BulletPatternHandler.getRotation(Direction dir)
+                batch.draw(regionToDraw, getX(), getY(),
+                        regionToDraw.getRegionWidth() / 2 / HunterOfPoke.PPM,
+                        regionToDraw.getRegionHeight() / 2 / HunterOfPoke.PPM,
+                        regionToDraw.getRegionWidth() / HunterOfPoke.PPM,
+                        regionToDraw.getRegionHeight() / HunterOfPoke.PPM,
+                        regionToDraw.getRegionHeight() / (float) regionToDraw.getRegionWidth(),
+                        2 - (regionToDraw.getRegionHeight() / (float) regionToDraw.getRegionWidth()),
+                        rotation, false);
+            }
         }
     }
 }
