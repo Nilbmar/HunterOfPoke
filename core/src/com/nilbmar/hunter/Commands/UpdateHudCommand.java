@@ -6,6 +6,9 @@ import com.nilbmar.hunter.Tools.Enums.HudLabels;
 
 /**
  * Created by sysgeek on 6/13/17.
+ *
+ * Command: Update HUD
+ * Purpose: Adjust the overlay HUD on the fly
  */
 
 public class UpdateHudCommand implements Command {

@@ -8,6 +8,9 @@ import com.nilbmar.hunter.Tools.Enums.InventorySlotType;
 
 /**
  * Created by sysgeek on 6/18/17.
+ *
+ * Component: Inventory
+ * Purpose: Allows an Entity to have an inventory
  */
 
 public class InventoryComponent {

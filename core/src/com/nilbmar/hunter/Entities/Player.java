@@ -17,11 +17,13 @@ import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Tools.Enums.Action;
 import com.nilbmar.hunter.Tools.Enums.Direction;
 import com.nilbmar.hunter.Tools.Enums.EntityType;
-import com.nilbmar.hunter.Tools.Enums.HudLabels;
 import com.nilbmar.hunter.Tools.Enums.InventorySlotType;
 
 /**
  * Created by sysgeek on 4/7/17.
+ *
+ * Entity: Player
+ * Purpose: The character the player controls
  */
 
 public class Player extends Entity {

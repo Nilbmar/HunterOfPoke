@@ -18,8 +18,9 @@ import com.nilbmar.hunter.Tools.Enums.ItemType;
 /**
  * Created by sysgeek on 5/22/17.
  *
- * The class from which in game objects will extend
- * ie. Player, Enemies, Walls, ...
+ * Abstract Class: Entity
+ * Purpose: The class from which in game objects will extend
+ * ie. Player, Enemies, Items, Bullets, ...
  */
 
 public abstract class Entity extends Sprite {

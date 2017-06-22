@@ -1,20 +1,20 @@
 package com.nilbmar.hunter.Entities.Items;
 
 import com.badlogic.gdx.physics.box2d.Shape;
-import com.nilbmar.hunter.Commands.AccelerationCommand;
-import com.nilbmar.hunter.Commands.Command;
 import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Tools.Enums.Action;
 import com.nilbmar.hunter.Tools.Enums.Direction;
 import com.nilbmar.hunter.Tools.Enums.EntityType;
-import com.nilbmar.hunter.Tools.Enums.HudLabels;
 import com.nilbmar.hunter.Tools.Enums.InventorySlotType;
 import com.nilbmar.hunter.Tools.Enums.ItemType;
 
 /**
  * Created by sysgeek on 6/12/17.
+ *
+ * Abstract Class: Item
+ * Purpose: Base class for all pickup Items
  */
 
 public abstract class Item extends Entity {

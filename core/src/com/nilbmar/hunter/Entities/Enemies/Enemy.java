@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.nilbmar.hunter.Entities.Entity;
-import com.nilbmar.hunter.Entities.Items.Item;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Tools.Enums.Action;
@@ -13,6 +12,9 @@ import com.nilbmar.hunter.Tools.Enums.EntityType;
 
 /**
  * Created by sysgeek on 5/26/17.
+ *
+ * Abstract Class: Enemy
+ * Purpose: Base class for all Enemies
  */
 
 public abstract class Enemy extends Entity {

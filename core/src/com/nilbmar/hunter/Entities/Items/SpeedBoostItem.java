@@ -16,6 +16,9 @@ import com.nilbmar.hunter.Tools.Enums.ItemType;
 
 /**
  * Created by sysgeek on 6/12/17.
+ *
+ * Item: Speed Boost
+ * Purpose: Gives a temporary speed boost to an entity
  */
 
 public class SpeedBoostItem extends Item {
