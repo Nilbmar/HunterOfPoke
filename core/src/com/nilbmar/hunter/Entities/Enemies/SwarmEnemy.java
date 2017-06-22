@@ -1,12 +1,11 @@
 package com.nilbmar.hunter.Entities.Enemies;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.Shape;
 import com.nilbmar.hunter.Commands.FireCommand;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
-import com.nilbmar.hunter.Tools.Enums.BulletType;
-import com.nilbmar.hunter.Tools.Enums.ShotType;
+import com.nilbmar.hunter.Enums.BulletType;
+import com.nilbmar.hunter.Enums.ShotType;
 
 /**
  * Created by sysgeek on 6/1/17.

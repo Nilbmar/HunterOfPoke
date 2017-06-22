@@ -2,8 +2,8 @@ package com.nilbmar.hunter.Commands;
 
 import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Tools.BulletPatternHandler;
-import com.nilbmar.hunter.Tools.Enums.BulletType;
-import com.nilbmar.hunter.Tools.Enums.ShotType;
+import com.nilbmar.hunter.Enums.BulletType;
+import com.nilbmar.hunter.Enums.ShotType;
 
 /**
  * Created by sysgeek on 6/10/17.

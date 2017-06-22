@@ -4,11 +4,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.nilbmar.hunter.Entities.Bullets.Bullet;
-import com.nilbmar.hunter.Entities.Bullets.Subtypes.BulletA;
-import com.nilbmar.hunter.Entities.Bullets.Subtypes.FireBullet;
+import com.nilbmar.hunter.Entities.Bullets.BulletA;
+import com.nilbmar.hunter.Entities.Bullets.FireBullet;
 import com.nilbmar.hunter.Screens.PlayScreen;
-import com.nilbmar.hunter.Tools.Enums.BulletType;
-import com.nilbmar.hunter.Tools.Enums.Direction;
+import com.nilbmar.hunter.Enums.BulletType;
 
 /**
  * Created by sysgeek on 4/24/17.

@@ -1,13 +1,9 @@
 package com.nilbmar.hunter.Tools;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
-import com.nilbmar.hunter.Entities.Enemies.Enemy;
-import com.nilbmar.hunter.Entities.Enemies.SwarmEnemy;
-import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Scenes.Hud;
 import com.nilbmar.hunter.Screens.PlayScreen;
-import com.nilbmar.hunter.Tools.Enums.Layers;
+import com.nilbmar.hunter.Enums.Layers;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -17,10 +13,9 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.nilbmar.hunter.Entities.Pickup;
 import com.nilbmar.hunter.Entities.Spawns;
 import com.nilbmar.hunter.HunterOfPoke;
-import com.nilbmar.hunter.Tools.Enums.SpawnType;
+import com.nilbmar.hunter.Enums.SpawnType;
 
 /**
  * Created by sysgeek on 4/9/17.

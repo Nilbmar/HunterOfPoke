@@ -14,10 +14,10 @@ import com.nilbmar.hunter.Components.MoveComponent;
 import com.nilbmar.hunter.Entities.Items.Item;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
-import com.nilbmar.hunter.Tools.Enums.Action;
-import com.nilbmar.hunter.Tools.Enums.Direction;
-import com.nilbmar.hunter.Tools.Enums.EntityType;
-import com.nilbmar.hunter.Tools.Enums.InventorySlotType;
+import com.nilbmar.hunter.Enums.Action;
+import com.nilbmar.hunter.Enums.Direction;
+import com.nilbmar.hunter.Enums.EntityType;
+import com.nilbmar.hunter.Enums.InventorySlotType;
 
 /**
  * Created by sysgeek on 4/7/17.

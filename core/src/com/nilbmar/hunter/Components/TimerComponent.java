@@ -1,7 +1,7 @@
 package com.nilbmar.hunter.Components;
 
 import com.nilbmar.hunter.Entities.Entity;
-import com.nilbmar.hunter.Tools.Enums.ItemType;
+import com.nilbmar.hunter.Enums.ItemType;
 
 /**
  * Created by sysgeek on 6/13/17.

@@ -1,9 +1,8 @@
 package com.nilbmar.hunter.Components;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.nilbmar.hunter.Tools.Enums.Direction;
+import com.nilbmar.hunter.Enums.Direction;
 
 /**
  * Created by sysgeek on 5/4/17.

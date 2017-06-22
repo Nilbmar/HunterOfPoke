@@ -2,7 +2,7 @@ package com.nilbmar.hunter.Commands;
 
 import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Scenes.Hud;
-import com.nilbmar.hunter.Tools.Enums.HudLabels;
+import com.nilbmar.hunter.Enums.HudLabels;
 
 /**
  * Created by sysgeek on 6/13/17.

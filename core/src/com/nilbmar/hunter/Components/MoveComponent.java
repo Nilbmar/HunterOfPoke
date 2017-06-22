@@ -1,11 +1,10 @@
 package com.nilbmar.hunter.Components;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.nilbmar.hunter.HunterOfPoke;
-import com.nilbmar.hunter.Tools.Enums.Action;
-import com.nilbmar.hunter.Tools.Enums.Direction;
+import com.nilbmar.hunter.Enums.Action;
+import com.nilbmar.hunter.Enums.Direction;
 
 /**
  * Created by sysgeek on 4/29/17.

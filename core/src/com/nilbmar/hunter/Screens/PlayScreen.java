@@ -24,8 +24,8 @@ import com.nilbmar.hunter.Scenes.Hud;
 import com.nilbmar.hunter.Tools.B2WorldCreator;
 import com.nilbmar.hunter.Tools.BulletCreator;
 import com.nilbmar.hunter.Tools.BulletPatternHandler;
-import com.nilbmar.hunter.Tools.Enums.Borders;
-import com.nilbmar.hunter.Tools.Enums.SpawnType;
+import com.nilbmar.hunter.Enums.Borders;
+import com.nilbmar.hunter.Enums.SpawnType;
 import com.nilbmar.hunter.Tools.InputHandler;
 import com.nilbmar.hunter.Tools.WorldContactListener;
 

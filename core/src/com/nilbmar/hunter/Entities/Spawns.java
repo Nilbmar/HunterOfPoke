@@ -1,11 +1,6 @@
 package com.nilbmar.hunter.Entities;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.Enemies.SwarmEnemy;
@@ -13,8 +8,7 @@ import com.nilbmar.hunter.Entities.Items.Item;
 import com.nilbmar.hunter.Entities.Items.SpeedBoostItem;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
-import com.nilbmar.hunter.Entities.TileObjects.InteractiveTileObject;
-import com.nilbmar.hunter.Tools.Enums.SpawnType;
+import com.nilbmar.hunter.Enums.SpawnType;
 
 /**
  * Created by sysgeek on 4/9/17.

@@ -1,10 +1,9 @@
 package com.nilbmar.hunter.Tools;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.nilbmar.hunter.HunterOfPoke;
-import com.nilbmar.hunter.Tools.Enums.BulletType;
-import com.nilbmar.hunter.Tools.Enums.Direction;
+import com.nilbmar.hunter.Enums.BulletType;
+import com.nilbmar.hunter.Enums.Direction;
 
 /**
  * Created by sysgeek on 5/11/17.

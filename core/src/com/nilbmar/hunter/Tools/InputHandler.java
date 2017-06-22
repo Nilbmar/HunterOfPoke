@@ -6,12 +6,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.nilbmar.hunter.Commands.AccelerationCommand;
 import com.nilbmar.hunter.Commands.FireCommand;
 import com.nilbmar.hunter.Commands.MoveCommand;
-import com.nilbmar.hunter.Commands.UseCommand;
-import com.nilbmar.hunter.Entities.Items.Item;
 import com.nilbmar.hunter.Entities.Player;
 import com.nilbmar.hunter.Screens.PlayScreen;
-import com.nilbmar.hunter.Tools.Enums.BulletType;
-import com.nilbmar.hunter.Tools.Enums.ShotType;
+import com.nilbmar.hunter.Enums.BulletType;
+import com.nilbmar.hunter.Enums.ShotType;
 
 /**
  * Created by sysgeek on 4/27/17.

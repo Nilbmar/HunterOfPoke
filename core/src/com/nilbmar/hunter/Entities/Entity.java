@@ -10,10 +10,10 @@ import com.nilbmar.hunter.Components.BodyComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
 import com.nilbmar.hunter.Components.TimerComponent;
 import com.nilbmar.hunter.Screens.PlayScreen;
-import com.nilbmar.hunter.Tools.Enums.Action;
-import com.nilbmar.hunter.Tools.Enums.Direction;
-import com.nilbmar.hunter.Tools.Enums.EntityType;
-import com.nilbmar.hunter.Tools.Enums.ItemType;
+import com.nilbmar.hunter.Enums.Action;
+import com.nilbmar.hunter.Enums.Direction;
+import com.nilbmar.hunter.Enums.EntityType;
+import com.nilbmar.hunter.Enums.ItemType;
 
 /**
  * Created by sysgeek on 5/22/17.

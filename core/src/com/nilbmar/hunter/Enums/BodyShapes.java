@@ -1,4 +1,4 @@
-package com.nilbmar.hunter.Tools.Enums;
+package com.nilbmar.hunter.Enums;
 
 /**
  * Created by sysgeek on 4/29/17.

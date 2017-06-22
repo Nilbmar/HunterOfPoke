@@ -1,14 +1,13 @@
 package com.nilbmar.hunter.Entities.Enemies;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
-import com.nilbmar.hunter.Tools.Enums.Action;
-import com.nilbmar.hunter.Tools.Enums.Direction;
-import com.nilbmar.hunter.Tools.Enums.EntityType;
+import com.nilbmar.hunter.Enums.Action;
+import com.nilbmar.hunter.Enums.Direction;
+import com.nilbmar.hunter.Enums.EntityType;
 
 /**
  * Created by sysgeek on 5/26/17.

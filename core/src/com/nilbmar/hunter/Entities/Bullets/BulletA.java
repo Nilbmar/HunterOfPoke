@@ -1,38 +1,41 @@
-package com.nilbmar.hunter.Entities.Bullets.Subtypes;
+package com.nilbmar.hunter.Entities.Bullets;
 
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.utils.Array;
+import com.nilbmar.hunter.Components.BodyComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
 import com.nilbmar.hunter.Entities.Bullets.Bullet;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
+import com.nilbmar.hunter.Tools.BulletCreator;
+
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 /**
- * Created by sysgeek on 6/14/17.
+ * Created by sysgeek on 4/22/17.
  */
 
-public class FireBullet extends Bullet {
+public class BulletA extends Bullet {
 
 
-    public FireBullet(PlayScreen screen, float startInWorldX, float startInWorldY, Vector2 v, float rotation) {
-        super(screen, startInWorldX, startInWorldY, v, rotation);
+    public BulletA(PlayScreen screen, float x, float y, Vector2 v, float rotation) {
+        super(screen, x, y, v, rotation);
 
 
-
-        regionName = "flamethrower_bullet";
+        regionName = "bulleta";
         frames = new Array<TextureRegion>();
-        frames.add(new TextureRegion(screen.getBulletAtlas().findRegion(regionName), 0, 0, 13, 10));
-        frames.add(new TextureRegion(screen.getBulletAtlas().findRegion(regionName), 13, 0, 13, 10));
-        animation = new Animation(0.2f, frames);
-        animation.setPlayMode(Animation.PlayMode.LOOP);
+        frames.add(new TextureRegion(screen.getBulletAtlas().findRegion(regionName), 0, 0, 6, 6));
+        animation = new Animation(0f, frames);
+        animation.setPlayMode(Animation.PlayMode.NORMAL);
         setRegion((TextureRegion) animation.getKeyFrame(0));
-        setBounds(getX(), getY(), 13 / HunterOfPoke.PPM, 10 / HunterOfPoke.PPM);
+        //setRegion(screen.getBulletAtlas().findRegion("bulleta"), 0, 0, 6, 6);
+        setBounds(getX(), getY(), 6 / HunterOfPoke.PPM, 6 / HunterOfPoke.PPM);
 
         defineBody();
         lifespan = 5f;
@@ -57,11 +60,5 @@ public class FireBullet extends Bullet {
 
             // Play sounds
         }
-    }
-
-    @Override
-    public void update(float deltaTime) {
-        super.update(deltaTime);
-        setRegion(getFrame(deltaTime, stateTime));
     }
 }

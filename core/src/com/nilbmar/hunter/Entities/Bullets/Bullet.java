@@ -14,7 +14,7 @@ import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Tools.BulletCreator;
-import com.nilbmar.hunter.Tools.Enums.EntityType;
+import com.nilbmar.hunter.Enums.EntityType;
 
 /**
  * Created by sysgeek on 4/22/17.

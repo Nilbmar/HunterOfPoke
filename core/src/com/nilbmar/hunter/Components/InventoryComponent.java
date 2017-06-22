@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Entities.Items.Item;
-import com.nilbmar.hunter.Tools.Enums.InventorySlotType;
+import com.nilbmar.hunter.Enums.InventorySlotType;
 
 /**
  * Created by sysgeek on 6/18/17.
