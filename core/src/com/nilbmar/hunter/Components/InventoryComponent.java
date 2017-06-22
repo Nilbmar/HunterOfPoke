@@ -33,7 +33,7 @@ public class InventoryComponent {
     public void placeInInventory(Item item, int count) {
         InventorySlotType slotType = item.getInventoryType();
 
-        if (!inInventory(slotType)) {
+        if (!isInInventory(slotType)) {
             if (slotsTotal < slotsMax) {
                 arrCurrentSlots.add(slotType);
                 arrCountInSlots.add(count); // count = how many of an item
@@ -55,11 +55,29 @@ public class InventoryComponent {
         }
     }
 
+    public void reduceInventory(InventorySlotType slotType) {
+        int count = countInInventory(slotType);
+        if (count > 0) {
+            count--;
+            arrCountInSlots.set(arrCurrentSlots.indexOf(slotType, true), count);
+        }
+    }
+
+    public int countInInventory(InventorySlotType slotType) {
+        int count = 0;
+        if (isInInventory(slotType)) {
+            int index = arrCurrentSlots.indexOf(slotType, true);
+            count = arrCountInSlots.get(index);
+        }
+
+        return count;
+    }
+
     public InventorySlotType getSlotTypeInArray(int index) {
         return  arrCurrentSlots.get(index);
     }
 
-    private boolean inInventory(InventorySlotType slotType) {
+    public boolean isInInventory(InventorySlotType slotType) {
         boolean isInInventory = false;
 
         for (int x = 0; x < slotsTotal; x++) {

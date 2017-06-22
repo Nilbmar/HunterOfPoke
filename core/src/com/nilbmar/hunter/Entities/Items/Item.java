@@ -1,12 +1,15 @@
 package com.nilbmar.hunter.Entities.Items;
 
 import com.badlogic.gdx.physics.box2d.Shape;
+import com.nilbmar.hunter.Commands.AccelerationCommand;
+import com.nilbmar.hunter.Commands.Command;
 import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Tools.Enums.Action;
 import com.nilbmar.hunter.Tools.Enums.Direction;
 import com.nilbmar.hunter.Tools.Enums.EntityType;
+import com.nilbmar.hunter.Tools.Enums.HudLabels;
 import com.nilbmar.hunter.Tools.Enums.InventorySlotType;
 import com.nilbmar.hunter.Tools.Enums.ItemType;
 
@@ -15,6 +18,7 @@ import com.nilbmar.hunter.Tools.Enums.ItemType;
  */
 
 public abstract class Item extends Entity {
+
     protected boolean destroyed;
     protected float stateTimer;
     protected ItemType itemType;
@@ -43,6 +47,7 @@ public abstract class Item extends Entity {
     }
 
     public abstract void use(Entity entity);
+    protected abstract void updateHud();
 
     public float getAmountOfEffect() { return amountOfEffect; }
     public ItemType getItemType() { return itemType; }

@@ -1,5 +1,6 @@
 package com.nilbmar.hunter.Entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.physics.box2d.Shape;
@@ -17,7 +18,7 @@ import com.nilbmar.hunter.Tools.Enums.Action;
 import com.nilbmar.hunter.Tools.Enums.Direction;
 import com.nilbmar.hunter.Tools.Enums.EntityType;
 import com.nilbmar.hunter.Tools.Enums.HudLabels;
-import com.nilbmar.hunter.Tools.Enums.ItemType;
+import com.nilbmar.hunter.Tools.Enums.InventorySlotType;
 
 /**
  * Created by sysgeek on 4/7/17.
@@ -298,23 +299,18 @@ public class Player extends Entity {
 
     public void useItem() {
         String newText = "";
-        switch (holdItem.getItemType()) {
-            case ACCELERATION:
-                timerComponent = null;
-                accelerationCommand = new AccelerationCommand(this, 1);
-                accelerationCommand.execute(this);
-                newText = "Speed Boost!";
-                break;
-        }
-        UseCommand use = new UseCommand(holdItem);
-        use.execute(this);
+        InventorySlotType slotType = holdItem.getInventoryType();
 
-        if (holdItem.getItemEffectTime() > 0) {
-            setTimerComponent(holdItem.getItemEffectTime(), holdItem.getItemType());
+
+        if (inventoryComponent.countInInventory(slotType) > 0) {
+            Gdx.app.log("Inventory", getEntityType() + " used " + slotType);
+            newText = holdItem.getName();
+
+            UseCommand use = new UseCommand(holdItem);
+            use.execute(this);
+            inventoryComponent.reduceInventory(holdItem.getInventoryType());
         }
 
-        hudUpdate = new UpdateHudCommand(screen.getHUD(), HudLabels.USER_INFO, newText);
-        hudUpdate.execute(this);
     }
 
     public Item getHoldItem() { return holdItem; }
@@ -371,25 +367,5 @@ public class Player extends Entity {
         setDirection(movement.getCurrentDirection());
         setAction(movement.getCurrentAction());
         setRegion(getFrame(deltaTime));
-
-        // TODO: THIS NEEDS TO BE SIMPLIFIED
-        if (timerComponent != null) {
-            if (timerComponent.endTimer()) {
-                ItemType type = ItemType.ACCELERATION;
-                switch (type){
-                    case ACCELERATION:
-                        accelerationCommand.undo(this);
-                        accelerationCommand = null;
-                        timerComponent = null;
-                        hudUpdate.setLabelToUpdate(HudLabels.USER_INFO);
-                        hudUpdate.setNewText("");
-                        hudUpdate.execute(this);
-                        break;
-                }
-
-            } else {
-                timerComponent.update(deltaTime);
-            }
-        }
     }
 }
