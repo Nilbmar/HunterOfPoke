@@ -71,7 +71,7 @@ public class Player extends Entity {
         defineBody();
 
         setCurrentAcceleration(1);
-        movement = new MoveComponent(b2Body);
+        moveComponent = new MoveComponent(b2Body);
 
         charWalk = new Animation(0.1f, animComp.getAnimation(currentDirection, currentAction));
 
@@ -366,8 +366,8 @@ public class Player extends Entity {
 
         setPosition(b2Body.getPosition().x - getWidth() / 2,
                 b2Body.getPosition().y - getHeight() / 2 + offsetSpriteY);
-        setDirection(movement.getCurrentDirection());
-        setAction(movement.getCurrentAction());
+        setDirection(moveComponent.getCurrentDirection());
+        setAction(moveComponent.getCurrentAction());
         setRegion(getFrame(deltaTime));
     }
 }

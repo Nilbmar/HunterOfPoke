@@ -52,7 +52,7 @@ public class MoveComponent {
                     setDirection(Direction.LEFT);
                 }
             } else if (movement.y > 0) {
-                // If moving UP, check for side to side movement as well, else set UP
+                // If moving UP, check for side to side moveComponent as well, else set UP
                 if (movement.x > 0) {
                     setDirection(Direction.UP_RIGHT);
                 } else if (movement.x < 0) {
@@ -61,7 +61,7 @@ public class MoveComponent {
                     setDirection(Direction.UP);
                 }
             } else if (movement.y < 0) {
-                // If moving DOWN, check for side to side movement as well, else set DOWN
+                // If moving DOWN, check for side to side moveComponent as well, else set DOWN
                 if (movement.x > 0) {
                     setDirection(Direction.DOWN_RIGHT);
                 } else if (movement.x < 0) {
@@ -80,7 +80,7 @@ public class MoveComponent {
             b2Body.applyLinearImpulse(desiredVelocity, b2Body.getWorldCenter(), true);
         } else {
             // IF DIRECTION IS ZERO
-            // Stop movement
+            // Stop moveComponent
             b2Body.setAwake(false);
             setAction(Action.STILL);
 

@@ -30,7 +30,7 @@ public abstract class Entity extends Sprite {
 
     // Components
     protected BodyComponent bodyComponent;
-    protected MoveComponent movement;
+    protected MoveComponent moveComponent;
     protected TimerComponent timerComponent;
 
     protected String regionName;
@@ -80,7 +80,7 @@ public abstract class Entity extends Sprite {
     public abstract float getSpawnOtherX();
     public abstract float getSpawnOtherY();
 
-    public MoveComponent getMoveComponent() { return movement; }
+    public MoveComponent getMoveComponent() { return moveComponent; }
     protected void setTimerComponent(float setTimer, ItemType itemType) {
         timerComponent = new TimerComponent(this, setTimer, itemType, deltaTime);
     }

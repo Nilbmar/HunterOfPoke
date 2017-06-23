@@ -43,7 +43,7 @@ public abstract class InteractiveTileObject {
         fDef.shape = shape;
 
         // Collision is only for detection
-        // doesn't stop movement of character
+        // doesn't stop moveComponent of character
         //fDef.isSensor = true;
 
         body.createFixture(fDef);

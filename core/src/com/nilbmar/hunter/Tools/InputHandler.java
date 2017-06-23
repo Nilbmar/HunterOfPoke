@@ -135,7 +135,7 @@ public class InputHandler {
     }
 
     public void update(float deltaTime) {
-        int auto = 0;       // value sets acceleration speed in auto movement
+        int auto = 0;       // value sets acceleration speed in auto moveComponent
         if (auto <= 0) {
             //accelerate(deltaTime);
             movement(deltaTime);
