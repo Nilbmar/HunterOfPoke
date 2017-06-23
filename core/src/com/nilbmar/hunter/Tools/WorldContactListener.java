@@ -37,12 +37,11 @@ public class WorldContactListener implements ContactListener {
                 break;
             case HunterOfPoke.PLAYER_BIT | HunterOfPoke.ENEMY_BIT:
                 if (fixtA.getFilterData().categoryBits == HunterOfPoke.ENEMY_BIT) {
-                    // TODO: NO ONHIT BUILT YET
-                    Gdx.app.log(((Enemy) fixtA.getUserData()).getName(), "Haha! I hit you, stupid player!");
+                    //((Enemy) fixtA.getUserData()).onHit((Player) fixtB.getUserData());
+                    ((Player) fixtB.getUserData()).onHit((Enemy) fixtA.getUserData());
                 } else {
-                    Gdx.app.log(((Enemy) fixtB.getUserData()).getName(), "Haha! I hit you, stupid player!");
-                    // TODO: NO ONHIT BUILT YET
-                    //((Player) fixtB.getUserData()).onHit();
+                    //((Enemy) fixtB.getUserData()).onHit((Player) fixtA.getUserData());
+                    ((Player) fixtA.getUserData()).onHit((Enemy) fixtB.getUserData());
                 }
                 break;
             case HunterOfPoke.ENEMY_BIT | HunterOfPoke.GROUND_BIT:

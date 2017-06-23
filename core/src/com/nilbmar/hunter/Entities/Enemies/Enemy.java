@@ -1,5 +1,6 @@
 package com.nilbmar.hunter.Entities.Enemies;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.nilbmar.hunter.Entities.Entity;
@@ -55,6 +56,11 @@ public abstract class Enemy extends Entity {
         } else {
             hitPoints = tempHP;
         }
+    }
+
+    @Override
+    public void onHit(Entity entity) {
+        Gdx.app.log(getName(), "Ouch! You hit me, you scum!");
     }
 
     @Override

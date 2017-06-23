@@ -98,6 +98,9 @@ public abstract class Entity extends Sprite {
         currentDirection = dir;
     }
 
+    // TODO: MAKE THIS ABSTRACT AFTER SETTING UP MORE
+    public void onHit(Entity entity) {}
+
     public Body getB2Body() { return b2Body; }
 
     protected void createBody(float x, float y) {

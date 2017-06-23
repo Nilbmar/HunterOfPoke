@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.nilbmar.hunter.Commands.AccelerationCommand;
+import com.nilbmar.hunter.Commands.ResetCollisionCommand;
 import com.nilbmar.hunter.Commands.UpdateHudCommand;
 import com.nilbmar.hunter.Commands.UseCommand;
 import com.nilbmar.hunter.Components.AnimationComponent;
@@ -12,6 +13,7 @@ import com.nilbmar.hunter.Components.FramesComponent;
 import com.nilbmar.hunter.Components.InventoryComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
 import com.nilbmar.hunter.Entities.Items.Item;
+import com.nilbmar.hunter.Enums.ItemType;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Enums.Action;
@@ -283,6 +285,13 @@ public class Player extends Entity {
         framesComp.setStillFrames(Direction.LEFT, scaleSizeX, 0);
     }
 
+    @Override
+    public void onHit(Entity entity) {
+        Gdx.app.log(getName(), "Oof! That smarts. Go away " + entity.getName() + ".");
+        // Call timer, after timer, then resetCollision
+        setTimerComponent(0.5f, ItemType.REMOVE_COLLISION);
+    }
+
     public void onPickup(Item item) {
         switch (item.getItemType()){
             case DEATH:
@@ -322,12 +331,19 @@ public class Player extends Entity {
      * This was done to test the reset by disallowing ground collision
      * Change this so it won't collide with enemies ore their bullets
      * for invincibility frames, but should still collide with ground */
-    public void resetCollision() {
+    public void resetCollision(boolean collideWithEnemies) {
         float newX = b2Body.getPosition().x;
         float newY = b2Body.getPosition().y;
         world.destroyBody(b2Body);
+        short maskBits = HunterOfPoke.NOTHING_BIT;
 
-        short maskBits = HunterOfPoke.ENEMY_BIT;
+        if (collideWithEnemies) {
+            maskBits = (short) HunterOfPoke.GROUND_BIT
+                    | HunterOfPoke.ENEMY_BIT
+                    | HunterOfPoke.ITEM_BIT;
+        } else {
+            maskBits = (short) HunterOfPoke.GROUND_BIT | HunterOfPoke.ITEM_BIT;
+        }
 
         createBody(newX, newY);
         defineShape();
@@ -359,6 +375,26 @@ public class Player extends Entity {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
+
+        // Check if its ok to resetCollision()
+        if (timerComponent != null) {
+            if (timerComponent.endTimer()) {
+                if (timerComponent.getItemType() == ItemType.REMOVE_COLLISION) {
+                    Gdx.app.log("Update", "Removing Collision");
+                    ResetCollisionCommand reset = new ResetCollisionCommand();
+                    reset.execute(this);
+                    timerComponent = null;
+                    setTimerComponent(2f, ItemType.RESET_COLLISION);
+                } else if (timerComponent.getItemType() == ItemType.RESET_COLLISION) {
+                    Gdx.app.log("Update", "Resetting Collision");
+                    ResetCollisionCommand reset = new ResetCollisionCommand();
+                    reset.undo(this);
+                    timerComponent = null;
+                }
+            } else {
+                timerComponent.update(deltaTime);
+            }
+        }
 
         // Used to set the b2Body's shape lower on the sprite
         // so only lower-body collides with objects
