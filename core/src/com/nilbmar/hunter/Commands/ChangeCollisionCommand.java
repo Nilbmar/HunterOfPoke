@@ -7,7 +7,7 @@ import com.nilbmar.hunter.Entities.Player;
  * Created by sysgeek on 6/22/17.
  */
 
-public class ResetCollisionCommand implements Command {
+public class ChangeCollisionCommand implements Command {
 
 
     @Override

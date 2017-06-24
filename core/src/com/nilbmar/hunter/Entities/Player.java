@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.nilbmar.hunter.Commands.AccelerationCommand;
-import com.nilbmar.hunter.Commands.ResetCollisionCommand;
+import com.nilbmar.hunter.Commands.ChangeCollisionCommand;
 import com.nilbmar.hunter.Commands.UpdateHudCommand;
 import com.nilbmar.hunter.Commands.UseCommand;
 import com.nilbmar.hunter.Components.AnimationComponent;
@@ -381,13 +381,13 @@ public class Player extends Entity {
             if (timerComponent.endTimer()) {
                 if (timerComponent.getItemType() == ItemType.REMOVE_COLLISION) {
                     Gdx.app.log("Update", "Removing Collision");
-                    ResetCollisionCommand reset = new ResetCollisionCommand();
+                    ChangeCollisionCommand reset = new ChangeCollisionCommand();
                     reset.execute(this);
                     timerComponent = null;
                     setTimerComponent(2f, ItemType.RESET_COLLISION);
                 } else if (timerComponent.getItemType() == ItemType.RESET_COLLISION) {
                     Gdx.app.log("Update", "Resetting Collision");
-                    ResetCollisionCommand reset = new ResetCollisionCommand();
+                    ChangeCollisionCommand reset = new ChangeCollisionCommand();
                     reset.undo(this);
                     timerComponent = null;
                 }
