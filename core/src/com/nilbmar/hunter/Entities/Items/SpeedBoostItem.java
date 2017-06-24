@@ -38,10 +38,10 @@ public class SpeedBoostItem extends Item {
         setName("Speed Boost!");
 
 
-        regionName = "swarm"; // TODO: CREATE ITEM.PACK - CURRENTLY USING CHARACTER PACK
+        regionName = "item_chocolate"; // TODO: CREATE ITEM.PACK - CURRENTLY USING CHARACTER PACK
         // TODO: CHANGE FROM ENEMY ATLAS TO ITEM ATLAS
-        TextureRegion charStill = new TextureRegion(screen.getItemAtlas().findRegion(regionName), 0, 0, 16, 16);
-        setBounds(0, 0, 16 / HunterOfPoke.PPM, 16 / HunterOfPoke.PPM);
+        TextureRegion charStill = new TextureRegion(screen.getItemAtlas().findRegion(regionName), 0, 0, 64, 32);
+        setBounds(0, 0, 16 / HunterOfPoke.PPM, 8 / HunterOfPoke.PPM);
         setRegion(charStill);
     }
 

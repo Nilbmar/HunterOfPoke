@@ -37,8 +37,8 @@ public class Spawns implements Disposable {
     }
 
     public Item spawnItem() {
-        //Item item = new SpeedBoostItem(screen, getX(), getY());
-        Item item = new InvincibilityItem(screen, getX(), getY());
+        Item item = new SpeedBoostItem(screen, getX(), getY());
+        //Item item = new InvincibilityItem(screen, getX(), getY());
         return item;
     }
 

@@ -92,7 +92,7 @@ public class PlayScreen implements Screen {
         playerAtlas = new TextureAtlas("sprites/charFem.pack");
         enemyAtlas = new TextureAtlas("sprites/characters.pack");
         bulletAtlas = new TextureAtlas("sprites/ammo_and_effects.pack");
-        itemAtlas = new TextureAtlas("sprites/characters.pack");
+        itemAtlas = new TextureAtlas("sprites/pickups.pack");
 
         //enemies = new Array<Enemy>();
         entities = new Array<Entity>();

@@ -35,10 +35,9 @@ public class InvincibilityItem extends Item {
 
         setName("Invincibility");
 
-        regionName = "swarm"; // TODO: CREATE ITEM.PACK - CURRENTLY USING CHARACTER PACK
-        // TODO: CHANGE FROM ENEMY ATLAS TO ITEM ATLAS
-        TextureRegion charStill = new TextureRegion(screen.getItemAtlas().findRegion(regionName), 0, 0, 16, 16);
-        setBounds(0, 0, 16 / HunterOfPoke.PPM, 16 / HunterOfPoke.PPM);
+        regionName = "item_wine";
+        TextureRegion charStill = new TextureRegion(screen.getItemAtlas().findRegion(regionName), 0, 0, 32, 66);
+        setBounds(0, 0, 8 / HunterOfPoke.PPM, 16 / HunterOfPoke.PPM);
         setRegion(charStill);
     }
 
