@@ -5,6 +5,10 @@ import com.nilbmar.hunter.Entities.Player;
 
 /**
  * Created by sysgeek on 6/22/17.
+ *
+ * Command: Change Collision
+ * Purpose: Give the player invincibility
+ * and undo to return to normal collision
  */
 
 public class ChangeCollisionCommand implements Command {
@@ -17,6 +21,7 @@ public class ChangeCollisionCommand implements Command {
     }
 
     public void undo(Entity entity) {
+        // boolean collideWithEnemies
         ((Player) entity).resetCollision(true);
     }
 }
