@@ -6,7 +6,8 @@ package com.nilbmar.hunter.Enums;
 
 public enum ItemType {
     ACCELERATION("acceleration"), DEATH("death"),
-    REMOVE_COLLISION("remove collision"), RESET_COLLISION("reset collision");
+    REMOVE_COLLISION("remove collision"), RESET_COLLISION("reset collision"),
+    INVINCIBILITY("invincibility");
 
     private String name;
 

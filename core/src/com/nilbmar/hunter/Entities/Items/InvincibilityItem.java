@@ -1,42 +1,39 @@
 package com.nilbmar.hunter.Entities.Items;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.nilbmar.hunter.Commands.AccelerationCommand;
+import com.nilbmar.hunter.Commands.ChangeCollisionCommand;
 import com.nilbmar.hunter.Commands.UpdateHudCommand;
-import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.Entity;
-import com.nilbmar.hunter.Entities.Player;
-import com.nilbmar.hunter.HunterOfPoke;
-import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Enums.HudLabels;
 import com.nilbmar.hunter.Enums.InventorySlotType;
 import com.nilbmar.hunter.Enums.ItemType;
+import com.nilbmar.hunter.HunterOfPoke;
+import com.nilbmar.hunter.Screens.PlayScreen;
 
 /**
- * Created by sysgeek on 6/12/17.
+ * Created by sysgeek on 6/24/17.
  *
- * Item: Speed Boost
- * Purpose: Gives a temporary speed boost to an entity
+ * Item: Invincibility
+ * Purpose: Temporarily remove collision with enemies
+ * and after a Timer, resets collision to normal
  */
 
-public class SpeedBoostItem extends Item {
-    private AccelerationCommand accelerationCommand;
+public class InvincibilityItem extends Item {
+    private ChangeCollisionCommand collisionCommand;
 
-    public SpeedBoostItem(PlayScreen screen, float startInWorldX, float startInWorldY) {
+    public InvincibilityItem(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
 
-        inventoryType = InventorySlotType.ACCELERATION;
-        inventoryLimit = 5;
+        inventoryType = InventorySlotType.INVINCIBILITY;
+        inventoryLimit = 1;
         addToCountOnPickup = 1;
-        amountOfEffect = 2;  // amountOfEffect of HP to recover
 
-        setItemEffectTime(10f);
-        setItemType(ItemType.ACCELERATION);
+        setItemEffectTime(5f);
+        setItemType(ItemType.INVINCIBILITY);
 
 
-        setName("Speed Boost!");
-
+        setName("Invincibility");
 
         regionName = "swarm"; // TODO: CREATE ITEM.PACK - CURRENTLY USING CHARACTER PACK
         // TODO: CHANGE FROM ENEMY ATLAS TO ITEM ATLAS
@@ -47,28 +44,19 @@ public class SpeedBoostItem extends Item {
 
     @Override
     public void use(Entity entity) {
-
         entityThatUsed = entity;
 
         if (entity.getEntityType() == EntityType.PLAYER) {
-            int hpToRecover = (int) amountOfEffect;
-            ((Player) entity).recoverHitPoints(hpToRecover);
             setTimerComponent(getItemEffectTime(), getItemType());
-            accelerationCommand = new AccelerationCommand(entityThatUsed, 1);
-            accelerationCommand.execute(entityThatUsed);
+            collisionCommand = new ChangeCollisionCommand();
+            collisionCommand.execute(entityThatUsed);
             updateHud();
         }
-        if (entity.getEntityType() == EntityType.ENEMY) {
-            int hpToRecover = (int) amountOfEffect;
-            ((Enemy) entity).recoverHitPoints(hpToRecover);
-        }
-
-
     }
 
     @Override
     protected void updateHud() {
-        // TODO: THIS NEEDS TO GO ELSEWHERE - BUT WHERE?
+    // TODO: THIS NEEDS TO GO ELSEWHERE - BUT WHERE?
         hudUpdate = new UpdateHudCommand(screen.getHUD(), HudLabels.USER_INFO, getName());
         hudUpdate.execute(this);
     }
@@ -80,9 +68,9 @@ public class SpeedBoostItem extends Item {
         // Undo the effect after timer
         if (timerComponent != null) {
             if (timerComponent.endTimer()) {
-                if (accelerationCommand != null) {
-                    accelerationCommand.undo(entityThatUsed);
-                    accelerationCommand = null;
+                if (collisionCommand != null) {
+                    collisionCommand.undo(entityThatUsed);
+                    collisionCommand = null;
                     timerComponent = null;
 
                     // TODO: CHANGE HOW HUD UPDATES

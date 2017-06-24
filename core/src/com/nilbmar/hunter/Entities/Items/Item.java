@@ -1,6 +1,7 @@
 package com.nilbmar.hunter.Entities.Items;
 
 import com.badlogic.gdx.physics.box2d.Shape;
+import com.nilbmar.hunter.Commands.UpdateHudCommand;
 import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
@@ -19,6 +20,8 @@ import com.nilbmar.hunter.Enums.ItemType;
 
 public abstract class Item extends Entity {
 
+    protected Entity entityThatUsed;
+    protected UpdateHudCommand hudUpdate;
     protected boolean destroyed;
     protected float stateTimer;
     protected ItemType itemType;
@@ -37,6 +40,7 @@ public abstract class Item extends Entity {
 
         destroyed = false;
         itemEffectTime = 1f;
+        amountOfEffect = 0;
 
         defineBody();
         currentDirection = Direction.DOWN;
