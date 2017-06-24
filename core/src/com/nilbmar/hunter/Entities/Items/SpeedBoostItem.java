@@ -21,7 +21,7 @@ import com.nilbmar.hunter.Enums.ItemType;
  */
 
 public class SpeedBoostItem extends Item {
-    private Entity entityThatUsed;
+
     private AccelerationCommand accelerationCommand;
     private UpdateHudCommand hudUpdate;
 
@@ -54,7 +54,7 @@ public class SpeedBoostItem extends Item {
 
         if (entity.getEntityType() == EntityType.PLAYER) {
             int hpToRecover = (int) amountOfEffect;
-            ((Player) entity).recoverHitPoints((int) amountOfEffect);
+            ((Player) entity).recoverHitPoints(hpToRecover);
             setTimerComponent(getItemEffectTime(), getItemType());
             accelerationCommand = new AccelerationCommand(entityThatUsed, 1);
             accelerationCommand.execute(entityThatUsed);
