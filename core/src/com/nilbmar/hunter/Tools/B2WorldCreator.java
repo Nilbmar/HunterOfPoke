@@ -2,6 +2,7 @@ package com.nilbmar.hunter.Tools;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
+import com.nilbmar.hunter.Enums.EnemyType;
 import com.nilbmar.hunter.Enums.ItemType;
 import com.nilbmar.hunter.Scenes.Hud;
 import com.nilbmar.hunter.Screens.PlayScreen;
@@ -72,27 +73,26 @@ public class B2WorldCreator {
         float posX;
         float posY;
 
+        // Create spawn points for ITEMS on PICKUPS layer
         indexMapLayer = Layers.PICKUPS.getIndex();
         for (MapObject object : map.getLayers().get(indexMapLayer)
                 .getObjects().getByType(RectangleMapObject.class)) {
             posX = ((RectangleMapObject) object).getRectangle().getX();
             posY = ((RectangleMapObject) object).getRectangle().getY();
 
-            // used for checking if ItemType exists
-            String item = ((RectangleMapObject) object).getProperties().get("ItemType", String.class);
+            // Used for checking if ItemType exists
+            String item = object.getProperties().get("ItemType", String.class);
 
             Spawns spawn = new Spawns(screen, map, posX, posY, SpawnType.ITEM);
 
-            // Check if ItemType exists
-            ItemType itemType = null;
-            if (itemType.contains(item) != null) {
-                spawn.setItemType(itemType.contains(item));
+            // Check if ItemType exists and create spawn if so
+            if (ItemType.contains(item) != null) {
+                spawn.setItemType(ItemType.contains(item));
                 spawns.add(spawn);
             }
         }
 
-        // TODO: SPAWNS CURRENTLY HAVE COLLISION
-        // THEY SHOULD ONLY BE TO SPAWN OTHER ITEMS
+        // Create spawn points for enemies on SPAWN layer
         indexMapLayer = Layers.SPAWN.getIndex();
         for (MapObject object : map.getLayers().get(indexMapLayer)
                 .getObjects().getByType(RectangleMapObject.class)) {
@@ -100,9 +100,16 @@ public class B2WorldCreator {
             posX = ((RectangleMapObject) object).getRectangle().getX();
             posY = ((RectangleMapObject) object).getRectangle().getY();
 
-            //Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            // Used for checking if EnemyType exists
+            String enemy = object.getProperties().get("EnemyType", String.class);
+
             Spawns spawn = new Spawns(screen, map, posX, posY, SpawnType.ENEMY);
-            spawns.add(spawn);
+
+            // Check if EnemyType exists and create spawn if so
+            if (EnemyType.contains(enemy) != null) {
+                spawn.setEnemyType(EnemyType.contains(enemy));
+                spawns.add(spawn);
+            }
         }
 
         indexMapLayer = Layers.PLAYER.getIndex();
