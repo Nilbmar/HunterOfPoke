@@ -289,6 +289,7 @@ public class Player extends Entity {
     public void onHit(Entity entity) {
         Gdx.app.log(getName(), "Oof! That smarts. Go away " + entity.getName() + ".");
         // Call timer, after timer, then resetCollision
+        // Otherwise game crashes trying to reset collision while still colliding
         setTimerComponent(0.5f, ItemType.REMOVE_COLLISION);
     }
 
