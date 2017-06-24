@@ -17,4 +17,13 @@ public enum ItemType {
     public String getName() {
         return name;
     }
+
+    public static ItemType contains(String name) {
+        for (ItemType type : ItemType.values()) {
+            if (type.getName().equals(name)) {
+                return type;
+            }
+        }
+        return null;
+    }
 }

@@ -7,6 +7,7 @@ import com.nilbmar.hunter.Entities.Enemies.SwarmEnemy;
 import com.nilbmar.hunter.Entities.Items.InvincibilityItem;
 import com.nilbmar.hunter.Entities.Items.Item;
 import com.nilbmar.hunter.Entities.Items.SpeedBoostItem;
+import com.nilbmar.hunter.Enums.ItemType;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Enums.SpawnType;
@@ -23,6 +24,8 @@ public class Spawns implements Disposable {
     private float posX;
     private float posY;
     private SpawnType type;
+    private ItemType itemType;
+    //private EnemyType enemyType;
 
     public Spawns(PlayScreen screen, TiledMap map, float posX, float posY, SpawnType type) {
         this.screen = screen;
@@ -37,10 +40,21 @@ public class Spawns implements Disposable {
     }
 
     public Item spawnItem() {
-        Item item = new SpeedBoostItem(screen, getX(), getY());
-        //Item item = new InvincibilityItem(screen, getX(), getY());
+        Item item = null;
+        // TODO: SPAWN SELECTION BASED ON WHAT TILED SAYS
+        switch (itemType) {
+            case ACCELERATION:
+                item = new SpeedBoostItem(screen, getX(), getY());
+                break;
+            case INVINCIBILITY:
+                item = new InvincibilityItem(screen, getX(), getY());
+                break;
+        }
         return item;
     }
+
+    public void setItemType(ItemType itemType) { this.itemType = itemType; }
+    //public void setEnemyType(EnemyType enemyType) { this.enemyType = enemyType; }
 
     public float getX() { return posX + 16 / 2 / HunterOfPoke.PPM; }
     public float getY() { return posY + 16 / 2 / HunterOfPoke.PPM; }

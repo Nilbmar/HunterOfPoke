@@ -1,0 +1,159 @@
+
+pickups.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+item_pelt
+  rotate: false
+  xy: 1, 42
+  size: 86, 85
+  orig: 86, 85
+  offset: 0, 0
+  index: -1
+item_bearliver
+  rotate: false
+  xy: 1, 1
+  size: 78, 39
+  orig: 78, 39
+  offset: 0, 0
+  index: -1
+item_map
+  rotate: false
+  xy: 89, 68
+  size: 84, 59
+  orig: 84, 59
+  offset: 0, 0
+  index: -1
+item_boxedlunch
+  rotate: false
+  xy: 175, 58
+  size: 67, 69
+  orig: 67, 69
+  offset: 0, 0
+  index: -1
+item_noodlecup
+  rotate: false
+  xy: 89, 1
+  size: 50, 65
+  orig: 50, 65
+  offset: 0, 0
+  index: -1
+item_perfectsamwich
+  rotate: false
+  xy: 244, 69
+  size: 63, 58
+  orig: 63, 58
+  offset: 0, 0
+  index: -1
+item_meat
+  rotate: false
+  xy: 309, 85
+  size: 76, 42
+  orig: 76, 42
+  offset: 0, 0
+  index: -1
+item_medicine
+  rotate: false
+  xy: 387, 82
+  size: 68, 45
+  orig: 68, 45
+  offset: 0, 0
+  index: -1
+item_sashimi
+  rotate: false
+  xy: 457, 73
+  size: 61, 54
+  orig: 61, 54
+  offset: 0, 0
+  index: -1
+item_hotdog
+  rotate: false
+  xy: 520, 91
+  size: 61, 36
+  orig: 61, 36
+  offset: 0, 0
+  index: -1
+item_chocolate
+  rotate: false
+  xy: 583, 93
+  size: 62, 34
+  orig: 62, 34
+  offset: 0, 0
+  index: -1
+item_ration
+  rotate: false
+  xy: 647, 90
+  size: 59, 37
+  orig: 59, 37
+  offset: 0, 0
+  index: -1
+item_tubesteak
+  rotate: false
+  xy: 708, 93
+  size: 54, 34
+  orig: 54, 34
+  offset: 0, 0
+  index: -1
+item_dragonheart
+  rotate: false
+  xy: 764, 91
+  size: 51, 36
+  orig: 51, 36
+  offset: 0, 0
+  index: -1
+item_mushroom
+  rotate: false
+  xy: 817, 90
+  size: 49, 37
+  orig: 49, 37
+  offset: 0, 0
+  index: -1
+item_xozu
+  rotate: false
+  xy: 141, 6
+  size: 22, 60
+  orig: 22, 60
+  offset: 0, 0
+  index: -1
+item_flamegland
+  rotate: false
+  xy: 868, 81
+  size: 43, 46
+  orig: 43, 46
+  offset: 0, 0
+  index: -1
+item_cheese
+  rotate: false
+  xy: 913, 94
+  size: 47, 33
+  orig: 47, 33
+  offset: 0, 0
+  index: -1
+item_survivalbar
+  rotate: false
+  xy: 962, 99
+  size: 48, 28
+  orig: 48, 28
+  offset: 0, 0
+  index: -1
+item_salad
+  rotate: false
+  xy: 520, 66
+  size: 46, 23
+  orig: 46, 23
+  offset: 0, 0
+  index: -1
+item_wine
+  rotate: false
+  xy: 244, 1
+  size: 22, 66
+  orig: 22, 66
+  offset: 0, 0
+  index: -1
+item_pearl
+  rotate: false
+  xy: 309, 70
+  size: 12, 13
+  orig: 12, 13
+  offset: 0, 0
+  index: -1

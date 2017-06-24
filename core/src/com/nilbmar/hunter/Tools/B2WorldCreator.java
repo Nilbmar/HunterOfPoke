@@ -1,6 +1,8 @@
 package com.nilbmar.hunter.Tools;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
+import com.nilbmar.hunter.Enums.ItemType;
 import com.nilbmar.hunter.Scenes.Hud;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Enums.Layers;
@@ -76,9 +78,17 @@ public class B2WorldCreator {
             posX = ((RectangleMapObject) object).getRectangle().getX();
             posY = ((RectangleMapObject) object).getRectangle().getY();
 
-            //Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            // used for checking if ItemType exists
+            String item = ((RectangleMapObject) object).getProperties().get("ItemType", String.class);
+
             Spawns spawn = new Spawns(screen, map, posX, posY, SpawnType.ITEM);
-            spawns.add(spawn);
+
+            // Check if ItemType exists
+            ItemType itemType = null;
+            if (itemType.contains(item) != null) {
+                spawn.setItemType(itemType.contains(item));
+                spawns.add(spawn);
+            }
         }
 
         // TODO: SPAWNS CURRENTLY HAVE COLLISION
