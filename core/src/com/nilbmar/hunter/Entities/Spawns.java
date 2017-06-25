@@ -1,9 +1,13 @@
 package com.nilbmar.hunter.Entities;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.Json;
 import com.nilbmar.hunter.Entities.Enemies.BatEnemy;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
+import com.nilbmar.hunter.Entities.Enemies.Monster;
 import com.nilbmar.hunter.Entities.Enemies.SwarmEnemy;
 import com.nilbmar.hunter.Entities.Items.InvincibilityItem;
 import com.nilbmar.hunter.Entities.Items.Item;
@@ -34,6 +38,26 @@ public class Spawns implements Disposable {
         this.posX = posX / HunterOfPoke.PPM;
         this.posY = posY / HunterOfPoke.PPM;
         this.type = type;
+    }
+
+    public Monster getMonster(String jsonFile) {
+        String file = "json/" + jsonFile + ".json";
+        FileHandle handle = Gdx.files.internal(file);
+        String fileContent = handle.readString();
+        Json json = new Json();
+        Monster monster = new Monster(screen, getX(), getY());
+        monster = json.fromJson(Monster.class, fileContent);
+
+        return monster;
+        //for (Object e : )
+
+        /*
+         for(Object e :data.enemies){
+            Position p = (Position)e;
+            Gdx.app.log(GameManager.LOG, "type = " + p.type + "x = " + p.x + "y =" + p.y);
+         */
+
+
     }
 
     public Enemy spawnEnemy() {
