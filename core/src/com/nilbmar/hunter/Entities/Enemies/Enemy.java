@@ -3,7 +3,10 @@ package com.nilbmar.hunter.Entities.Enemies;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.Shape;
+import com.nilbmar.hunter.Commands.FireCommand;
 import com.nilbmar.hunter.Entities.Entity;
+import com.nilbmar.hunter.Enums.BulletType;
+import com.nilbmar.hunter.Enums.ShotType;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Enums.Action;
@@ -21,6 +24,7 @@ public abstract class Enemy extends Entity {
     protected float startInWorldX;
     protected float startInWorldY;
 
+
     protected float offsetSpriteY;
 
     protected boolean destroyed;
@@ -28,6 +32,14 @@ public abstract class Enemy extends Entity {
     protected float stateTimer; // Used to getFrame() of animation
     protected int hitPoints;
     protected int maxHitPoints;
+
+    // TODO: REMOVE FIRECOMMAND
+    int fireCount = 1;
+    FireCommand fire;
+
+    public Enemy() {
+
+    }
 
     public Enemy(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
@@ -46,6 +58,18 @@ public abstract class Enemy extends Entity {
         currentAction = Action.STILL;
         previousAction = Action.STILL;
         stateTimer = 0;
+
+        fire = new FireCommand(screen.getBulletPatterns(), BulletType.BALL, ShotType.SINGLE);
+    }
+
+    @Override
+    public float getSpawnOtherX() {
+        return getX() + getWidth() / 2;
+    }
+
+    @Override
+    public float getSpawnOtherY() {
+        return getY() + getHeight() / 2;
     }
 
     public int getHitPoints() { return hitPoints; }
@@ -97,5 +121,13 @@ public abstract class Enemy extends Entity {
         // so only lower-body collides with objects
         setPosition(b2Body.getPosition().x - getWidth() / 2,
                 b2Body.getPosition().y - getHeight() / 2 + offsetSpriteY);
+
+        // TODO: REMOVE - ONLY USING THIS FOR TESTING FIRECOMMAND
+        // ONLY ALLOWS SINGLE SHOT
+        if (fireCount >= 1) {
+            fire.setType(BulletType.BALL);
+            fire.execute(this);
+            fireCount--;
+        }
     }
 }

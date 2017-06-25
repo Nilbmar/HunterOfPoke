@@ -49,6 +49,9 @@ public abstract class Entity extends Sprite {
     protected Action currentAction;
     protected Action previousAction;
 
+    public Entity() {
+
+    }
 
     public Entity(PlayScreen screen, float startInWorldX, float startInWorldY) {
         this.screen = screen;

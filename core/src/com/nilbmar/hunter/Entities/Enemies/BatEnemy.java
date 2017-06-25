@@ -12,10 +12,6 @@ import com.nilbmar.hunter.Screens.PlayScreen;
  */
 
 public class BatEnemy extends Enemy {
-    // TODO: REMOVE FIRECOMMAND
-    int fireCount = 1;
-    FireCommand fire;
-
     public BatEnemy(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
 
@@ -33,30 +29,5 @@ public class BatEnemy extends Enemy {
 
         // Movement
         setCurrentAcceleration(1);
-
-        fire = new FireCommand(screen.getBulletPatterns(), BulletType.BALL, ShotType.SINGLE);
-    }
-
-    @Override
-    public float getSpawnOtherX() {
-        return getX() + getWidth() / 2;
-    }
-
-    @Override
-    public float getSpawnOtherY() {
-        return getY() + getHeight() / 2;
-    }
-
-    @Override
-    public void update(float deltaTime) {
-        super.update(deltaTime);
-
-        // TODO: REMOVE - ONLY USING THIS FOR TESTING FIRECOMMAND
-        // ONLY ALLOWS SINGLE SHOT
-        if (fireCount >= 1) {
-            fire.setType(BulletType.BALL);
-            fire.execute(this);
-            fireCount--;
-        }
     }
 }
