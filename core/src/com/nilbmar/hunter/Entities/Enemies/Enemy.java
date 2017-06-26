@@ -2,6 +2,7 @@ package com.nilbmar.hunter.Entities.Enemies;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.nilbmar.hunter.Commands.FireCommand;
 import com.nilbmar.hunter.Entities.Entity;
@@ -20,10 +21,7 @@ import com.nilbmar.hunter.Enums.EntityType;
  * Purpose: Base class for all Enemies
  */
 
-public abstract class Enemy extends Entity {
-    protected int acceleration;
-
-
+public class Enemy extends Entity {
     protected boolean destroyed;
 
     protected float stateTimer; // Used to getFrame() of animation
@@ -48,8 +46,15 @@ public abstract class Enemy extends Entity {
         previousAction = Action.STILL;
         stateTimer = 0;
 
+        // Movement
+        //setCurrentAcceleration(acceleration);
+
+
         fire = new FireCommand(screen.getBulletPatterns(), BulletType.BALL, ShotType.SINGLE);
     }
+
+    public void setHitPoints(int hitPoints) { this.hitPoints = hitPoints; }
+    public void setMaxHitPoints(int maxHitPoints) { this.maxHitPoints = maxHitPoints; }
 
     @Override
     public float getSpawnOtherX() {
@@ -95,6 +100,20 @@ public abstract class Enemy extends Entity {
     protected void defineBits(short maskBits) {
         bodyComponent.setCategoryBit(HunterOfPoke.ENEMY_BIT);
         bodyComponent.setMaskBits(maskBits);
+    }
+
+    private void setSprite() {
+        TextureRegion charStill = new TextureRegion(
+                screen.getEnemyAtlas().findRegion(regionName),
+                regionBeginX, regionBeginY, regionWidth, regionHeight);
+        setBounds(boundsBeginX / HunterOfPoke.PPM, boundsBeginY / HunterOfPoke.PPM,
+                boundsWidth / HunterOfPoke.PPM, boundsHeight / HunterOfPoke.PPM);
+        setRegion(charStill);
+    }
+
+    public void finalize() {
+        defineBody();
+        setSprite();
     }
 
     public void draw(Batch batch) {

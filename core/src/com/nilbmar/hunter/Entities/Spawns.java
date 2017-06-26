@@ -1,18 +1,14 @@
 package com.nilbmar.hunter.Entities;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.Json;
-import com.nilbmar.hunter.Entities.Enemies.BatEnemy;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.Enemies.Monster;
-import com.nilbmar.hunter.Entities.Enemies.SwarmEnemy;
 import com.nilbmar.hunter.Entities.Items.InvincibilityItem;
 import com.nilbmar.hunter.Entities.Items.Item;
 import com.nilbmar.hunter.Entities.Items.SpeedBoostItem;
 import com.nilbmar.hunter.Enums.EnemyType;
+import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Enums.ItemType;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
@@ -40,6 +36,15 @@ public class Spawns implements Disposable {
         this.type = type;
     }
 
+    public Enemy getEnemy() {
+        String file = "json/" + enemyType.getName() + ".json";
+
+        EntityLoader loader = new EntityLoader(screen, getX(), getY(), file, EntityType.ENEMY);
+        Enemy enemy = (Enemy) loader.load();
+        //enemy.finalize();
+        return enemy;
+    }
+
     public Monster getMonster() {
         String file = "json/" + enemyType.getName() + ".json";
 
@@ -48,20 +53,6 @@ public class Spawns implements Disposable {
         monster.finalize();
 
         return monster;
-    }
-
-    public Enemy spawnEnemy() {
-        Enemy enemy = null;
-        switch (enemyType) {
-            case BAT:
-                enemy = new BatEnemy(screen, getX(), getY());
-                break;
-            case SWARM:
-                enemy = new SwarmEnemy(screen, getX(), getY());
-                break;
-        }
-
-        return enemy;
     }
 
     public Item spawnItem() {

@@ -85,6 +85,14 @@ public class Player extends Entity {
         setRegion(charStill);
     }
 
+    @Override
+    public void finalize() {
+
+    }
+
+    public void setHitPoints(int hitPoints) { this.hitPoints = hitPoints; }
+    public void setMaxHitPoints(int maxHitPoints) { this.maxHitPoints = maxHitPoints; }
+
     public int getHitPoints() { return hitPoints; }
     public void recoverHitPoints(int hitPointsToAdd) {
         int tempHP = hitPoints + hitPointsToAdd;

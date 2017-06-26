@@ -50,6 +50,11 @@ public abstract class Item extends Entity {
         stateTimer = 0;
     }
 
+    @Override
+    public void finalize() {
+
+    }
+
     public abstract void use(Entity entity);
     protected abstract void updateHud();
 

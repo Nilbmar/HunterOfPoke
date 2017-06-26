@@ -57,6 +57,11 @@ public abstract class Bullet  extends Entity implements Poolable {
         setPosition(startInWorldX, startInWorldY);
     }
 
+    @Override
+    public void finalize() {
+
+    }
+
     public TextureRegion getFrame(float deltaTime, float stateTime) {
         return (TextureRegion) animation.getKeyFrame(stateTime, true);
     }

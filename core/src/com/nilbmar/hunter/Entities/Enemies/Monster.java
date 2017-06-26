@@ -20,7 +20,7 @@ public class Monster extends Enemy {
         FileHandle handle = Gdx.files.internal(file);
         String fileContent = handle.readString();
         Json json = new Json();
-        MonsterData data = json.fromJson(MonsterData.class, fileContent);
+        EntityData data = json.fromJson(EntityData.class, fileContent);
 
         name = data.name;
         hitPoints = data.hitPoints;
@@ -42,11 +42,18 @@ public class Monster extends Enemy {
 
         acceleration = data.acceleration;
 
+        offsetSpriteX = data.offsetSpriteX;
+        offsetSpriteY = data.offsetSpriteY;
+
+        /*
+        for(Object e :data.enemies){
+            Position p = (Position)e;
+            Gdx.app.log(GameManager.LOG, "type = " + p.type + "x = " + p.x + "y =" + p.y);
+        }*/
 
     }
 
-    public void finalize() {
-        defineBody();
+    public void setSprite() {
         TextureRegion charStill = new TextureRegion(
                 screen.getEnemyAtlas().findRegion(regionName),
                 regionBeginX, regionBeginY, regionWidth, regionHeight);
@@ -55,6 +62,12 @@ public class Monster extends Enemy {
         setRegion(charStill);
 
         // Movement
+        //setCurrentAcceleration(acceleration);
+    }
+
+    public void finalize() {
+        defineBody();
+        setSprite();
         setCurrentAcceleration(acceleration);
     }
 }

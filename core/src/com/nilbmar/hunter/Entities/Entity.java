@@ -53,6 +53,7 @@ public abstract class Entity extends Sprite {
 
     protected float deltaTime; // Used for TimerComponent - set in update()
 
+    protected int acceleration;
     protected int baseAcceleration;
     protected int currentAcceleration;
     protected Direction currentDirection;
@@ -69,6 +70,9 @@ public abstract class Entity extends Sprite {
         this.startInWorldX = startInWorldX;
         this.startInWorldY = startInWorldY;
 
+        offsetSpriteX = 0;
+        offsetSpriteY = 0;
+
         setPosition(startInWorldX, startInWorldY);
 
         baseAcceleration = 1;
@@ -84,13 +88,63 @@ public abstract class Entity extends Sprite {
         //defineBody();
     }
 
-    public EntityType getEntityType() { return entityType; }
-    public String getName() { return name; }
+    public abstract float getSpawnOtherX();
+    public abstract float getSpawnOtherY();
+    public abstract void finalize();
+
     protected void setName(String name) {
         this.name = name;
     }
-    public abstract float getSpawnOtherX();
-    public abstract float getSpawnOtherY();
+
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
+    }
+
+    public void setRegionBeginX(int regionBeginX) {
+        this.regionBeginX = regionBeginX;
+    }
+
+    public void setRegionBeginY(int regionBeginY) {
+        this.regionBeginY = regionBeginY;
+    }
+
+    @Override
+    public void setRegionWidth(int regionWidth) {
+        this.regionWidth = regionWidth;
+    }
+
+    @Override
+    public void setRegionHeight(int regionHeight) {
+        this.regionHeight = regionHeight;
+    }
+
+    public void setBoundsBeginX(float boundsBeginX) {
+        this.boundsBeginX = boundsBeginX;
+    }
+
+    public void setBoundsBeginY(float boundsBeginY) {
+        this.boundsBeginY = boundsBeginY;
+    }
+
+    public void setBoundsWidth(float boundsWidth) {
+        this.boundsWidth = boundsWidth;
+    }
+
+    public void setBoundsHeight(float boundsHeight) {
+        this.boundsHeight = boundsHeight;
+    }
+
+    public void setOffsetSpriteX(float offsetSpriteX) {
+        this.offsetSpriteX = offsetSpriteX;
+    }
+
+    public void setOffsetSpriteY(float offsetSpriteY) {
+        this.offsetSpriteY = offsetSpriteY;
+    }
+
+    public EntityType getEntityType() { return entityType; }
+    public String getName() { return name; }
+
 
     public MoveComponent getMoveComponent() { return moveComponent; }
     protected void setTimerComponent(float setTimer, ItemType itemType) {
@@ -138,12 +192,12 @@ public abstract class Entity extends Sprite {
 
     public void update(float deltaTime) {
         this.deltaTime = deltaTime;
-        //setPosition(b2Body.getPosition().x - getWidth() / 2,
-          //      b2Body.getPosition().y - getHeight() / 2);
+//        setPosition(b2Body.getPosition().x - getWidth() / 2,
+//              b2Body.getPosition().y - getHeight() / 2);
         // Used to set the b2Body's shape lower on the sprite
         // so only lower-body collides with objects
-        setPosition(b2Body.getPosition().x - getWidth() / 2 + offsetSpriteX,
-                b2Body.getPosition().y - getHeight() / 2 + offsetSpriteY);
+       setPosition(b2Body.getPosition().x - getWidth() / 2 + offsetSpriteX,
+           b2Body.getPosition().y - getHeight() / 2 + offsetSpriteY);
     }
 
     public void draw(Batch batch) {
