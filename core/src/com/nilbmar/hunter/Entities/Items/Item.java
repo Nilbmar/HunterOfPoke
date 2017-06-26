@@ -108,7 +108,5 @@ public abstract class Item extends Entity {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-        setPosition(b2Body.getPosition().x - getWidth() / 2,
-                b2Body.getPosition().y - getHeight() / 2);
     }
 }

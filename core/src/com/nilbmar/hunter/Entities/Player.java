@@ -79,6 +79,7 @@ public class Player extends Entity {
 
         // TODO: PROBABLY CAN REMOVE CHARSTILL AND SETREGION
         // Set up default facing sprite
+        offsetSpriteY = 8 / HunterOfPoke.PPM;
         TextureRegion charStill = new TextureRegion(screen.getPlayerAtlas().findRegion(regionName), 0, 0, 20, 24);
         setBounds(0, 0, 20 / HunterOfPoke.PPM, 24 / HunterOfPoke.PPM);
         setRegion(charStill);
@@ -397,12 +398,6 @@ public class Player extends Entity {
             }
         }
 
-        // Used to set the b2Body's shape lower on the sprite
-        // so only lower-body collides with objects
-        float offsetSpriteY = 8 / HunterOfPoke.PPM;
-
-        setPosition(b2Body.getPosition().x - getWidth() / 2,
-                b2Body.getPosition().y - getHeight() / 2 + offsetSpriteY);
         setDirection(moveComponent.getCurrentDirection());
         setAction(moveComponent.getCurrentAction());
         setRegion(getFrame(deltaTime));

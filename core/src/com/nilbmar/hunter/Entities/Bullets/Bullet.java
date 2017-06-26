@@ -154,12 +154,12 @@ public abstract class Bullet  extends Entity implements Poolable {
     }
 
     public void update(float deltaTime) {
+        super.update(deltaTime);
+
         if (setToDestroy && !destroyed) {
             destroy();
         } else if (!destroyed) {
             move();
-            setPosition(b2Body.getPosition().x - getWidth() / 2,
-                    b2Body.getPosition().y - getHeight() / 2);
             stateTime += deltaTime;
             timeout();
         }

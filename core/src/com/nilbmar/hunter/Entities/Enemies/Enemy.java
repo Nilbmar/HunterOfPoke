@@ -21,11 +21,8 @@ import com.nilbmar.hunter.Enums.EntityType;
  */
 
 public abstract class Enemy extends Entity {
-    protected float startInWorldX;
-    protected float startInWorldY;
+    protected int acceleration;
 
-
-    protected float offsetSpriteY;
 
     protected boolean destroyed;
 
@@ -42,10 +39,6 @@ public abstract class Enemy extends Entity {
 
         setName("Generic Enemy");
         entityType = EntityType.ENEMY;
-
-        // do not remove these
-        this.startInWorldX = startInWorldX;
-        this.startInWorldY = startInWorldY;
 
         destroyed = false;
 
@@ -113,10 +106,6 @@ public abstract class Enemy extends Entity {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-        // Used to set the b2Body's shape lower on the sprite
-        // so only lower-body collides with objects
-        setPosition(b2Body.getPosition().x - getWidth() / 2,
-                b2Body.getPosition().y - getHeight() / 2 + offsetSpriteY);
 
         // TODO: REMOVE - ONLY USING THIS FOR TESTING FIRECOMMAND
         // ONLY ALLOWS SINGLE SHOT

@@ -12,17 +12,6 @@ import com.nilbmar.hunter.Screens.PlayScreen;
  */
 
 public class Monster extends Enemy {
-    protected int regionBeginX;
-    protected int regionBeginY;
-    protected int regionWidth;
-    protected int regionHeight;
-    protected float boundsBeginX;
-    protected float boundsBeginY;
-    protected float boundsWidth;
-    protected float boundsHeight;
-    protected int acceleration;
-    protected float offsetSpriteX;
-
     public Monster(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
     }

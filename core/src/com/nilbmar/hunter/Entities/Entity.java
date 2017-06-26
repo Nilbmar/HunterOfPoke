@@ -33,21 +33,34 @@ public abstract class Entity extends Sprite {
     protected MoveComponent moveComponent;
     protected TimerComponent timerComponent;
 
+    protected float startInWorldX;
+    protected float startInWorldY;
+
+    // Variables for graphics/bounds
     protected String regionName;
-    protected String name;
+    protected int regionBeginX;
+    protected int regionBeginY;
+    protected int regionWidth;
+    protected int regionHeight;
+    protected float boundsBeginX;
+    protected float boundsBeginY;
+    protected float boundsWidth;
+    protected float boundsHeight;
+    protected float offsetSpriteX;
+    protected float offsetSpriteY;
 
     protected EntityType entityType;
 
     protected float deltaTime; // Used for TimerComponent - set in update()
 
-    protected float startInWorldX;
-    protected float startInWorldY;
     protected int baseAcceleration;
     protected int currentAcceleration;
     protected Direction currentDirection;
     protected Direction previousDirection;
     protected Action currentAction;
     protected Action previousAction;
+
+    protected String name;
 
     public Entity(PlayScreen screen, float startInWorldX, float startInWorldY) {
         this.screen = screen;
@@ -125,8 +138,12 @@ public abstract class Entity extends Sprite {
 
     public void update(float deltaTime) {
         this.deltaTime = deltaTime;
-        setPosition(b2Body.getPosition().x - getWidth() / 2,
-                b2Body.getPosition().y - getHeight() / 2);
+        //setPosition(b2Body.getPosition().x - getWidth() / 2,
+          //      b2Body.getPosition().y - getHeight() / 2);
+        // Used to set the b2Body's shape lower on the sprite
+        // so only lower-body collides with objects
+        setPosition(b2Body.getPosition().x - getWidth() / 2 + offsetSpriteX,
+                b2Body.getPosition().y - getHeight() / 2 + offsetSpriteY);
     }
 
     public void draw(Batch batch) {
