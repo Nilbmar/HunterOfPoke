@@ -3,26 +3,29 @@ package com.nilbmar.hunter.Entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
+import com.nilbmar.hunter.Entities.Bullets.Bullet;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.Enemies.EntityData;
+import com.nilbmar.hunter.Entities.Items.Item;
 import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Screens.PlayScreen;
 
 /**
  * Created by sysgeek on 6/26/17.
+ *
+ * Entity Loader
+ * Purpose: Load Entity variables from JSON
  */
 
 public class EntityLoader {
-    Entity entity;
-    EntityData data;
 
-    public EntityLoader(PlayScreen screen, float startX, float startY, String file, EntityType entityType) {
-        //this.entity = entity;
-
+    public Entity load(PlayScreen screen, float startX, float startY, String file, EntityType entityType) {
         FileHandle handle = Gdx.files.internal(file);
         String fileContent = handle.readString();
         Json json = new Json();
-        data = json.fromJson(EntityData.class, fileContent);
+        EntityData data = json.fromJson(EntityData.class, fileContent);
+
+        Entity entity = null;
 
         // TODO: MAYBE PUT BACK IN SEPARATE FUNCTION
         switch(entityType) {
@@ -36,6 +39,14 @@ public class EntityLoader {
                 ((Player) entity).setHitPoints(data.getHitPoints());
                 ((Player) entity).setMaxHitPoints(data.getMaxHitPoints());
                 break;
+            /*
+            case ITEM:
+                entity = new Item(screen, startX, startY);
+                break;
+            case BULLET:
+                entity = new Bullet(screen, startX, startY);
+                break;
+            */
         }
         entity.setName(data.getName());
         entity.setRegionName(data.getRegionName());
@@ -56,9 +67,7 @@ public class EntityLoader {
         entity.setOffsetSpriteY(data.getOffsetSpriteY());
 
         entity.finalize();
-    }
 
-    public Entity load() {
         return entity;
     }
 }

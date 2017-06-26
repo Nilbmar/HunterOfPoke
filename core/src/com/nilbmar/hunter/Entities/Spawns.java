@@ -36,23 +36,13 @@ public class Spawns implements Disposable {
         this.type = type;
     }
 
-    public Enemy getEnemy() {
+    public Enemy spawnEnemy() {
         String file = "json/" + enemyType.getName() + ".json";
 
-        EntityLoader loader = new EntityLoader(screen, getX(), getY(), file, EntityType.ENEMY);
-        Enemy enemy = (Enemy) loader.load();
+        EntityLoader loader = new EntityLoader();
+        return (Enemy) loader.load(screen, getX(), getY(), file, EntityType.ENEMY);
         //enemy.finalize();
-        return enemy;
-    }
-
-    public Monster getMonster() {
-        String file = "json/" + enemyType.getName() + ".json";
-
-        Monster monster = new Monster(screen, getX(), getY());
-        monster.loadJson(file);
-        monster.finalize();
-
-        return monster;
+        //return enemy;
     }
 
     public Item spawnItem() {
