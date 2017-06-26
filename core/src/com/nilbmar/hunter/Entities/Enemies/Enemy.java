@@ -37,10 +37,6 @@ public abstract class Enemy extends Entity {
     int fireCount = 1;
     FireCommand fire;
 
-    public Enemy() {
-
-    }
-
     public Enemy(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
 

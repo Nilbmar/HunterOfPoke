@@ -40,24 +40,14 @@ public class Spawns implements Disposable {
         this.type = type;
     }
 
-    public Monster getMonster(String jsonFile) {
-        String file = "json/" + jsonFile + ".json";
-        FileHandle handle = Gdx.files.internal(file);
-        String fileContent = handle.readString();
-        Json json = new Json();
+    public Monster getMonster() {
+        String file = "json/" + enemyType.getName() + ".json";
+
         Monster monster = new Monster(screen, getX(), getY());
-        monster = json.fromJson(Monster.class, fileContent);
+        monster.loadJson(file);
+        monster.finalize();
 
         return monster;
-        //for (Object e : )
-
-        /*
-         for(Object e :data.enemies){
-            Position p = (Position)e;
-            Gdx.app.log(GameManager.LOG, "type = " + p.type + "x = " + p.x + "y =" + p.y);
-         */
-
-
     }
 
     public Enemy spawnEnemy() {

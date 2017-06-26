@@ -1,9 +1,6 @@
 package com.nilbmar.hunter.Entities.Enemies;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.nilbmar.hunter.Commands.FireCommand;
-import com.nilbmar.hunter.Enums.BulletType;
-import com.nilbmar.hunter.Enums.ShotType;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 
@@ -24,7 +21,7 @@ public class BatEnemy extends Enemy {
         offsetSpriteY = 0 / HunterOfPoke.PPM;
 
         TextureRegion charStill = new TextureRegion(screen.getEnemyAtlas().findRegion(regionName), 0, 0, 16, 16);
-        setBounds(0, 0, 16 / HunterOfPoke.PPM, 16 / HunterOfPoke.PPM);
+        setBounds(0 / HunterOfPoke.PPM, 0 / HunterOfPoke.PPM, 16 / HunterOfPoke.PPM, 16 / HunterOfPoke.PPM);
         setRegion(charStill);
 
         // Movement
