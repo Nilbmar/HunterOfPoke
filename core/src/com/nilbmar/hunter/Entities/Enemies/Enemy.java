@@ -4,10 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Shape;
-import com.nilbmar.hunter.Commands.FireCommand;
 import com.nilbmar.hunter.Entities.Entity;
-import com.nilbmar.hunter.Enums.BulletType;
-import com.nilbmar.hunter.Enums.ShotType;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Enums.Action;
@@ -28,9 +25,7 @@ public class Enemy extends Entity {
     protected int hitPoints;
     protected int maxHitPoints;
 
-    // TODO: REMOVE FIRECOMMAND
-    int fireCount = 1;
-    FireCommand fire;
+
 
     public Enemy(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
@@ -50,7 +45,7 @@ public class Enemy extends Entity {
         //setCurrentAcceleration(acceleration);
 
 
-        fire = new FireCommand(screen.getBulletPatterns(), BulletType.BALL, ShotType.SINGLE);
+
     }
 
     public void setHitPoints(int hitPoints) { this.hitPoints = hitPoints; }
@@ -125,13 +120,5 @@ public class Enemy extends Entity {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-
-        // TODO: REMOVE - ONLY USING THIS FOR TESTING FIRECOMMAND
-        // ONLY ALLOWS SINGLE SHOT
-        if (fireCount >= 1) {
-            fire.setType(BulletType.BALL);
-            fire.execute(this);
-            fireCount--;
-        }
     }
 }

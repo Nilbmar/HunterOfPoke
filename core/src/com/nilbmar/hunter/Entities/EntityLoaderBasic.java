@@ -3,39 +3,40 @@ package com.nilbmar.hunter.Entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
-import com.nilbmar.hunter.Entities.Bullets.Bullet;
+import com.nilbmar.hunter.Entities.Decorators.WeaponDecorator;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.Enemies.EntityData;
-import com.nilbmar.hunter.Entities.Items.Item;
 import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Screens.PlayScreen;
 
 /**
- * Created by sysgeek on 6/26/17.
- *
- * Entity Loader
- * Purpose: Load Entity variables from JSON
+ * Created by sysgeek on 6/27/17.
  */
 
-public class EntityLoader {
+public class EntityLoaderBasic {
+    // TODO: RENAME
+    Entity entity;
+    String file;
+    EntityType entityType;
 
-    public Entity load(PlayScreen screen, float startX, float startY, String file, EntityType entityType) {
+    public void setEntityType(EntityType entityType) { this.entityType = entityType; }
+    public void setFile(String file) { this.file = file; }
+
+
+    public void load() {
         FileHandle handle = Gdx.files.internal(file);
         String fileContent = handle.readString();
         Json json = new Json();
         EntityData data = json.fromJson(EntityData.class, fileContent);
-
-        Entity entity = null;
-
         // TODO: MAYBE PUT BACK IN SEPARATE FUNCTION
         switch(entityType) {
             case ENEMY:
-                entity = new Enemy(screen, startX, startY);
+
                 ((Enemy) entity).setHitPoints(data.getHitPoints());
                 ((Enemy) entity).setMaxHitPoints(data.getMaxHitPoints());
                 break;
             case PLAYER:
-                entity = new Player(screen, startX, startY);
+
                 ((Player) entity).setHitPoints(data.getHitPoints());
                 ((Player) entity).setMaxHitPoints(data.getMaxHitPoints());
                 break;
@@ -68,6 +69,17 @@ public class EntityLoader {
 
         entity.finalize();
 
+        //return entity;
+    }
+
+    public Entity decorate(PlayScreen screen, float startX, float startY, String decorations) {
+        entity = null;
+        switch(1) {
+            case 1:
+                entity = new WeaponDecorator(screen, startX, startY);
+                load();
+            break;
+        }
         return entity;
     }
 }

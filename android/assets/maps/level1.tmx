@@ -72,18 +72,21 @@
  <objectgroup name="spawn">
   <object id="153" x="304" y="100" width="16" height="16">
    <properties>
+    <property name="Decorators" value="none"/>
     <property name="EnemyType" value="swarm"/>
     <property name="monster" value=""/>
    </properties>
   </object>
   <object id="154" x="640" y="32" width="16" height="16">
    <properties>
+    <property name="Decorators" value="fire"/>
     <property name="EnemyType" value="bat"/>
     <property name="monster" value=""/>
    </properties>
   </object>
   <object id="155" x="160" y="112" width="16" height="16">
    <properties>
+    <property name="Decorators" value="fire"/>
     <property name="EnemyType" value="bat"/>
     <property name="monster" value=""/>
    </properties>
