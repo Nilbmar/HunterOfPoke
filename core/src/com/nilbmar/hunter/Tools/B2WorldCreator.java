@@ -103,13 +103,14 @@ public class B2WorldCreator {
             // Used for checking if EnemyType exists
             String enemy = object.getProperties().get("EnemyType", String.class);
             String decorators = object.getProperties().get("Decorators", String.class);
+            String shots = object.getProperties().get("ShotType", String.class);
 
             Spawns spawn = new Spawns(screen, map, posX, posY, SpawnType.ENEMY);
 
             // Check if EnemyType exists and create spawn if so
             if (EnemyType.contains(enemy) != null) {
                 spawn.setEnemyType(EnemyType.contains(enemy));
-                spawn.setDecorators(decorators);
+                spawn.setDecorators(decorators + ":" + shots);
                 spawns.add(spawn);
             }
         }

@@ -8,25 +8,21 @@ import com.nilbmar.hunter.Screens.PlayScreen;
 /**
  * Created by sysgeek on 6/27/17.
  *
- * EnemyDecorator: WeaponDecorator
- * Purpose: Add a FireCommand to Enemy
- * from Tiled custom property
+ * EnemyDecorator: SomeOtherDecorator
+ * Purpose: Testing switch statements for decorators
+ * Currently adds a FireCommand with
+ * BulletType.FIRE AND ShotType.TWIN default
  */
 
-public class WeaponDecorator extends EnemyDecorator {
+public class SomeOtherDecorator extends EnemyDecorator {
     // TODO: REMOVE FIRECOMMAND
-    int fireCount = 1;
+    int fireCount = 5;
     FireCommand fire;
-    BulletType bulletType;
-    ShotType shotType;
 
-    public WeaponDecorator(PlayScreen screen, float startInWorldX, float startInWorldY,
-                           BulletType bulletType, ShotType shotType) {
+    public SomeOtherDecorator(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
 
-        this.bulletType = bulletType;
-        this.shotType = shotType;
-        fire = new FireCommand(screen.getBulletPatterns(), bulletType, shotType);
+        fire = new FireCommand(screen.getBulletPatterns(), BulletType.FIRE, ShotType.TWIN);
     }
 
     @Override
@@ -36,7 +32,7 @@ public class WeaponDecorator extends EnemyDecorator {
         // TODO: REMOVE - ONLY USING THIS FOR TESTING FIRECOMMAND
         // ONLY ALLOWS SINGLE SHOT
         if (fireCount >= 1) {
-            fire.setType(bulletType);
+            fire.setType(BulletType.FIRE);
             fire.execute(this);
             fireCount--;
         }
