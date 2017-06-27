@@ -13,13 +13,18 @@ import com.nilbmar.hunter.Screens.PlayScreen;
 
 /**
  * Created by sysgeek on 6/27/17.
+ *
+ * Entities: EntityLoader
+ * Purpose: Load json into an entity's variables
+ * as well as decide if a Decorator should be added
+ *
+ * // TODO: CURRENTLY ONLY ADDS DECORATOR FOR ENEMIES
  */
 
 public class EntityLoader {
-    // TODO: RENAME
-    Entity entity;
-    String file;
-    EntityType entityType;
+    private Entity entity;
+    private String file;
+    private EntityType entityType;
 
     public void setEntityType(EntityType entityType) { this.entityType = entityType; }
     public void setFile(String file) { this.file = file; }
@@ -79,6 +84,12 @@ public class EntityLoader {
         Array<String> arrDecorations = new Array<String>(decorations.split(" "));
         Decorations dec;
 
+        // TODO: BE ABLE TO TACK ON _SINGLE OR _TWIN etc FOR FIRE
+        // Possibly use a second string split?
+
+        // If Tiled spawn point has custom property that contains a Decoration
+        // create that type of Enemy, otherwise set a plain entity
+        // will later on make decorations for other entity types besides enemies
         for (String str : arrDecorations) {
             dec = Decorations.contains(str);
             if (dec == null) {
@@ -94,8 +105,9 @@ public class EntityLoader {
 
                     break;
                 case NONE:
-                default:
                     setPlainEntity(screen, startX, startY);
+                    break;
+                default:
                     break;
             }
         }
