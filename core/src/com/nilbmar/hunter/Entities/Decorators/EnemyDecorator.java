@@ -12,9 +12,4 @@ public abstract class EnemyDecorator extends Enemy {
     public EnemyDecorator(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
     }
-
-    @Override
-    public void update(float deltaTime) {
-        super.update(deltaTime);
-    }
 }

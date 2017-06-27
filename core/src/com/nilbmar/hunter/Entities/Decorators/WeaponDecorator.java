@@ -1,7 +1,6 @@
 package com.nilbmar.hunter.Entities.Decorators;
 
 import com.nilbmar.hunter.Commands.FireCommand;
-import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Enums.BulletType;
 import com.nilbmar.hunter.Enums.ShotType;
 import com.nilbmar.hunter.Screens.PlayScreen;
