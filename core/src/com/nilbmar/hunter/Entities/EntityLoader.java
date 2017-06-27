@@ -2,10 +2,12 @@ package com.nilbmar.hunter.Entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.nilbmar.hunter.Entities.Decorators.WeaponDecorator;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.Enemies.EntityData;
+import com.nilbmar.hunter.Enums.Decorations;
 import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Screens.PlayScreen;
 
@@ -13,7 +15,7 @@ import com.nilbmar.hunter.Screens.PlayScreen;
  * Created by sysgeek on 6/27/17.
  */
 
-public class EntityLoaderBasic {
+public class EntityLoader {
     // TODO: RENAME
     Entity entity;
     String file;
@@ -23,7 +25,7 @@ public class EntityLoaderBasic {
     public void setFile(String file) { this.file = file; }
 
 
-    public void load() {
+    public void loadJson() {
         FileHandle handle = Gdx.files.internal(file);
         String fileContent = handle.readString();
         Json json = new Json();
@@ -67,19 +69,50 @@ public class EntityLoaderBasic {
         entity.setOffsetSpriteX(data.getOffsetSpriteX());
         entity.setOffsetSpriteY(data.getOffsetSpriteY());
 
-        entity.finalize();
+        entity.prepareToDraw();
 
         //return entity;
     }
 
     public Entity decorate(PlayScreen screen, float startX, float startY, String decorations) {
         entity = null;
-        switch(1) {
-            case 1:
-                entity = new WeaponDecorator(screen, startX, startY);
-                load();
-            break;
+        Array<String> arrDecorations = new Array<String>(decorations.split(" "));
+        Decorations dec;
+
+        for (String str : arrDecorations) {
+            dec = Decorations.contains(str);
+            if (dec == null) {
+                dec = Decorations.NONE;
+            }
+
+            switch(dec) {
+                case FIRE:
+                    entity = new WeaponDecorator(screen, startX, startY);
+                    loadJson();
+                    break;
+                case NO_COLLISION:
+
+                    break;
+                case NONE:
+                default:
+                    setPlainEntity(screen, startX, startY);
+                    break;
+            }
         }
+
         return entity;
+    }
+
+    private void setPlainEntity(PlayScreen screen, float startX, float startY) {
+        switch (entityType) {
+            case ENEMY:
+                entity = new Enemy(screen, startX, startY);
+                loadJson();
+                break;
+            case PLAYER:
+                entity = new Player(screen, startX, startY);
+                loadJson();
+                break;
+        }
     }
 }

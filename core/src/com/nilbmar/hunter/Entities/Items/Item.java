@@ -51,7 +51,7 @@ public abstract class Item extends Entity {
     }
 
     @Override
-    public void finalize() {
+    public void prepareToDraw() {
 
     }
 

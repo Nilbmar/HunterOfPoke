@@ -90,7 +90,7 @@ public abstract class Entity extends Sprite {
 
     public abstract float getSpawnOtherX();
     public abstract float getSpawnOtherY();
-    public abstract void finalize();
+    public abstract void prepareToDraw();
 
     protected void setName(String name) {
         this.name = name;
@@ -192,8 +192,7 @@ public abstract class Entity extends Sprite {
 
     public void update(float deltaTime) {
         this.deltaTime = deltaTime;
-//        setPosition(b2Body.getPosition().x - getWidth() / 2,
-//              b2Body.getPosition().y - getHeight() / 2);
+
         // Used to set the b2Body's shape lower on the sprite
         // so only lower-body collides with objects
        setPosition(b2Body.getPosition().x - getWidth() / 2 + offsetSpriteX,

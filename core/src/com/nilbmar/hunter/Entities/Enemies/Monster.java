@@ -28,7 +28,7 @@ public class Monster extends Enemy {
         //setCurrentAcceleration(acceleration);
     }
 
-    public void finalize() {
+    public void prepareToDraw() {
         defineBody();
         setSprite();
         setCurrentAcceleration(acceleration);

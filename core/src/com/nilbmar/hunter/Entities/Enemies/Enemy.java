@@ -106,7 +106,7 @@ public class Enemy extends Entity {
         setRegion(charStill);
     }
 
-    public void finalize() {
+    public void prepareToDraw() {
         defineBody();
         setSprite();
     }

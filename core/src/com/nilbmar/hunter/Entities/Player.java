@@ -86,7 +86,7 @@ public class Player extends Entity {
     }
 
     @Override
-    public void finalize() {
+    public void prepareToDraw() {
 
     }
 

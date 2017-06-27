@@ -58,7 +58,7 @@ public abstract class Bullet  extends Entity implements Poolable {
     }
 
     @Override
-    public void finalize() {
+    public void prepareToDraw() {
 
     }
 
