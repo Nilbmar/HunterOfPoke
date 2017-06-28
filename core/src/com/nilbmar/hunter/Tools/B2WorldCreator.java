@@ -22,6 +22,9 @@ import com.nilbmar.hunter.Enums.SpawnType;
 
 /**
  * Created by sysgeek on 4/9/17.
+ *
+ * Tool: B2WorldCreator
+ * Purpose: Take a Tiled map and load objects based on layers
  */
 
 public class B2WorldCreator {
@@ -103,14 +106,14 @@ public class B2WorldCreator {
             // Used for checking if EnemyType exists
             String enemy = object.getProperties().get("EnemyType", String.class);
             String decorators = object.getProperties().get("Decorators", String.class);
-            String shots = object.getProperties().get("ShotType", String.class);
+            String bulletProperties = object.getProperties().get("BulletProperties", String.class);
 
             Spawns spawn = new Spawns(screen, map, posX, posY, SpawnType.ENEMY);
 
             // Check if EnemyType exists and create spawn if so
             if (EnemyType.contains(enemy) != null) {
                 spawn.setEnemyType(EnemyType.contains(enemy));
-                spawn.setDecorators(decorators + ":" + shots);
+                spawn.setDecorators(decorators + ":" + bulletProperties);
                 spawns.add(spawn);
             }
         }

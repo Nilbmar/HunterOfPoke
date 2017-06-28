@@ -8,10 +8,8 @@ import com.nilbmar.hunter.Entities.Decorators.SomeOtherDecorator;
 import com.nilbmar.hunter.Entities.Decorators.WeaponDecorator;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.Enemies.EntityData;
-import com.nilbmar.hunter.Enums.BulletType;
 import com.nilbmar.hunter.Enums.Decorations;
 import com.nilbmar.hunter.Enums.EntityType;
-import com.nilbmar.hunter.Enums.ShotType;
 import com.nilbmar.hunter.Screens.PlayScreen;
 
 /**
@@ -80,60 +78,35 @@ public class EntityLoader {
         //return entity;
     }
 
-    private Entity addFireDecorator(PlayScreen screen, float startX, float startY, Array<String> fullProperties) {
-        Array<String> fireProperties = null;
-
-        // Set a default Bullet and Shot type in case nothing is set in Tiled
-        BulletType bulletType = BulletType.BALL;
-        ShotType shotType = ShotType.SINGLE;
-
-        // If the Tiled custom property "ShotType" contains data
-        // split it apart with a blank space as the separator
-        if (!fullProperties.get(1).equals("null")) {
-            fireProperties = new Array<String>(fullProperties.get(1).split(" "));
-            System.out.println(fullProperties.get(1));
-        }
-
-        // Switch the BulletType and ShotType based on
-        // custom property "ShotType" in Tiled
-        // index[0] is the ShotType enum
-        // index[1] is the BulletType enum
-        // TODO: SWAP THESE OUT FOR ENUM.CONTAINS() SWITCH STATEMENTS
-        if (fireProperties != null) {
-            if (fireProperties.get(0).contains("twin")) {
-                shotType = ShotType.TWIN;
-            }
-            if (fireProperties.get(1).contains("fire")) {
-                bulletType = BulletType.FIRE;
-            }
-        }
-
-        return new WeaponDecorator(screen, startX, startY, bulletType, shotType);
-    }
-
     public Entity decorate(PlayScreen screen, float startX, float startY, String properties) {
         entity = null;
+        // Custom Properties set in Tiled
+        // Full Properties contain: Decorations + ":" + BulletProperties
+        // Colon is used to separate the decorations from the bullet properties
         Array<String> fullProperties = new Array<String>(properties.split(":"));
+
+        // Decorations contain all Decorations listed in Tiled custom property
+        // separated by a blank space
         Array<String> arrDecorations = new Array<String>(fullProperties.get(0).split(" "));
 
-
         Decorations dec;
-
-        // TODO: BE ABLE TO TACK ON _SINGLE OR _TWIN etc FOR FIRE
-        // Possibly use a second string split?
 
         // If Tiled spawn point has custom property that contains a Decoration
         // create that type of Enemy, otherwise set a plain entity
         // will later on make decorations for other entity types besides enemies
         for (String str : arrDecorations) {
+            // Check if Decorations enum has one with a value equal to str
             dec = Decorations.contains(str);
             if (dec == null) {
+                // Make sure dec is set even if the custom property
+                // uses the wrong string or no string
                 dec = Decorations.NONE;
             }
 
+            // Add decorators
             switch(dec) {
                 case FIRE:
-                    entity = addFireDecorator(screen, startX, startY, fullProperties);
+                    entity = new WeaponDecorator(screen, startX, startY, fullProperties);
                     break;
                 case NO_COLLISION: // TODO: THIS IS CURRENTLY STILL ADDING A FIRECOMMAND
                     entity = new SomeOtherDecorator(screen, startX, startY);
@@ -149,6 +122,7 @@ public class EntityLoader {
         if (entity != null) {
             loadJson();
         }
+
         return entity;
     }
 

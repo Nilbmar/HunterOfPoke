@@ -79,9 +79,9 @@
   </object>
   <object id="154" x="640" y="32" width="16" height="16">
    <properties>
+    <property name="BulletProperties" value="twin fire"/>
     <property name="Decorators" value="fire"/>
     <property name="EnemyType" value="bat"/>
-    <property name="ShotType" value="twin fire"/>
     <property name="monster" value=""/>
    </properties>
   </object>
