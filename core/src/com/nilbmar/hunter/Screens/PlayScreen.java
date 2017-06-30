@@ -21,6 +21,7 @@ import com.nilbmar.hunter.Entities.Player;
 import com.nilbmar.hunter.Entities.Spawns;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Scenes.Hud;
+import com.nilbmar.hunter.Tools.AssetHandler;
 import com.nilbmar.hunter.Tools.B2WorldCreator;
 import com.nilbmar.hunter.Tools.BulletCreator;
 import com.nilbmar.hunter.Tools.BulletPatternHandler;
@@ -75,6 +76,8 @@ public class PlayScreen implements Screen {
     private BulletCreator bulletCreator;
     private BulletPatternHandler bulletPatterns;
 
+    private AssetHandler assets = new AssetHandler();
+
     // Sprite Variables
     private TextureAtlas playerAtlas;
     private TextureAtlas enemyAtlas;
@@ -88,11 +91,15 @@ public class PlayScreen implements Screen {
         hud = new Hud(game.batch);
         viewHUD = false;
 
+        // Load Assets
+        assets.loadImages();
+        assets.manager.finishLoading();
+        assets.setTextureAtlases();
         // Load Sprites
-        playerAtlas = new TextureAtlas("sprites/charFem.pack");
-        enemyAtlas = new TextureAtlas("sprites/characters.pack");
-        bulletAtlas = new TextureAtlas("sprites/ammo_and_effects.pack");
-        itemAtlas = new TextureAtlas("sprites/pickups.pack");
+        //playerAtlas = assets.manager.get(assets.getPlayerPack());
+        enemyAtlas = assets.manager.get(assets.enemyPack);
+        bulletAtlas = assets.manager.get(assets.bulletPack);
+        itemAtlas = assets.manager.get(assets.itemPack);
 
         //enemies = new Array<Enemy>();
         entities = new Array<Entity>();
@@ -129,6 +136,7 @@ public class PlayScreen implements Screen {
 
 
 
+    public AssetHandler getAssetsHandler() { return assets; }
     public TextureAtlas getPlayerAtlas() { return playerAtlas; }
     public TextureAtlas getEnemyAtlas() { return enemyAtlas; }
     public TextureAtlas getBulletAtlas() { return bulletAtlas; }
@@ -313,6 +321,7 @@ public class PlayScreen implements Screen {
         map.dispose();
         b2dr.dispose();
         hud.dispose();
+        assets.dispose();
         playerAtlas.dispose();
         bulletAtlas.dispose();
         enemyAtlas.dispose();

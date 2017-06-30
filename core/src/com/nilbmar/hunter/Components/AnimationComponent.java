@@ -1,7 +1,9 @@
 package com.nilbmar.hunter.Components;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Enums.Action;
 import com.nilbmar.hunter.Enums.Direction;
@@ -22,6 +24,7 @@ import com.nilbmar.hunter.Enums.Direction;
 
 public class AnimationComponent {
     private PlayScreen screen;
+    private TextureAtlas atlas;
     private Action currentAction;
     private Direction currentDirection;
     private FramesComponent framesComp;
@@ -35,7 +38,7 @@ public class AnimationComponent {
 
     Array<TextureRegion> frames;
 
-    public AnimationComponent(PlayScreen screen, FramesComponent framesComp, String regionName) {
+    public AnimationComponent(PlayScreen screen, EntityType entityType, FramesComponent framesComp, String regionName) {
         this.screen = screen;
         this.framesComp = framesComp;
         this.regionName = regionName;
@@ -49,10 +52,30 @@ public class AnimationComponent {
         currentDirection = Direction.DOWN;
         currentAction = Action.STILL;
 
+        setAtlas(entityType);
+
         frames = new Array<TextureRegion>();
 
         // Default stance - walk-down
-        frames.add(new TextureRegion(screen.getPlayerAtlas().findRegion(regionName), regionX, regionY, 32, 32));
+        frames.add(new TextureRegion(atlas.findRegion(regionName), regionX, regionY, 32, 32));
+    }
+
+    private void setAtlas(EntityType entityType) {
+        switch (entityType) {
+            case PLAYER:
+                atlas = screen.getAssetsHandler().getPlayerAtlas();
+                break;
+            case ENEMY:
+                atlas = screen.getAssetsHandler().getEnemyAtlas();
+                break;
+            case BULLET:
+                atlas = screen.getAssetsHandler().getBulletAtlas();
+                break;
+            case ITEM:
+                atlas = screen.getAssetsHandler().getItemAtlas();
+                break;
+        }
+
     }
 
     public void setRegionName(String regionName) {
@@ -86,7 +109,7 @@ public class AnimationComponent {
                 x = (int) framesComp.getWalkFrames(currentDirection, i).x;
                 y = (int) framesComp.getWalkFrames(currentDirection, i).y;
 
-                frames.add(new TextureRegion(screen.getPlayerAtlas().findRegion(regionName), x, y, width, height));
+                frames.add(new TextureRegion(atlas.findRegion(regionName), x, y, width, height));
             }
         } else if (currentAction == Action.ATTACK || currentAction == Action.USE) {
             frames.clear(); // clears out the default stance
@@ -97,7 +120,7 @@ public class AnimationComponent {
             // Action.ATTACK and Action.USE only uses a single frame
             int x = (int) framesComp.getUseFrames(currentDirection).x;
             int y = (int) framesComp.getUseFrames(currentDirection).y;
-            frames.add(new TextureRegion(screen.getPlayerAtlas().findRegion(regionName),
+            frames.add(new TextureRegion(atlas.findRegion(regionName),
                     x, y, width, height));
         } else if (currentAction == Action.STILL) {
             frames.clear(); // clears out the default stance
@@ -105,7 +128,7 @@ public class AnimationComponent {
             // Action.STILL only uses a single frame
             int x = (int) framesComp.getStillFrames(currentDirection).x;
             int y = (int) framesComp.getStillFrames(currentDirection).y;
-            frames.add(new TextureRegion(screen.getPlayerAtlas().findRegion(regionName),
+            frames.add(new TextureRegion(atlas.findRegion(regionName),
                     x, y, width, height));
         }
         return frames;
