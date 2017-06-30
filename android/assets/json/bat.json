@@ -1,0 +1,17 @@
+{
+	"name":"Batty",
+	"hitPoints": 2,
+	"maxHitPoints": 4,
+	"regionName": "bats",
+	"regionBeginX": 0,
+	"regionBeginY": 0,
+	"regionWidth": 16,
+	"regionHeight": 16,
+	"boundsBeginX": 0,
+	"boundsBeginY": 0,
+	"boundsWidth": 16,
+	"boundsHeight": 16,
+	"offsetSpriteX": 0,
+	"offsetSpriteY": 0,
+	"acceleration": 1
+}
