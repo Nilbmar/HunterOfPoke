@@ -1,20 +1,19 @@
 package com.nilbmar.hunter.Entities.Bullets;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.utils.Array;
 import com.nilbmar.hunter.Components.MoveComponent;
-import com.nilbmar.hunter.Entities.Bullets.Bullet;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 
 /**
  * Created by sysgeek on 6/14/17.
+ *
+ * Bullet: FireBullet
+ * Purpose: Flame shaped bullet like out of a flamethrower
  */
 
 public class FireBullet extends Bullet {
@@ -27,8 +26,8 @@ public class FireBullet extends Bullet {
 
         regionName = "flamethrower_bullet";
         frames = new Array<TextureRegion>();
-        frames.add(new TextureRegion(screen.getBulletAtlas().findRegion(regionName), 0, 0, 13, 10));
-        frames.add(new TextureRegion(screen.getBulletAtlas().findRegion(regionName), 13, 0, 13, 10));
+        frames.add(new TextureRegion(atlas.findRegion(regionName), 0, 0, 13, 10));
+        frames.add(new TextureRegion(atlas.findRegion(regionName), 13, 0, 13, 10));
         animation = new Animation(0.2f, frames);
         animation.setPlayMode(Animation.PlayMode.LOOP);
         setRegion((TextureRegion) animation.getKeyFrame(0));

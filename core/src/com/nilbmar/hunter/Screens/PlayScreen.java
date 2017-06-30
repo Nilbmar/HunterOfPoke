@@ -78,12 +78,6 @@ public class PlayScreen implements Screen {
 
     private AssetHandler assets = new AssetHandler();
 
-    // Sprite Variables
-    private TextureAtlas playerAtlas;
-    private TextureAtlas enemyAtlas;
-    private TextureAtlas bulletAtlas;
-    private TextureAtlas itemAtlas;
-
     public PlayScreen(HunterOfPoke game) {
         this.game = game;
         gameCam = new OrthographicCamera();
@@ -95,11 +89,6 @@ public class PlayScreen implements Screen {
         assets.loadImages();
         assets.manager.finishLoading();
         assets.setTextureAtlases();
-        // Load Sprites
-        //playerAtlas = assets.manager.get(assets.getPlayerPack());
-        enemyAtlas = assets.manager.get(assets.enemyPack);
-        bulletAtlas = assets.manager.get(assets.bulletPack);
-        itemAtlas = assets.manager.get(assets.itemPack);
 
         //enemies = new Array<Enemy>();
         entities = new Array<Entity>();
@@ -137,10 +126,6 @@ public class PlayScreen implements Screen {
 
 
     public AssetHandler getAssetsHandler() { return assets; }
-    public TextureAtlas getPlayerAtlas() { return playerAtlas; }
-    public TextureAtlas getEnemyAtlas() { return enemyAtlas; }
-    public TextureAtlas getBulletAtlas() { return bulletAtlas; }
-    public TextureAtlas getItemAtlas() { return itemAtlas; }
     public World getWorld() { return world; }
     public TiledMap getMap() { return map; }
     public Hud getHUD() { return hud; }
@@ -322,10 +307,6 @@ public class PlayScreen implements Screen {
         b2dr.dispose();
         hud.dispose();
         assets.dispose();
-        playerAtlas.dispose();
-        bulletAtlas.dispose();
-        enemyAtlas.dispose();
-        itemAtlas.dispose();
         //sound.dispose();
     }
 }

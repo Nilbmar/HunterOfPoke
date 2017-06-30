@@ -19,20 +19,19 @@ import com.nilbmar.hunter.Enums.EntityType;
  */
 
 public class Enemy extends Entity {
+
     protected boolean destroyed;
 
     protected float stateTimer; // Used to getFrame() of animation
     protected int hitPoints;
     protected int maxHitPoints;
 
-
-
     public Enemy(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
 
         setName("Generic Enemy");
         entityType = EntityType.ENEMY;
-
+        atlas = screen.getAssetsHandler().getEnemyAtlas();
         destroyed = false;
 
         currentDirection = Direction.DOWN;
@@ -99,7 +98,7 @@ public class Enemy extends Entity {
 
     private void setSprite() {
         TextureRegion charStill = new TextureRegion(
-                screen.getEnemyAtlas().findRegion(regionName),
+                atlas.findRegion(regionName),
                 regionBeginX, regionBeginY, regionWidth, regionHeight);
         setBounds(boundsBeginX / HunterOfPoke.PPM, boundsBeginY / HunterOfPoke.PPM,
                 boundsWidth / HunterOfPoke.PPM, boundsHeight / HunterOfPoke.PPM);

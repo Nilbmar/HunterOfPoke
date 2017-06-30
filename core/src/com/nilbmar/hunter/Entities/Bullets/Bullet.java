@@ -53,6 +53,7 @@ public abstract class Bullet  extends Entity implements Poolable {
         this.rotation = rotation;
 
         entityType = EntityType.BULLET;
+        atlas = screen.getAssetsHandler().getBulletAtlas();
 
         setPosition(startInWorldX, startInWorldY);
     }

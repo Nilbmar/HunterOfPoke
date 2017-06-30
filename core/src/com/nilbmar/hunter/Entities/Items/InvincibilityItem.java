@@ -36,7 +36,7 @@ public class InvincibilityItem extends Item {
         setName("Invincibility");
 
         regionName = "item_wine";
-        TextureRegion charStill = new TextureRegion(screen.getItemAtlas().findRegion(regionName), 0, 0, 32, 66);
+        TextureRegion charStill = new TextureRegion(atlas.findRegion(regionName), 0, 0, 32, 66);
         setBounds(0, 0, 8 / HunterOfPoke.PPM, 16 / HunterOfPoke.PPM);
         setRegion(charStill);
     }

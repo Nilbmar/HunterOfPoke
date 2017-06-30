@@ -37,6 +37,7 @@ public abstract class Item extends Entity {
 
         setName("Generic Item");
         entityType = EntityType.ITEM;
+        atlas = screen.getAssetsHandler().getItemAtlas();
 
         destroyed = false;
         itemEffectTime = 1f;

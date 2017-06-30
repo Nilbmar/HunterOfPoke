@@ -1,24 +1,22 @@
 package com.nilbmar.hunter.Entities.Bullets;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.utils.Array;
-import com.nilbmar.hunter.Components.BodyComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
-import com.nilbmar.hunter.Entities.Bullets.Bullet;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
-import com.nilbmar.hunter.Tools.BulletCreator;
-
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 
 /**
  * Created by sysgeek on 4/22/17.
+ *
+ * Bullet: BulletA
+ * Purpose: Ball shaped bullet
+ * TODO: RENAME
+ * USED THE NAME BulletA BECAUSE OF
+ * IMAGE FILE NAMED BulletA
  */
 
 public class BulletA extends Bullet {
@@ -30,7 +28,7 @@ public class BulletA extends Bullet {
 
         regionName = "bulleta";
         frames = new Array<TextureRegion>();
-        frames.add(new TextureRegion(screen.getBulletAtlas().findRegion(regionName), 0, 0, 6, 6));
+        frames.add(new TextureRegion(atlas.findRegion(regionName), 0, 0, 6, 6));
         animation = new Animation(0f, frames);
         animation.setPlayMode(Animation.PlayMode.NORMAL);
         setRegion((TextureRegion) animation.getKeyFrame(0));
