@@ -182,26 +182,26 @@ public class Player extends Entity {
     private String getRegionName() {
       switch (currentDirection) {
           case UP:
-              regionName = "1_north";
+              regionName = "north";
               break;
           case UP_LEFT:
           case UP_RIGHT:
-              regionName = "1_diagup";
+              regionName = "diagup";
               break;
           case DOWN:
               if (currentAction == Action.WALKING) {
-                  regionName = "1_south";
+                  regionName = "south";
               } else {
                   regionName = "default";
               }
               break;
           case DOWN_LEFT:
           case DOWN_RIGHT:
-              regionName = "1_diagdown";
+              regionName = "diagdown";
               break;
           case LEFT:
           case RIGHT:
-              regionName = "1_side";
+              regionName = "side";
               break;
       }
 
