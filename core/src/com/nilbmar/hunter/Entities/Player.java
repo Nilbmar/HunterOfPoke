@@ -41,6 +41,7 @@ public class Player extends Entity {
     private AnimationComponent animComp;
     private Animation charWalk; // TODO: CHANGE TO charAnim
     private int walkSteps; // How many images in a full walk cycle
+    private boolean updateTextureAtlas = false;
 
     // Componenets
     private InventoryComponent inventoryComponent;
@@ -179,6 +180,11 @@ public class Player extends Entity {
         currentAction = act;
     }
 
+    // Change player's TextureAtlas in the AnimationComponent
+    public void setUpdateTextureAtlas(boolean updateTextureAtlas) {
+        animComp.setAtlas(assets.getPlayerAtlas());
+        this.updateTextureAtlas = updateTextureAtlas; // Set so it will change on update() in getFrame()
+    }
     private String getRegionName() {
       switch (currentDirection) {
           case UP:
@@ -214,7 +220,7 @@ public class Player extends Entity {
         currentAction = getAction();
 
         // Only set animation when something changes
-        if (currentAction != previousAction || currentDirection != previousDirection) {
+        if (updateTextureAtlas || currentAction != previousAction || currentDirection != previousDirection) {
             animComp.setRegionName(getRegionName());
             charWalk = new Animation(0.1f, animComp.getAnimation(currentDirection, currentAction));
         }

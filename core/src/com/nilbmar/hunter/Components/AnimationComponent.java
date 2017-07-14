@@ -11,6 +11,9 @@ import com.nilbmar.hunter.Enums.Direction;
 /*
  * Created by sysgeek on 5/4/17.
  *
+ * Component: AnimationComponent
+ * Purpose: Get the correct frames of animation from a texture atlas
+ * based on current direction and action
  *
  * /* TODO:
  * THIS FUNCTION CURRENTLY GETS ANIMATION ON THE FLY
@@ -81,6 +84,7 @@ public class AnimationComponent {
     public void setRegionName(String regionName) {
         this.regionName = regionName;
     }
+    public void setAtlas(TextureAtlas atlas) { this.atlas = atlas; }
 
     public void setCurrentAction(Action currentAction) {
         this.currentAction = currentAction;

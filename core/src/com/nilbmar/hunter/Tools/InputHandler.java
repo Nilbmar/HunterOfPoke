@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.nilbmar.hunter.Commands.AccelerationCommand;
 import com.nilbmar.hunter.Commands.FireCommand;
 import com.nilbmar.hunter.Commands.MoveCommand;
+import com.nilbmar.hunter.Commands.SetPlayerPackCommand;
 import com.nilbmar.hunter.Entities.Player;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Enums.BulletType;
@@ -13,6 +14,10 @@ import com.nilbmar.hunter.Enums.ShotType;
 
 /**
  * Created by sysgeek on 4/27/17.
+ *
+ * Tool: InputHandler
+ * Get key presses/etc...
+ * and call appropriate Commands
  */
 
 public class InputHandler {
@@ -99,6 +104,15 @@ public class InputHandler {
         }
     }
 
+    // Swap between TextureAtlas packs with the TAB key
+    private void setPlayerPack() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.TAB)) {
+            SetPlayerPackCommand setPack = new SetPlayerPackCommand(screen.getAssetsHandler());
+            setPack.execute(player);
+            player.setUpdateTextureAtlas(true);
+        }
+    }
+
     // AUTO-WALK AND AUTO-FIRE - for testing
     private void auto(int accl, int moveX, int moveY, boolean awake, ShotType type) {
         acceleration = accl;
@@ -141,6 +155,7 @@ public class InputHandler {
             movement(deltaTime);
             useItem(deltaTime);
             fireWeapon(deltaTime);
+            setPlayerPack();
         } else {
             int moveX = 1;
             int moveY = -1;
