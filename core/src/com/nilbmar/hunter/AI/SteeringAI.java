@@ -1,4 +1,4 @@
-package com.nilbmar.hunter.Entities.Enemies;
+package com.nilbmar.hunter.AI;
 
 import com.badlogic.gdx.ai.steer.Steerable;
 import com.badlogic.gdx.ai.utils.Location;
@@ -10,7 +10,6 @@ import com.badlogic.gdx.math.Vector2;
  * AI: SteeringAI
  * Purpose: Have Entity move toward a point
  * with a possible "safe" distance
- * TODO: CURRENTLY IN THE WRONG PACKAGE, NEEDS TO MOVE OUT OF ENEMIES AND INTO AN AI PACKAGE
  */
 
 public class SteeringAI implements Steerable<Vector2> {
