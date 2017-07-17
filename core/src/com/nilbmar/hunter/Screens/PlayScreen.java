@@ -109,7 +109,7 @@ public class PlayScreen implements Screen {
 
         // Box2D Render Lines - Default Not to View
         b2dr = new Box2DDebugRenderer();
-        viewRenderLines = false;
+        viewRenderLines = true;
 
 
         bulletCreator = new BulletCreator(this);

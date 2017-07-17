@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Shape;
+import com.nilbmar.hunter.AI.SteeringAI;
 import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
@@ -19,12 +20,13 @@ import com.nilbmar.hunter.Enums.EntityType;
  */
 
 public class Enemy extends Entity {
+    private SteeringAI ai;
 
-    protected boolean destroyed;
+    private boolean destroyed;
 
-    protected float stateTimer; // Used to getFrame() of animation
-    protected int hitPoints;
-    protected int maxHitPoints;
+    private float stateTimer; // Used to getFrame() of animation
+    private int hitPoints;
+    private int maxHitPoints;
 
     public Enemy(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
@@ -40,9 +42,9 @@ public class Enemy extends Entity {
         previousAction = Action.STILL;
         stateTimer = 0;
 
-        // Movement
-        //setCurrentAcceleration(acceleration);
-
+        // AI
+        // TODO: REMOVE RADIUS FROM STEERINGAI CONSTRUCTOR
+        ai = new SteeringAI(this, 5);
 
 
     }
@@ -77,8 +79,8 @@ public class Enemy extends Entity {
 
     @Override
     protected void defineShape() {
-        //bodyComponent.setFixtureDef(Shape.Type.Circle, 5); // CircleShape - radius of 5
-        bodyComponent.setFixtureDef(Shape.Type.Polygon, 4, 4); // PolygonShape - Set as Box
+        bodyComponent.setFixtureDef(Shape.Type.Circle, 5); // CircleShape - radius of 5
+        //bodyComponent.setFixtureDef(Shape.Type.Polygon, 4, 4); // PolygonShape - Set as Box
     }
 
     @Override
@@ -113,11 +115,15 @@ public class Enemy extends Entity {
     public void draw(Batch batch) {
         if (!destroyed) {
             super.draw(batch);
+
         }
     }
 
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
+
+        ai.update(deltaTime);
+        //b2Body = ai.getBody();
     }
 }
