@@ -156,7 +156,10 @@ public class PlayScreen implements Screen {
         for (Spawns spawn : worldCreator.getAllSpawnsArray()) {
             if (player.getB2Body().getPosition().x > spawn.getX()) {
                 if (spawn.getType() == SpawnType.ENEMY) {
-                    entities.add(spawn.spawnEnemy());
+                    Enemy enemy = spawn.spawnEnemy();
+                    //Gdx.app.log("Enemy spawn getPosition()", enemy.getB2Body().getPosition().toString());
+                    enemy.setSteeringAI();
+                    entities.add(enemy); //spawn.spawnEnemy());
                     Gdx.app.log("Enemy Spawn", "X: " + spawn.getX() + " Y: " + spawn.getY());
                 } else if (spawn.getType() == SpawnType.ITEM) {
                     entities.add(spawn.spawnItem());

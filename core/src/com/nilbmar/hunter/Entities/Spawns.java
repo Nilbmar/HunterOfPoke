@@ -44,7 +44,6 @@ public class Spawns implements Disposable {
         loader.setEntityType(EntityType.ENEMY);
         loader.setFile(file);
         Enemy enemy = (Enemy) loader.decorate(screen, getX(), getY(), decorators);
-
         return enemy;
         //enemy.prepareToDraw();
         //return enemy;

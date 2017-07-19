@@ -23,6 +23,7 @@ public class Enemy extends Entity {
     private SteeringAI ai;
 
     private boolean destroyed;
+    private boolean aiAssigned;
 
     private float stateTimer; // Used to getFrame() of animation
     private int hitPoints;
@@ -44,9 +45,15 @@ public class Enemy extends Entity {
 
         // AI
         // TODO: REMOVE RADIUS FROM STEERINGAI CONSTRUCTOR
-        ai = new SteeringAI(this, 5);
 
 
+
+    }
+
+    public void setSteeringAI() {
+        if (b2Body != null) {
+            ai = new SteeringAI(this, screen.getPlayer(), 5);
+        }
     }
 
     public void setHitPoints(int hitPoints) { this.hitPoints = hitPoints; }
@@ -123,7 +130,9 @@ public class Enemy extends Entity {
     public void update(float deltaTime) {
         super.update(deltaTime);
 
-        ai.update(deltaTime);
-        //b2Body = ai.getBody();
+        if (ai != null) {
+                ai.update(deltaTime);
+        }
+
     }
 }
