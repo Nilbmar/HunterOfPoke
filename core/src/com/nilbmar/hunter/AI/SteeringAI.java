@@ -8,9 +8,9 @@ import com.badlogic.gdx.ai.steer.behaviors.Arrive;
 import com.badlogic.gdx.ai.utils.Location;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.nilbmar.hunter.AI.Utils.Behaviors;
 import com.nilbmar.hunter.AI.Utils.SteeringUtil;
 import com.nilbmar.hunter.Entities.Entity;
-import com.nilbmar.hunter.HunterOfPoke;
 
 /**
  * Created by sysgeek on 7/1/17.
@@ -42,6 +42,9 @@ public class SteeringAI implements Steerable<Vector2> {
         this.entity = entity;
         this.target = target;
         this.body = entity.getB2Body();
+
+        // Was in the tutorial to create body
+        // TODO: use instead for setting radius for Behaviors?
         this.boundingRadius = boundingRadius;
 
         tagged = false;
@@ -53,28 +56,28 @@ public class SteeringAI implements Steerable<Vector2> {
 
         steerOutput = new SteeringAcceleration<Vector2>(new Vector2());
 
-        Gdx.app.log("SteeringAI", "entity: " + body.getPosition());
         position = body.getPosition();
-        steerBehavior = new Arrive<Vector2>(this, new SteeringAI(new Vector2(target.getB2Body().getPosition())));
-        //arriveBehavior();
+
+        // Set initial steering behavior
+        setSteerBehavior(Behaviors.Behavior.ARRIVE);
     }
 
-
+    // Used to make the target (aka player) Steerable without adding it to the Player class
     public SteeringAI(Vector2 position) {
         this.position = position;
     }
 
+    // TODO: SHOULD THIS EVEN BE?
+    // PROBABLY MAKE IT ACCEPT ENUM STATES TO SWITCH BEHAVIORS
     public void arriveBehavior() {
-        Arrive<Vector2> arrive = new Arrive<Vector2>(this,
-                new SteeringAI(new Vector2(target.getB2Body().getPosition())));
-        arrive.setTimeToTarget(10 / HunterOfPoke.PPM)
-            .setArrivalTolerance(5 / HunterOfPoke.PPM)
-            .setDecelerationRadius(30);
-
-        setSteeringBehavior(arrive);
+        setSteeringBehavior(Behaviors.getBehavior(this, target, Behaviors.Behavior.ARRIVE));
+        //setSteeringBehavior(Behaviors.arriveBehavior(this, target));
     }
 
     public SteeringBehavior<Vector2> getSteeringBehavior() { return steerBehavior; }
+    public void setSteerBehavior(Behaviors.Behavior behavior) {
+        steerBehavior = Behaviors.getBehavior(this, target, behavior);
+    }
     public void setSteeringBehavior(SteeringBehavior<Vector2> steerBehavior) {
         this.steerBehavior = steerBehavior;
     }
@@ -111,7 +114,6 @@ public class SteeringAI implements Steerable<Vector2> {
             // Cap angular speed
             if (body.getAngularVelocity() > maxAngularSpeed) {
                 body.setAngularVelocity(maxAngularSpeed);
-                //body.setAngularVelocity(maxAngularSpeed);
             } else {
                 Vector2 linearVel = getLinearVelocity();
                 if (!linearVel.isZero()) {
@@ -249,7 +251,9 @@ public class SteeringAI implements Steerable<Vector2> {
             steerBehavior.calculateSteering(steerOutput);
             applySteering(deltaTime);
 
-            arriveBehavior();
+            // TODO: INSTEAD OF RESETING BEHAVIOR EACH TIME
+            // USE ARRIVE.SETTARGET(TARGET)
+            setSteerBehavior(Behaviors.Behavior.ARRIVE);
         }
     }
 }
