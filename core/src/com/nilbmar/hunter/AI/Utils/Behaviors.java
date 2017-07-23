@@ -9,6 +9,9 @@ import com.nilbmar.hunter.HunterOfPoke;
 
 /**
  * Created by sysgeek on 7/20/17.
+ * AI.Utils: Behaviors
+ * Purpose: Separate implementation of Steering Behaviors
+ * and use in a static context
  */
 
 public abstract class Behaviors {

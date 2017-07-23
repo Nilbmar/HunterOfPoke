@@ -253,6 +253,8 @@ public class SteeringAI implements Steerable<Vector2> {
 
             // TODO: INSTEAD OF RESETING BEHAVIOR EACH TIME
             // USE ARRIVE.SETTARGET(TARGET)
+            // MAYBE USE "BRAIN" TO CREATE BEHAVIOR
+            // AND SETOWNER TO ASSIGN THEM TO ENEMY
             setSteerBehavior(Behaviors.Behavior.ARRIVE);
         }
     }
