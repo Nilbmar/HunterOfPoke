@@ -33,8 +33,8 @@ public abstract class Behaviors {
         Arrive<Vector2> arrive = new Arrive<Vector2>(steerable,
                 new SteeringAI(new Vector2(target.getB2Body().getPosition())));
 
-        arrive.setTimeToTarget(10 / HunterOfPoke.PPM)
-                .setArrivalTolerance(5 / HunterOfPoke.PPM)
+        arrive.setTimeToTarget(20 / HunterOfPoke.PPM)
+                .setArrivalTolerance(25 / HunterOfPoke.PPM)
                 .setDecelerationRadius(50);
 
         return arrive;
