@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.steer.Steerable;
 import com.badlogic.gdx.ai.steer.SteeringAcceleration;
 import com.badlogic.gdx.ai.steer.SteeringBehavior;
-import com.badlogic.gdx.ai.steer.behaviors.Arrive;
 import com.badlogic.gdx.ai.utils.Location;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -49,7 +48,8 @@ public class SteeringAI implements Steerable<Vector2> {
 
         tagged = false;
 
-        maxLinearSpeed = 500;
+        maxLinearSpeed = 100 * entity.getCurrentAcceleration();
+        Gdx.app.log("Acceleration", entity.getName() + " " + entity.getCurrentAcceleration());
         maxLinearAcceleration = 5000;
         maxAngularSpeed = 30;
         maxAngularAcceleration = 5;
