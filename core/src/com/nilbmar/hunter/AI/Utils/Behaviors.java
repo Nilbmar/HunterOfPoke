@@ -15,7 +15,7 @@ import com.nilbmar.hunter.HunterOfPoke;
  */
 
 public abstract class Behaviors {
-    public static enum Behavior { ARRIVE, SEEK }
+    public enum Behavior { ARRIVE, SEEK }
 
     public static SteeringBehavior<Vector2> getBehavior(SteeringAI steerable, Entity target, Behavior behavior) {
         SteeringBehavior<Vector2> steeringBehavior = null;
