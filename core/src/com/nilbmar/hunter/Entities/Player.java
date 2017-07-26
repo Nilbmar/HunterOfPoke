@@ -185,6 +185,7 @@ public class Player extends Entity {
         animComp.setAtlas(assets.getPlayerAtlas());
         this.updateTextureAtlas = updateTextureAtlas; // Set so it will change on update() in getFrame()
     }
+
     private String getRegionName() {
       switch (currentDirection) {
           case UP:
@@ -221,6 +222,7 @@ public class Player extends Entity {
 
         // Only set animation when something changes
         if (updateTextureAtlas || currentAction != previousAction || currentDirection != previousDirection) {
+            setUpdateTextureAtlas(false);
             animComp.setRegionName(getRegionName());
             charWalk = new Animation(0.1f, animComp.getAnimation(currentDirection, currentAction));
         }
