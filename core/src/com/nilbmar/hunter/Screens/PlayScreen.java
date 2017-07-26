@@ -63,7 +63,7 @@ public class PlayScreen implements Screen {
     private B2WorldCreator worldCreator;
 
     private Box2DDebugRenderer b2dr;
-    private boolean viewRenderLines;
+    private boolean viewRenderLines = false;
 
     // Allow toggling of HUD On and Off
     private Hud hud;
@@ -109,8 +109,6 @@ public class PlayScreen implements Screen {
 
         // Box2D Render Lines - Default Not to View
         b2dr = new Box2DDebugRenderer();
-        viewRenderLines = true;
-
 
         bulletCreator = new BulletCreator(this);
         bulletPatterns = new BulletPatternHandler(bulletCreator);
