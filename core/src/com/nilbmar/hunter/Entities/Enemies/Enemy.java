@@ -52,7 +52,7 @@ public class Enemy extends Entity {
 
     public void setSteeringAI() {
         if (b2Body != null) {
-            ai = new SteeringAI(this, screen.getPlayer(), 5);
+            ai = new SteeringAI(this, screen.getPlayer(), 30);
         }
     }
 
@@ -86,8 +86,8 @@ public class Enemy extends Entity {
 
     @Override
     protected void defineShape() {
-        bodyComponent.setFixtureDef(Shape.Type.Circle, 5); // CircleShape - radius of 5
-        //bodyComponent.setFixtureDef(Shape.Type.Polygon, 4, 4); // PolygonShape - Set as Box
+        //bodyComponent.setFixtureDef(Shape.Type.Circle, 5); // CircleShape - radius of 5
+        bodyComponent.setFixtureDef(Shape.Type.Polygon, 4, 4); // PolygonShape - Set as Box
     }
 
     @Override

@@ -41,12 +41,14 @@ public class SteeringAI implements Steerable<Vector2> {
         this.entity = entity;
         this.target = target;
         this.body = entity.getB2Body();
+        this.boundingRadius = boundingRadius;
 
         // Was in the tutorial to create body
         // TODO: use instead for setting radius for Behaviors?
         this.boundingRadius = boundingRadius;
 
         tagged = false;
+
 
         maxLinearSpeed = 50 * entity.getCurrentAcceleration();
 
@@ -66,13 +68,6 @@ public class SteeringAI implements Steerable<Vector2> {
     // Used to make the target (aka player) Steerable without adding it to the Player class
     public SteeringAI(Vector2 position) {
         this.position = position;
-    }
-
-    // TODO: SHOULD THIS EVEN BE?
-    // PROBABLY MAKE IT ACCEPT ENUM STATES TO SWITCH BEHAVIORS
-    public void arriveBehavior() {
-        setSteeringBehavior(Behaviors.getBehavior(this, target, Behaviors.Behavior.ARRIVE));
-        //setSteeringBehavior(Behaviors.arriveBehavior(this, target));
     }
 
     public SteeringBehavior<Vector2> getSteeringBehavior() { return steerBehavior; }
