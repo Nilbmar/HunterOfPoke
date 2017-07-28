@@ -50,6 +50,8 @@ public abstract class Entity extends Sprite {
     protected float boundsHeight;
     protected float offsetSpriteX;
     protected float offsetSpriteY;
+    private int imageWidth;
+    private int imageHeight;
 
     protected EntityType entityType;
 
@@ -96,6 +98,11 @@ public abstract class Entity extends Sprite {
     protected void setName(String name) {
         this.name = name;
     }
+
+    public int getImageWidth() { return imageWidth; }
+    protected void setImageWidth(int imageWidth) { this.imageWidth = imageWidth; }
+    public int getImageHeight() { return imageHeight; }
+    protected void setImageHeight(int imageHeight) { this.imageHeight = imageHeight; }
 
     public void setRegionName(String regionName) {
         this.regionName = regionName;

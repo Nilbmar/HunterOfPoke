@@ -8,6 +8,7 @@ import com.nilbmar.hunter.Commands.AccelerationCommand;
 import com.nilbmar.hunter.Commands.ChangeCollisionCommand;
 import com.nilbmar.hunter.Commands.UpdateHudCommand;
 import com.nilbmar.hunter.Commands.UseCommand;
+import com.nilbmar.hunter.Components.AnimationComp;
 import com.nilbmar.hunter.Components.AnimationComponent;
 import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Components.FramesComponent;
@@ -39,7 +40,13 @@ public class Player extends Entity {
     // Textures and Animations
     private FramesComponent framesComp;
     private AnimationComponent animComp;
+    private AnimationComp animCompNew;
     private Animation charWalk; // TODO: CHANGE TO charAnim
+    private Animation charWalkUp;
+    private Animation charWalkDown;
+    private Animation charWalkLeft;
+    private Animation charWalkRight;
+
     private int walkSteps; // How many images in a full walk cycle
     private boolean updateTextureAtlas = false;
 
@@ -61,6 +68,8 @@ public class Player extends Entity {
         hitPoints = 10;     // TODO: GET FROM GAMEMANGER
         maxHitPoints = 20;
         entityType = EntityType.PLAYER;
+        setImageWidth(20);
+        setImageHeight(24);
 
         directionComp = new DirectionComponent();
         currentDirection = directionComp.getDirection();
@@ -78,6 +87,7 @@ public class Player extends Entity {
         //regionName = "default"; // Will need to change in charMale and charAlien pack files
         setFramesComponent();
         animComp = new AnimationComponent(screen, EntityType.PLAYER, framesComp, regionName);
+        animCompNew = new AnimationComp(screen, this, framesComp, regionName);
 
         // Create Body
         defineBody();
@@ -90,8 +100,10 @@ public class Player extends Entity {
         // TODO: PROBABLY CAN REMOVE CHARSTILL AND SETREGION
         // Set up default facing sprite
         offsetSpriteY = 8 / HunterOfPoke.PPM;
-        TextureRegion charStill = new TextureRegion(assets.getPlayerAtlas().findRegion(regionName), 0, 0, 20, 24);
-        setBounds(0, 0, 20 / HunterOfPoke.PPM, 24 / HunterOfPoke.PPM);
+        // TODO: PUT IMAGEWIDTH AND IMAGEHEIGHT INTO JSON
+        TextureRegion charStill = new TextureRegion(assets.getPlayerAtlas().findRegion(regionName),
+                0, 0, getImageWidth(), getImageHeight());
+        setBounds(0, 0, getImageWidth() / HunterOfPoke.PPM, getImageHeight() / HunterOfPoke.PPM);
         setRegion(charStill);
     }
 
@@ -278,8 +290,8 @@ public class Player extends Entity {
         // SHOULD I JUST SET Y AND TAKE CARE OF X IN LOOP?
         // OR MAKE THE FC TAKE THIS INT AND LOOP IN setWalkFrames()?
         //int numOfWalkFramesPerDir = 3;
-        int scaleSizeX = 20;
-        int scaleSizeY = 24;
+        int scaleSizeX = getImageWidth();
+        int scaleSizeY = getImageHeight();
 
         /* YOU MUST GO IN ORDER OF UP, UP_LEFT, DOWN, DOWN_LEFT, LEFT*/
         // Multiple steps in walk cycles
