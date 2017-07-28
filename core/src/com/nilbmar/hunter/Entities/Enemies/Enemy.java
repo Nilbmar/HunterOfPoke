@@ -37,6 +37,10 @@ public class Enemy extends Entity {
 
         setName("Generic Enemy");
         entityType = EntityType.ENEMY;
+
+        // TODO: THESE WILL BE NEEDED FOR NEW AnimationComp
+        //setImageWidth(20);
+        //setImageHeight(24);
         atlas = screen.getAssetsHandler().getEnemyAtlas();
         destroyed = false;
 
