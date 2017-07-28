@@ -9,7 +9,6 @@ import com.nilbmar.hunter.Commands.ChangeCollisionCommand;
 import com.nilbmar.hunter.Commands.UpdateHudCommand;
 import com.nilbmar.hunter.Commands.UseCommand;
 import com.nilbmar.hunter.Components.AnimationComp;
-import com.nilbmar.hunter.Components.AnimationComponent;
 import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Components.FramesComponent;
 import com.nilbmar.hunter.Components.InventoryComponent;
@@ -197,7 +196,7 @@ public class Player extends Entity {
         currentAction = act;
     }
 
-    // Change player's TextureAtlas in the AnimationComponent
+    // Change player's TextureAtlas in the AnimationComp
     public void setUpdateTextureAtlas(boolean updateTextureAtlas) {
         animCompNew.setAtlas(assets.getPlayerAtlas());
         this.updateTextureAtlas = updateTextureAtlas; // Set so it will change on update() in getFrame()

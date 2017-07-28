@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Array;
 /**
  * Created by sysgeek on 5/4/17.
  *
- * Purpose: Grab the correct frame from an AnimationComponent
+ * Purpose: Grab the correct frame from an AnimationComp
  */
 
 public class FramesComponent {
