@@ -89,7 +89,7 @@ public class BulletCreator {
     private Bullet getBullet(BulletType type, float posX, float posY, Vector2 direction) {
         Bullet bullet = null;
         switch(type) {
-            case FIRE:  // TODO: CREATE NEW BULLET TYPE
+            case FIRE:
                 bullet = new FireBullet(screen, posX, posY, direction, rotation);
                 break;
             case BALL:

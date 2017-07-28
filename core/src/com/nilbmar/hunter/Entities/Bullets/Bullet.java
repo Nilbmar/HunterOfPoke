@@ -184,7 +184,8 @@ public abstract class Bullet  extends Entity implements Poolable {
                 regionToDraw = (TextureRegion) animation.getKeyFrame(stateTime);
 
                 // Rotate bullet and send to batch
-                // angle is handled by BulletPatternHandler.getRotation(Direction dir)
+                // rotation is handled by BulletPatternHandler's
+                // private getBulletRotation(DirectionComponent.Direction dir)
                 batch.draw(regionToDraw, getX(), getY(),
                         regionToDraw.getRegionWidth() / 2 / HunterOfPoke.PPM,
                         regionToDraw.getRegionHeight() / 2 / HunterOfPoke.PPM,

@@ -5,11 +5,11 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.nilbmar.hunter.AI.SteeringAI;
+import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Enums.Action;
-import com.nilbmar.hunter.Enums.Direction;
 import com.nilbmar.hunter.Enums.EntityType;
 
 /**
@@ -20,6 +20,9 @@ import com.nilbmar.hunter.Enums.EntityType;
  */
 
 public class Enemy extends Entity {
+    private DirectionComponent directionComp;
+    private DirectionComponent.Direction currentDirection;
+    private DirectionComponent.Direction previousDirection;
     private SteeringAI ai;
 
     private boolean destroyed;
@@ -37,8 +40,10 @@ public class Enemy extends Entity {
         atlas = screen.getAssetsHandler().getEnemyAtlas();
         destroyed = false;
 
-        currentDirection = Direction.DOWN;
-        previousDirection = Direction.DOWN;
+        directionComp = new DirectionComponent();
+        currentDirection = directionComp.getDirection();
+        previousDirection = currentDirection;
+
         currentAction = Action.STILL;
         previousAction = Action.STILL;
         stateTimer = 0;
@@ -49,6 +54,8 @@ public class Enemy extends Entity {
 
 
     }
+
+    public DirectionComponent getDirectionComponent() { return directionComp; }
 
     public void setSteeringAI() {
         if (b2Body != null) {

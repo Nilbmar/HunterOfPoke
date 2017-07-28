@@ -1,6 +1,10 @@
 package com.nilbmar.hunter.Commands;
 
+import com.nilbmar.hunter.Components.DirectionComponent;
+import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.Entity;
+import com.nilbmar.hunter.Entities.Player;
+import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Tools.BulletPatternHandler;
 import com.nilbmar.hunter.Enums.BulletType;
 import com.nilbmar.hunter.Enums.ShotType;
@@ -25,13 +29,28 @@ public class FireCommand implements Command {
 
     @Override
     public void execute(Entity entity) {
-        switch (shot) {
-            case TWIN:
-                bulletPatterns.twinShot(type, entity.getDirection(), entity.getSpawnOtherX(), entity.getSpawnOtherY());
+        boolean fire = false;
+        DirectionComponent.Direction direction = DirectionComponent.Direction.DOWN;
+
+        switch (entity.getEntityType()) {
+            case PLAYER:
+                direction = ((Player) entity).getDirectionComponent().getDirection();
+                fire = true;
                 break;
-            case SINGLE:
-                bulletPatterns.singleShot(type, entity.getDirection(), entity.getSpawnOtherX(), entity.getSpawnOtherY());
+            case ENEMY:
+                direction = ((Enemy) entity).getDirectionComponent().getDirection();
+                fire = true;
                 break;
+        }
+        if (fire) {
+            switch (shot) {
+                case TWIN:
+                    bulletPatterns.twinShot(type, direction, entity.getSpawnOtherX(), entity.getSpawnOtherY());
+                    break;
+                case SINGLE:
+                    bulletPatterns.singleShot(type, direction, entity.getSpawnOtherX(), entity.getSpawnOtherY());
+                    break;
+            }
         }
     }
 }

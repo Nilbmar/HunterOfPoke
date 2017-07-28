@@ -1,9 +1,9 @@
 package com.nilbmar.hunter.Tools;
 
 import com.badlogic.gdx.math.Vector2;
+import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Enums.BulletType;
-import com.nilbmar.hunter.Enums.Direction;
 
 /**
  * Created by sysgeek on 5/11/17.
@@ -17,7 +17,7 @@ public class BulletPatternHandler {
 
     }
 
-    private Vector2 getDirToShoot(Direction dir) {
+    private Vector2 getDirToShoot(DirectionComponent.Direction dir) {
         Vector2 dirToShoot = new Vector2();
         int move = 1;
 
@@ -53,7 +53,7 @@ public class BulletPatternHandler {
         return dirToShoot;
     }
 
-    private float getBulletRotation(Direction dir) {
+    private float getBulletRotation(DirectionComponent.Direction dir) {
         float rotateBulletTexture = 270;
 
         switch (dir) {
@@ -86,7 +86,7 @@ public class BulletPatternHandler {
         return rotateBulletTexture;
     }
 
-    public void singleShot(BulletType type, Direction dir, float spawnX, float spawnY) {
+    public void singleShot(BulletType type, DirectionComponent.Direction dir, float spawnX, float spawnY) {
         Vector2 direction = getDirToShoot(dir);
 
         // Make non-evenly shaped bullets look right
@@ -98,7 +98,7 @@ public class BulletPatternHandler {
         bulletCreator.spawnBullet(spawnX, spawnY, direction);
     }
 
-    public void twinShot(BulletType type, Direction dir, float spawnX, float spawnY) {
+    public void twinShot(BulletType type, DirectionComponent.Direction dir, float spawnX, float spawnY) {
         Vector2 direction = getDirToShoot(dir);
 
         // Make non-evenly shaped bullets look right

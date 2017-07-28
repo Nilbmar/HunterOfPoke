@@ -2,10 +2,11 @@ package com.nilbmar.hunter.Components;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.nilbmar.hunter.Enums.Direction;
 
 /**
  * Created by sysgeek on 5/4/17.
+ *
+ * Purpose: Grab the correct frame from an AnimationComponent
  */
 
 public class FramesComponent {
@@ -25,7 +26,7 @@ public class FramesComponent {
         stillFrames = new Array<Vector2>(3);
     }
 
-    public Vector2 getWalkFrames(Direction direction, int x) {
+    public Vector2 getWalkFrames(DirectionComponent.Direction direction, int x) {
         Vector2 position = new Vector2();
         int index = x;
 
@@ -55,7 +56,7 @@ public class FramesComponent {
         return position;
     }
 
-    public Vector2 getUseFrames(Direction direction) {
+    public Vector2 getUseFrames(DirectionComponent.Direction direction) {
         Vector2 position = new Vector2();
         switch(direction) {
             case UP:
@@ -76,7 +77,7 @@ public class FramesComponent {
         return position;
     }
 
-    public Vector2 getStillFrames(Direction direction) {
+    public Vector2 getStillFrames(DirectionComponent.Direction direction) {
         int index = 0;
         Vector2 position = new Vector2();
         switch(direction) {
@@ -107,19 +108,19 @@ public class FramesComponent {
     }
 
     // Only need 3 because LEFT and RIGHT are the same, with LEFT flipped later
-    public void setWalkFrames(Direction direction, float x, float y) {
+    public void setWalkFrames(DirectionComponent.Direction direction, float x, float y) {
         Vector2 position = new Vector2(x, y);
         walkFrames.add(position);
     }
 
     // Only need 3 because LEFT and RIGHT are the same, with LEFT flipped later
-    public void setUseFrames(Direction direction, int x, int y) {
+    public void setUseFrames(DirectionComponent.Direction direction, int x, int y) {
         Vector2 position = new Vector2(x, y);
         useFrames.add(position);
     }
 
     // Only need 3 because LEFT and RIGHT are the same, with LEFT flipped later
-    public void setStillFrames(Direction direction, int x, int y) {
+    public void setStillFrames(DirectionComponent.Direction direction, int x, int y) {
         Vector2 position = new Vector2(x, y);
         stillFrames.add(position);
     }

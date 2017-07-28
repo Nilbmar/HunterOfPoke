@@ -6,7 +6,6 @@ import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Enums.Action;
-import com.nilbmar.hunter.Enums.Direction;
 import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Enums.InventorySlotType;
 import com.nilbmar.hunter.Enums.ItemType;
@@ -44,8 +43,6 @@ public abstract class Item extends Entity {
         amountOfEffect = 0;
 
         defineBody();
-        currentDirection = Direction.DOWN;
-        previousDirection = Direction.DOWN;
         currentAction = Action.STILL;
         previousAction = Action.STILL;
         stateTimer = 0;

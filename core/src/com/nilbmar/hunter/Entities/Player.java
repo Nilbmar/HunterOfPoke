@@ -9,6 +9,7 @@ import com.nilbmar.hunter.Commands.ChangeCollisionCommand;
 import com.nilbmar.hunter.Commands.UpdateHudCommand;
 import com.nilbmar.hunter.Commands.UseCommand;
 import com.nilbmar.hunter.Components.AnimationComponent;
+import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Components.FramesComponent;
 import com.nilbmar.hunter.Components.InventoryComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
@@ -17,7 +18,6 @@ import com.nilbmar.hunter.Enums.ItemType;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Enums.Action;
-import com.nilbmar.hunter.Enums.Direction;
 import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Enums.InventorySlotType;
 import com.nilbmar.hunter.Tools.AssetHandler;
@@ -45,6 +45,9 @@ public class Player extends Entity {
 
     // Componenets
     private InventoryComponent inventoryComponent;
+    private DirectionComponent directionComp;
+    private DirectionComponent.Direction currentDirection;
+    private DirectionComponent.Direction previousDirection;
 
     private UpdateHudCommand hudUpdate;
     private AccelerationCommand accelerationCommand;
@@ -59,8 +62,10 @@ public class Player extends Entity {
         maxHitPoints = 20;
         entityType = EntityType.PLAYER;
 
-        currentDirection = Direction.DOWN;
-        previousDirection = Direction.DOWN;
+        directionComp = new DirectionComponent();
+        currentDirection = directionComp.getDirection();
+        previousDirection = currentDirection;
+
         currentAction = Action.STILL;
         previousAction = Action.STILL;
         stateTimer = 0;
@@ -94,6 +99,8 @@ public class Player extends Entity {
     public void prepareToDraw() {
 
     }
+
+    public DirectionComponent getDirectionComponent() { return directionComp; }
 
     public void setHitPoints(int hitPoints) { this.hitPoints = hitPoints; }
     public void setMaxHitPoints(int maxHitPoints) { this.maxHitPoints = maxHitPoints; }
@@ -217,7 +224,9 @@ public class Player extends Entity {
 
     private TextureRegion getFrame(float deltaTime) {
         TextureRegion region;
-        currentDirection = getDirection();
+        currentDirection = directionComp.getDirection();
+        //directionComp.setDirection(currentDirection);
+
         currentAction = getAction();
 
         // Only set animation when something changes
@@ -256,7 +265,7 @@ public class Player extends Entity {
 
         stateTimer = (currentDirection == previousDirection && currentAction == previousAction)
                 ? stateTimer + deltaTime : 0;
-        previousDirection = getDirection();
+        previousDirection = directionComp.getDirection();
         previousAction = getAction();
         return region;
     }
@@ -275,35 +284,35 @@ public class Player extends Entity {
         /* YOU MUST GO IN ORDER OF UP, UP_LEFT, DOWN, DOWN_LEFT, LEFT*/
         // Multiple steps in walk cycles
         for (int x = 0; x < walkSteps; x++) {
-            framesComp.setWalkFrames(Direction.UP, x * scaleSizeX, 0);
+            framesComp.setWalkFrames(DirectionComponent.Direction.UP, x * scaleSizeX, 0);
         }
         for (int x = 0; x < walkSteps; x++) {
-            framesComp.setWalkFrames(Direction.UP_LEFT, x * scaleSizeX, 0);
-        }
-
-        for (int x = 0; x < walkSteps; x++) {
-            framesComp.setWalkFrames(Direction.DOWN, x * scaleSizeX, 0);
+            framesComp.setWalkFrames(DirectionComponent.Direction.UP_LEFT, x * scaleSizeX, 0);
         }
 
         for (int x = 0; x < walkSteps; x++) {
-            framesComp.setWalkFrames(Direction.DOWN_LEFT, x * scaleSizeX, 0);
+            framesComp.setWalkFrames(DirectionComponent.Direction.DOWN, x * scaleSizeX, 0);
         }
 
         for (int x = 0; x < walkSteps; x++) {
-            framesComp.setWalkFrames(Direction.LEFT, x * scaleSizeX, 0);
+            framesComp.setWalkFrames(DirectionComponent.Direction.DOWN_LEFT, x * scaleSizeX, 0);
         }
 
-        framesComp.setUseFrames(Direction.UP, scaleSizeX, 0);
-        framesComp.setUseFrames(Direction.UP_LEFT, scaleSizeX, 0); // TODO: THESE MAY HAVE CHANGED IT
-        framesComp.setUseFrames(Direction.DOWN, 0, 0);
-        framesComp.setUseFrames(Direction.DOWN_LEFT, 0, 0); // TODO: THESE MAY HAVE CHANGED IT
-        framesComp.setUseFrames(Direction.LEFT, scaleSizeX, 0);
+        for (int x = 0; x < walkSteps; x++) {
+            framesComp.setWalkFrames(DirectionComponent.Direction.LEFT, x * scaleSizeX, 0);
+        }
 
-        framesComp.setStillFrames(Direction.UP, scaleSizeX, 0);
-        framesComp.setStillFrames(Direction.UP_LEFT, scaleSizeX, 0);
-        framesComp.setStillFrames(Direction.DOWN, 0, 0);
-        framesComp.setStillFrames(Direction.DOWN_LEFT, scaleSizeX, 0);
-        framesComp.setStillFrames(Direction.LEFT, scaleSizeX, 0);
+        framesComp.setUseFrames(DirectionComponent.Direction.UP, scaleSizeX, 0);
+        framesComp.setUseFrames(DirectionComponent.Direction.UP_LEFT, scaleSizeX, 0); // TODO: THESE MAY HAVE CHANGED IT
+        framesComp.setUseFrames(DirectionComponent.Direction.DOWN, 0, 0);
+        framesComp.setUseFrames(DirectionComponent.Direction.DOWN_LEFT, 0, 0); // TODO: THESE MAY HAVE CHANGED IT
+        framesComp.setUseFrames(DirectionComponent.Direction.LEFT, scaleSizeX, 0);
+
+        framesComp.setStillFrames(DirectionComponent.Direction.UP, scaleSizeX, 0);
+        framesComp.setStillFrames(DirectionComponent.Direction.UP_LEFT, scaleSizeX, 0);
+        framesComp.setStillFrames(DirectionComponent.Direction.DOWN, 0, 0);
+        framesComp.setStillFrames(DirectionComponent.Direction.DOWN_LEFT, scaleSizeX, 0);
+        framesComp.setStillFrames(DirectionComponent.Direction.LEFT, scaleSizeX, 0);
     }
 
     @Override
@@ -418,7 +427,7 @@ public class Player extends Entity {
             }
         }
 
-        setDirection(moveComponent.getCurrentDirection());
+        directionComp.setDirection(moveComponent.getCurrentDirection());
         setAction(moveComponent.getCurrentAction());
         setRegion(getFrame(deltaTime));
     }

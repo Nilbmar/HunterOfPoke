@@ -6,7 +6,6 @@ import com.badlogic.gdx.utils.Array;
 import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Enums.Action;
-import com.nilbmar.hunter.Enums.Direction;
 
 /*
  * Created by sysgeek on 5/4/17.
@@ -22,14 +21,14 @@ import com.nilbmar.hunter.Enums.Direction;
  * FOR EACH TYPE OF ANIMATION, PASSING PARAMETERS
 
  * Animation charWalkRight = new Animation(0.1f,
- * getAnimation(screen, Direction.RIGHT, Action.WALKING));
+ * getAnimation(screen, DirectionComponent.Direction.RIGHT, Action.WALKING));
 */
 
 public class AnimationComponent {
     private PlayScreen screen;
     private TextureAtlas atlas;
     private Action currentAction;
-    private Direction currentDirection;
+    private DirectionComponent.Direction currentDirection;
     private FramesComponent framesComp;
 
     private String regionName;
@@ -45,14 +44,14 @@ public class AnimationComponent {
         this.screen = screen;
         this.framesComp = framesComp;
         this.regionName = regionName;
-        this.regionX = (int) framesComp.getStillFrames(Direction.DOWN).x;
-        this.regionY = (int) framesComp.getStillFrames(Direction.DOWN).x;
+        this.regionX = (int) framesComp.getStillFrames(DirectionComponent.Direction.DOWN).x;
+        this.regionY = (int) framesComp.getStillFrames(DirectionComponent.Direction.DOWN).x;
 
         // TODO: SEND THIS IN ARGUMENTS OR SETTER SO DIFFERENT PIECES CAN USE DIFFERENT DIMENSIONS
         width = 20;
         height = 24;
 
-        currentDirection = Direction.DOWN;
+        currentDirection = DirectionComponent.Direction.DOWN;
         currentAction = Action.STILL;
 
         setAtlas(entityType);
@@ -90,11 +89,11 @@ public class AnimationComponent {
         this.currentAction = currentAction;
     }
 
-    public void setCurrentDirection(Direction currentDirection) {
+    public void setCurrentDirection(DirectionComponent.Direction currentDirection) {
         this.currentDirection = currentDirection;
     }
 
-    public Array<TextureRegion> getAnimation(Direction currentDirection, Action currentAction) {
+    public Array<TextureRegion> getAnimation(DirectionComponent.Direction currentDirection, Action currentAction) {
         //this.currentDirection = currentDirection;
         //this.currentAction = currentAction;
 

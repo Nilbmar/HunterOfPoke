@@ -4,15 +4,17 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Enums.Action;
-import com.nilbmar.hunter.Enums.Direction;
 
 /**
  * Created by sysgeek on 4/29/17.
+ *
+ * Purpose: Allow movement of separate entities (Player and Bullets)
+ * Enemies use SteeringAI instead
  */
 
 public class MoveComponent {
-    private Direction currentDirection;
-    private Direction previousDirection;
+    private DirectionComponent.Direction currentDirection;
+    private DirectionComponent.Direction previousDirection;
     private Action currentAction;
     private Action previousAction;
 
@@ -23,8 +25,8 @@ public class MoveComponent {
     public MoveComponent(Body b2Body) {
         this.b2Body = b2Body;
 
-        currentDirection = Direction.DOWN;
-        previousDirection = Direction.DOWN;
+        currentDirection = DirectionComponent.Direction.DOWN;
+        previousDirection = DirectionComponent.Direction.DOWN;
         currentAction = Action.STILL;
         previousAction = Action.STILL;
 
@@ -38,7 +40,7 @@ public class MoveComponent {
         previousDirection = currentDirection;
         movement.set(movement.x * maxVelocity, movement.y * maxVelocity);
 
-        // Set Walking Animation and Direction
+        // Set Walking Animation and DirectionComponent.Direction
         if (!movement.isZero()) {
             setAction(Action.WALKING);
             setAcceleration(accl);
@@ -47,27 +49,27 @@ public class MoveComponent {
             // If not moving up or down, set either left or right
             if (movement.y == 0) {
                 if (movement.x > 0) {
-                    setDirection(Direction.RIGHT);
+                    setDirection(DirectionComponent.Direction.RIGHT);
                 } else if (movement.x < 0) {
-                    setDirection(Direction.LEFT);
+                    setDirection(DirectionComponent.Direction.LEFT);
                 }
             } else if (movement.y > 0) {
                 // If moving UP, check for side to side moveComponent as well, else set UP
                 if (movement.x > 0) {
-                    setDirection(Direction.UP_RIGHT);
+                    setDirection(DirectionComponent.Direction.UP_RIGHT);
                 } else if (movement.x < 0) {
-                    setDirection(Direction.UP_LEFT);
+                    setDirection(DirectionComponent.Direction.UP_LEFT);
                 } else {
-                    setDirection(Direction.UP);
+                    setDirection(DirectionComponent.Direction.UP);
                 }
             } else if (movement.y < 0) {
                 // If moving DOWN, check for side to side moveComponent as well, else set DOWN
                 if (movement.x > 0) {
-                    setDirection(Direction.DOWN_RIGHT);
+                    setDirection(DirectionComponent.Direction.DOWN_RIGHT);
                 } else if (movement.x < 0) {
-                    setDirection(Direction.DOWN_LEFT);
+                    setDirection(DirectionComponent.Direction.DOWN_LEFT);
                 } else {
-                    setDirection(Direction.DOWN);
+                    setDirection(DirectionComponent.Direction.DOWN);
                 }
             }
 
@@ -90,7 +92,7 @@ public class MoveComponent {
             //setDirection(previousDirection);
 
             // Face down when not moving - turned OFF
-            //setDirection(Direction.DOWN);
+            //setDirection(DirectionComponent.Direction.DOWN);
         }
     }
 
@@ -99,8 +101,8 @@ public class MoveComponent {
         acceleration = accl;
     }
 
-    public Direction getCurrentDirection() { return currentDirection; }
-    private void setDirection(Direction dir) {
+    public DirectionComponent.Direction getCurrentDirection() { return currentDirection; }
+    private void setDirection(DirectionComponent.Direction dir) {
         previousDirection = currentDirection;
         currentDirection = dir;
     }

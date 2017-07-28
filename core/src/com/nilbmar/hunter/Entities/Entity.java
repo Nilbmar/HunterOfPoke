@@ -12,7 +12,6 @@ import com.nilbmar.hunter.Components.MoveComponent;
 import com.nilbmar.hunter.Components.TimerComponent;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Enums.Action;
-import com.nilbmar.hunter.Enums.Direction;
 import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Enums.ItemType;
 
@@ -59,8 +58,7 @@ public abstract class Entity extends Sprite {
     protected int acceleration;
     protected int baseAcceleration;
     protected int currentAcceleration;
-    protected Direction currentDirection;
-    protected Direction previousDirection;
+
     protected Action currentAction;
     protected Action previousAction;
 
@@ -159,12 +157,6 @@ public abstract class Entity extends Sprite {
     public int getCurrentAcceleration() { return currentAcceleration; }
     public void setCurrentAcceleration(int currentAcceleration) {
         this.currentAcceleration = currentAcceleration;
-    }
-
-    public Direction getDirection() { return currentDirection; } // Set in move()
-    protected void setDirection(Direction dir) {
-        previousDirection = currentDirection;
-        currentDirection = dir;
     }
 
     // TODO: MAKE THIS ABSTRACT AFTER SETTING UP MORE
