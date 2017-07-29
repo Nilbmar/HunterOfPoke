@@ -38,12 +38,8 @@ public class Player extends Entity {
 
     // Textures and Animations
     private FramesComponent framesComp;
-    private AnimationComp animCompNew;
+    private AnimationComp animComp;
     private Animation charWalk; // TODO: CHANGE TO charAnim
-    private Animation charWalkUp;
-    private Animation charWalkDown;
-    private Animation charWalkLeft;
-    private Animation charWalkRight;
 
     private int walkSteps; // How many images in a full walk cycle
     private boolean updateTextureAtlas = false;
@@ -84,7 +80,7 @@ public class Player extends Entity {
         // Setup Animations
         //regionName = "default"; // Will need to change in charMale and charAlien pack files
         setFramesComponent();
-        animCompNew = new AnimationComp(screen, this, framesComp, regionName);
+        animComp = new AnimationComp(screen, this, framesComp, regionName);
 
         // Create Body
         defineBody();
@@ -92,7 +88,7 @@ public class Player extends Entity {
         setCurrentAcceleration(1);
         moveComponent = new MoveComponent(b2Body);
 
-        charWalk = animCompNew.getAnimation(0.1f, currentDirection, currentAction);
+        charWalk = animComp.getStill(currentDirection);
 
         // TODO: PROBABLY CAN REMOVE CHARSTILL AND SETREGION
         // Set up default facing sprite
@@ -198,7 +194,7 @@ public class Player extends Entity {
 
     // Change player's TextureAtlas in the AnimationComp
     public void setUpdateTextureAtlas(boolean updateTextureAtlas) {
-        animCompNew.setAtlas(assets.getPlayerAtlas());
+        animComp.setAtlas(assets.getPlayerAtlas());
         this.updateTextureAtlas = updateTextureAtlas; // Set so it will change on update() in getFrame()
     }
 
@@ -241,8 +237,9 @@ public class Player extends Entity {
         // Only set animation when something changes
         if (updateTextureAtlas || currentAction != previousAction || currentDirection != previousDirection) {
             setUpdateTextureAtlas(false);
-            animCompNew.setRegionName(getRegionName());
-            charWalk = animCompNew.getAnimation(0.1f, currentDirection, currentAction);
+            animComp.setRegionName(getRegionName());
+            charWalk = animComp.getWalk(currentDirection, currentAction);
+            //charWalk = animComp.makeTexturesIntoAnimation(0.1f, currentDirection, currentAction);
         }
 
         // true - looping
