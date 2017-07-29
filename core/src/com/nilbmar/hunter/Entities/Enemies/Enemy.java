@@ -92,7 +92,8 @@ public class Enemy extends Entity {
 
     @Override
     public void onHit(Entity entity) {
-        Gdx.app.log(getName(), "Ouch! You hit me, you scum!");
+
+        //Gdx.app.log(getName(), "Ouch! You hit me, you scum!");
     }
 
     @Override
