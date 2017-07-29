@@ -31,16 +31,6 @@ public class AnimationComp {
 
     private Array<TextureRegion> frames;
 
-    private Array<Animation<TextureRegion>> walkAnimations;
-    private Animation<TextureRegion> charStill;
-    private Animation<TextureRegion> charWalkUp = null;
-    private Animation<TextureRegion> charWalkUpLeft = null;
-    private Animation<TextureRegion> charWalkUpRight = null;
-    private Animation<TextureRegion> charWalkDown = null;
-    private Animation<TextureRegion> charWalkDownLeft = null;
-    private Animation<TextureRegion> charWalkDownRight = null;
-    private Animation<TextureRegion> charWalkLeftRight = null;
-
     public AnimationComp(PlayScreen screen, Entity entity, FramesComponent framesComp, String regionName) {
         this.screen = screen;
         this.entity = entity;
