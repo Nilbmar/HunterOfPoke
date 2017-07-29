@@ -4,9 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.physics.box2d.Shape;
-import com.nilbmar.hunter.Commands.AccelerationCommand;
 import com.nilbmar.hunter.Commands.ChangeCollisionCommand;
-import com.nilbmar.hunter.Commands.UpdateHudCommand;
 import com.nilbmar.hunter.Commands.UseCommand;
 import com.nilbmar.hunter.Components.AnimationComp;
 import com.nilbmar.hunter.Components.DirectionComponent;
@@ -39,19 +37,16 @@ public class Player extends Entity {
     // Textures and Animations
     private FramesComponent framesComp;
     private AnimationComp animComp;
-    private Animation charWalk; // TODO: CHANGE TO charAnim
+    private Animation charAnim;
 
     private int walkSteps; // How many images in a full walk cycle
     private boolean updateTextureAtlas = false;
 
-    // Componenets
+    // Components
     private InventoryComponent inventoryComponent;
     private DirectionComponent directionComp;
     private DirectionComponent.Direction currentDirection;
     private DirectionComponent.Direction previousDirection;
-
-    private UpdateHudCommand hudUpdate;
-    private AccelerationCommand accelerationCommand;
 
     public Player(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
@@ -59,7 +54,7 @@ public class Player extends Entity {
         assets = screen.getAssetsHandler();
 
         setName("Dlumps");  // TODO: GET THIS FROM USER
-        hitPoints = 10;     // TODO: GET FROM GAMEMANGER
+        hitPoints = 10;     // TODO: GET FROM GAMEMANAGER
         maxHitPoints = 20;
         entityType = EntityType.PLAYER;
         setImageWidth(20);
@@ -88,12 +83,13 @@ public class Player extends Entity {
         setCurrentAcceleration(1);
         moveComponent = new MoveComponent(b2Body);
 
-        charWalk = animComp.getStill(currentDirection);
+        charAnim = animComp.makeTexturesIntoAnimation(0.1f, currentDirection, currentAction);
 
-        // TODO: PROBABLY CAN REMOVE CHARSTILL AND SETREGION
-        // Set up default facing sprite
+        // Used to set bounds at the feet/lower body
         offsetSpriteY = 8 / HunterOfPoke.PPM;
+
         // TODO: PUT IMAGEWIDTH AND IMAGEHEIGHT INTO JSON
+        // Set up default facing sprite
         TextureRegion charStill = new TextureRegion(assets.getPlayerAtlas().findRegion(regionName),
                 0, 0, getImageWidth(), getImageHeight());
         setBounds(0, 0, getImageWidth() / HunterOfPoke.PPM, getImageHeight() / HunterOfPoke.PPM);
@@ -226,7 +222,7 @@ public class Player extends Entity {
 
         return regionName;
     }
-
+    
     private TextureRegion getFrame(float deltaTime) {
         TextureRegion region;
         currentDirection = directionComp.getDirection();
@@ -235,18 +231,19 @@ public class Player extends Entity {
         currentAction = getAction();
 
         // Only set animation when something changes
-        if (updateTextureAtlas || currentAction != previousAction || currentDirection != previousDirection) {
+        if (currentAction != previousAction || currentDirection != previousDirection || updateTextureAtlas) {
             setUpdateTextureAtlas(false);
             animComp.setRegionName(getRegionName());
-            charWalk = animComp.getWalk(currentDirection, currentAction);
-            //charWalk = animComp.makeTexturesIntoAnimation(0.1f, currentDirection, currentAction);
+            charAnim = animComp.makeTexturesIntoAnimation(0.1f, currentDirection, currentAction);
         }
 
-        // true - looping
+        // If Walking, loop the animation
+        // otherwise, pause it on last frame
         if (currentAction == Action.WALKING) {
-            region = (TextureRegion) charWalk.getKeyFrame(stateTimer, true);
+            region = (TextureRegion) charAnim.getKeyFrame(stateTimer, true);
         } else {
-            region = (TextureRegion) charWalk.getKeyFrame(stateTimer, false);
+            region = (TextureRegion) charAnim.getKeyFrame(stateTimer, false);
+            //region = (TextureRegion) animComp.getStill(currentDirection).getKeyFrame(stateTimer);
         }
 
         // Flip region based on LEFT/RIGHT directions
@@ -323,7 +320,6 @@ public class Player extends Entity {
 
     @Override
     public void onHit(Entity entity) {
-        Gdx.app.log(getName(), "Oof! That smarts. Go away " + entity.getName() + ".");
         // Call timer, after timer, then resetCollision
         // Otherwise game crashes trying to reset collision while still colliding
         setTimerComponent(0.5f, ItemType.REMOVE_COLLISION);
