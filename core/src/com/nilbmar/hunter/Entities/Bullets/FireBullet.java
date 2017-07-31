@@ -22,13 +22,11 @@ public class FireBullet extends Bullet {
     public FireBullet(PlayScreen screen, float startInWorldX, float startInWorldY, Vector2 v, float rotation) {
         super(screen, startInWorldX, startInWorldY, v, rotation);
 
-
-
         regionName = "flamethrower_bullet";
         frames = new Array<TextureRegion>();
         frames.add(new TextureRegion(atlas.findRegion(regionName), 0, 0, 13, 10));
         frames.add(new TextureRegion(atlas.findRegion(regionName), 13, 0, 13, 10));
-        animation = new Animation(0.2f, frames);
+        animation = new Animation<TextureRegion>(0.2f, frames);
         animation.setPlayMode(Animation.PlayMode.LOOP);
         setRegion((TextureRegion) animation.getKeyFrame(0));
         setBounds(getX(), getY(), 13 / HunterOfPoke.PPM, 10 / HunterOfPoke.PPM);

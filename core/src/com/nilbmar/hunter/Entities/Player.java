@@ -72,14 +72,12 @@ public class Player extends Entity {
         inventoryComponent = new InventoryComponent(this, 5);
         holdItem = null;
 
-        // Setup Animations
         //regionName = "default"; // Will need to change in charMale and charAlien pack files
-        //setFramesComponent();
 
-        walkSteps = 4;
-        int scaleSizeX = getImageWidth();
-        int scaleSizeY = getImageHeight();
-        framesComp = new FramesComponent(walkSteps, getImageWidth(), getImageHeight());
+        // Set up frame information for animations to use
+        framesComp = new FramesComponent(4, getImageWidth(), getImageHeight());
+
+        // Set up animations componenet
         animComp = new AnimationComp(screen, this, framesComp, regionName);
 
         // Create Body
@@ -90,7 +88,7 @@ public class Player extends Entity {
 
         charAnim = animComp.makeTexturesIntoAnimation(0.1f, currentDirection, currentAction);
 
-        // Used to set bounds at the feet/lower body
+        // Used to set bounds at the feet and lower body
         offsetSpriteY = 8 / HunterOfPoke.PPM;
 
         // TODO: PUT IMAGEWIDTH AND IMAGEHEIGHT INTO JSON
@@ -276,13 +274,6 @@ public class Player extends Entity {
         previousDirection = directionComp.getDirection();
         previousAction = getAction();
         return region;
-    }
-
-    private void setFramesComponent() {
-        walkSteps = 4;
-        int scaleSizeX = getImageWidth();
-        int scaleSizeY = getImageHeight();
-        framesComp = new FramesComponent(walkSteps, scaleSizeX, scaleSizeY);
     }
 
     @Override

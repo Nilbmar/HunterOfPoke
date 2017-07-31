@@ -25,11 +25,10 @@ public class BulletA extends Bullet {
     public BulletA(PlayScreen screen, float x, float y, Vector2 v, float rotation) {
         super(screen, x, y, v, rotation);
 
-
         regionName = "bulleta";
         frames = new Array<TextureRegion>();
         frames.add(new TextureRegion(atlas.findRegion(regionName), 0, 0, 6, 6));
-        animation = new Animation(0f, frames);
+        animation = new Animation<TextureRegion>(0f, frames);
         animation.setPlayMode(Animation.PlayMode.NORMAL);
         setRegion((TextureRegion) animation.getKeyFrame(0));
         //setRegion(screen.getBulletAtlas().findRegion("bulleta"), 0, 0, 6, 6);
