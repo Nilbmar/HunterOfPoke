@@ -74,7 +74,12 @@ public class Player extends Entity {
 
         // Setup Animations
         //regionName = "default"; // Will need to change in charMale and charAlien pack files
-        setFramesComponent();
+        //setFramesComponent();
+
+        walkSteps = 4;
+        int scaleSizeX = getImageWidth();
+        int scaleSizeY = getImageHeight();
+        framesComp = new FramesComponent(walkSteps, getImageWidth(), getImageHeight());
         animComp = new AnimationComp(screen, this, framesComp, regionName);
 
         // Create Body
@@ -275,47 +280,9 @@ public class Player extends Entity {
 
     private void setFramesComponent() {
         walkSteps = 4;
-        framesComp = new FramesComponent(walkSteps);
-
-        // TODO: I'M NOT SURE HOW MANY NEED TO SET FOR WALK FRAMES
-        // SHOULD I JUST SET Y AND TAKE CARE OF X IN LOOP?
-        // OR MAKE THE FC TAKE THIS INT AND LOOP IN setWalkFrames()?
-        //int numOfWalkFramesPerDir = 3;
         int scaleSizeX = getImageWidth();
         int scaleSizeY = getImageHeight();
-
-        /* YOU MUST GO IN ORDER OF UP, UP_LEFT, DOWN, DOWN_LEFT, LEFT*/
-        // Multiple steps in walk cycles
-        for (int x = 0; x < walkSteps; x++) {
-            framesComp.setWalkFrames(DirectionComponent.Direction.UP, x * scaleSizeX, 0);
-        }
-        for (int x = 0; x < walkSteps; x++) {
-            framesComp.setWalkFrames(DirectionComponent.Direction.UP_LEFT, x * scaleSizeX, 0);
-        }
-
-        for (int x = 0; x < walkSteps; x++) {
-            framesComp.setWalkFrames(DirectionComponent.Direction.DOWN, x * scaleSizeX, 0);
-        }
-
-        for (int x = 0; x < walkSteps; x++) {
-            framesComp.setWalkFrames(DirectionComponent.Direction.DOWN_LEFT, x * scaleSizeX, 0);
-        }
-
-        for (int x = 0; x < walkSteps; x++) {
-            framesComp.setWalkFrames(DirectionComponent.Direction.LEFT, x * scaleSizeX, 0);
-        }
-
-        framesComp.setUseFrames(DirectionComponent.Direction.UP, scaleSizeX, 0);
-        framesComp.setUseFrames(DirectionComponent.Direction.UP_LEFT, scaleSizeX, 0); // TODO: THESE MAY HAVE CHANGED IT
-        framesComp.setUseFrames(DirectionComponent.Direction.DOWN, 0, 0);
-        framesComp.setUseFrames(DirectionComponent.Direction.DOWN_LEFT, 0, 0); // TODO: THESE MAY HAVE CHANGED IT
-        framesComp.setUseFrames(DirectionComponent.Direction.LEFT, scaleSizeX, 0);
-
-        framesComp.setStillFrames(DirectionComponent.Direction.UP, scaleSizeX, 0);
-        framesComp.setStillFrames(DirectionComponent.Direction.UP_LEFT, scaleSizeX, 0);
-        framesComp.setStillFrames(DirectionComponent.Direction.DOWN, 0, 0);
-        framesComp.setStillFrames(DirectionComponent.Direction.DOWN_LEFT, scaleSizeX, 0);
-        framesComp.setStillFrames(DirectionComponent.Direction.LEFT, scaleSizeX, 0);
+        framesComp = new FramesComponent(walkSteps, scaleSizeX, scaleSizeY);
     }
 
     @Override

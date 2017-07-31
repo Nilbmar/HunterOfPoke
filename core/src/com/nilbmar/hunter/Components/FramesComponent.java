@@ -11,19 +11,58 @@ import com.badlogic.gdx.utils.Array;
 
 public class FramesComponent {
     private int walkSteps;
-
-    private int frameWidth;
-    private int frameHeight;
+    private int scaleSizeX;
+    private int scaleSizeY;
 
     private Array<Vector2> walkFrames;
     private Array<Vector2> useFrames;
     private Array<Vector2> stillFrames;
 
-    public FramesComponent(int walkSteps) {
+    public FramesComponent(int walkSteps, int scaleSizeX, int scaleSizeY) {
         this.walkSteps = walkSteps;
+        this.scaleSizeX = scaleSizeX;
+        this.scaleSizeY = scaleSizeY;
         walkFrames = new Array<Vector2>();
         useFrames = new Array<Vector2>(3);
         stillFrames = new Array<Vector2>(3);
+
+        setFrames();
+    }
+
+    private void setFrames() {
+
+        /* YOU MUST GO IN ORDER OF UP, UP_LEFT, DOWN, DOWN_LEFT, LEFT*/
+        // Multiple steps in walk cycles
+        for (int x = 0; x < walkSteps; x++) {
+            this.setWalkFrames(DirectionComponent.Direction.UP, x * scaleSizeX, 0);
+        }
+        for (int x = 0; x < walkSteps; x++) {
+            this.setWalkFrames(DirectionComponent.Direction.UP_LEFT, x * scaleSizeX, 0);
+        }
+
+        for (int x = 0; x < walkSteps; x++) {
+            this.setWalkFrames(DirectionComponent.Direction.DOWN, x * scaleSizeX, 0);
+        }
+
+        for (int x = 0; x < walkSteps; x++) {
+            this.setWalkFrames(DirectionComponent.Direction.DOWN_LEFT, x * scaleSizeX, 0);
+        }
+
+        for (int x = 0; x < walkSteps; x++) {
+            this.setWalkFrames(DirectionComponent.Direction.LEFT, x * scaleSizeX, 0);
+        }
+
+        this.setUseFrames(DirectionComponent.Direction.UP, scaleSizeX, 0);
+        this.setUseFrames(DirectionComponent.Direction.UP_LEFT, scaleSizeX, 0); // TODO: THESE MAY HAVE CHANGED IT
+        this.setUseFrames(DirectionComponent.Direction.DOWN, 0, 0);
+        this.setUseFrames(DirectionComponent.Direction.DOWN_LEFT, 0, 0); // TODO: THESE MAY HAVE CHANGED IT
+        this.setUseFrames(DirectionComponent.Direction.LEFT, scaleSizeX, 0);
+
+        this.setStillFrames(DirectionComponent.Direction.UP, scaleSizeX, 0);
+        this.setStillFrames(DirectionComponent.Direction.UP_LEFT, scaleSizeX, 0);
+        this.setStillFrames(DirectionComponent.Direction.DOWN, 0, 0);
+        this.setStillFrames(DirectionComponent.Direction.DOWN_LEFT, scaleSizeX, 0);
+        this.setStillFrames(DirectionComponent.Direction.LEFT, scaleSizeX, 0);
     }
 
     public Vector2 getWalkFrames(DirectionComponent.Direction direction, int x) {
