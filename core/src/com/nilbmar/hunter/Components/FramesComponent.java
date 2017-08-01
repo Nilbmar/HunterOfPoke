@@ -1,5 +1,6 @@
 package com.nilbmar.hunter.Components;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
@@ -17,20 +18,31 @@ public class FramesComponent {
     private Array<Vector2> walkFrames;
     private Array<Vector2> useFrames;
     private Array<Vector2> stillFrames;
+    private Array<DirectionComponent.Direction> walkIndex;
+    private Array<DirectionComponent.Direction> stillIndex;
+    private Array<DirectionComponent.Direction> useIndex;
 
     public FramesComponent(int walkSteps, int scaleSizeX, int scaleSizeY) {
         this.walkSteps = walkSteps;
         this.scaleSizeX = scaleSizeX;
         this.scaleSizeY = scaleSizeY;
+
         walkFrames = new Array<Vector2>();
-        useFrames = new Array<Vector2>(3);
-        stillFrames = new Array<Vector2>(3);
+        walkIndex = new Array<DirectionComponent.Direction>();
+
+        stillFrames = new Array<Vector2>();
+        stillIndex = new Array<DirectionComponent.Direction>();
+
+        useFrames = new Array<Vector2>();
+        useIndex = new Array<DirectionComponent.Direction>();
+
 
         setFrames();
     }
 
     private void setFrames() {
 
+        // TODO: GET THE SCALE FOR X AND  Y FROM JSON
         /* YOU MUST GO IN ORDER OF UP, UP_LEFT, DOWN, DOWN_LEFT, LEFT*/
         // Multiple steps in walk cycles
         for (int x = 0; x < walkSteps; x++) {
@@ -65,103 +77,91 @@ public class FramesComponent {
         this.setStillFrames(DirectionComponent.Direction.LEFT, scaleSizeX, 0);
     }
 
-    public Vector2 getWalkFrames(DirectionComponent.Direction direction, int x) {
-        Vector2 position = new Vector2();
-        int index = x;
-
-        switch (direction) {
-            case UP:
-                index = x;
-                break;
-            case UP_LEFT:
-                index = x + 4;
-            case UP_RIGHT:
-                break;
-            case DOWN:
-                index = x + 8;
-                break;
-            case DOWN_LEFT:
-            case DOWN_RIGHT:
-                index = x + 12;
-                break;
-            case LEFT:
-            case RIGHT:
-                index = x + 16;
-                break;
-        }
-        position.x = walkFrames.get(index).x;
-        position.y = walkFrames.get(index).y;
-
-        return position;
+    // Only need 3 because LEFT and RIGHT are the same, with LEFT flipped later
+    private void setWalkFrames(DirectionComponent.Direction direction, float x, float y) {
+        Vector2 position = new Vector2(x, y);
+        walkFrames.add(position);
+        walkIndex.add(direction);
     }
 
-    public Vector2 getUseFrames(DirectionComponent.Direction direction) {
-        Vector2 position = new Vector2();
-        switch(direction) {
-            case UP:
-                position.x = useFrames.get(0).x;
-                position.y = useFrames.get(0).y;
-                break;
-            case DOWN:
-                position.x = useFrames.get(1).x;
-                position.y = useFrames.get(1).y;
-                break;
-            case LEFT:
+    public Vector2 getWalkFrames(DirectionComponent.Direction direction, int frame) {
+        // Use LEFT facing frames when going right
+        // which are then flipped
+        switch (direction){
             case RIGHT:
-                position.x = useFrames.get(2).x;
-                position.y = useFrames.get(2).y;
+                direction = DirectionComponent.Direction.LEFT;
+                break;
+            case UP_RIGHT:
+                direction = DirectionComponent.Direction.UP_LEFT;
+                break;
+            case DOWN_RIGHT:
+                direction = DirectionComponent.Direction.DOWN_LEFT;
                 break;
         }
 
-        return position;
+        // Get the index number for which walkFrame to use
+        // based on the index of a direction in walkIndex
+        // Adding frame adjusts the index for which frame
+        // of a particular direction should be used
+        // passed from the AnimationComponent
+        int index = walkIndex.indexOf(direction, true) + frame;
+
+        return walkFrames.get(index);
+    }
+
+    // Only need 3 because LEFT and RIGHT are the same, with LEFT flipped later
+    private void setStillFrames(DirectionComponent.Direction direction, int x, int y) {
+        Vector2 position = new Vector2(x, y);
+        stillFrames.add(position);
+        stillIndex.add(direction);
     }
 
     public Vector2 getStillFrames(DirectionComponent.Direction direction) {
-        int index = 0;
-        Vector2 position = new Vector2();
-        switch(direction) {
-            case UP:
-                index = 0;
-                break;
-            case UP_LEFT:
-            case UP_RIGHT:
-                index = 1;
-                break;
-            case DOWN:
-                index = 2;
-                break;
-            case DOWN_LEFT:
-            case DOWN_RIGHT:
-                index = 3;
-                break;
-            case LEFT:
+        switch (direction){
             case RIGHT:
-                index = 4;
+                direction = DirectionComponent.Direction.LEFT;
+                break;
+            case UP_RIGHT:
+                direction = DirectionComponent.Direction.UP_LEFT;
+                break;
+            case DOWN_RIGHT:
+                direction = DirectionComponent.Direction.DOWN_LEFT;
                 break;
         }
 
-        position.x = stillFrames.get(index).x;
-        position.y = stillFrames.get(index).y;
+        // Doesn't add frame because only one frame for STILL currently
+        int index = stillIndex.indexOf(direction, true); // + frame;
 
-        return position;
+        return stillFrames.get(index);
     }
 
     // Only need 3 because LEFT and RIGHT are the same, with LEFT flipped later
-    public void setWalkFrames(DirectionComponent.Direction direction, float x, float y) {
-        Vector2 position = new Vector2(x, y);
-        walkFrames.add(position);
-    }
-
-    // Only need 3 because LEFT and RIGHT are the same, with LEFT flipped later
-    public void setUseFrames(DirectionComponent.Direction direction, int x, int y) {
+    private void setUseFrames(DirectionComponent.Direction direction, int x, int y) {
         Vector2 position = new Vector2(x, y);
         useFrames.add(position);
+        useIndex.add(direction);
     }
 
-    // Only need 3 because LEFT and RIGHT are the same, with LEFT flipped later
-    public void setStillFrames(DirectionComponent.Direction direction, int x, int y) {
-        Vector2 position = new Vector2(x, y);
-        stillFrames.add(position);
-    }
 
+    public Vector2 getUseFrames(DirectionComponent.Direction direction) {
+        switch (direction){
+            case RIGHT:
+                direction = DirectionComponent.Direction.LEFT;
+                break;
+            case UP_RIGHT:
+                direction = DirectionComponent.Direction.UP_LEFT;
+                break;
+            case DOWN_RIGHT:
+                direction = DirectionComponent.Direction.DOWN_LEFT;
+                break;
+        }
+
+        // Doesn't add frame because only one frame for USE currently
+        int index = useIndex.indexOf(direction, true); // + frame;
+
+        // TODO: ANIMATIONCOMPONENT DOESN'T CURRENTLY IMPLEMENT USEFRAMES AT ALL
+        // TEST WHEN IMPLEMENTED AND REMOVE THIS LOG LINE
+        Gdx.app.log("useFrames returned", useFrames.get(index).toString());
+        return useFrames.get(index);
+    }
 }
