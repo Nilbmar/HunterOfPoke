@@ -61,20 +61,26 @@ public class FramesComponent {
             for (int y = 0; y < walkSteps; y++) {
                 setWalkFrames(dirToSet, y * scaleSizeX, 0);
             }
+
+            switch (dirToSet) {
+                case DOWN:
+                    setStillFrames(dirToSet, 0, 0);
+                    setUseFrames(dirToSet, 0, 0);
+                    break;
+                default:
+                    setStillFrames(dirToSet, scaleSizeX, 0);
+                    setUseFrames(dirToSet, scaleSizeX, 0);
+                    break;
+            }
         }
 
+        /* TODO: AFTER USE FRAMES HAVE BEEN IMPLEMENTED, REMOVE THESE IF WORKING CORRECTLY
         this.setUseFrames(DirectionComponent.Direction.UP, scaleSizeX, 0);
         this.setUseFrames(DirectionComponent.Direction.UP_LEFT, scaleSizeX, 0); // TODO: THESE MAY HAVE CHANGED IT
         this.setUseFrames(DirectionComponent.Direction.DOWN, 0, 0);
         this.setUseFrames(DirectionComponent.Direction.DOWN_LEFT, 0, 0); // TODO: THESE MAY HAVE CHANGED IT
         this.setUseFrames(DirectionComponent.Direction.LEFT, scaleSizeX, 0);
-
-        this.setStillFrames(DirectionComponent.Direction.UP, scaleSizeX, 0);
-        this.setStillFrames(DirectionComponent.Direction.UP_LEFT, scaleSizeX, 0);
-        this.setStillFrames(DirectionComponent.Direction.DOWN, 0, 0);
-        this.setStillFrames(DirectionComponent.Direction.DOWN_LEFT, scaleSizeX, 0);
-        this.setStillFrames(DirectionComponent.Direction.LEFT, scaleSizeX, 0);
-
+        */
     }
 
     // Only need 3 because LEFT and RIGHT are the same, with LEFT flipped later
@@ -110,7 +116,7 @@ public class FramesComponent {
     }
 
     // Only need 3 because LEFT and RIGHT are the same, with LEFT flipped later
-    private void setStillFrames(DirectionComponent.Direction direction, int x, int y) {
+    private void setStillFrames(DirectionComponent.Direction direction, float x, float y) {
         Vector2 position = new Vector2(x, y);
         stillFrames.add(position);
         stillIndex.add(direction);
