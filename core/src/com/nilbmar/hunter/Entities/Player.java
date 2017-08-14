@@ -318,10 +318,8 @@ public class Player extends Entity {
     public Item getHoldItem() { return holdItem; }
     public void setHoldItem(Item item) { holdItem = item; }
 
-    /* TODO: CURRENTLY ONLY RESETS COLLISION TO COLLISION WITH ENEMY_BIT
-     * This was done to test the reset by disallowing ground collision
-     * Change this so it won't collide with enemies ore their bullets
-     * for invincibility frames, but should still collide with ground */
+    // Change maskBits to not collide with enemies
+    // or go back to colliding with enemies
     public void resetCollision(boolean collideWithEnemies) {
         float newX = b2Body.getPosition().x;
         float newY = b2Body.getPosition().y;
