@@ -43,25 +43,24 @@ public class FramesComponent {
     private void setFrames() {
 
         // TODO: GET THE SCALE FOR X AND  Y FROM JSON
-        /* YOU MUST GO IN ORDER OF UP, UP_LEFT, DOWN, DOWN_LEFT, LEFT*/
+
         // Multiple steps in walk cycles
-        for (int x = 0; x < walkSteps; x++) {
-            this.setWalkFrames(DirectionComponent.Direction.UP, x * scaleSizeX, 0);
-        }
-        for (int x = 0; x < walkSteps; x++) {
-            this.setWalkFrames(DirectionComponent.Direction.UP_LEFT, x * scaleSizeX, 0);
-        }
 
-        for (int x = 0; x < walkSteps; x++) {
-            this.setWalkFrames(DirectionComponent.Direction.DOWN, x * scaleSizeX, 0);
-        }
+        // Order that previously had to be set
+        // UP, UP_LEFT, DOWN, DOWN_LEFT, LEFT
+        DirectionComponent.Direction[] arrOfDirToSet
+                = { DirectionComponent.Direction.UP, DirectionComponent.Direction. UP_LEFT,
+                    DirectionComponent.Direction.DOWN, DirectionComponent.Direction.DOWN_LEFT,
+                    DirectionComponent.Direction.LEFT };
 
-        for (int x = 0; x < walkSteps; x++) {
-            this.setWalkFrames(DirectionComponent.Direction.DOWN_LEFT, x * scaleSizeX, 0);
-        }
+        DirectionComponent.Direction dirToSet = null;
 
-        for (int x = 0; x < walkSteps; x++) {
-            this.setWalkFrames(DirectionComponent.Direction.LEFT, x * scaleSizeX, 0);
+        for (int x = 0; x < arrOfDirToSet.length; x++) {
+            dirToSet = arrOfDirToSet[x];
+
+            for (int y = 0; y < walkSteps; y++) {
+                setWalkFrames(dirToSet, y * scaleSizeX, 0);
+            }
         }
 
         this.setUseFrames(DirectionComponent.Direction.UP, scaleSizeX, 0);
