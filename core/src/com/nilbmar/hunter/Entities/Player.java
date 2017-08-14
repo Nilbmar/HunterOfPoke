@@ -11,6 +11,7 @@ import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Components.FramesComponent;
 import com.nilbmar.hunter.Components.InventoryComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
+import com.nilbmar.hunter.Components.TimerComponent;
 import com.nilbmar.hunter.Entities.Items.Item;
 import com.nilbmar.hunter.Enums.ItemType;
 import com.nilbmar.hunter.HunterOfPoke;
@@ -207,6 +208,8 @@ public class Player extends Entity {
               regionName = "diagup";
               break;
           case DOWN:
+              // There's a separate region for still DOWN
+              // than for walking DOWN
               if (currentAction == Action.WALKING) {
                   regionName = "south";
               } else {
@@ -240,13 +243,20 @@ public class Player extends Entity {
             charAnim = animComp.makeTexturesIntoAnimation(0.1f, currentDirection, currentAction);
         }
 
-        // If Walking, loop the animation
-        // otherwise, pause it on last frame
-        if (currentAction == Action.WALKING) {
-            region = (TextureRegion) charAnim.getKeyFrame(stateTimer, true);
-        } else {
-            region = (TextureRegion) charAnim.getKeyFrame(stateTimer, false);
-            //region = (TextureRegion) animComp.getStill(currentDirection).getKeyFrame(stateTimer);
+        // Get Key Frame
+        // If Walking, loop the animation, otherwise, pause it on last frame
+        switch (currentAction) {
+            case WALKING:
+                region = (TextureRegion) charAnim.getKeyFrame(stateTimer, true);
+                break;
+            case USE:
+                // TODO: SET A DIFFERENT REGION AFTER MAKING NEW SPRITESHEETS
+                region = (TextureRegion) charAnim.getKeyFrame(stateTimer, false);
+                break;
+            case STILL:
+            default:
+                region = (TextureRegion) charAnim.getKeyFrame(stateTimer, false);
+                break;
         }
 
         // Flip region based on LEFT/RIGHT directions
@@ -311,6 +321,11 @@ public class Player extends Entity {
             UseCommand use = new UseCommand(holdItem);
             use.execute(this);
             inventoryComponent.reduceInventory(holdItem.getInventoryType());
+
+            // TODO: CHANGE THIS AND MOVECOMPONENT SO THAT
+            // THIS GETSIFMOVING() AND SETS ACTION ITSELF
+            // THEN SETS THAT IN MOVECOMPONENET
+            moveComponent.setAction(Action.USE);
         }
 
     }
@@ -387,6 +402,11 @@ public class Player extends Entity {
 
         directionComp.setDirection(moveComponent.getCurrentDirection());
         setAction(moveComponent.getCurrentAction());
+
+        if (currentAction == Action.USE) {
+            Gdx.app.log("currentAction", currentAction.toString());
+        }
+
         setRegion(getFrame(deltaTime));
     }
 }

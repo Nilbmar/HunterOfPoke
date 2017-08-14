@@ -168,7 +168,7 @@ public class FramesComponent {
 
         // TODO: ANIMATIONCOMPONENT DOESN'T CURRENTLY IMPLEMENT USEFRAMES AT ALL
         // TEST WHEN IMPLEMENTED AND REMOVE THIS LOG LINE
-        Gdx.app.log("useFrames returned", useFrames.get(index).toString() + "TODO: REMOVE THIS LOG LINE AFTER TESTING"
+        Gdx.app.log("useFrames returned", direction + " " + useFrames.get(index).toString() + " TODO: REMOVE THIS LOG LINE AFTER TESTING"
             + " in the FramesComponent");
         return useFrames.get(index);
     }

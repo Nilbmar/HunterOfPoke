@@ -84,7 +84,12 @@ public class MoveComponent {
             // IF DIRECTION IS ZERO
             // Stop moveComponent
             b2Body.setAwake(false);
-            setAction(Action.STILL);
+            if (currentAction == Action.USE) {
+                // TODO: TIMER TO RETURN TO STILL
+                setAction(Action.STILL);
+            } else {
+                setAction(Action.STILL);
+            }
 
             // TODO: CREATE/APPLY STATETIMER TO MEASURE
             // TIME PASSED SINCE KEYS RELEASED
@@ -108,7 +113,7 @@ public class MoveComponent {
     }
 
     public Action getCurrentAction() { return currentAction; }
-    private void setAction(Action action) {
+    public void setAction(Action action) {
         previousAction = currentAction;
         currentAction = action;
     }
