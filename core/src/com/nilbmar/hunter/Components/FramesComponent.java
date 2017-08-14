@@ -74,6 +74,7 @@ public class FramesComponent {
         this.setStillFrames(DirectionComponent.Direction.DOWN, 0, 0);
         this.setStillFrames(DirectionComponent.Direction.DOWN_LEFT, scaleSizeX, 0);
         this.setStillFrames(DirectionComponent.Direction.LEFT, scaleSizeX, 0);
+
     }
 
     // Only need 3 because LEFT and RIGHT are the same, with LEFT flipped later
@@ -116,6 +117,7 @@ public class FramesComponent {
     }
 
     public Vector2 getStillFrames(DirectionComponent.Direction direction) {
+        // Swap RIGHT variations for LEFT variations
         switch (direction){
             case RIGHT:
                 direction = DirectionComponent.Direction.LEFT;
@@ -160,7 +162,8 @@ public class FramesComponent {
 
         // TODO: ANIMATIONCOMPONENT DOESN'T CURRENTLY IMPLEMENT USEFRAMES AT ALL
         // TEST WHEN IMPLEMENTED AND REMOVE THIS LOG LINE
-        Gdx.app.log("useFrames returned", useFrames.get(index).toString());
+        Gdx.app.log("useFrames returned", useFrames.get(index).toString() + "TODO: REMOVE THIS LOG LINE AFTER TESTING"
+            + " in the FramesComponent");
         return useFrames.get(index);
     }
 }
