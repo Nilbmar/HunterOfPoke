@@ -115,7 +115,7 @@ public abstract class Bullet  extends Entity implements Poolable {
             velocity.y +=1;
         }
 
-        //movement.move(velocity, 2);
+        movement.move(velocity, 2);
     }
 
     private void timeout() {
