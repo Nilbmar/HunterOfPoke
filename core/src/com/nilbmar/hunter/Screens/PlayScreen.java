@@ -83,7 +83,7 @@ public class PlayScreen implements Screen {
         gameCam = new OrthographicCamera();
         gamePort = new FitViewport(HunterOfPoke.V_WIDTH / HunterOfPoke.PPM, HunterOfPoke.V_HEIGHT / HunterOfPoke.PPM, gameCam);
         hud = new Hud(game.batch);
-        viewHUD = false;
+        viewHUD = true;
 
         // Load Assets
         assets.loadImages();
