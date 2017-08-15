@@ -127,11 +127,10 @@ public class AnimationComp {
             case ATTACK:
             case USE:
                 frames.clear(); // clears out the default stance
-                // TODO: ATTACK AND USE ARE NOT YET IMPLEMENTED
+                // TODO: ATTACK IS NOT YET IMPLEMENTED
                 // WILL PROBABLY USE WALKING FRAMES FOR ATTACK
                 // IF A GUN IS USED, BECAUSE THE PLAYER WOULD BE
-                // WALKING WITH TEH GUN
-                // Action.ATTACK and Action.USE only uses a single frame
+                // WALKING WITH THE GUN
                 for (int i = 0; i < 4; i++) {
                     x = (int) framesComp.getUseFrames(direction, i).x;
                     y = (int) framesComp.getUseFrames(direction, i).y;

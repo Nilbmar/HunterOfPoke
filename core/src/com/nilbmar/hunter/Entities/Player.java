@@ -11,7 +11,6 @@ import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Components.FramesComponent;
 import com.nilbmar.hunter.Components.InventoryComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
-import com.nilbmar.hunter.Components.TimerComponent;
 import com.nilbmar.hunter.Entities.Items.Item;
 import com.nilbmar.hunter.Enums.ItemType;
 import com.nilbmar.hunter.HunterOfPoke;
@@ -187,13 +186,22 @@ public class Player extends Entity {
     }
 
     private Action getAction() { return currentAction; }
-    private void setAction(Action act) {
-        if (act != previousAction) {
-            Gdx.app.log("Setting Action", currentAction.toString());
-            previousAction = currentAction;
-            currentAction = act;
+    private void setAction() {
+        previousAction = currentAction;
+        if (moveComponent.isMoving()) {
+            currentAction = Action.WALKING;
+        } else {
+            if (currentAction == Action.USE) {
+                if (charAnim.getKeyFrameIndex(stateTimer) == 3) {
+                    currentAction = Action.STILL;
+                }
+            } else {
+                currentAction = Action.STILL;
+            }
+        }
 
-
+        // Set action in movement component if it has changed
+        if (currentAction != previousAction) {
             moveComponent.setAction(currentAction);
         }
     }
@@ -245,14 +253,13 @@ public class Player extends Entity {
     private TextureRegion getFrame(float deltaTime) {
         TextureRegion region;
         currentDirection = directionComp.getDirection();
-        currentAction = getAction();
+        //currentAction = getAction();
 
         // Only set animation when something changes
         if (currentAction != previousAction || currentDirection != previousDirection || updateTextureAtlas) {
             setUpdateTextureAtlas(false);
             animComp.setRegionName(getRegionName());
             charAnim = animComp.makeTexturesIntoAnimation(0.1f, currentDirection, currentAction);
-            Gdx.app.log("charAnim change", currentAction.toString());
         }
 
         // Get Key Frame
@@ -334,10 +341,7 @@ public class Player extends Entity {
             use.execute(this);
             inventoryComponent.reduceInventory(holdItem.getInventoryType());
 
-            // TODO: CHANGE THIS AND MOVECOMPONENT SO THAT
-            // THIS GETSIFMOVING() AND SETS ACTION ITSELF
-            // THEN SETS THAT IN MOVECOMPONENET
-            setAction(Action.USE);
+            currentAction = Action.USE;
         }
 
     }
@@ -414,20 +418,7 @@ public class Player extends Entity {
 
         directionComp.setDirection(moveComponent.getCurrentDirection());
 
-        if (moveComponent.isMoving()) {
-            setAction(Action.WALKING);
-        } else {
-            if (currentAction == Action.USE) {
-                Gdx.app.log("Action.USE", "" + charAnim.getKeyFrameIndex(deltaTime) + " == " + charAnim.getKeyFrames().length);
-                if (charAnim.getKeyFrameIndex(deltaTime) == charAnim.getKeyFrames().length) {
-                    Gdx.app.log("isAnimationFinished", charAnim.isAnimationFinished(deltaTime) + "");
-                    setAction(Action.STILL);
-                }
-            } else {
-                setAction(Action.STILL);
-            }
-        }
-
         setRegion(getFrame(deltaTime));
+        setAction(); // Must follow call to getFrame(deltaTime) or USE frames won't work
     }
 }

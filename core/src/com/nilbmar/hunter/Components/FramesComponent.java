@@ -67,6 +67,7 @@ public class FramesComponent {
                         break;
                     default:
                         setUseFrames(dirToSet, scaleSizeX, 0);
+                        break;
                 }
             }
 
@@ -79,14 +80,6 @@ public class FramesComponent {
                     break;
             }
         }
-
-        /* TODO: AFTER USE FRAMES HAVE BEEN IMPLEMENTED, REMOVE THESE IF WORKING CORRECTLY
-        this.setUseFrames(DirectionComponent.Direction.UP, scaleSizeX, 0);
-        this.setUseFrames(DirectionComponent.Direction.UP_LEFT, scaleSizeX, 0); // TODO: THESE MAY HAVE CHANGED IT
-        this.setUseFrames(DirectionComponent.Direction.DOWN, 0, 0);
-        this.setUseFrames(DirectionComponent.Direction.DOWN_LEFT, 0, 0); // TODO: THESE MAY HAVE CHANGED IT
-        this.setUseFrames(DirectionComponent.Direction.LEFT, scaleSizeX, 0);
-        */
     }
 
     // Only need 3 because LEFT and RIGHT are the same, with LEFT flipped later
@@ -169,13 +162,8 @@ public class FramesComponent {
                 break;
         }
 
-        // Doesn't add frame because only one frame for USE currently
         int index = useIndex.indexOf(direction, true) + frame;
 
-        // TODO: ANIMATIONCOMPONENT DOESN'T CURRENTLY IMPLEMENT USEFRAMES AT ALL
-        // TEST WHEN IMPLEMENTED AND REMOVE THIS LOG LINE
-        Gdx.app.log("useFrames returned", "frame: " + frame + " direction: " + direction + " " + useFrames.get(index).toString() + " TODO: REMOVE THIS LOG LINE AFTER TESTING"
-            + " in the FramesComponent");
         return useFrames.get(index);
     }
 }
