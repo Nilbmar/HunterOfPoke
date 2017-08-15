@@ -14,7 +14,7 @@ public class MoveCommand implements Command {
     @Override
     public void execute(Entity entity) {
         //this.entity = entity;
-        entity.getMoveComponent().move(direction, entity.getCurrentAcceleration());
+        entity.getMoveComponent().action(direction, entity.getCurrentAcceleration());
     }
 
     public void setMovement(Vector2 dir) {

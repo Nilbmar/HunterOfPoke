@@ -15,7 +15,7 @@ import com.nilbmar.hunter.Entities.Entity;
  * Created by sysgeek on 7/1/17.
  *
  * AI: SteeringAI
- * Purpose: Have Entity move toward a point
+ * Purpose: Have Entity action toward a point
  * with a possible "safe" distance
  */
 

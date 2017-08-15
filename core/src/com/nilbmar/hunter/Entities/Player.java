@@ -190,6 +190,8 @@ public class Player extends Entity {
     private void setAction(Action act) {
         previousAction = currentAction;
         currentAction = act;
+
+        moveComponent.setAction(currentAction);
     }
 
     // Change player's TextureAtlas in the AnimationComp
@@ -210,10 +212,17 @@ public class Player extends Entity {
           case DOWN:
               // There's a separate region for still DOWN
               // than for walking DOWN
-              if (currentAction == Action.WALKING) {
-                  regionName = "south";
-              } else {
-                  regionName = "default";
+              switch (currentAction) {
+                  case WALKING:
+                      regionName = "south2";
+                      break;
+                  case USE:
+                      regionName = "south";
+                      break;
+                  case STILL:
+                  default:
+                      regionName = "default";
+                      break;
               }
               break;
           case DOWN_LEFT:
@@ -401,10 +410,23 @@ public class Player extends Entity {
         }
 
         directionComp.setDirection(moveComponent.getCurrentDirection());
-        setAction(moveComponent.getCurrentAction());
 
-        if (currentAction == Action.USE) {
+        if (currentAction == Action.USE && charAnim.isAnimationFinished(deltaTime)) {
+            moveComponent.setAction(Action.STILL);
+            Gdx.app.log("charAnim", charAnim.isAnimationFinished(deltaTime) + "");
             Gdx.app.log("currentAction", currentAction.toString());
+        }
+
+        if (moveComponent.isMoving()) {
+            setAction(Action.WALKING);
+        } else {
+            if (currentAction == Action.USE) {
+                if (charAnim.isAnimationFinished(deltaTime)) {
+                    setAction(Action.STILL);
+                }
+            } else {
+                setAction(Action.STILL);
+            }
         }
 
         setRegion(getFrame(deltaTime));

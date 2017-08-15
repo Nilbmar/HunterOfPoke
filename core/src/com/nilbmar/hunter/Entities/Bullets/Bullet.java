@@ -115,10 +115,10 @@ public abstract class Bullet  extends Entity implements Poolable {
             velocity.y +=1;
         }
 
-        movement.move(velocity, 2);
+        //movement.move(velocity, 2);
     }
 
-    protected void timeout() {
+    private void timeout() {
         if (stateTime >= lifespan && !destroyed) {
             setToDestroy = true;
         }

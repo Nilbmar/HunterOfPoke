@@ -1,5 +1,6 @@
 package com.nilbmar.hunter.Components;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.nilbmar.hunter.HunterOfPoke;
@@ -20,7 +21,9 @@ public class MoveComponent {
 
     private Body b2Body;
 
+    private Vector2 movement;
     private float acceleration;
+    private float maxVelocity = 32 / HunterOfPoke.PPM;
 
     public MoveComponent(Body b2Body) {
         this.b2Body = b2Body;
@@ -30,76 +33,86 @@ public class MoveComponent {
         currentAction = Action.STILL;
         previousAction = Action.STILL;
 
+        movement = new Vector2(0, 0);
         acceleration = 1;
     }
 
+    // Used by action function
+    // and by entities that don't need extra actions (USE/STILL)
+    // ie. Bullets only need to move until destroyed
     public void move(Vector2 movement, int accl) {
-        float maxVelocity = 32 / HunterOfPoke.PPM;
         float force = 0;
         float pixelsToMove = 8;
-        previousDirection = currentDirection;
         movement.set(movement.x * maxVelocity, movement.y * maxVelocity);
 
-        // Set Walking Animation and DirectionComponent.Direction
-        if (!movement.isZero()) {
-            setAction(Action.WALKING);
-            setAcceleration(accl);
+        //setAction(Action.WALKING);
+        setAcceleration(accl);
 
-            // SET DIRECTION
-            // If not moving up or down, set either left or right
-            if (movement.y == 0) {
-                if (movement.x > 0) {
-                    setDirection(DirectionComponent.Direction.RIGHT);
-                } else if (movement.x < 0) {
-                    setDirection(DirectionComponent.Direction.LEFT);
-                }
-            } else if (movement.y > 0) {
-                // If moving UP, check for side to side moveComponent as well, else set UP
-                if (movement.x > 0) {
-                    setDirection(DirectionComponent.Direction.UP_RIGHT);
-                } else if (movement.x < 0) {
-                    setDirection(DirectionComponent.Direction.UP_LEFT);
-                } else {
-                    setDirection(DirectionComponent.Direction.UP);
-                }
-            } else if (movement.y < 0) {
-                // If moving DOWN, check for side to side moveComponent as well, else set DOWN
-                if (movement.x > 0) {
-                    setDirection(DirectionComponent.Direction.DOWN_RIGHT);
-                } else if (movement.x < 0) {
-                    setDirection(DirectionComponent.Direction.DOWN_LEFT);
-                } else {
-                    setDirection(DirectionComponent.Direction.DOWN);
-                }
+        // SET DIRECTION
+        // If not moving up or down, set either left or right
+        if (movement.y == 0) {
+            if (movement.x > 0) {
+                setDirection(DirectionComponent.Direction.RIGHT);
+            } else if (movement.x < 0) {
+                setDirection(DirectionComponent.Direction.LEFT);
             }
-
-            b2Body.setAwake(false);
-            Vector2 desiredVelocity = new Vector2(movement.x * maxVelocity, movement.y * maxVelocity);
-            force = acceleration * b2Body.getMass();
-            desiredVelocity.x = (desiredVelocity.x - b2Body.getLinearVelocity().x) * pixelsToMove * force;
-            desiredVelocity.y = (desiredVelocity.y - b2Body.getLinearVelocity().y) * pixelsToMove * force;
-
-            b2Body.applyLinearImpulse(desiredVelocity, b2Body.getWorldCenter(), true);
-        } else {
-            // IF DIRECTION IS ZERO
-            // Stop moveComponent
-            b2Body.setAwake(false);
-            if (currentAction == Action.USE) {
-                // TODO: TIMER TO RETURN TO STILL
-                setAction(Action.STILL);
+        } else if (movement.y > 0) {
+            // If moving UP, check for side to side moveComponent as well, else set UP
+            if (movement.x > 0) {
+                setDirection(DirectionComponent.Direction.UP_RIGHT);
+            } else if (movement.x < 0) {
+                setDirection(DirectionComponent.Direction.UP_LEFT);
             } else {
-                setAction(Action.STILL);
+                setDirection(DirectionComponent.Direction.UP);
             }
+        } else if (movement.y < 0) {
+            // If moving DOWN, check for side to side moveComponent as well, else set DOWN
+            if (movement.x > 0) {
+                setDirection(DirectionComponent.Direction.DOWN_RIGHT);
+            } else if (movement.x < 0) {
+                setDirection(DirectionComponent.Direction.DOWN_LEFT);
+            } else {
+                setDirection(DirectionComponent.Direction.DOWN);
+            }
+        }
 
-            // TODO: CREATE/APPLY STATETIMER TO MEASURE
-            // TIME PASSED SINCE KEYS RELEASED
-            // IF NOT ENOUGH TIME PASSED, DON'T CHANGE DIRECTION
-            //setDirection(previousDirection);
+        b2Body.setAwake(false);
+        Vector2 desiredVelocity = new Vector2(movement.x * maxVelocity, movement.y * maxVelocity);
+        force = acceleration * b2Body.getMass();
+        desiredVelocity.x = (desiredVelocity.x - b2Body.getLinearVelocity().x) * pixelsToMove * force;
+        desiredVelocity.y = (desiredVelocity.y - b2Body.getLinearVelocity().y) * pixelsToMove * force;
 
-            // Face down when not moving - turned OFF
-            //setDirection(DirectionComponent.Direction.DOWN);
+        b2Body.applyLinearImpulse(desiredVelocity, b2Body.getWorldCenter(), true);
+    }
+
+    public void action(Vector2 movement, int accl) {
+        this.movement = movement;
+        previousDirection = currentDirection;
+
+
+        // Set Walking Animation and DirectionComponent.Direction
+        switch (currentAction) {
+            case WALKING:
+                move(movement, accl);
+                break;
+            case USE:
+                // IF DIRECTION IS ZERO
+                // Stop moveComponent
+                b2Body.setAwake(false);
+                // TODO: POSSIBLY ADD BACK IN setAction(Action.STILL);
+                //setAction(Action.STILL);
+                break;
+            case STILL:
+                // IF DIRECTION IS ZERO
+                // Stop moveComponent
+                b2Body.setAwake(false);
+                // TODO: POSSIBLY ADD BACK IN setAction(Action.STILL);
+                //setAction(Action.STILL);
+                break;
         }
     }
+
+    public boolean isMoving() { return !movement.isZero(); }
 
     // Boosts from items or reset
     private void setAcceleration(int accl) {
