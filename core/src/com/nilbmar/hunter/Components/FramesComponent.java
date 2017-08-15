@@ -60,16 +60,22 @@ public class FramesComponent {
 
             for (int y = 0; y < walkSteps; y++) {
                 setWalkFrames(dirToSet, y * scaleSizeX, 0);
+
+                switch (dirToSet) {
+                    case DOWN:
+                        setUseFrames(dirToSet, 0, 0);
+                        break;
+                    default:
+                        setUseFrames(dirToSet, scaleSizeX, 0);
+                }
             }
 
             switch (dirToSet) {
                 case DOWN:
                     setStillFrames(dirToSet, 0, 0);
-                    setUseFrames(dirToSet, 0, 0);
                     break;
                 default:
                     setStillFrames(dirToSet, scaleSizeX, 0);
-                    setUseFrames(dirToSet, scaleSizeX, 0);
                     break;
             }
         }
@@ -150,7 +156,7 @@ public class FramesComponent {
     }
 
 
-    public Vector2 getUseFrames(DirectionComponent.Direction direction) {
+    public Vector2 getUseFrames(DirectionComponent.Direction direction, int frame) {
         switch (direction){
             case RIGHT:
                 direction = DirectionComponent.Direction.LEFT;
@@ -164,11 +170,11 @@ public class FramesComponent {
         }
 
         // Doesn't add frame because only one frame for USE currently
-        int index = useIndex.indexOf(direction, true); // + frame;
+        int index = useIndex.indexOf(direction, true) + frame;
 
         // TODO: ANIMATIONCOMPONENT DOESN'T CURRENTLY IMPLEMENT USEFRAMES AT ALL
         // TEST WHEN IMPLEMENTED AND REMOVE THIS LOG LINE
-        Gdx.app.log("useFrames returned", direction + " " + useFrames.get(index).toString() + " TODO: REMOVE THIS LOG LINE AFTER TESTING"
+        Gdx.app.log("useFrames returned", "frame: " + frame + " direction: " + direction + " " + useFrames.get(index).toString() + " TODO: REMOVE THIS LOG LINE AFTER TESTING"
             + " in the FramesComponent");
         return useFrames.get(index);
     }

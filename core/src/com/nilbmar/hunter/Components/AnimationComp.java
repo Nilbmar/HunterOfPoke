@@ -124,19 +124,20 @@ public class AnimationComp {
 
                 break;
 
-            case USE:
             case ATTACK:
+            case USE:
                 frames.clear(); // clears out the default stance
                 // TODO: ATTACK AND USE ARE NOT YET IMPLEMENTED
                 // WILL PROBABLY USE WALKING FRAMES FOR ATTACK
                 // IF A GUN IS USED, BECAUSE THE PLAYER WOULD BE
                 // WALKING WITH TEH GUN
                 // Action.ATTACK and Action.USE only uses a single frame
-                x = (int) framesComp.getUseFrames(direction).x;
-                y = (int) framesComp.getUseFrames(direction).y;
-                frames.add(new TextureRegion(atlas.findRegion(regionName),
-                        x, y, width, height));
-
+                for (int i = 0; i < 4; i++) {
+                    x = (int) framesComp.getUseFrames(direction, i).x;
+                    y = (int) framesComp.getUseFrames(direction, i).y;
+                    frames.add(new TextureRegion(atlas.findRegion(regionName),
+                            x, y, width, height));
+                }
                 break;
         }
 

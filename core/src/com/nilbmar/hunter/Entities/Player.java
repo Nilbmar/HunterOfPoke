@@ -188,10 +188,14 @@ public class Player extends Entity {
 
     private Action getAction() { return currentAction; }
     private void setAction(Action act) {
-        previousAction = currentAction;
-        currentAction = act;
+        if (act != previousAction) {
+            Gdx.app.log("Setting Action", currentAction.toString());
+            previousAction = currentAction;
+            currentAction = act;
 
-        moveComponent.setAction(currentAction);
+
+            moveComponent.setAction(currentAction);
+        }
     }
 
     // Change player's TextureAtlas in the AnimationComp
@@ -241,8 +245,6 @@ public class Player extends Entity {
     private TextureRegion getFrame(float deltaTime) {
         TextureRegion region;
         currentDirection = directionComp.getDirection();
-        //directionComp.setDirection(currentDirection);
-
         currentAction = getAction();
 
         // Only set animation when something changes
@@ -250,6 +252,7 @@ public class Player extends Entity {
             setUpdateTextureAtlas(false);
             animComp.setRegionName(getRegionName());
             charAnim = animComp.makeTexturesIntoAnimation(0.1f, currentDirection, currentAction);
+            Gdx.app.log("charAnim change", currentAction.toString());
         }
 
         // Get Key Frame
@@ -334,7 +337,7 @@ public class Player extends Entity {
             // TODO: CHANGE THIS AND MOVECOMPONENT SO THAT
             // THIS GETSIFMOVING() AND SETS ACTION ITSELF
             // THEN SETS THAT IN MOVECOMPONENET
-            moveComponent.setAction(Action.USE);
+            setAction(Action.USE);
         }
 
     }
@@ -411,17 +414,13 @@ public class Player extends Entity {
 
         directionComp.setDirection(moveComponent.getCurrentDirection());
 
-        if (currentAction == Action.USE && charAnim.isAnimationFinished(deltaTime)) {
-            moveComponent.setAction(Action.STILL);
-            Gdx.app.log("charAnim", charAnim.isAnimationFinished(deltaTime) + "");
-            Gdx.app.log("currentAction", currentAction.toString());
-        }
-
         if (moveComponent.isMoving()) {
             setAction(Action.WALKING);
         } else {
             if (currentAction == Action.USE) {
-                if (charAnim.isAnimationFinished(deltaTime)) {
+                Gdx.app.log("Action.USE", "" + charAnim.getKeyFrameIndex(deltaTime) + " == " + charAnim.getKeyFrames().length);
+                if (charAnim.getKeyFrameIndex(deltaTime) == charAnim.getKeyFrames().length) {
+                    Gdx.app.log("isAnimationFinished", charAnim.isAnimationFinished(deltaTime) + "");
                     setAction(Action.STILL);
                 }
             } else {
