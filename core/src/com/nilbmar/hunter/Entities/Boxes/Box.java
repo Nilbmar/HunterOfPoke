@@ -7,23 +7,22 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Pool;
 import com.nilbmar.hunter.Components.MoveComponent;
-import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Entities.NewEntity;
 import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
-import com.nilbmar.hunter.Tools.BulletCreator;
+import com.nilbmar.hunter.Tools.BoxCreator;
+import com.badlogic.gdx.utils.Pool.Poolable;
 
 /**
  * Created by sysgeek on 8/22/17.
  */
 
-public abstract class Box extends NewEntity implements Pool.Poolable {
+public abstract class Box extends NewEntity implements Poolable {
     protected World world;
     protected PlayScreen screen;
-    protected BulletCreator bulletCreator;
+    protected BoxCreator boxCreator;
 
     protected Vector2 velocity;
 
@@ -46,7 +45,7 @@ public abstract class Box extends NewEntity implements Pool.Poolable {
         super(screen, startInWorldX, startInWorldY);
         this.world = screen.getWorld();
         this.screen = screen;
-        this.bulletCreator = screen.getBulletCreator();
+        this.boxCreator = screen.getBoxCreator();
         this.rotation = rotation;
 
         entityType = EntityType.BULLET;
@@ -132,9 +131,9 @@ public abstract class Box extends NewEntity implements Pool.Poolable {
         destroyed = true;
 
         stateTime = 0;
-        bulletCreator.reduceBulletCount();
-        //screen.getBulletCreator().getAllBulletsPool().free(this);
-        //screen.getBulletCreator().getAllBulletsArray().removeValue(this, true);
+        boxCreator.reduceBulletCount();
+        screen.getBoxCreator().getAllBoxesPool().free(this);
+        screen.getBoxCreator().getAllBoxesArray().removeValue(this, true);
         world.destroyBody(b2Body);
     }
 

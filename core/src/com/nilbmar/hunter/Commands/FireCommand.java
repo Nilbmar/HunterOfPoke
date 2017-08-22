@@ -16,6 +16,7 @@ import com.nilbmar.hunter.Enums.ShotType;
  */
 
 public class FireCommand implements Command {
+    // TODO: REMOVE BULLETS
     private BulletPatternHandler bulletPatterns;
     private BoxPatternHandler boxPatterns;
     private BulletType type;

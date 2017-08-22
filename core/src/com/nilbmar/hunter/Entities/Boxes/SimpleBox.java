@@ -19,15 +19,15 @@ public class SimpleBox extends Box {
     public SimpleBox(PlayScreen screen, float x, float y, Vector2 v, float rotation) {
         super(screen, x, y, v, rotation);
 
-        regionName = "bulleta";
+        regionName = "flamethrower_bullet";
         frames = new Array<TextureRegion>();
-        frames.add(new TextureRegion(atlas.findRegion(regionName), 0, 0, 6, 6));
+        frames.add(new TextureRegion(atlas.findRegion(regionName), 0, 0, 13, 10));
         animation = new Animation<TextureRegion>(0f, frames);
         animation.setPlayMode(Animation.PlayMode.NORMAL);
         imageComponent.setRegion((TextureRegion) animation.getKeyFrame(0));
         //setRegion(screen.getBulletAtlas().findRegion("bulleta"), 0, 0, 6, 6);
         imageComponent.setBounds(imageComponent.getX(), imageComponent.getY(),
-                6 / HunterOfPoke.PPM, 6 / HunterOfPoke.PPM);
+                13 / HunterOfPoke.PPM, 10 / HunterOfPoke.PPM);
 
         defineBody();
         lifespan = 5f;

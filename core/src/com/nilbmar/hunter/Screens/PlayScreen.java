@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -14,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.nilbmar.hunter.Entities.Boxes.Box;
 import com.nilbmar.hunter.Entities.Bullets.Bullet;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.Entity;
@@ -23,6 +23,8 @@ import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Scenes.Hud;
 import com.nilbmar.hunter.Tools.AssetHandler;
 import com.nilbmar.hunter.Tools.B2WorldCreator;
+import com.nilbmar.hunter.Tools.BoxCreator;
+import com.nilbmar.hunter.Tools.BoxPatternHandler;
 import com.nilbmar.hunter.Tools.BulletCreator;
 import com.nilbmar.hunter.Tools.BulletPatternHandler;
 import com.nilbmar.hunter.Enums.Borders;
@@ -76,7 +78,12 @@ public class PlayScreen implements Screen {
     private BulletCreator bulletCreator;
     private BulletPatternHandler bulletPatterns;
 
+    // Boxes
+    private BoxCreator boxCreator;
+    private BoxPatternHandler boxPatterns;
+
     private AssetHandler assets = new AssetHandler();
+
 
     public PlayScreen(HunterOfPoke game) {
         this.game = game;
@@ -113,6 +120,9 @@ public class PlayScreen implements Screen {
         bulletCreator = new BulletCreator(this);
         bulletPatterns = new BulletPatternHandler(bulletCreator);
 
+        boxCreator = new BoxCreator(this);
+        boxPatterns = new BoxPatternHandler(boxCreator);
+
         player = new Player(this, worldCreator.getPlayerSpawnX(), worldCreator.getPlayerSpawnY());
         hud.setPlayerName(player.getName());
 
@@ -128,6 +138,8 @@ public class PlayScreen implements Screen {
     public TiledMap getMap() { return map; }
     public Hud getHUD() { return hud; }
     public B2WorldCreator getWorldCreator() { return worldCreator; }
+    public BoxCreator getBoxCreator() { return boxCreator; }
+    public BoxPatternHandler getBoxPatterns() { return boxPatterns; }
     public BulletCreator getBulletCreator() { return bulletCreator; }
     public BulletPatternHandler getBulletPatterns() { return bulletPatterns; }
     public Player getPlayer() { return player; }
@@ -150,6 +162,7 @@ public class PlayScreen implements Screen {
         player.update(deltaTime);
 
         bulletCreator.update(deltaTime);
+        boxCreator.update(deltaTime);
 
         for (Spawns spawn : worldCreator.getAllSpawnsArray()) {
             if (player.getB2Body().getPosition().x > spawn.getX()) {
@@ -181,6 +194,10 @@ public class PlayScreen implements Screen {
         // Update for all bullets
         for (Bullet bullet : bulletCreator.getAllBulletsArray()) {
             bullet.update(deltaTime);
+        }
+
+        for (Box box : boxCreator.getAllBoxesArray()) {
+            box.update(deltaTime);
         }
 
         // CENTER CAMERA ON PLAYER
@@ -264,6 +281,10 @@ public class PlayScreen implements Screen {
          */
         for (Bullet bullets : bulletCreator.getAllBulletsArray()) {
             bullets.draw(game.batch);
+        }
+
+        for (Box box : boxCreator.getAllBoxesArray()) {
+            box.draw(game.batch);
         }
 
         player.draw(game.batch);

@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.nilbmar.hunter.Entities.Boxes.Box;
 import com.nilbmar.hunter.Entities.Bullets.Bullet;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.Items.Item;
@@ -30,9 +31,27 @@ public class WorldContactListener implements ContactListener {
         switch(collisionDef) {
             case HunterOfPoke.BULLET_BIT | HunterOfPoke.GROUND_BIT:
                 if (fixtA.getFilterData().categoryBits == HunterOfPoke.BULLET_BIT) {
-                    ((Bullet) fixtA.getUserData()).onHit();
+                    try {
+                        ((Bullet) fixtA.getUserData()).onHit();
+                    } catch (ClassCastException castEx) {
+                        Gdx.app.log("ClassCastException", "not a bullet");
+                    }
+                    try {
+                        ((Box) fixtA.getUserData()).onHit();
+                    } catch (ClassCastException castEx) {
+                        Gdx.app.log("ClassCastException", "not a box");
+                    }
                 } else {
-                    ((Bullet) fixtB.getUserData()).onHit();
+                    try {
+                        ((Bullet) fixtB.getUserData()).onHit();
+                    } catch (ClassCastException castEx) {
+                        Gdx.app.log("ClassCastException", "not a bullet");
+                    }
+                    try {
+                        ((Box) fixtB.getUserData()).onHit();
+                    } catch (ClassCastException castEx) {
+                        Gdx.app.log("ClassCastException", "not a box");
+                    }
                 }
                 break;
             case HunterOfPoke.PLAYER_BIT | HunterOfPoke.ENEMY_BIT:

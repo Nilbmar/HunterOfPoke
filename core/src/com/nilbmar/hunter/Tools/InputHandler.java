@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.nilbmar.hunter.Commands.AccelerationCommand;
+import com.nilbmar.hunter.Commands.FireBoxCommand;
 import com.nilbmar.hunter.Commands.FireCommand;
 import com.nilbmar.hunter.Commands.MoveCommand;
 import com.nilbmar.hunter.Commands.SetPlayerPackCommand;
@@ -29,7 +30,9 @@ public class InputHandler {
 
     private AccelerationCommand acclCommand;
     private MoveCommand moveCommand;
-    private FireCommand boxSingleShot;
+
+    // TODO: REMOVE THE BULLET SHOTS
+    private FireBoxCommand boxSingleShot;
     private FireCommand singleShot;
     private FireCommand twinShot;
 
@@ -41,7 +44,7 @@ public class InputHandler {
 
         acclCommand = new AccelerationCommand(player, acceleration);
         moveCommand = new MoveCommand();
-        boxSingleShot = new FireCommand(screen.getBulletPatterns(), BulletType.BALL, ShotType.SINGLE);
+        boxSingleShot = new FireBoxCommand(screen.getBoxPatterns(), BulletType.BALL, ShotType.SINGLE);
         singleShot = new FireCommand(screen.getBulletPatterns(), BulletType.BALL, ShotType.SINGLE);
         twinShot = new FireCommand(screen.getBulletPatterns(), BulletType.BALL, ShotType.TWIN);
     }

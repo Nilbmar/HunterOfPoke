@@ -103,8 +103,8 @@ public class BoxCreator {
         return box;
     }
 
-    public Pool<Box> getAllBulletsPool() { return boxesPool; }
-    public Array<Box> getAllBulletsArray() { return boxes; }
+    public Pool<Box> getAllBoxesPool() { return boxesPool; }
+    public Array<Box> getAllBoxesArray() { return boxes; }
 
     public void setBulletType(BulletType type) { this.type = type; }
     public void setRotation(float rotation) { this.rotation = rotation; }
