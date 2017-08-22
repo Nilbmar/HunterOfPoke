@@ -7,6 +7,7 @@ import com.nilbmar.hunter.Commands.AccelerationCommand;
 import com.nilbmar.hunter.Commands.FireCommand;
 import com.nilbmar.hunter.Commands.MoveCommand;
 import com.nilbmar.hunter.Commands.SetPlayerPackCommand;
+import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Entities.Player;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Enums.BulletType;
@@ -28,6 +29,7 @@ public class InputHandler {
 
     private AccelerationCommand acclCommand;
     private MoveCommand moveCommand;
+    private FireCommand boxSingleShot;
     private FireCommand singleShot;
     private FireCommand twinShot;
 
@@ -39,6 +41,7 @@ public class InputHandler {
 
         acclCommand = new AccelerationCommand(player, acceleration);
         moveCommand = new MoveCommand();
+        boxSingleShot = new FireCommand(screen.getBulletPatterns(), BulletType.BALL, ShotType.SINGLE);
         singleShot = new FireCommand(screen.getBulletPatterns(), BulletType.BALL, ShotType.SINGLE);
         twinShot = new FireCommand(screen.getBulletPatterns(), BulletType.BALL, ShotType.TWIN);
     }
@@ -88,8 +91,13 @@ public class InputHandler {
 
     private void fireWeapon(float deltaTime) {
         // TODO: THIS IS JUST TESTING COLLISION BUT IT ISN'T SETUP FOR GROUND YET
-        if (Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.Y)) {
             //player.resetCollision();
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
+            boxSingleShot.setType(BulletType.BALL);
+            boxSingleShot.execute(player);
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.C)) {
