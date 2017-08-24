@@ -1,10 +1,12 @@
 package com.nilbmar.hunter.Entities.Boxes;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.utils.Array;
+import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
@@ -14,6 +16,8 @@ import com.nilbmar.hunter.Screens.PlayScreen;
  */
 
 public class SimpleBox extends Box {
+    private DirectionComponent.Direction dirThrown;
+    private boolean pastRisingPoint;
 
 
     public SimpleBox(PlayScreen screen, float x, float y, Vector2 v, float rotation) {
@@ -35,8 +39,23 @@ public class SimpleBox extends Box {
         acceleration = 2;
         coolOffTime = 0.15f;
 
+        dirThrown = screen.getPlayer().getDirectionComponent().getDirection();
+        pastRisingPoint = false;
+
         movement = new MoveComponent(b2Body);
         b2Body.setActive(true);
+    }
+
+    public void arcShot() {
+        Gdx.app.log("arcShot stateTime", stateTime + " : pastRisingPoint " + pastRisingPoint);
+        if (stateTime >= 0.2) {
+            pastRisingPoint = true;
+        }
+        if (!pastRisingPoint) {
+            offsetSpriteY += deltaTime;
+            } else {
+            offsetSpriteY -= deltaTime;
+        }
     }
 
     @Override
@@ -52,6 +71,11 @@ public class SimpleBox extends Box {
 
             // Play sounds
         }
+    }
+
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+        arcShot();
     }
 }
 

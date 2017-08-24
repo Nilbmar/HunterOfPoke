@@ -182,7 +182,7 @@ public abstract class Box extends NewEntity implements Poolable {
                 // Rotate bullet and send to batch
                 // rotation is handled by BulletPatternHandler's
                 // private getBulletRotation(DirectionComponent.Direction dir)
-                batch.draw(regionToDraw, imageComponent.getX(), imageComponent.getY(),
+                batch.draw(regionToDraw, imageComponent.getX() + offsetSpriteX, imageComponent.getY() + offsetSpriteY,
                         regionToDraw.getRegionWidth() / 2 / HunterOfPoke.PPM,
                         regionToDraw.getRegionHeight() / 2 / HunterOfPoke.PPM,
                         regionToDraw.getRegionWidth() / HunterOfPoke.PPM,
