@@ -1,5 +1,6 @@
 package com.nilbmar.hunter.Entities.Boxes;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -28,6 +29,10 @@ public abstract class Box extends NewEntity implements Poolable {
 
     protected MoveComponent movement;
     protected float acceleration = 1;
+    protected boolean landed;
+    protected boolean pastRisingPoint;
+    protected float arcShotRise = 0.015f;
+    protected float arcShotFall = 0.025f;
 
     protected Animation animation;
     protected Array<TextureRegion> frames;
@@ -47,6 +52,8 @@ public abstract class Box extends NewEntity implements Poolable {
         this.screen = screen;
         this.boxCreator = screen.getBoxCreator();
         this.rotation = rotation;
+
+        landed = false;
 
         entityType = EntityType.BULLET;
         atlas = screen.getAssetsHandler().getBulletAtlas();
@@ -98,20 +105,43 @@ public abstract class Box extends NewEntity implements Poolable {
         bodyComponent.setMaskBits(maskBits);
     }
 
+    public void arcShot() {
+
+        if (stateTime >= 0.2) {
+            pastRisingPoint = true;
+        }
+        if (!pastRisingPoint) {
+            offsetSpriteY += arcShotRise;
+        } else {
+            if (offsetSpriteY > 0) {
+                offsetSpriteY -= (arcShotFall + deltaTime / 2);
+            } else {
+                setLanded(true);
+            }
+            Gdx.app.log("offsetSpriteY", offsetSpriteY + " landed: " + landed);
+        }
+    }
+
+    protected void setLanded(boolean landed) {
+        this.landed = landed;
+    }
+
     private void move() {
-        if (velocity.x < 0) {
-            velocity.x -= 1;
-        } else if (velocity.x > 0) {
-            velocity.x +=1;
-        }
+        if (movement != null) {
+            if (velocity.x < 0) {
+                velocity.x -= 1;
+            } else if (velocity.x > 0) {
+                velocity.x += 1;
+            }
 
-        if (velocity.y < 0) {
-            velocity.y -= 1;
-        } else if (velocity.y > 0) {
-            velocity.y +=1;
-        }
+            if (velocity.y < 0) {
+                velocity.y -= 1;
+            } else if (velocity.y > 0) {
+                velocity.y += 1;
+            }
 
-        movement.move(velocity, 2);
+            movement.move(velocity, 2);
+        }
     }
 
     private void timeout() {
@@ -161,7 +191,10 @@ public abstract class Box extends NewEntity implements Poolable {
         if (setToDestroy && !destroyed) {
             destroy();
         } else if (!destroyed) {
-            move();
+            if (landed != true) {
+                Gdx.app.log("Box move() landed", landed + "");
+                move();
+            }
             stateTime += deltaTime;
             timeout();
         }

@@ -17,9 +17,7 @@ import com.nilbmar.hunter.Screens.PlayScreen;
 
 public class SimpleBox extends Box {
     private DirectionComponent.Direction dirThrown;
-    private boolean pastRisingPoint;
-    private float arcShotRise = 0.015f;
-    private float arcShotFall = 0.025f;
+
 
 
     public SimpleBox(PlayScreen screen, float x, float y, Vector2 v, float rotation) {
@@ -42,23 +40,12 @@ public class SimpleBox extends Box {
         coolOffTime = 0.15f;
 
         dirThrown = screen.getPlayer().getDirectionComponent().getDirection();
-        pastRisingPoint = false;
 
         movement = new MoveComponent(b2Body);
         b2Body.setActive(true);
     }
 
-    public void arcShot() {
-        Gdx.app.log("arcShot stateTime", stateTime + " : pastRisingPoint " + pastRisingPoint);
-        if (stateTime >= 0.2) {
-            pastRisingPoint = true;
-        }
-        if (!pastRisingPoint) {
-            offsetSpriteY += arcShotRise;
-            } else if (offsetSpriteY >= 0){
-            offsetSpriteY -= (arcShotFall + deltaTime / 2);
-        }
-    }
+
 
     @Override
     protected void defineShape() {
