@@ -18,6 +18,8 @@ import com.nilbmar.hunter.Screens.PlayScreen;
 public class SimpleBox extends Box {
     private DirectionComponent.Direction dirThrown;
     private boolean pastRisingPoint;
+    private float arcShotRise = 0.015f;
+    private float arcShotFall = 0.025f;
 
 
     public SimpleBox(PlayScreen screen, float x, float y, Vector2 v, float rotation) {
@@ -52,9 +54,9 @@ public class SimpleBox extends Box {
             pastRisingPoint = true;
         }
         if (!pastRisingPoint) {
-            offsetSpriteY += deltaTime;
-            } else {
-            offsetSpriteY -= deltaTime;
+            offsetSpriteY += arcShotRise;
+            } else if (offsetSpriteY >= 0){
+            offsetSpriteY -= (arcShotFall + deltaTime / 2);
         }
     }
 
