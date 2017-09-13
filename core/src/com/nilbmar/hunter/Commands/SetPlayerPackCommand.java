@@ -8,6 +8,8 @@ import com.nilbmar.hunter.Tools.AssetHandler;
 
 /**
  * Created by sysgeek on 7/14/17.
+ *
+ * Purpose: Command to switch the player's sprite pack
  */
 
 public class SetPlayerPackCommand implements Command {
@@ -26,6 +28,9 @@ public class SetPlayerPackCommand implements Command {
                 playerType = PlayerType.ALIEN;
                 break;
             case ALIEN:
+                playerType = PlayerType.ROBOT;
+                break;
+            case ROBOT:
                 playerType = PlayerType.FEMALE;
                 break;
         }

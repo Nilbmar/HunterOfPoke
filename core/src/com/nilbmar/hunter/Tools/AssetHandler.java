@@ -25,6 +25,7 @@ public class AssetHandler {
     private final String male = "charMale.pack";
     private final String female = "charFem.pack";
     private final String alien = "charAlien.pack";
+    private final String robot = "charRobot.pack";
     private String playerPack = spritesLocation + alien;
     private PlayerType currentPlayerType = PlayerType.ALIEN;
 
@@ -79,6 +80,10 @@ public class AssetHandler {
             case ALIEN:
                 playerPack = spritesLocation + alien;
                 currentPlayerType = PlayerType.ALIEN;
+                break;
+            case ROBOT:
+                playerPack = spritesLocation + robot;
+                currentPlayerType = PlayerType.ROBOT;
                 break;
         }
 
