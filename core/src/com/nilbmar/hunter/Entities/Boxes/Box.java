@@ -35,6 +35,7 @@ public abstract class Box extends NewEntity implements Poolable {
     protected float arcShotRise = 0.015f;
     protected float arcShotFall = 0.025f;
     protected float zAxis = 0.0f;
+    protected float defaultScale;
 
     protected Animation animation;
     protected Array<TextureRegion> frames;
@@ -61,6 +62,7 @@ public abstract class Box extends NewEntity implements Poolable {
         atlas = screen.getAssetsHandler().getBulletAtlas();
 
         imageComponent.setPosition(startInWorldX, startInWorldY);
+        defaultScale = imageComponent.getScaleX();
     }
 
     @Override
@@ -108,73 +110,62 @@ public abstract class Box extends NewEntity implements Poolable {
     }
 
     public void arcShot() {
-        // Get rise or fall of thrown box's image displayed
+        // Amount to scale image so it looks like it's rising or falling
+        float scale = 0.07f;
+        float sideScale = 0.05f; // Different for LEFT and RIGHT directions
 
+        // Should box be rising or falling
         if (stateTime >= 0.2) {
             pastRisingPoint = true;
         }
 
-
+        // Scale box up if it's not past its halfway point
         if (!pastRisingPoint) {
             switch (movement.getCurrentDirection()) {
                 case UP:
-
-                    break;
                 case UP_LEFT:
-
-                    break;
                 case UP_RIGHT:
-
-                    break;
                 case DOWN:
-
-                    break;
                 case DOWN_LEFT:
-
-                    break;
                 case DOWN_RIGHT:
-
+                    imageComponent.scale(imageComponent.getScaleX() / HunterOfPoke.PPM + scale);
                     break;
                 case LEFT:
-                    offsetSpriteY += arcShotRise;
-                    break;
                 case RIGHT:
+                    imageComponent.scale(imageComponent.getScaleX() / HunterOfPoke.PPM + sideScale);
                     offsetSpriteY += arcShotRise;
                     break;
             }
 
         } else {
+            // Scale box image down after it's past it's halfway point
             switch (movement.getCurrentDirection()) {
                 case UP:
-
-                    break;
                 case UP_LEFT:
-
-                    break;
                 case UP_RIGHT:
-
-                    break;
                 case DOWN:
-
-                    break;
                 case DOWN_LEFT:
-
-                    break;
                 case DOWN_RIGHT:
-
-                    break;
-                case LEFT:
-                    if (offsetSpriteY > 0) {
-                        offsetSpriteY -= (arcShotFall + deltaTime / 2);
+                    if (imageComponent.getScaleX() > defaultScale) {
+                        imageComponent.scale(imageComponent.getScaleX() / HunterOfPoke.PPM - scale);
                     } else {
                         setLanded(true);
                     }
                     break;
+                case LEFT:
                 case RIGHT:
-                    if (offsetSpriteY > 0) {
-                        offsetSpriteY -= (arcShotFall + deltaTime / 2);
+                    // This causes the box to slide after landing
+                    // but if I try to setLanded() based on offsetSpriteY
+                    // box will land while still scaled too large
+                    if (imageComponent.getScaleX() > defaultScale) {
+                        imageComponent.scale(imageComponent.getScaleX() / HunterOfPoke.PPM - sideScale);
+
                     } else {
                         setLanded(true);
+                    }
+
+                    if (offsetSpriteY > 0) {
+                        offsetSpriteY -= (arcShotFall + deltaTime / 2);
                     }
                     break;
             }
@@ -279,6 +270,11 @@ public abstract class Box extends NewEntity implements Poolable {
             if (stateTime > 1 / HunterOfPoke.PPM) {
                 regionToDraw = (TextureRegion) animation.getKeyFrame(stateTime);
 
+                imageComponent.draw(batch);
+
+                /* THIS DOESN'T WORK WITH SCALING
+                // FIGURE OUT HOW TO ROTATE USING THE sprite.draw(batch) ABOVE
+                // -----------------------------------------------------------
                 // Rotate bullet and send to batch
                 // rotation is handled by BulletPatternHandler's
                 // private getBulletRotation(DirectionComponent.Direction dir)
@@ -290,6 +286,7 @@ public abstract class Box extends NewEntity implements Poolable {
                         regionToDraw.getRegionHeight() / (float) regionToDraw.getRegionWidth(),
                         2 - (regionToDraw.getRegionHeight() / (float) regionToDraw.getRegionWidth()),
                         rotation, false);
+                */
             }
         }
     }
