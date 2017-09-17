@@ -126,6 +126,10 @@ public abstract class Box extends NewEntity implements Poolable {
         this.landed = landed;
     }
 
+    public void stop() {
+
+    }
+
     private void move() {
         if (movement != null) {
             if (velocity.x < 0) {
@@ -188,15 +192,19 @@ public abstract class Box extends NewEntity implements Poolable {
     public void update(float deltaTime) {
         super.update(deltaTime);
 
-        if (setToDestroy && !destroyed) {
-            destroy();
-        } else if (!destroyed) {
-            if (landed != true) {
-                Gdx.app.log("Box move() landed", landed + "");
-                move();
+        if (!destroyed) {
+            if (setToDestroy) {
+                destroy();
+            } else {
+                if (landed != true) {
+                    Gdx.app.log("Box move() landed", landed + "");
+                    move();
+                } else {
+                    movement.move(new Vector2(0, 0), 0);
+                }
+                stateTime += deltaTime;
+                timeout();
             }
-            stateTime += deltaTime;
-            timeout();
         }
     }
 

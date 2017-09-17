@@ -72,12 +72,15 @@ public class Player extends Entity {
         inventoryComponent = new InventoryComponent(this, 5);
         holdItem = null;
 
+        // imageComponent used for NewEntity
+        //imageComponent.setPosition(startInWorldX, startInWorldY);
+
         //regionName = "default"; // Will need to change in charMale and charAlien pack files
 
         // Set up frame information for animations to use
         framesComp = new FramesComponent(4, getImageWidth(), getImageHeight());
 
-        // Set up animations componenet
+        // Set up animations component
         animComp = new AnimationComp(screen, this, framesComp, regionName);
 
         // Create Body

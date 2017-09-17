@@ -64,7 +64,7 @@ public class SimpleBox extends Box {
 
     public void update(float deltaTime) {
         super.update(deltaTime);
-        //arcShot();
+        arcShot();
     }
 }
 
