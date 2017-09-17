@@ -110,7 +110,6 @@ public abstract class Box extends NewEntity implements Poolable {
     public void arcShot() {
         // Get rise or fall of thrown box's image displayed
 
-
         if (stateTime >= 0.2) {
             pastRisingPoint = true;
         }
