@@ -8,7 +8,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
 import com.nilbmar.hunter.Entities.NewEntity;
 import com.nilbmar.hunter.Enums.EntityType;
@@ -32,8 +31,12 @@ public abstract class Box extends NewEntity implements Poolable {
     protected float acceleration = 1;
     protected boolean landed;
     protected boolean pastRisingPoint;
+
+    // Amount to scaleRiseFall image so it looks like it's rising or falling
+    protected float scaleRiseFall = 0.07f;
+    protected float sideScaleRiseFall = 0.05f; // Different for LEFT and RIGHT directions
     protected float arcShotRise = 0.015f;
-    protected float arcShotFall = 0.025f;
+    protected float arcShotFall = 0.008f;
     protected float zAxis = 0.0f;
     protected float defaultScale;
 
@@ -110,9 +113,6 @@ public abstract class Box extends NewEntity implements Poolable {
     }
 
     public void arcShot() {
-        // Amount to scale image so it looks like it's rising or falling
-        float scale = 0.07f;
-        float sideScale = 0.05f; // Different for LEFT and RIGHT directions
 
         // Should box be rising or falling
         if (stateTime >= 0.2) {
@@ -128,11 +128,11 @@ public abstract class Box extends NewEntity implements Poolable {
                 case DOWN:
                 case DOWN_LEFT:
                 case DOWN_RIGHT:
-                    imageComponent.scale(imageComponent.getScaleX() / HunterOfPoke.PPM + scale);
+                    imageComponent.scale(imageComponent.getScaleX() / HunterOfPoke.PPM + scaleRiseFall);
                     break;
                 case LEFT:
                 case RIGHT:
-                    imageComponent.scale(imageComponent.getScaleX() / HunterOfPoke.PPM + sideScale);
+                    imageComponent.scale(imageComponent.getScaleX() / HunterOfPoke.PPM + sideScaleRiseFall);
                     offsetSpriteY += arcShotRise;
                     break;
             }
@@ -147,7 +147,7 @@ public abstract class Box extends NewEntity implements Poolable {
                 case DOWN_LEFT:
                 case DOWN_RIGHT:
                     if (imageComponent.getScaleX() > defaultScale) {
-                        imageComponent.scale(imageComponent.getScaleX() / HunterOfPoke.PPM - scale);
+                        imageComponent.scale(imageComponent.getScaleX() / HunterOfPoke.PPM - scaleRiseFall);
                     } else {
                         setLanded(true);
                     }
@@ -157,16 +157,19 @@ public abstract class Box extends NewEntity implements Poolable {
                     // This causes the box to slide after landing
                     // but if I try to setLanded() based on offsetSpriteY
                     // box will land while still scaled too large
-                    if (imageComponent.getScaleX() > defaultScale) {
-                        imageComponent.scale(imageComponent.getScaleX() / HunterOfPoke.PPM - sideScale);
-
+                    if (imageComponent.getScaleX() > defaultScale || offsetSpriteY > 0) {
+                        if (imageComponent.getScaleX() > defaultScale) {
+                            imageComponent.scale(imageComponent.getScaleX() / HunterOfPoke.PPM - sideScaleRiseFall);
+                        }
+                        if (offsetSpriteY > 0) {
+                            arcShotFall = 0.008f;
+                            offsetSpriteY -= arcShotFall;
+                        }
                     } else {
                         setLanded(true);
                     }
 
-                    if (offsetSpriteY > 0) {
-                        offsetSpriteY -= (arcShotFall + deltaTime / 2);
-                    }
+
                     break;
             }
         }
@@ -247,7 +250,6 @@ public abstract class Box extends NewEntity implements Poolable {
                 destroy();
             } else {
                 if (landed != true) {
-                    Gdx.app.log("Box move() landed", landed + "");
                     move();
                 } else {
                     stop();
