@@ -23,15 +23,14 @@ public class SimpleBox extends Box {
     public SimpleBox(PlayScreen screen, float x, float y, Vector2 v, float rotation) {
         super(screen, x, y, v, rotation);
 
-        regionName = "flamethrower_bullet";
+        regionName = "mine1";
         frames = new Array<TextureRegion>();
-        frames.add(new TextureRegion(atlas.findRegion(regionName), 0, 0, 13, 10));
+        frames.add(new TextureRegion(atlas.findRegion(regionName), 0, 0, 16, 16));
         animation = new Animation<TextureRegion>(0f, frames);
         animation.setPlayMode(Animation.PlayMode.NORMAL);
         imageComponent.setRegion((TextureRegion) animation.getKeyFrame(0));
-        //setRegion(screen.getBulletAtlas().findRegion("bulleta"), 0, 0, 6, 6);
         imageComponent.setBounds(imageComponent.getX(), imageComponent.getY(),
-                13 / HunterOfPoke.PPM, 10 / HunterOfPoke.PPM);
+                16 / HunterOfPoke.PPM, 16 / HunterOfPoke.PPM);
 
         defineBody();
         lifespan = 5f;
@@ -64,7 +63,7 @@ public class SimpleBox extends Box {
 
     public void update(float deltaTime) {
         super.update(deltaTime);
-        arcShot();
+        if (!landed) { arcShot(); }
     }
 }
 

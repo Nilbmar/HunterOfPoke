@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
 import com.nilbmar.hunter.Entities.NewEntity;
 import com.nilbmar.hunter.Enums.EntityType;
@@ -33,6 +34,7 @@ public abstract class Box extends NewEntity implements Poolable {
     protected boolean pastRisingPoint;
     protected float arcShotRise = 0.015f;
     protected float arcShotFall = 0.025f;
+    protected float zAxis = 0.0f;
 
     protected Animation animation;
     protected Array<TextureRegion> frames;
@@ -106,19 +108,77 @@ public abstract class Box extends NewEntity implements Poolable {
     }
 
     public void arcShot() {
+        // Get rise or fall of thrown box's image displayed
+
 
         if (stateTime >= 0.2) {
             pastRisingPoint = true;
         }
+
+
         if (!pastRisingPoint) {
-            offsetSpriteY += arcShotRise;
-        } else {
-            if (offsetSpriteY > 0) {
-                offsetSpriteY -= (arcShotFall + deltaTime / 2);
-            } else {
-                setLanded(true);
+            switch (movement.getCurrentDirection()) {
+                case UP:
+
+                    break;
+                case UP_LEFT:
+
+                    break;
+                case UP_RIGHT:
+
+                    break;
+                case DOWN:
+
+                    break;
+                case DOWN_LEFT:
+
+                    break;
+                case DOWN_RIGHT:
+
+                    break;
+                case LEFT:
+                    offsetSpriteY += arcShotRise;
+                    break;
+                case RIGHT:
+                    offsetSpriteY += arcShotRise;
+                    break;
             }
-            Gdx.app.log("offsetSpriteY", offsetSpriteY + " landed: " + landed);
+
+        } else {
+            switch (movement.getCurrentDirection()) {
+                case UP:
+
+                    break;
+                case UP_LEFT:
+
+                    break;
+                case UP_RIGHT:
+
+                    break;
+                case DOWN:
+
+                    break;
+                case DOWN_LEFT:
+
+                    break;
+                case DOWN_RIGHT:
+
+                    break;
+                case LEFT:
+                    if (offsetSpriteY > 0) {
+                        offsetSpriteY -= (arcShotFall + deltaTime / 2);
+                    } else {
+                        setLanded(true);
+                    }
+                    break;
+                case RIGHT:
+                    if (offsetSpriteY > 0) {
+                        offsetSpriteY -= (arcShotFall + deltaTime / 2);
+                    } else {
+                        setLanded(true);
+                    }
+                    break;
+            }
         }
     }
 
@@ -127,7 +187,7 @@ public abstract class Box extends NewEntity implements Poolable {
     }
 
     public void stop() {
-
+        movement.move(new Vector2(0, 0), 0);
     }
 
     private void move() {
@@ -200,7 +260,7 @@ public abstract class Box extends NewEntity implements Poolable {
                     Gdx.app.log("Box move() landed", landed + "");
                     move();
                 } else {
-                    movement.move(new Vector2(0, 0), 0);
+                    stop();
                 }
                 stateTime += deltaTime;
                 timeout();
