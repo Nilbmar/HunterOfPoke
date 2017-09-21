@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.nilbmar.hunter.AI.SteeringAI;
 import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Entities.Entity;
+import com.nilbmar.hunter.Entities.NewEntity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Enums.Action;
@@ -19,7 +20,7 @@ import com.nilbmar.hunter.Enums.EntityType;
  * Purpose: Base class for all Enemies
  */
 
-public class Enemy extends Entity {
+public class Enemy extends NewEntity {
     private DirectionComponent directionComp;
     private DirectionComponent.Direction currentDirection;
     private DirectionComponent.Direction previousDirection;
@@ -52,6 +53,8 @@ public class Enemy extends Entity {
         previousAction = Action.STILL;
         stateTimer = 0;
 
+        imageComponent.setPosition(startInWorldX, startInWorldY);
+
         // AI
         // TODO: REMOVE RADIUS FROM STEERINGAI CONSTRUCTOR
 
@@ -72,12 +75,12 @@ public class Enemy extends Entity {
 
     @Override
     public float getSpawnOtherX() {
-        return getX() + getWidth() / 2;
+        return imageComponent.getX() + imageComponent.getWidth() / 2;
     }
 
     @Override
     public float getSpawnOtherY() {
-        return getY() + getHeight() / 2;
+        return imageComponent.getY() + imageComponent.getHeight() / 2;
     }
 
     public int getHitPoints() { return hitPoints; }
@@ -91,7 +94,7 @@ public class Enemy extends Entity {
     }
 
     @Override
-    public void onHit(Entity entity) {
+    public void onHit(NewEntity entity) {
 
         //Gdx.app.log(getName(), "Ouch! You hit me, you scum!");
     }
@@ -121,9 +124,9 @@ public class Enemy extends Entity {
         TextureRegion charStill = new TextureRegion(
                 atlas.findRegion(regionName),
                 regionBeginX, regionBeginY, regionWidth, regionHeight);
-        setBounds(boundsBeginX / HunterOfPoke.PPM, boundsBeginY / HunterOfPoke.PPM,
+        imageComponent.setBounds(boundsBeginX / HunterOfPoke.PPM, boundsBeginY / HunterOfPoke.PPM,
                 boundsWidth / HunterOfPoke.PPM, boundsHeight / HunterOfPoke.PPM);
-        setRegion(charStill);
+        imageComponent.setRegion(charStill);
     }
 
     public void prepareToDraw() {

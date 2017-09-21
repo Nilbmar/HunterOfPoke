@@ -3,13 +3,14 @@ package com.nilbmar.hunter.Commands;
 import com.badlogic.gdx.Gdx;
 import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Entities.Items.Item;
+import com.nilbmar.hunter.Entities.NewEntity;
 
 /**
  * Created by sysgeek on 6/19/17.
  */
 
 public class UseCommand implements Command {
-    private Entity entity;
+    private NewEntity entity;
     private Item item;
 
     public UseCommand(Item item) {
@@ -17,7 +18,7 @@ public class UseCommand implements Command {
     }
 
     @Override
-    public void execute(Entity entity) {
+    public void execute(NewEntity entity) {
         this.entity = entity;
 
         if (item != null) {

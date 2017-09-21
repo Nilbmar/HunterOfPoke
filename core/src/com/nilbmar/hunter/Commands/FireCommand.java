@@ -39,7 +39,7 @@ public class FireCommand implements Command {
     public void setType(BulletType type) { this.type = type; }
 
 
-    public void boxExecute(Entity entity) {
+    public void boxExecute(NewEntity entity) {
         boolean fire = false;
         DirectionComponent.Direction direction = DirectionComponent.Direction.DOWN;
 
@@ -66,7 +66,7 @@ public class FireCommand implements Command {
     }
 
     @Override
-    public void execute(Entity entity) {
+    public void execute(NewEntity entity) {
         boolean fire = false;
         DirectionComponent.Direction direction = DirectionComponent.Direction.DOWN;
 

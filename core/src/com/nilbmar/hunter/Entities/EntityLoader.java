@@ -23,7 +23,7 @@ import com.nilbmar.hunter.Screens.PlayScreen;
  */
 
 public class EntityLoader {
-    private Entity entity;
+    private NewEntity entity;
     private String file;
     private EntityType entityType;
 
@@ -43,8 +43,8 @@ public class EntityLoader {
                 ((Enemy) entity).setMaxHitPoints(data.getMaxHitPoints());
                 break;
             case PLAYER:
-                ((Player) entity).setHitPoints(data.getHitPoints());
-                ((Player) entity).setMaxHitPoints(data.getMaxHitPoints());
+                //((Player) entity).setHitPoints(data.getHitPoints());
+                //((Player) entity).setMaxHitPoints(data.getMaxHitPoints());
                 break;
             /*
             case ITEM:
@@ -78,7 +78,7 @@ public class EntityLoader {
         //return entity;
     }
 
-    public Entity decorate(PlayScreen screen, float startX, float startY, String properties) {
+    public NewEntity decorate(PlayScreen screen, float startX, float startY, String properties) {
         entity = null;
         // Custom Properties set in Tiled
         // Full Properties contain: Decorations + ":" + BulletProperties
@@ -132,7 +132,7 @@ public class EntityLoader {
                 entity = new Enemy(screen, startX, startY);
                 break;
             case PLAYER:
-                entity = new Player(screen, startX, startY);
+                //entity = new Player(screen, startX, startY);
                 break;
         }
     }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.nilbmar.hunter.Commands.ChangeCollisionCommand;
 import com.nilbmar.hunter.Commands.UpdateHudCommand;
 import com.nilbmar.hunter.Entities.Entity;
+import com.nilbmar.hunter.Entities.NewEntity;
 import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Enums.HudLabels;
 import com.nilbmar.hunter.Enums.InventorySlotType;
@@ -37,12 +38,12 @@ public class InvincibilityItem extends Item {
 
         regionName = "item_wine";
         TextureRegion charStill = new TextureRegion(atlas.findRegion(regionName), 0, 0, 32, 66);
-        setBounds(0, 0, 8 / HunterOfPoke.PPM, 16 / HunterOfPoke.PPM);
-        setRegion(charStill);
+        imageComponent.setBounds(0, 0, 8 / HunterOfPoke.PPM, 16 / HunterOfPoke.PPM);
+        imageComponent.setRegion(charStill);
     }
 
     @Override
-    public void use(Entity entity) {
+    public void use(NewEntity entity) {
         entityThatUsed = entity;
 
         if (entity.getEntityType() == EntityType.PLAYER) {

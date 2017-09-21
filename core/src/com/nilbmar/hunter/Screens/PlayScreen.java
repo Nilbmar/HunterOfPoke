@@ -17,6 +17,7 @@ import com.nilbmar.hunter.Entities.Boxes.Box;
 import com.nilbmar.hunter.Entities.Bullets.Bullet;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.Entity;
+import com.nilbmar.hunter.Entities.NewEntity;
 import com.nilbmar.hunter.Entities.Player;
 import com.nilbmar.hunter.Entities.Spawns;
 import com.nilbmar.hunter.HunterOfPoke;
@@ -54,6 +55,7 @@ public class PlayScreen implements Screen {
     private Player player;
     private Array<Enemy> enemies;
     private Array<Entity> entities;
+    private Array<NewEntity> newEntities;
 
     // Map Variables
     private TmxMapLoader mapLoader;
@@ -99,6 +101,7 @@ public class PlayScreen implements Screen {
 
         //enemies = new Array<Enemy>();
         entities = new Array<Entity>();
+        newEntities = new Array<NewEntity>();
 
         // Load Maps
         mapLoader = new TmxMapLoader();
@@ -170,10 +173,12 @@ public class PlayScreen implements Screen {
                     Enemy enemy = spawn.spawnEnemy();
                     //Gdx.app.log("Enemy spawn getPosition()", enemy.getB2Body().getPosition().toString());
                     enemy.setSteeringAI();
-                    entities.add(enemy); //spawn.spawnEnemy());
+                    //entities.add(enemy); //spawn.spawnEnemy());
+                    newEntities.add(enemy);
+
                     Gdx.app.log("Enemy Spawn", "X: " + spawn.getX() + " Y: " + spawn.getY());
                 } else if (spawn.getType() == SpawnType.ITEM) {
-                    entities.add(spawn.spawnItem());
+                    newEntities.add(spawn.spawnItem());
                     Gdx.app.log("Item Spawn", "X: " + spawn.getX() + " Y: " + spawn.getY());
                 }
                 worldCreator.getAllSpawnsArray().removeValue(spawn, true);
@@ -187,9 +192,9 @@ public class PlayScreen implements Screen {
             entity.update(deltaTime);
         }
 
-        /*for (Enemy enemy : enemies) {
-            enemy.update(deltaTime);
-        }*/
+        for (NewEntity newEntity : newEntities) {
+            newEntity.update(deltaTime);
+        }
 
         // Update for all bullets
         for (Bullet bullet : bulletCreator.getAllBulletsArray()) {
@@ -268,6 +273,10 @@ public class PlayScreen implements Screen {
          */
         for (Entity entity : entities) {
             entity.draw(game.batch);
+        }
+
+        for (NewEntity newEntity : newEntities) {
+            newEntity.draw(game.batch);
         }
 
         /*for (Enemy enemy : enemies) {

@@ -27,7 +27,7 @@ import com.nilbmar.hunter.Tools.AssetHandler;
  * Purpose: The character the player controls
  */
 
-public class Player extends Entity {
+public class Player extends NewEntity {
     private AssetHandler assets;
     private float stateTimer; // Used to getFrame() of animation
     private int hitPoints;
@@ -98,8 +98,10 @@ public class Player extends Entity {
         // Set up default facing sprite
         TextureRegion charStill = new TextureRegion(assets.getPlayerAtlas().findRegion(regionName),
                 0, 0, getImageWidth(), getImageHeight());
-        setBounds(0, 0, getImageWidth() / HunterOfPoke.PPM, getImageHeight() / HunterOfPoke.PPM);
-        setRegion(charStill);
+        imageComponent.setBounds(0, 0, getImageWidth() / HunterOfPoke.PPM, getImageHeight() / HunterOfPoke.PPM);
+        imageComponent.setRegion(charStill);
+
+        imageComponent.setPosition(startInWorldX, startInWorldY);
     }
 
     @Override
@@ -123,7 +125,7 @@ public class Player extends Entity {
     }
 
     public float getSpawnOtherX() {
-        float spawnBulletOffsetX = getX() + getWidth() / 2;
+        float spawnBulletOffsetX = imageComponent.getX() + imageComponent.getWidth() / 2;
         float offset = 10 / HunterOfPoke.PPM;
         switch (currentDirection) {
             case UP:
@@ -156,7 +158,7 @@ public class Player extends Entity {
         return spawnBulletOffsetX;
     }
     public float getSpawnOtherY() {
-        float spawnBulletOffsetY = getY() + getHeight() / 2;
+        float spawnBulletOffsetY = imageComponent.getY() + imageComponent.getHeight() / 2;
         float offset = 10 / HunterOfPoke.PPM;
         switch (currentDirection) {
             case UP:
@@ -309,7 +311,7 @@ public class Player extends Entity {
     }
 
     @Override
-    public void onHit(Entity entity) {
+    public void onHit(NewEntity entity) {
         // Call timer, after timer, then resetCollision
         // Otherwise game crashes trying to reset collision while still colliding
         setTimerComponent(0.5f, ItemType.REMOVE_COLLISION);
@@ -421,7 +423,7 @@ public class Player extends Entity {
 
         directionComp.setDirection(moveComponent.getCurrentDirection());
 
-        setRegion(getFrame(deltaTime));
+        imageComponent.setRegion(getFrame(deltaTime));
         setAction(); // Must follow call to getFrame(deltaTime) or USE frames won't work
     }
 }

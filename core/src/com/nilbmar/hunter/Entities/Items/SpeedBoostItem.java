@@ -5,6 +5,7 @@ import com.nilbmar.hunter.Commands.AccelerationCommand;
 import com.nilbmar.hunter.Commands.UpdateHudCommand;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.Entity;
+import com.nilbmar.hunter.Entities.NewEntity;
 import com.nilbmar.hunter.Entities.Player;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
@@ -41,12 +42,12 @@ public class SpeedBoostItem extends Item {
         regionName = "item_chocolate"; // TODO: CREATE ITEM.PACK - CURRENTLY USING CHARACTER PACK
         // TODO: CHANGE FROM ENEMY ATLAS TO ITEM ATLAS
         TextureRegion charStill = new TextureRegion(atlas.findRegion(regionName), 0, 0, 64, 32);
-        setBounds(0, 0, 16 / HunterOfPoke.PPM, 8 / HunterOfPoke.PPM);
-        setRegion(charStill);
+        imageComponent.setBounds(0, 0, 16 / HunterOfPoke.PPM, 8 / HunterOfPoke.PPM);
+        imageComponent.setRegion(charStill);
     }
 
     @Override
-    public void use(Entity entity) {
+    public void use(NewEntity entity) {
 
         entityThatUsed = entity;
 

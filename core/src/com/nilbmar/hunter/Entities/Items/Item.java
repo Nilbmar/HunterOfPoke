@@ -3,6 +3,7 @@ package com.nilbmar.hunter.Entities.Items;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.nilbmar.hunter.Commands.UpdateHudCommand;
 import com.nilbmar.hunter.Entities.Entity;
+import com.nilbmar.hunter.Entities.NewEntity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Enums.Action;
@@ -17,9 +18,9 @@ import com.nilbmar.hunter.Enums.ItemType;
  * Purpose: Base class for all pickup Items
  */
 
-public abstract class Item extends Entity {
+public abstract class Item extends NewEntity {
 
-    protected Entity entityThatUsed;
+    protected NewEntity entityThatUsed;
     protected UpdateHudCommand hudUpdate;
     protected boolean destroyed;
     protected float stateTimer;
@@ -46,6 +47,7 @@ public abstract class Item extends Entity {
         currentAction = Action.STILL;
         previousAction = Action.STILL;
         stateTimer = 0;
+        imageComponent.setPosition(startInWorldX, startInWorldY);
     }
 
     @Override
@@ -53,7 +55,7 @@ public abstract class Item extends Entity {
 
     }
 
-    public abstract void use(Entity entity);
+    public abstract void use(NewEntity entity);
     protected abstract void updateHud();
 
     public float getAmountOfEffect() { return amountOfEffect; }
@@ -73,10 +75,10 @@ public abstract class Item extends Entity {
 
 
     @Override
-    public float getSpawnOtherX() {return getX() + getWidth() / 2; }
+    public float getSpawnOtherX() {return imageComponent.getX() + imageComponent.getWidth() / 2; }
 
     @Override
-    public float getSpawnOtherY() { return getY() + getHeight() / 2; }
+    public float getSpawnOtherY() { return imageComponent.getY() + imageComponent.getHeight() / 2; }
 
     @Override
     protected void defineShape() {

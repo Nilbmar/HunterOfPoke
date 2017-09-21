@@ -122,6 +122,14 @@ public abstract class NewEntity {
         this.regionBeginY = regionBeginY;
     }
 
+    public void setRegionWidth(int regionWidth) {
+        this.regionWidth = regionWidth;
+    }
+
+    public void setRegionHeight(int regionHeight) {
+        this.regionHeight = regionHeight;
+    }
+
     public void setBoundsBeginX(float boundsBeginX) {
         this.boundsBeginX = boundsBeginX;
     }
@@ -164,7 +172,7 @@ public abstract class NewEntity {
     }
 
     // TODO: MAKE THIS ABSTRACT AFTER SETTING UP MORE
-    public void onHit(Entity entity) {}
+    public void onHit(NewEntity entity) {}
 
     public Body getB2Body() { return b2Body; }
 
