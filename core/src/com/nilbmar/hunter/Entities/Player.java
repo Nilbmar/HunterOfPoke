@@ -28,30 +28,21 @@ import com.nilbmar.hunter.Tools.AssetHandler;
  */
 
 public class Player extends NewEntity {
-    private AssetHandler assets;
-    private float stateTimer; // Used to getFrame() of animation
+     // Used to getFrame() of animation
     private int hitPoints;
     private int maxHitPoints;
     private Item holdItem;
 
-    // Textures and Animations
-    private FramesComponent framesComp;
-    private AnimationComp animComp;
-    private Animation charAnim;
+
 
     private int walkSteps; // How many images in a full walk cycle
-    private boolean updateTextureAtlas = false;
 
     // Components
     private InventoryComponent inventoryComponent;
-    private DirectionComponent directionComp;
-    private DirectionComponent.Direction currentDirection;
-    private DirectionComponent.Direction previousDirection;
+
 
     public Player(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
-
-        assets = screen.getAssetsHandler();
 
         setName("Dlumps");  // TODO: GET THIS FROM USER
         hitPoints = 10;     // TODO: GET FROM GAMEMANAGER
@@ -100,7 +91,8 @@ public class Player extends NewEntity {
 
     }
 
-    public DirectionComponent getDirectionComponent() { return directionComp; }
+
+
 
     public void setHitPoints(int hitPoints) { this.hitPoints = hitPoints; }
     public void setMaxHitPoints(int maxHitPoints) { this.maxHitPoints = maxHitPoints; }
@@ -181,125 +173,11 @@ public class Player extends NewEntity {
         return spawnBulletOffsetY;
     }
 
-    private Action getAction() { return currentAction; }
-    private void setAction() {
-        previousAction = currentAction;
-        if (moveComponent.isMoving()) {
-            currentAction = Action.WALKING;
-        } else {
-            if (currentAction == Action.USE) {
-                if (charAnim.getKeyFrameIndex(stateTimer) == 3) {
-                    currentAction = Action.STILL;
-                }
-            } else {
-                currentAction = Action.STILL;
-            }
-        }
 
-        // Set action in movement component if it has changed
-        if (currentAction != previousAction) {
-            moveComponent.setAction(currentAction);
-        }
-    }
 
-    // Change player's TextureAtlas in the AnimationComp
-    public void setUpdateTextureAtlas(boolean updateTextureAtlas) {
-        animComp.setAtlas(assets.getPlayerAtlas());
-        this.updateTextureAtlas = updateTextureAtlas; // Set so it will change on update() in getFrame()
-    }
 
-    private String getRegionName() {
-      switch (currentDirection) {
-          case UP:
-              regionName = "north";
-              break;
-          case UP_LEFT:
-          case UP_RIGHT:
-              regionName = "diagup";
-              break;
-          case DOWN:
-              // There's a separate region for still DOWN
-              // than for walking DOWN
-              switch (currentAction) {
-                  case WALKING:
-                      regionName = "south2";
-                      break;
-                  case USE:
-                      regionName = "south";
-                      break;
-                  case STILL:
-                  default:
-                      regionName = "default";
-                      break;
-              }
-              break;
-          case DOWN_LEFT:
-          case DOWN_RIGHT:
-              regionName = "diagdown";
-              break;
-          case LEFT:
-          case RIGHT:
-              regionName = "side";
-              break;
-      }
 
-        return regionName;
-    }
-    
-    private TextureRegion getFrame(float deltaTime) {
-        TextureRegion region;
-        currentDirection = directionComp.getDirection();
-        //currentAction = getAction();
 
-        // Only set animation when something changes
-        if (currentAction != previousAction || currentDirection != previousDirection || updateTextureAtlas) {
-            setUpdateTextureAtlas(false);
-            animComp.setRegionName(getRegionName());
-            charAnim = animComp.makeTexturesIntoAnimation(0.1f, currentDirection, currentAction);
-        }
-
-        // Get Key Frame
-        // If Walking, loop the animation, otherwise, pause it on last frame
-        switch (currentAction) {
-            case WALKING:
-                region = (TextureRegion) charAnim.getKeyFrame(stateTimer, true);
-                break;
-            case USE:
-                // TODO: SET A DIFFERENT REGION AFTER MAKING NEW SPRITESHEETS
-                region = (TextureRegion) charAnim.getKeyFrame(stateTimer, false);
-                break;
-            case STILL:
-            default:
-                region = (TextureRegion) charAnim.getKeyFrame(stateTimer, false);
-                break;
-        }
-
-        // Flip region based on LEFT/RIGHT directions
-        // (includes UP/DOWN variants)
-        switch (currentDirection) {
-            case LEFT:
-            case UP_LEFT:
-            case DOWN_LEFT:
-                if (!region.isFlipX()) {
-                    region.flip(true, false);
-                }
-                break;
-
-            case RIGHT:
-            case UP_RIGHT:
-            case DOWN_RIGHT:
-                if (region.isFlipX()) {
-                    region.flip(true, false);
-                }
-                break;
-        }
-
-        stateTimer = (currentDirection == previousDirection && currentAction == previousAction)
-                ? stateTimer + deltaTime : 0;
-        previousDirection = directionComp.getDirection();
-        previousAction = getAction();
-        return region;
-    }
 
     @Override
     public void onHit(NewEntity entity) {

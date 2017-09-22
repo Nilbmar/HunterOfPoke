@@ -1,13 +1,18 @@
 package com.nilbmar.hunter.Entities;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.nilbmar.hunter.Components.AnimationComp;
 import com.nilbmar.hunter.Components.BodyComponent;
+import com.nilbmar.hunter.Components.DirectionComponent;
+import com.nilbmar.hunter.Components.FramesComponent;
 import com.nilbmar.hunter.Components.ImageComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
 import com.nilbmar.hunter.Components.TimerComponent;
@@ -15,6 +20,7 @@ import com.nilbmar.hunter.Enums.Action;
 import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Enums.ItemType;
 import com.nilbmar.hunter.Screens.PlayScreen;
+import com.nilbmar.hunter.Tools.AssetHandler;
 
 /**
  * Created by sysgeek on 8/22/17.
@@ -28,13 +34,20 @@ public abstract class NewEntity {
     protected World world;
     protected Body b2Body;
 
+
+    protected AssetHandler assets;
     protected TextureAtlas atlas;
+    protected boolean updateTextureAtlas = false;
 
     // Components
+    protected FramesComponent framesComp;
+    protected AnimationComp animComp;
+    protected Animation charAnim;
     protected ImageComponent imageComponent;
     protected BodyComponent bodyComponent;
     protected MoveComponent moveComponent;
     protected TimerComponent timerComponent;
+    protected DirectionComponent directionComp;
 
     protected float startInWorldX;
     protected float startInWorldY;
@@ -62,8 +75,11 @@ public abstract class NewEntity {
     protected int baseAcceleration;
     protected int currentAcceleration;
 
+    protected float stateTimer;
     protected Action currentAction;
     protected Action previousAction;
+    protected DirectionComponent.Direction currentDirection;
+    protected DirectionComponent.Direction previousDirection;
 
     protected String name;
 
@@ -76,6 +92,8 @@ public abstract class NewEntity {
 
         offsetSpriteX = 0;
         offsetSpriteY = 0;
+
+        assets = screen.getAssetsHandler();
 
         imageComponent = new ImageComponent(startInWorldX, startInWorldY);
         imageComponent.setPosition(startInWorldX, startInWorldY);
@@ -92,6 +110,138 @@ public abstract class NewEntity {
         bodyComponent = new BodyComponent();
         //defineBody();
     }
+
+    public String getRegionName(DirectionComponent.Direction currentDirection) {
+        switch (currentDirection) {
+            case UP:
+                regionName = "north";
+                break;
+            case UP_LEFT:
+            case UP_RIGHT:
+                regionName = "diagup";
+                break;
+            case DOWN:
+                // There's a separate region for still DOWN
+                // than for walking DOWN
+                switch (currentAction) {
+                    case WALKING:
+                        regionName = "south2";
+                        break;
+                    case USE:
+                        regionName = "south";
+                        break;
+                    case STILL:
+                    default:
+                        regionName = "default";
+                        break;
+                }
+                break;
+            case DOWN_LEFT:
+            case DOWN_RIGHT:
+                regionName = "diagdown";
+                break;
+            case LEFT:
+            case RIGHT:
+                regionName = "side";
+                break;
+        }
+
+        return regionName;
+    }
+
+    // Change player's TextureAtlas in the AnimationComp
+    public void setUpdateTextureAtlas(boolean updateTextureAtlas) {
+        switch (entityType) {
+            case PLAYER:
+                animComp.setAtlas(assets.getPlayerAtlas());
+                break;
+            case ENEMY:
+                animComp.setAtlas(assets.getEnemyAtlas());
+                break;
+            case BULLET:
+                animComp.setAtlas(assets.getBulletAtlas());
+                break;
+            case ITEM:
+                animComp.setAtlas(assets.getItemAtlas());
+                break;
+        }
+        this.updateTextureAtlas = updateTextureAtlas; // Set so it will change on update() in getFrame()
+    }
+
+    public TextureRegion getFrame(float deltaTime) {
+        TextureRegion region;
+        currentDirection = directionComp.getDirection();
+        
+        // Only set animation when something changes
+        if (currentAction != previousAction || currentDirection != previousDirection || updateTextureAtlas) {
+            setUpdateTextureAtlas(false);
+            animComp.setRegionName(getRegionName(currentDirection));
+            charAnim = animComp.makeTexturesIntoAnimation(0.1f, currentDirection, currentAction);
+        }
+
+        // Get Key Frame
+        // If Walking, loop the animation, otherwise, pause it on last frame
+        switch (currentAction) {
+            case WALKING:
+                region = (TextureRegion) charAnim.getKeyFrame(stateTimer, true);
+                break;
+            case USE:
+                // TODO: SET A DIFFERENT REGION AFTER MAKING NEW SPRITESHEETS
+                region = (TextureRegion) charAnim.getKeyFrame(stateTimer, false);
+                break;
+            case STILL:
+            default:
+                region = (TextureRegion) charAnim.getKeyFrame(stateTimer, false);
+                break;
+        }
+
+        // Flip region based on LEFT/RIGHT directions
+        // (includes UP/DOWN variants)
+        switch (currentDirection) {
+            case LEFT:
+            case UP_LEFT:
+            case DOWN_LEFT:
+                if (!region.isFlipX()) {
+                    region.flip(true, false);
+                }
+                break;
+
+            case RIGHT:
+            case UP_RIGHT:
+            case DOWN_RIGHT:
+                if (region.isFlipX()) {
+                    region.flip(true, false);
+                }
+                break;
+        }
+        stateTimer = (currentDirection == previousDirection && currentAction == previousAction)
+                ? stateTimer + deltaTime : 0;
+        previousDirection = directionComp.getDirection();
+        previousAction = getAction();
+        return region;
+    }
+    public DirectionComponent getDirectionComponent() { return directionComp; }
+    public Action getAction() { return currentAction; }
+    protected void setAction() {
+        previousAction = currentAction;
+        if (moveComponent.isMoving()) {
+            currentAction = Action.WALKING;
+        } else {
+            if (currentAction == Action.USE) { // TODO: SET THIS NUMBER
+                if (charAnim.getKeyFrameIndex(stateTimer) == 3) {
+                    currentAction = Action.STILL;
+                }
+            } else {
+                currentAction = Action.STILL;
+            }
+        }
+
+        // Set action in movement component if it has changed
+        if (currentAction != previousAction) {
+            moveComponent.setAction(currentAction);
+        }
+    }
+
 
     public abstract float getSpawnOtherX();
     public abstract float getSpawnOtherY();
