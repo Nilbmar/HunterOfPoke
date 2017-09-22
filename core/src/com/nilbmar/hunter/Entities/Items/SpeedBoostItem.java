@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.nilbmar.hunter.Commands.AccelerationCommand;
 import com.nilbmar.hunter.Commands.UpdateHudCommand;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
-import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Entities.NewEntity;
 import com.nilbmar.hunter.Entities.Player;
 import com.nilbmar.hunter.HunterOfPoke;

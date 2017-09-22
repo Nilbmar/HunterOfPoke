@@ -1,7 +1,6 @@
 package com.nilbmar.hunter.Commands;
 
 import com.badlogic.gdx.Gdx;
-import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Entities.Items.Item;
 import com.nilbmar.hunter.Entities.NewEntity;
 

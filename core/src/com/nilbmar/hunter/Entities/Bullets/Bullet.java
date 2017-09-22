@@ -10,7 +10,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.nilbmar.hunter.Components.MoveComponent;
-import com.nilbmar.hunter.Entities.Entity;
+import com.nilbmar.hunter.Entities.NewEntity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Tools.BulletCreator;
@@ -23,7 +23,7 @@ import com.nilbmar.hunter.Enums.EntityType;
  * Purpose: Base class for all Bullets
  */
 
-public abstract class Bullet  extends Entity implements Poolable {
+public abstract class Bullet  extends NewEntity implements Poolable {
     protected World world;
     protected PlayScreen screen;
     protected BulletCreator bulletCreator;
@@ -55,7 +55,7 @@ public abstract class Bullet  extends Entity implements Poolable {
         entityType = EntityType.BULLET;
         atlas = screen.getAssetsHandler().getBulletAtlas();
 
-        setPosition(startInWorldX, startInWorldY);
+        imageComponent.setPosition(startInWorldX, startInWorldY);
     }
 
     @Override
@@ -74,12 +74,12 @@ public abstract class Bullet  extends Entity implements Poolable {
 
     @Override
     public float getSpawnOtherX() {
-        return getX() + getWidth() / 2;
+        return imageComponent.getX() + imageComponent.getWidth() / 2;
     }
 
     @Override
     public float getSpawnOtherY() {
-        return getY() + getHeight() / 2;
+        return imageComponent.getY() + imageComponent.getHeight() / 2;
     }
 
     @Override
@@ -145,15 +145,15 @@ public abstract class Bullet  extends Entity implements Poolable {
     @Override
     public void reset() {
         // TODO: NO IDEA ABOUT POSITION, SETTING IT TO OFFSCREEN?
-        this.setPosition(-2, -2);
-        this.stateTime = 0;
-        this.setToDestroy = false;
-        this.destroyed = false;
+        imageComponent.setPosition(-2, -2);
+        stateTime = 0;
+        setToDestroy = false;
+        destroyed = false;
     }
 
     // Initialize after getting from pool
     public void init(float posX, float posY) {
-        this.setPosition(posX, posY);
+        imageComponent.setPosition(posX, posY);
         this.stateTime = 0;
         this.setToDestroy = false;
         this.destroyed = false;
@@ -186,7 +186,7 @@ public abstract class Bullet  extends Entity implements Poolable {
                 // Rotate bullet and send to batch
                 // rotation is handled by BulletPatternHandler's
                 // private getBulletRotation(DirectionComponent.Direction dir)
-                batch.draw(regionToDraw, getX(), getY(),
+                batch.draw(regionToDraw, imageComponent.getX(), imageComponent.getY(),
                         regionToDraw.getRegionWidth() / 2 / HunterOfPoke.PPM,
                         regionToDraw.getRegionHeight() / 2 / HunterOfPoke.PPM,
                         regionToDraw.getRegionWidth() / HunterOfPoke.PPM,

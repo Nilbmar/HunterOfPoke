@@ -1,6 +1,5 @@
 package com.nilbmar.hunter.Commands;
 
-import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Entities.NewEntity;
 import com.nilbmar.hunter.Scenes.Hud;
 import com.nilbmar.hunter.Enums.HudLabels;

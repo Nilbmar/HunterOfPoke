@@ -1,11 +1,9 @@
 package com.nilbmar.hunter.Components;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
-import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Entities.NewEntity;
 import com.nilbmar.hunter.Enums.Action;
 import com.nilbmar.hunter.Enums.EntityType;

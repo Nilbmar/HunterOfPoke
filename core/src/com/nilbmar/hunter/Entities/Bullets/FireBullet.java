@@ -28,8 +28,9 @@ public class FireBullet extends Bullet {
         frames.add(new TextureRegion(atlas.findRegion(regionName), 13, 0, 13, 10));
         animation = new Animation<TextureRegion>(0.2f, frames);
         animation.setPlayMode(Animation.PlayMode.LOOP);
-        setRegion((TextureRegion) animation.getKeyFrame(0));
-        setBounds(getX(), getY(), 13 / HunterOfPoke.PPM, 10 / HunterOfPoke.PPM);
+        imageComponent.setRegion((TextureRegion) animation.getKeyFrame(0));
+        imageComponent.setBounds(imageComponent.getX(), imageComponent.getY(),
+                13 / HunterOfPoke.PPM, 10 / HunterOfPoke.PPM);
 
         defineBody();
         lifespan = 5f;
@@ -59,6 +60,6 @@ public class FireBullet extends Bullet {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-        setRegion(getFrame(deltaTime, stateTime));
+        imageComponent.setRegion(getFrame(deltaTime, stateTime));
     }
 }

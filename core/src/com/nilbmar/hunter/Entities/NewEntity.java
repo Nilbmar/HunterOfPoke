@@ -19,7 +19,6 @@ import com.nilbmar.hunter.Screens.PlayScreen;
 /**
  * Created by sysgeek on 8/22/17.
  *
- * TODO: REPLACING OLD ENTITY CLASS WITH ENTITY INTERFACE
  * Entity that uses an extension of Image
  * as a component instead of extending Image directly
  */

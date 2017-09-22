@@ -1,12 +1,10 @@
 package com.nilbmar.hunter.Entities.Enemies;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.nilbmar.hunter.AI.SteeringAI;
 import com.nilbmar.hunter.Components.DirectionComponent;
-import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Entities.NewEntity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;

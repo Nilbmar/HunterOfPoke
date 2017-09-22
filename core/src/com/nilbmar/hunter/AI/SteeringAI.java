@@ -9,7 +9,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.nilbmar.hunter.AI.Utils.Behaviors;
 import com.nilbmar.hunter.AI.Utils.SteeringUtil;
-import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Entities.NewEntity;
 
 /**

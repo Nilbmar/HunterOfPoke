@@ -16,7 +16,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.nilbmar.hunter.Entities.Boxes.Box;
 import com.nilbmar.hunter.Entities.Bullets.Bullet;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
-import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Entities.NewEntity;
 import com.nilbmar.hunter.Entities.Player;
 import com.nilbmar.hunter.Entities.Spawns;
@@ -54,7 +53,6 @@ public class PlayScreen implements Screen {
     // Player Variables
     private Player player;
     private Array<Enemy> enemies;
-    private Array<Entity> entities;
     private Array<NewEntity> newEntities;
 
     // Map Variables
@@ -100,7 +98,6 @@ public class PlayScreen implements Screen {
         assets.setTextureAtlases();
 
         //enemies = new Array<Enemy>();
-        entities = new Array<Entity>();
         newEntities = new Array<NewEntity>();
 
         // Load Maps
@@ -188,10 +185,6 @@ public class PlayScreen implements Screen {
 
         // TODO: SEPARATE INTO UPDATES FOR ENEMIES/ITEMS/ETC..
         // Will allow better control of layering items
-        for (Entity entity : entities) {
-            entity.update(deltaTime);
-        }
-
         for (NewEntity newEntity : newEntities) {
             newEntity.update(deltaTime);
         }
@@ -271,9 +264,6 @@ public class PlayScreen implements Screen {
                 Will allow better control of what is layered
                 on top of each other
          */
-        for (Entity entity : entities) {
-            entity.draw(game.batch);
-        }
 
         for (NewEntity newEntity : newEntities) {
             newEntity.draw(game.batch);

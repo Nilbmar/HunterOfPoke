@@ -3,7 +3,6 @@ package com.nilbmar.hunter.Entities.Items;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.nilbmar.hunter.Commands.ChangeCollisionCommand;
 import com.nilbmar.hunter.Commands.UpdateHudCommand;
-import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Entities.NewEntity;
 import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Enums.HudLabels;

@@ -1,6 +1,5 @@
 package com.nilbmar.hunter.Commands;
 
-import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Entities.NewEntity;
 
 /**
@@ -10,6 +9,5 @@ import com.nilbmar.hunter.Entities.NewEntity;
  */
 
 public interface Command {
-    //public void execute(Entity entity);
-    public void execute(NewEntity entity);
+    void execute(NewEntity entity);
 }

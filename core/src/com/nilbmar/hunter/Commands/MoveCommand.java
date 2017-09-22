@@ -1,7 +1,6 @@
 package com.nilbmar.hunter.Commands;
 
 import com.badlogic.gdx.math.Vector2;
-import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Entities.NewEntity;
 
 /**
@@ -9,7 +8,7 @@ import com.nilbmar.hunter.Entities.NewEntity;
  */
 
 public class MoveCommand implements Command {
-    //Entity entity;
+    //NewEntity entity;
     private Vector2 direction = new Vector2(0, 0);
 
     @Override

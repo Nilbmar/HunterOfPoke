@@ -30,9 +30,9 @@ public class BulletA extends Bullet {
         frames.add(new TextureRegion(atlas.findRegion(regionName), 0, 0, 6, 6));
         animation = new Animation<TextureRegion>(0f, frames);
         animation.setPlayMode(Animation.PlayMode.NORMAL);
-        setRegion((TextureRegion) animation.getKeyFrame(0));
+        imageComponent.setRegion((TextureRegion) animation.getKeyFrame(0));
         //setRegion(screen.getBulletAtlas().findRegion("bulleta"), 0, 0, 6, 6);
-        setBounds(getX(), getY(), 6 / HunterOfPoke.PPM, 6 / HunterOfPoke.PPM);
+        imageComponent.setBounds(imageComponent.getX(), imageComponent.getY(), 6 / HunterOfPoke.PPM, 6 / HunterOfPoke.PPM);
 
         defineBody();
         lifespan = 5f;

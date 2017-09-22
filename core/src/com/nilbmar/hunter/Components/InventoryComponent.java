@@ -2,7 +2,6 @@ package com.nilbmar.hunter.Components;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
-import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Entities.Items.Item;
 import com.nilbmar.hunter.Entities.NewEntity;
 import com.nilbmar.hunter.Enums.InventorySlotType;

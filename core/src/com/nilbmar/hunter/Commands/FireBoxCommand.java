@@ -2,13 +2,11 @@ package com.nilbmar.hunter.Commands;
 
 import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
-import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Entities.NewEntity;
 import com.nilbmar.hunter.Entities.Player;
 import com.nilbmar.hunter.Enums.BulletType;
 import com.nilbmar.hunter.Enums.ShotType;
 import com.nilbmar.hunter.Tools.BoxPatternHandler;
-import com.nilbmar.hunter.Tools.BulletPatternHandler;
 
 /**
  * Created by sysgeek on 6/10/17.
