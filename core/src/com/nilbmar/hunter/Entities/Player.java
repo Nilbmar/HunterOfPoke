@@ -72,9 +72,6 @@ public class Player extends NewEntity {
         inventoryComponent = new InventoryComponent(this, 5);
         holdItem = null;
 
-        // imageComponent used for NewEntity
-        //imageComponent.setPosition(startInWorldX, startInWorldY);
-
         //regionName = "default"; // Will need to change in charMale and charAlien pack files
 
         // Set up frame information for animations to use
@@ -95,13 +92,7 @@ public class Player extends NewEntity {
         offsetSpriteY = 8 / HunterOfPoke.PPM;
 
         // TODO: PUT IMAGEWIDTH AND IMAGEHEIGHT INTO JSON
-        // Set up default facing sprite
-        TextureRegion charStill = new TextureRegion(assets.getPlayerAtlas().findRegion(regionName),
-                0, 0, getImageWidth(), getImageHeight());
         imageComponent.setBounds(0, 0, getImageWidth() / HunterOfPoke.PPM, getImageHeight() / HunterOfPoke.PPM);
-        imageComponent.setRegion(charStill);
-
-        imageComponent.setPosition(startInWorldX, startInWorldY);
     }
 
     @Override

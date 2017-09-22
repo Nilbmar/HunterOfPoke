@@ -77,11 +77,8 @@ public abstract class NewEntity {
         offsetSpriteX = 0;
         offsetSpriteY = 0;
 
-
-        // TODO: REMOVE setPosition()
         imageComponent = new ImageComponent(startInWorldX, startInWorldY);
         imageComponent.setPosition(startInWorldX, startInWorldY);
-        //setPosition(startInWorldX, startInWorldY);
 
         baseAcceleration = 1;
 
