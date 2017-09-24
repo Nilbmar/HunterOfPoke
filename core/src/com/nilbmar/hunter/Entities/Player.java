@@ -1,8 +1,6 @@
 package com.nilbmar.hunter.Entities;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.nilbmar.hunter.Commands.ChangeCollisionCommand;
 import com.nilbmar.hunter.Commands.UseCommand;
@@ -18,7 +16,6 @@ import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Enums.Action;
 import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Enums.InventorySlotType;
-import com.nilbmar.hunter.Tools.AssetHandler;
 
 /**
  * Created by sysgeek on 4/7/17.
@@ -33,13 +30,10 @@ public class Player extends NewEntity {
     private int maxHitPoints;
     private Item holdItem;
 
-
-
     private int walkSteps; // How many images in a full walk cycle
 
     // Components
     private InventoryComponent inventoryComponent;
-
 
     public Player(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
@@ -52,8 +46,6 @@ public class Player extends NewEntity {
         setImageHeight(24);
 
         directionComp = new DirectionComponent();
-        currentDirection = directionComp.getDirection();
-        previousDirection = currentDirection;
 
         currentAction = Action.STILL;
         previousAction = Action.STILL;
@@ -77,7 +69,8 @@ public class Player extends NewEntity {
         setCurrentAcceleration(1);
         moveComponent = new MoveComponent(b2Body);
 
-        charAnim = animComp.makeTexturesIntoAnimation(0.1f, currentDirection, currentAction);
+        // Create initial default animation
+        charAnim = animComp.makeTexturesIntoAnimation(0.1f, directionComp.getDirection(), currentAction);
 
         // Used to set bounds at the feet and lower body
         offsetSpriteY = 8 / HunterOfPoke.PPM;
@@ -90,9 +83,6 @@ public class Player extends NewEntity {
     public void prepareToDraw() {
 
     }
-
-
-
 
     public void setHitPoints(int hitPoints) { this.hitPoints = hitPoints; }
     public void setMaxHitPoints(int maxHitPoints) { this.maxHitPoints = maxHitPoints; }
@@ -110,7 +100,7 @@ public class Player extends NewEntity {
     public float getSpawnOtherX() {
         float spawnBulletOffsetX = imageComponent.getX() + imageComponent.getWidth() / 2;
         float offset = 10 / HunterOfPoke.PPM;
-        switch (currentDirection) {
+        switch (directionComp.getDirection()) {
             case UP:
                 // TODO: DON'T WANT TO CHANGE ANYTHING YET, MIGHT LATER
                 //spawnBulletOffsetX = spawnBulletOffsetX;
@@ -143,7 +133,7 @@ public class Player extends NewEntity {
     public float getSpawnOtherY() {
         float spawnBulletOffsetY = imageComponent.getY() + imageComponent.getHeight() / 2;
         float offset = 10 / HunterOfPoke.PPM;
-        switch (currentDirection) {
+        switch (directionComp.getDirection()) {
             case UP:
                 spawnBulletOffsetY = spawnBulletOffsetY + offset;
                 break;
@@ -172,12 +162,6 @@ public class Player extends NewEntity {
         }
         return spawnBulletOffsetY;
     }
-
-
-
-
-
-
 
     @Override
     public void onHit(NewEntity entity) {

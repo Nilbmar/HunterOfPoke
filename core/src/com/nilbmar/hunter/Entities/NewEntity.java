@@ -78,8 +78,6 @@ public abstract class NewEntity {
     protected float stateTimer;
     protected Action currentAction;
     protected Action previousAction;
-    protected DirectionComponent.Direction currentDirection;
-    protected DirectionComponent.Direction previousDirection;
 
     protected String name;
 
@@ -170,13 +168,13 @@ public abstract class NewEntity {
 
     public TextureRegion getFrame(float deltaTime) {
         TextureRegion region;
-        currentDirection = directionComp.getDirection();
-        
+        //currentDirection = directionComp.getDirection();
+
         // Only set animation when something changes
-        if (currentAction != previousAction || currentDirection != previousDirection || updateTextureAtlas) {
+        if (currentAction != previousAction || directionComp.getDirection() != directionComp.getPreviouDirection() || updateTextureAtlas) {
             setUpdateTextureAtlas(false);
-            animComp.setRegionName(getRegionName(currentDirection));
-            charAnim = animComp.makeTexturesIntoAnimation(0.1f, currentDirection, currentAction);
+            animComp.setRegionName(getRegionName(directionComp.getDirection()));
+            charAnim = animComp.makeTexturesIntoAnimation(0.1f, directionComp.getDirection(), currentAction);
         }
 
         // Get Key Frame
@@ -197,7 +195,7 @@ public abstract class NewEntity {
 
         // Flip region based on LEFT/RIGHT directions
         // (includes UP/DOWN variants)
-        switch (currentDirection) {
+        switch (directionComp.getDirection()) {
             case LEFT:
             case UP_LEFT:
             case DOWN_LEFT:
@@ -214,9 +212,9 @@ public abstract class NewEntity {
                 }
                 break;
         }
-        stateTimer = (currentDirection == previousDirection && currentAction == previousAction)
+        stateTimer = (directionComp.getDirection() == directionComp.getPreviouDirection() && currentAction == previousAction)
                 ? stateTimer + deltaTime : 0;
-        previousDirection = directionComp.getDirection();
+        directionComp.setDirection(directionComp.getDirection());
         previousAction = getAction();
         return region;
     }

@@ -19,15 +19,11 @@ import com.nilbmar.hunter.Enums.EntityType;
  */
 
 public class Enemy extends NewEntity {
-    private DirectionComponent directionComp;
-    private DirectionComponent.Direction currentDirection;
-    private DirectionComponent.Direction previousDirection;
     private SteeringAI ai;
 
     private boolean destroyed;
     private boolean aiAssigned;
-
-    private float stateTimer; // Used to getFrame() of animation
+    
     private int hitPoints;
     private int maxHitPoints;
 
@@ -44,8 +40,6 @@ public class Enemy extends NewEntity {
         destroyed = false;
 
         directionComp = new DirectionComponent();
-        currentDirection = directionComp.getDirection();
-        previousDirection = currentDirection;
 
         currentAction = Action.STILL;
         previousAction = Action.STILL;

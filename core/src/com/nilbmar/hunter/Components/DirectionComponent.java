@@ -19,10 +19,10 @@ public class DirectionComponent {
         previousDirection = Direction.DOWN;
     }
 
+    public Direction getPreviouDirection() { return previousDirection; } // Set in action()
     public Direction getDirection() { return currentDirection; } // Set in action()
     public void setDirection(Direction dir) {
         previousDirection = currentDirection;
         currentDirection = dir;
     }
-
 }
