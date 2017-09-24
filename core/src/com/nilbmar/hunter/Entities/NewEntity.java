@@ -147,7 +147,7 @@ public abstract class NewEntity {
         return regionName;
     }
 
-    // Change player's TextureAtlas in the AnimationComp
+    // Change TextureAtlas in the AnimationComp
     public void setUpdateTextureAtlas(boolean updateTextureAtlas) {
         switch (entityType) {
             case PLAYER:
