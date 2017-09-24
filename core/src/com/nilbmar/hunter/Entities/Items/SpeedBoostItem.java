@@ -51,16 +51,13 @@ public class SpeedBoostItem extends Item {
         entityThatUsed = entity;
 
         if (entity.getEntityType() == EntityType.PLAYER) {
-            int hpToRecover = (int) amountOfEffect;
-            ((Player) entity).recoverHitPoints(hpToRecover);
             setTimerComponent(getItemEffectTime(), getItemType());
             accelerationCommand = new AccelerationCommand(entityThatUsed, 1);
             accelerationCommand.execute(entityThatUsed);
             updateHud();
         }
         if (entity.getEntityType() == EntityType.ENEMY) {
-            int hpToRecover = (int) amountOfEffect;
-            ((Enemy) entity).recoverHitPoints(hpToRecover);
+            // TODO: WILL ENEMIES TRAMPLE ITEMS?
         }
 
 

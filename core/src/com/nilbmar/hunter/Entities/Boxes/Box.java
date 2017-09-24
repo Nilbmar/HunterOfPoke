@@ -255,7 +255,7 @@ public abstract class Box extends NewEntity implements Poolable {
                     stop();
                 }
                 stateTime += deltaTime;
-                timeout();
+                //timeout();
             }
         }
     }

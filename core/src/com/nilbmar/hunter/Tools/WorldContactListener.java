@@ -10,6 +10,7 @@ import com.nilbmar.hunter.Entities.Boxes.Box;
 import com.nilbmar.hunter.Entities.Bullets.Bullet;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.Items.Item;
+import com.nilbmar.hunter.Entities.NewEntity;
 import com.nilbmar.hunter.Entities.Player;
 import com.nilbmar.hunter.HunterOfPoke;
 
@@ -65,6 +66,13 @@ public class WorldContactListener implements ContactListener {
                 break;
             case HunterOfPoke.ENEMY_BIT | HunterOfPoke.GROUND_BIT:
                 //Gdx.app.log("Enemy Collision", "Enemy collided with ground");
+                break;
+            case HunterOfPoke.ENEMY_BIT | HunterOfPoke.BULLET_BIT:
+                if (fixtA.getFilterData().categoryBits == HunterOfPoke.ENEMY_BIT) {
+                    ((Enemy) (fixtA.getUserData())).onHit((NewEntity) fixtB.getUserData());
+                } else if (fixtB.getFilterData().categoryBits == HunterOfPoke.ENEMY_BIT) {
+                    ((Enemy) (fixtB.getUserData())).onHit((NewEntity) fixtA.getUserData());
+                }
                 break;
             case HunterOfPoke.ITEM_BIT | HunterOfPoke.PLAYER_BIT:
                 if (fixtA.getFilterData().categoryBits == HunterOfPoke.PLAYER_BIT) {

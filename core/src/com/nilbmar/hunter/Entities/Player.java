@@ -8,6 +8,7 @@ import com.nilbmar.hunter.Components.AnimationComp;
 import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Components.FramesComponent;
 import com.nilbmar.hunter.Components.InventoryComponent;
+import com.nilbmar.hunter.Components.LifeComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
 import com.nilbmar.hunter.Entities.Items.Item;
 import com.nilbmar.hunter.Enums.ItemType;
@@ -25,9 +26,7 @@ import com.nilbmar.hunter.Enums.InventorySlotType;
  */
 
 public class Player extends NewEntity {
-     // Used to getFrame() of animation
-    private int hitPoints;
-    private int maxHitPoints;
+    private LifeComponent lifeComp;
     private Item holdItem;
 
     private int walkSteps; // How many images in a full walk cycle
@@ -39,8 +38,11 @@ public class Player extends NewEntity {
         super(screen, startInWorldX, startInWorldY);
 
         setName("Dlumps");  // TODO: GET THIS FROM USER
-        hitPoints = 10;     // TODO: GET FROM GAMEMANAGER
-        maxHitPoints = 20;
+
+        lifeComp = new LifeComponent();
+        lifeComp.setHitPoints(10);     // TODO: GET FROM GAMEMANAGER
+        lifeComp.setMaxHitPoints(20);
+
         entityType = EntityType.PLAYER;
         setImageWidth(20);
         setImageHeight(24);
@@ -82,19 +84,6 @@ public class Player extends NewEntity {
     @Override
     public void prepareToDraw() {
 
-    }
-
-    public void setHitPoints(int hitPoints) { this.hitPoints = hitPoints; }
-    public void setMaxHitPoints(int maxHitPoints) { this.maxHitPoints = maxHitPoints; }
-
-    public int getHitPoints() { return hitPoints; }
-    public void recoverHitPoints(int hitPointsToAdd) {
-        int tempHP = hitPoints + hitPointsToAdd;
-        if (tempHP >= maxHitPoints) {
-            hitPoints = maxHitPoints;
-        } else {
-            hitPoints = tempHP;
-        }
     }
 
     public float getSpawnOtherX() {

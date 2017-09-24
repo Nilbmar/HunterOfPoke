@@ -39,8 +39,8 @@ public class EntityLoader {
         // TODO: MAYBE PUT BACK IN SEPARATE FUNCTION
         switch(entityType) {
             case ENEMY:
-                ((Enemy) entity).setHitPoints(data.getHitPoints());
-                ((Enemy) entity).setMaxHitPoints(data.getMaxHitPoints());
+                ((Enemy) entity).getLifeComponent().setHitPoints(data.getHitPoints());
+                ((Enemy) entity).getLifeComponent().setMaxHitPoints(data.getMaxHitPoints());
                 break;
             case PLAYER:
                 //((Player) entity).setHitPoints(data.getHitPoints());

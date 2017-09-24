@@ -1,10 +1,12 @@
 package com.nilbmar.hunter.Entities.Enemies;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.nilbmar.hunter.AI.SteeringAI;
 import com.nilbmar.hunter.Components.DirectionComponent;
+import com.nilbmar.hunter.Components.LifeComponent;
 import com.nilbmar.hunter.Entities.NewEntity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
@@ -20,12 +22,11 @@ import com.nilbmar.hunter.Enums.EntityType;
 
 public class Enemy extends NewEntity {
     private SteeringAI ai;
+    private LifeComponent lifeComp;
 
     private boolean destroyed;
     private boolean aiAssigned;
-    
-    private int hitPoints;
-    private int maxHitPoints;
+
 
     public Enemy(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
@@ -39,6 +40,7 @@ public class Enemy extends NewEntity {
         atlas = screen.getAssetsHandler().getEnemyAtlas();
         destroyed = false;
 
+        lifeComp = new LifeComponent();
         directionComp = new DirectionComponent();
 
         currentAction = Action.STILL;
@@ -49,21 +51,16 @@ public class Enemy extends NewEntity {
 
         // AI
         // TODO: REMOVE RADIUS FROM STEERINGAI CONSTRUCTOR
-
-
-
     }
 
     public DirectionComponent getDirectionComponent() { return directionComp; }
+    public LifeComponent getLifeComponent() { return lifeComp; }
 
     public void setSteeringAI() {
         if (b2Body != null) {
             ai = new SteeringAI(this, screen.getPlayer(), 30);
         }
     }
-
-    public void setHitPoints(int hitPoints) { this.hitPoints = hitPoints; }
-    public void setMaxHitPoints(int maxHitPoints) { this.maxHitPoints = maxHitPoints; }
 
     @Override
     public float getSpawnOtherX() {
@@ -75,18 +72,14 @@ public class Enemy extends NewEntity {
         return imageComponent.getY() + imageComponent.getHeight() / 2;
     }
 
-    public int getHitPoints() { return hitPoints; }
-    public void recoverHitPoints(int hitPointsToAdd) {
-        int tempHP = hitPoints + hitPointsToAdd;
-        if (tempHP >= maxHitPoints) {
-            hitPoints = maxHitPoints;
-        } else {
-            hitPoints = tempHP;
-        }
-    }
-
     @Override
     public void onHit(NewEntity entity) {
+        switch (entity.getEntityType()) {
+            case BULLET:
+                Gdx.app.log("Enemy Hit", "You got me!");
+                break;
+        }
+
 
         //Gdx.app.log(getName(), "Ouch! You hit me, you scum!");
     }
@@ -102,7 +95,7 @@ public class Enemy extends NewEntity {
         createBody(startInWorldX, startInWorldY);
         defineShape();
         defineBits((short) (HunterOfPoke.PLAYER_BIT | HunterOfPoke.GROUND_BIT
-                | HunterOfPoke.ENEMY_BIT | HunterOfPoke.ITEM_BIT));
+                | HunterOfPoke.ENEMY_BIT | HunterOfPoke.ITEM_BIT | HunterOfPoke.BULLET_BIT));
         finalizeBody();
     }
 
@@ -139,6 +132,5 @@ public class Enemy extends NewEntity {
         if (ai != null) {
                 ai.update(deltaTime);
         }
-
     }
 }
