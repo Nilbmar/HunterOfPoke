@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.nilbmar.hunter.Screens.PlayScreen;
 
 public class HunterOfPoke extends Game {
+    // TODO: ADJUST SCREEN WIDTH AND HEIGHT - Possibly 1.5 size 384x288
 	public static final int V_WIDTH = 256;
 	public static final int V_HEIGHT =	192;
 	public static final float PPM = 100;
