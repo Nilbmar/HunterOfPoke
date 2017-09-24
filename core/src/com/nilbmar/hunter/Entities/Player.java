@@ -154,9 +154,19 @@ public class Player extends NewEntity {
 
     @Override
     public void onHit(NewEntity entity) {
-        // Call timer, after timer, then resetCollision
-        // Otherwise game crashes trying to reset collision while still colliding
-        setTimerComponent(0.5f, ItemType.REMOVE_COLLISION);
+        switch (entity.getEntityType()) {
+            case ENEMY:
+                // Call timer, after timer, then resetCollision
+                // Otherwise game crashes trying to reset collision while still colliding
+                setTimerComponent(0.5f, ItemType.REMOVE_COLLISION);
+                lifeComp.loseHitPoints(1);
+                Gdx.app.log("Player HP = " + lifeComp.getHitPoints(), "Ouch! " + entity.getName() + " hit me!");
+                if (lifeComp.isDead()) {
+                    Gdx.app.log("Player Death", "What a world!");
+                }
+                break;
+        }
+
     }
 
     public void onPickup(Item item) {

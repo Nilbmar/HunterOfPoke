@@ -77,11 +77,12 @@ public class Enemy extends NewEntity {
         switch (entity.getEntityType()) {
             case BULLET:
                 Gdx.app.log("Enemy Hit", "You got me!");
+                lifeComp.loseHitPoints(1);
+                if (!lifeComp.isDead()) {
+                    Gdx.app.log("Enemy Death", "AAaaaaaaggghhh! I'm dying!");
+                }
                 break;
         }
-
-
-        //Gdx.app.log(getName(), "Ouch! You hit me, you scum!");
     }
 
     @Override
