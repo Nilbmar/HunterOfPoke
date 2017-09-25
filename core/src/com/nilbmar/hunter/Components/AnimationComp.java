@@ -95,6 +95,7 @@ public class AnimationComp {
     public Array<TextureRegion> getAnimationArray(DirectionComponent.Direction direction, Action action) {
         int y;
         int x;
+        int framesCount;
 
         switch(action) {
             case WALKING:
@@ -103,24 +104,26 @@ public class AnimationComp {
                 // TODO: I'M NOT SURE IF X SHOULD ALWAYS START AT ZERO AND MULTIPLY BY 16
                 // WILL DIFFERENT ATLAS'S NEED OFFSETS?
                 // TODO: NEED TO SET NUMBER OF FRAMES IN CODE
-                for (int i = 0; i < 4; i++) {
+                framesCount = framesComp.getWalkFramesCount();
+                for (int i = 0; i < framesCount; i++) {
                     x = (int) framesComp.getWalkFrames(direction, i).x;
                     y = (int) framesComp.getWalkFrames(direction, i).y;
 
                     frames.add(new TextureRegion(atlas.findRegion(regionName), x, y, width, height));
                 }
-
                 break;
 
             case STILL:
                 frames.clear(); // clears out the default stance
 
                 // Action.STILL only uses a single frame
-                x = (int) framesComp.getStillFrames(direction).x;
-                y = (int) framesComp.getStillFrames(direction).y;
-                frames.add(new TextureRegion(atlas.findRegion(regionName),
-                        x, y, width, height));
-
+                framesCount = framesComp.getStillFramesCount();
+                for (int i = 0; i < framesCount; i++) {
+                    x = (int) framesComp.getStillFrames(direction).x;
+                    y = (int) framesComp.getStillFrames(direction).y;
+                    frames.add(new TextureRegion(atlas.findRegion(regionName),
+                            x, y, width, height));
+                }
                 break;
 
             case ATTACK:
@@ -130,7 +133,8 @@ public class AnimationComp {
                 // WILL PROBABLY USE WALKING FRAMES FOR ATTACK
                 // IF A GUN IS USED, BECAUSE THE PLAYER WOULD BE
                 // WALKING WITH THE GUN
-                for (int i = 0; i < 4; i++) {
+                framesCount = framesComp.getUseFramesCount();
+                for (int i = 0; i < framesCount; i++) {
                     x = (int) framesComp.getUseFrames(direction, i).x;
                     y = (int) framesComp.getUseFrames(direction, i).y;
                     frames.add(new TextureRegion(atlas.findRegion(regionName),

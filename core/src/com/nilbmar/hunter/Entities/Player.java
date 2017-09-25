@@ -60,7 +60,10 @@ public class Player extends NewEntity {
         //regionName = "default"; // Will need to change in charMale and charAlien pack files
 
         // Set up frame information for animations to use
-        framesComp = new FramesComponent(4, getImageWidth(), getImageHeight());
+        framesComp = new FramesComponent(getImageWidth(), getImageHeight());
+        // TODO: LOAD THESE NUMBERS FROM JSON
+        framesComp.setFramesCounts(4, 1, 1);
+        framesComp.setFrames();
 
         // Set up animations component
         animComp = new AnimationComp(screen, this, framesComp, regionName);

@@ -10,7 +10,9 @@ import com.badlogic.gdx.utils.Array;
  */
 
 public class FramesComponent {
-    private int walkSteps;
+    private int walkFramesCount;
+    private int useFramesCount;
+    private int stillFramesCount;
     private int scaleSizeX;
     private int scaleSizeY;
 
@@ -21,8 +23,7 @@ public class FramesComponent {
     private Array<DirectionComponent.Direction> stillIndex;
     private Array<DirectionComponent.Direction> useIndex;
 
-    public FramesComponent(int walkSteps, int scaleSizeX, int scaleSizeY) {
-        this.walkSteps = walkSteps;
+    public FramesComponent(int scaleSizeX, int scaleSizeY) {
         this.scaleSizeX = scaleSizeX;
         this.scaleSizeY = scaleSizeY;
 
@@ -36,10 +37,20 @@ public class FramesComponent {
         useIndex = new Array<DirectionComponent.Direction>();
 
 
-        setFrames();
+        // TODO: REMOVE setFrames() CALL
+        //setFrames();
     }
 
-    private void setFrames() {
+    public int getWalkFramesCount() { return walkFramesCount; }
+    public int getUseFramesCount() { return useFramesCount; }
+    public int getStillFramesCount() { return stillFramesCount; }
+    public void setFramesCounts(int walkFramesCount, int useFramesCount, int stillFramesCount) {
+        this.walkFramesCount = walkFramesCount;
+        this.useFramesCount = useFramesCount;
+        this.stillFramesCount = stillFramesCount;
+    }
+
+    public void setFrames() {
 
         // TODO: GET THE SCALE FOR X AND  Y FROM JSON
 
@@ -57,9 +68,13 @@ public class FramesComponent {
         for (int x = 0; x < arrOfDirToSet.length; x++) {
             dirToSet = arrOfDirToSet[x];
 
-            for (int y = 0; y < walkSteps; y++) {
+            for (int y = 0; y < walkFramesCount; y++) {
                 setWalkFrames(dirToSet, y * scaleSizeX, 0);
 
+                // TODO: REMOVE THIS - TOOK OUT USEFRAMES SWITCH FROM HERE
+            }
+
+            for (int y = 0; y < useFramesCount; y++) {
                 switch (dirToSet) {
                     case DOWN:
                         setUseFrames(dirToSet, 0, 0);
@@ -70,13 +85,15 @@ public class FramesComponent {
                 }
             }
 
-            switch (dirToSet) {
-                case DOWN:
-                    setStillFrames(dirToSet, 0, 0);
-                    break;
-                default:
-                    setStillFrames(dirToSet, scaleSizeX, 0);
-                    break;
+            for (int y = 0; y < stillFramesCount; y++) {
+                switch (dirToSet) {
+                    case DOWN:
+                        setStillFrames(dirToSet, 0, 0);
+                        break;
+                    default:
+                        setStillFrames(dirToSet, scaleSizeX, 0);
+                        break;
+                }
             }
         }
     }

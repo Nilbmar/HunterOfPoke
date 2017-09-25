@@ -11,6 +11,7 @@ import com.nilbmar.hunter.Entities.Enemies.EntityData;
 import com.nilbmar.hunter.Enums.Decorations;
 import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Screens.PlayScreen;
+import com.nilbmar.hunter.Tools.Loaders.Loader;
 
 /**
  * Created by sysgeek on 6/27/17.
@@ -22,16 +23,18 @@ import com.nilbmar.hunter.Screens.PlayScreen;
  * // TODO: CURRENTLY ONLY ADDS DECORATOR FOR ENEMIES
  */
 
-public class EntityLoader {
+public class EntityLoader implements Loader {
     private NewEntity entity;
     private String file;
     private EntityType entityType;
 
     public void setEntityType(EntityType entityType) { this.entityType = entityType; }
+
+    @Override
     public void setFile(String file) { this.file = file; }
 
-
-    public void loadJson() {
+    @Override
+    public void load() {
         FileHandle handle = Gdx.files.internal(file);
         String fileContent = handle.readString();
         Json json = new Json();
@@ -120,7 +123,7 @@ public class EntityLoader {
         }
 
         if (entity != null) {
-            loadJson();
+            load();
         }
 
         return entity;
