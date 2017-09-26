@@ -2,6 +2,7 @@ package com.nilbmar.hunter.Tools;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Enums.PlayerType;
 
 /**
@@ -29,14 +30,11 @@ public class AssetHandler {
     private String playerPack = spritesLocation + alien;
     private PlayerType currentPlayerType = PlayerType.ALIEN;
 
-
     // Sprite Variables
     private TextureAtlas playerAtlas;
     private TextureAtlas enemyAtlas;
     private TextureAtlas bulletAtlas;
     private TextureAtlas itemAtlas;
-
-
 
     public void loadImages() {
         loadPlayerImages();

@@ -57,13 +57,11 @@ public class Player extends NewEntity {
         inventoryComponent = new InventoryComponent(this, 5);
         holdItem = null;
 
-        //regionName = "default"; // Will need to change in charMale and charAlien pack files
+        //regionName = "default";
 
         // Set up frame information for animations to use
         framesComp = new FramesComponent(getImageWidth(), getImageHeight());
-        // TODO: LOAD THESE NUMBERS FROM JSON
-        framesComp.setFramesCounts(4, 1, 1);
-        framesComp.setFrames();
+        framesComp.setFrames("json/animations/playerAnim.json");
 
         // Set up animations component
         animComp = new AnimationComp(screen, this, framesComp, regionName);

@@ -2,6 +2,8 @@ package com.nilbmar.hunter.Components;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.nilbmar.hunter.Tools.Loaders.AnimationData;
+import com.nilbmar.hunter.Tools.Loaders.AnimationLoader;
 
 /**
  * Created by sysgeek on 5/4/17.
@@ -10,6 +12,9 @@ import com.badlogic.gdx.utils.Array;
  */
 
 public class FramesComponent {
+    private AnimationLoader animLoader;
+    private AnimationData animData;
+    private String animFile;
     private int walkFramesCount;
     private int useFramesCount;
     private int stillFramesCount;
@@ -36,22 +41,31 @@ public class FramesComponent {
         useFrames = new Array<Vector2>();
         useIndex = new Array<DirectionComponent.Direction>();
 
+        animLoader = new AnimationLoader();
 
         // TODO: REMOVE setFrames() CALL
         //setFrames();
     }
 
+    //public void setAnimFile(String animFile) { this.animFile = animFile; }
+
     public int getWalkFramesCount() { return walkFramesCount; }
     public int getUseFramesCount() { return useFramesCount; }
     public int getStillFramesCount() { return stillFramesCount; }
-    public void setFramesCounts(int walkFramesCount, int useFramesCount, int stillFramesCount) {
-        this.walkFramesCount = walkFramesCount;
-        this.useFramesCount = useFramesCount;
-        this.stillFramesCount = stillFramesCount;
+    public void setFramesCounts() {
+        if (animFile != null) {
+            animLoader.setFile(animFile);
+            animLoader.load();
+            animData = animLoader.getData();
+            walkFramesCount = animData.getWalkFramesCount();
+            useFramesCount = animData.getUseFramesCount();
+            stillFramesCount = animData.getStillFramesCount();
+        }
     }
 
-    public void setFrames() {
-
+    public void setFrames(String animFile) {
+        this.animFile = animFile;
+        setFramesCounts();
         // TODO: GET THE SCALE FOR X AND  Y FROM JSON
 
         // Multiple steps in walk cycles

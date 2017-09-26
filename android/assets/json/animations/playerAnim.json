@@ -1,6 +1,4 @@
 {
-	"name":"player",
-	"walkSteps": 4,
 	"scaleSizeX": 32,
 	"scaleSizeY": 32,
 	"walkFramesCount": 4,
