@@ -1,6 +1,7 @@
 {
-	"name":"swarmAnim",
-	"walkSteps": 2,
-	"scaleSizeX": 2,
-	"scaleSizeY": 1
+	"scaleSizeX": 32,
+	"scaleSizeY": 32,
+	"walkFramesCount": 4,
+	"useFramesCount": 1,
+	"stillFramesCount": 1
 }
