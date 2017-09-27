@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool.Poolable;
+import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
 import com.nilbmar.hunter.Entities.NewEntity;
 import com.nilbmar.hunter.HunterOfPoke;
@@ -61,6 +62,14 @@ public abstract class Bullet  extends NewEntity implements Poolable {
     @Override
     public void prepareToDraw() {
 
+    }
+
+    public String getRegionName(DirectionComponent.Direction currentDirection) {
+        switch (currentDirection) {
+
+        }
+
+        return regionName;
     }
 
     public TextureRegion getFrame(float deltaTime, float stateTime) {

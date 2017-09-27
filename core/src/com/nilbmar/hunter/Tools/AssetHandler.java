@@ -18,7 +18,7 @@ public class AssetHandler {
 
     // Location of texture packs for TextureAtlases
     private final String spritesLocation = "sprites/";
-    private final String enemyPack = spritesLocation + "characters.pack";
+    private final String enemyPack = spritesLocation + "enemiesPack.pack";
     private final String bulletPack = spritesLocation + "ammo_and_effects.pack";
     private final String itemPack = spritesLocation + "pickups.pack";
 

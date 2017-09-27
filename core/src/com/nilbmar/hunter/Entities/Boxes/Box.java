@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
 import com.nilbmar.hunter.Entities.NewEntity;
 import com.nilbmar.hunter.Enums.EntityType;
@@ -71,6 +72,14 @@ public abstract class Box extends NewEntity implements Poolable {
     @Override
     public void prepareToDraw() {
 
+    }
+
+    public String getRegionName(DirectionComponent.Direction currentDirection) {
+        switch (currentDirection) {
+
+        }
+
+        return regionName;
     }
 
     public TextureRegion getFrame(float deltaTime, float stateTime) {

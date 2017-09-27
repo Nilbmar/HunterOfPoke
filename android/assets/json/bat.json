@@ -2,7 +2,7 @@
 	"name":"Batty",
 	"hitPoints": 2,
 	"maxHitPoints": 4,
-	"regionName": "bats",
+	"regionName": "bat",
 	"regionBeginX": 0,
 	"regionBeginY": 0,
 	"regionWidth": 16,

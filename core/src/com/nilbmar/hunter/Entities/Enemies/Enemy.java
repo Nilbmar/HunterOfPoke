@@ -62,6 +62,14 @@ public class Enemy extends NewEntity {
         }
     }
 
+    public String getRegionName(DirectionComponent.Direction currentDirection) {
+        switch (currentDirection) {
+
+        }
+
+        return regionName;
+    }
+
     @Override
     public float getSpawnOtherX() {
         return imageComponent.getX() + imageComponent.getWidth() / 2;

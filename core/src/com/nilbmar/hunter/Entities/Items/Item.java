@@ -2,6 +2,7 @@ package com.nilbmar.hunter.Entities.Items;
 
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.nilbmar.hunter.Commands.UpdateHudCommand;
+import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Entities.NewEntity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
@@ -52,6 +53,14 @@ public abstract class Item extends NewEntity {
     @Override
     public void prepareToDraw() {
 
+    }
+
+    public String getRegionName(DirectionComponent.Direction currentDirection) {
+        switch (currentDirection) {
+
+        }
+
+        return regionName;
     }
 
     public abstract void use(NewEntity entity);

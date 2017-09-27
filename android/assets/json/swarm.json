@@ -2,7 +2,7 @@
 	"name":"Buzz Buzz",
 	"hitPoints": 2,
 	"maxHitPoints": 4,
-	"regionName": "swarm",
+	"regionName": "swarm_3",
 	"regionBeginX": 0,
 	"regionBeginY": 0,
 	"regionWidth": 16,

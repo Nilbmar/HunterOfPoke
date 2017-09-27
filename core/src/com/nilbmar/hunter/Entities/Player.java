@@ -87,6 +87,45 @@ public class Player extends NewEntity {
 
     }
 
+    @Override
+    public String getRegionName(DirectionComponent.Direction currentDirection) {
+        switch (currentDirection) {
+            case UP:
+                regionName = "north";
+                break;
+            case UP_LEFT:
+            case UP_RIGHT:
+                regionName = "diagup";
+                break;
+            case DOWN:
+                // There's a separate region for still DOWN
+                // than for walking DOWN
+                switch (currentAction) {
+                    case WALKING:
+                        regionName = "south2";
+                        break;
+                    case USE:
+                        regionName = "south";
+                        break;
+                    case STILL:
+                    default:
+                        regionName = "default";
+                        break;
+                }
+                break;
+            case DOWN_LEFT:
+            case DOWN_RIGHT:
+                regionName = "diagdown";
+                break;
+            case LEFT:
+            case RIGHT:
+                regionName = "side";
+                break;
+        }
+
+        return regionName;
+    }
+
     public float getSpawnOtherX() {
         float spawnBulletOffsetX = imageComponent.getX() + imageComponent.getWidth() / 2;
         float offset = 10 / HunterOfPoke.PPM;
