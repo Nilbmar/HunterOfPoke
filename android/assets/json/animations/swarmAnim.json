@@ -3,5 +3,20 @@
 	"scaleSizeY": 32,
 	"walkFramesCount": 4,
 	"useFramesCount": 1,
-	"stillFramesCount": 1
+	"stillFramesCount": 1,
+	"walkFramesArr":[
+		"swarm_1", 
+		"swarm_2", 
+		"swarm_3"
+	],
+	"useFramesArr":[
+		"swarm_1", 
+		"swarm_2", 
+		"swarm_3"
+	],
+	"stillFramesArr":[
+		"swarm_1", 
+		"swarm_2", 
+		"swarm_3"
+	]
 }

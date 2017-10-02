@@ -29,8 +29,6 @@ public class Player extends NewEntity {
     private LifeComponent lifeComp;
     private Item holdItem;
 
-    private int walkSteps; // How many images in a full walk cycle
-
     // Components
     private InventoryComponent inventoryComponent;
 

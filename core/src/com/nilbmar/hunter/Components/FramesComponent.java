@@ -1,5 +1,6 @@
 package com.nilbmar.hunter.Components;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.nilbmar.hunter.Tools.Loaders.AnimationData;
@@ -60,6 +61,13 @@ public class FramesComponent {
             walkFramesCount = animData.getWalkFramesCount();
             useFramesCount = animData.getUseFramesCount();
             stillFramesCount = animData.getStillFramesCount();
+            if (animData.getWalkFramesArr() != null) {
+                Gdx.app.log("AnimationData in FramesComponent", animData.getWalkFramesArr().toString());
+            } else {
+                Gdx.app.log("AnimationData in FramesComponenet", "getWalkFramesArr is null");
+            }
+        } else {
+            Gdx.app.log("animFile", " is null");
         }
     }
 

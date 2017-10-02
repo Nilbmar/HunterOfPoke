@@ -39,13 +39,15 @@ public class Spawns implements Disposable {
     }
 
     public Enemy spawnEnemy() {
-        Gdx.app.log("Enemy Type from Spawns", enemyType.getName());
-        String file = "json/" + enemyType.getName() + ".json";
+        String file = "json/entityData/" + enemyType.getName() + ".json";
 
         EntityLoader loader = new EntityLoader();
         loader.setEntityType(EntityType.ENEMY);
         loader.setFile(file);
         Enemy enemy = (Enemy) loader.decorate(screen, getX(), getY(), decorators);
+        enemy.setEnemyType(enemyType);
+        enemy.setupAnimationComponents();
+
         return enemy;
         //enemy.prepareToDraw();
         //return enemy;

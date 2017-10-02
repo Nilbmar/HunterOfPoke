@@ -77,6 +77,7 @@ public class EntityLoader implements Loader {
         entity.setOffsetSpriteX(data.getOffsetSpriteX());
         entity.setOffsetSpriteY(data.getOffsetSpriteY());
 
+
         entity.prepareToDraw();
 
         //return entity;

@@ -5,7 +5,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.nilbmar.hunter.AI.SteeringAI;
+import com.nilbmar.hunter.Components.AnimationComp;
 import com.nilbmar.hunter.Components.DirectionComponent;
+import com.nilbmar.hunter.Components.FramesComponent;
 import com.nilbmar.hunter.Components.LifeComponent;
 import com.nilbmar.hunter.Entities.NewEntity;
 import com.nilbmar.hunter.HunterOfPoke;
@@ -55,6 +57,20 @@ public class Enemy extends NewEntity {
         // TODO: REMOVE RADIUS FROM STEERINGAI CONSTRUCTOR
     }
 
+    public void setupAnimationComponents() {
+        if (enemyType != null) {
+            String animationFile = enemyType.getName() + "Anim";
+            // Set up frame information for animations to use
+            framesComp = new FramesComponent(getImageWidth(), getImageHeight());
+            framesComp.setFrames("json/animations/" + animationFile + ".json");
+
+            // Set up animations component
+            animComp = new AnimationComp(screen, this, framesComp, regionName);
+        } else {
+            Gdx.app.log("setupAnimationComponents", "enemyType is null");
+        }
+    }
+
     public DirectionComponent getDirectionComponent() { return directionComp; }
     public LifeComponent getLifeComponent() { return lifeComp; }
 
@@ -64,6 +80,7 @@ public class Enemy extends NewEntity {
         }
     }
 
+    public void setEnemyType(EnemyType enemyType) { this.enemyType = enemyType; }
     public String getRegionName(DirectionComponent.Direction currentDirection) {
         String dir = null;
         switch (currentDirection) {
