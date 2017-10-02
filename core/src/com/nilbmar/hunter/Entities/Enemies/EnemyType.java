@@ -1,7 +1,5 @@
 package com.nilbmar.hunter.Entities.Enemies;
 
-import com.nilbmar.hunter.Enums.BulletType;
-
 /**
  * Created by sysgeek on 9/27/17.
  *
@@ -23,13 +21,13 @@ public enum EnemyType {
     EnemyType(String regionNamePrefix) { this.regionNamePrefix = regionNamePrefix; }
     //BulletType(String name) { this.name = name; }
 
-    public String getPrefix() {
+    public String getName() {
         return regionNamePrefix;
     }
 
     public static EnemyType contains(String regionNamePrefix) {
         for (EnemyType type : EnemyType.values()) {
-            if (type.getPrefix().equals(regionNamePrefix)) {
+            if (type.getName().equals(regionNamePrefix)) {
                 return type;
             }
         }
