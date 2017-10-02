@@ -1,12 +1,13 @@
 package com.nilbmar.hunter.Entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.Disposable;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.Items.InvincibilityItem;
 import com.nilbmar.hunter.Entities.Items.Item;
 import com.nilbmar.hunter.Entities.Items.SpeedBoostItem;
-import com.nilbmar.hunter.Enums.EnemyType;
+import com.nilbmar.hunter.Entities.Enemies.EnemyType;
 import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Enums.ItemType;
 import com.nilbmar.hunter.HunterOfPoke;
@@ -38,7 +39,8 @@ public class Spawns implements Disposable {
     }
 
     public Enemy spawnEnemy() {
-        String file = "json/" + enemyType.getName() + ".json";
+        Gdx.app.log("Enemy Type from Spawns", enemyType.getPrefix());
+        String file = "json/" + enemyType.getPrefix() + ".json";
 
         EntityLoader loader = new EntityLoader();
         loader.setEntityType(EntityType.ENEMY);

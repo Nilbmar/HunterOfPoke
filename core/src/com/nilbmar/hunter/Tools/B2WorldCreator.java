@@ -1,8 +1,7 @@
 package com.nilbmar.hunter.Tools;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
-import com.nilbmar.hunter.Enums.EnemyType;
+import com.nilbmar.hunter.Entities.Enemies.EnemyType;
 import com.nilbmar.hunter.Enums.ItemType;
 import com.nilbmar.hunter.Scenes.Hud;
 import com.nilbmar.hunter.Screens.PlayScreen;

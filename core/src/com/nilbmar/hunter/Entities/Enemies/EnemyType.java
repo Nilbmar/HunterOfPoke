@@ -1,17 +1,39 @@
 package com.nilbmar.hunter.Entities.Enemies;
 
+import com.nilbmar.hunter.Enums.BulletType;
+
 /**
  * Created by sysgeek on 9/27/17.
+ *
+ * Purpose: enum to use in switch cases determining Enemy type
  */
 
-public enum EnemyType { NOTLINK,
-    SWARM, SPIDER,
-    BAT, BATEYE, FLOATEYE, WHELP,
-    HORNS, LOCKS,
-    KULTIST, CLOAK, FEATHER,
-    GOO, GOOBABY, SMUSHROOM,
-    FANG, FANGHOOD,
-    ARMORLANCER,
-    BONES, BONESBLADE,
-    BEASTNORMAL, BEASTAXE, BEASTSWORD, BEASTMACE
+public enum EnemyType {
+    SWARM("swarm"), SPIDER("spider"),
+    GOO("goo"), GOOBABY("goobaby"), SMUSHROOM("smushroom"),
+    BAT("bat"), BATEYE("bateye"), FLOATEYE("floateye"), WHELP("whelp"),
+    HORNS("horns"), LOCKS("locks"),
+    NOTLINK("notlink"), KULTIST("kultist"), CLOAK("cloak"), FEATHER("feather"),
+    FANG("fang"), FANGHOOD("fanghood"),
+    ARMORLANCER("armorlancer"),
+    BONES("bones"), BONESBLADE("bonesblade"),
+    BEASTNORMAL("beastnormal"), BEASTAXE("beastaxe"), BEASTSWORD("beastsword"), BEASTMACE("beastmace");
+
+    private String regionNamePrefix;
+    EnemyType(String regionNamePrefix) { this.regionNamePrefix = regionNamePrefix; }
+    //BulletType(String name) { this.name = name; }
+
+    public String getPrefix() {
+        return regionNamePrefix;
+    }
+
+    public static EnemyType contains(String regionNamePrefix) {
+        for (EnemyType type : EnemyType.values()) {
+            if (type.getPrefix().equals(regionNamePrefix)) {
+                return type;
+            }
+        }
+
+        return null;
+    }
 }

@@ -23,6 +23,7 @@ import com.nilbmar.hunter.Enums.EntityType;
 public class Enemy extends NewEntity {
     private SteeringAI ai;
     private LifeComponent lifeComp;
+    private EnemyType enemyType;
 
     private boolean destroyed;
     private boolean aiAssigned;
@@ -33,6 +34,7 @@ public class Enemy extends NewEntity {
 
         setName("Generic Enemy");
         entityType = EntityType.ENEMY;
+        enemyType = null;
 
         // TODO: THESE WILL BE NEEDED FOR NEW AnimationComp
         //setImageWidth(20);
@@ -63,8 +65,21 @@ public class Enemy extends NewEntity {
     }
 
     public String getRegionName(DirectionComponent.Direction currentDirection) {
+        String dir = null;
         switch (currentDirection) {
-
+            case UP:
+                dir = "_up";
+                break;
+            case DOWN:
+                dir = "_down";
+            case UP_LEFT:
+            case UP_RIGHT:
+            case DOWN_LEFT:
+            case DOWN_RIGHT:
+            case LEFT:
+            case RIGHT:
+                dir = "_side";
+                break;
         }
 
         return regionName;

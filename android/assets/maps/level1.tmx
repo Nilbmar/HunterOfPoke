@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="16" tileheight="16" nextobjectid="191">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="16" tileheight="16" nextobjectid="192">
  <tileset firstgid="1" name="pokedawn" tilewidth="16" tileheight="16" spacing="2" margin="1" tilecount="25651">
   <image source="../tiles/pokedawn_gutter.png" width="2048" height="4096"/>
  </tileset>
@@ -87,8 +87,15 @@
   </object>
   <object id="155" x="160" y="112" width="16" height="16">
    <properties>
-    <property name="Decorators" value="fire"/>
+    <property name="Decorators" value="none"/>
     <property name="EnemyType" value="bat"/>
+    <property name="monster" value=""/>
+   </properties>
+  </object>
+  <object id="191" x="112" y="140" width="16" height="16">
+   <properties>
+    <property name="Decorators" value="none"/>
+    <property name="EnemyType" value="armorlancer"/>
     <property name="monster" value=""/>
    </properties>
   </object>

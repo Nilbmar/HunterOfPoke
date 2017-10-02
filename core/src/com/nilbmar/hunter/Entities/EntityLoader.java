@@ -58,6 +58,7 @@ public class EntityLoader implements Loader {
                 break;
             */
         }
+        // TODO: GET NAME FROM DATA AND USE THAT TO SET REGION BY NAME+DIRECTION
         entity.setName(data.getName());
         entity.setRegionName(data.getRegionName());
 
