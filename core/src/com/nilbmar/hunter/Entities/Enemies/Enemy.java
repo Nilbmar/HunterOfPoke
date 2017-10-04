@@ -66,6 +66,17 @@ public class Enemy extends NewEntity {
 
             // Set up animations component
             animComp = new AnimationComp(screen, this, framesComp, regionName);
+
+
+            // Create initial default animation
+            charAnim = animComp.makeTexturesIntoAnimation(0.1f, directionComp.getDirection(), currentAction);
+
+            // Used to set bounds at the feet and lower body
+            //offsetSpriteY = 8 / HunterOfPoke.PPM;
+
+            // TODO: PUT IMAGEWIDTH AND IMAGEHEIGHT INTO JSON
+            //imageComponent.setBounds(0, 0, getImageWidth() / HunterOfPoke.PPM, getImageHeight() / HunterOfPoke.PPM);
+            Gdx.app.log("setupAnimationComponents", "enemyType is " + enemyType);
         } else {
             Gdx.app.log("setupAnimationComponents", "enemyType is null");
         }

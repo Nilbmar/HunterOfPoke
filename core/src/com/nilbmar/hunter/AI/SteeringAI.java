@@ -49,14 +49,12 @@ public class SteeringAI implements Steerable<Vector2> {
 
         tagged = false;
 
-
         maxLinearSpeed = 50 * entity.getCurrentAcceleration();
 
         maxLinearAcceleration = 10 * entity.getCurrentAcceleration();
         maxAngularSpeed = 5 * entity.getCurrentAcceleration();
         maxAngularAcceleration = entity.getCurrentAcceleration();
 
-        Gdx.app.log("Acceleration", entity.getName() + " " + maxLinearSpeed + " " + maxLinearAcceleration);
         steerOutput = new SteeringAcceleration<Vector2>(new Vector2());
 
         position = body.getPosition();

@@ -164,19 +164,18 @@ public class PlayScreen implements Screen {
         bulletCreator.update(deltaTime);
         boxCreator.update(deltaTime);
 
+        // Spawn Enemy or Items based on string in map
         for (Spawns spawn : worldCreator.getAllSpawnsArray()) {
             if (player.getB2Body().getPosition().x > spawn.getX()) {
+                // Spawn Enemy
                 if (spawn.getType() == SpawnType.ENEMY) {
                     Enemy enemy = spawn.spawnEnemy();
-                    //Gdx.app.log("Enemy spawn getPosition()", enemy.getB2Body().getPosition().toString());
                     enemy.setSteeringAI();
                     //entities.add(enemy); //spawn.spawnEnemy());
                     newEntities.add(enemy);
-
-                    Gdx.app.log("Enemy Spawn", "X: " + spawn.getX() + " Y: " + spawn.getY());
                 } else if (spawn.getType() == SpawnType.ITEM) {
+                    // Spawn Item
                     newEntities.add(spawn.spawnItem());
-                    Gdx.app.log("Item Spawn", "X: " + spawn.getX() + " Y: " + spawn.getY());
                 }
                 worldCreator.getAllSpawnsArray().removeValue(spawn, true);
                 spawn.dispose();
