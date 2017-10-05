@@ -85,30 +85,33 @@ public class Enemy extends NewEntity {
 
     // Based on AI movement
     public void setDirection() {
+        // Switch Enemy direction based on position
+        // relative to player position
+        float dirX = getPosition().x - screen.getPlayer().getPosition().x;
+        float dirY = getPosition().y - screen.getPlayer().getPosition().y;
+        Gdx.app.log("enemy position", dirX + " " + dirY);
         if (!ai.getLinearVelocity().isZero()) {
             setAction(Action.WALKING);
-            // First set for LEFT or RIGHT
-            /*
-            // TODO: USING AI - DIRECTION IS CONSTANTLY CHANGING
-            // WHICH MAKES IT SO STATETIMER IS NEVER INCREMENTED
-            // AND WALKING ANIMATIONS ARE NEVER PLAYED PAST 0
-            if (ai.getLinearVelocity().x > 0) {
-                directionComp.setDirection(DirectionComponent.Direction.RIGHT);
-            } else if (ai.getLinearVelocity().x < 0) {
-                directionComp.setDirection(DirectionComponent.Direction.LEFT);
-            }
-            */
 
-            // Second set for UP or DOWN, so they take priority
-            if (ai.getLinearVelocity().y > 0) {
+            // If player is above enemy, face UP
+            if (dirY < 0) {
                 directionComp.setDirection(DirectionComponent.Direction.UP);
-            } else if (ai.getLinearVelocity().y < 0) {
+            } else if (dirY > 1) {
+                // If player is below enemy, face DOWN, but allow for some SIDE facng
                 directionComp.setDirection(DirectionComponent.Direction.DOWN);
+            } else {
+                // If Enemy is within 1 UP or DOWN of player,
+                // face to the RIGHT or LEFT toward player
+                if (dirX < 0) {
+                    directionComp.setDirection(DirectionComponent.Direction.RIGHT);
+                } else if (dirX > 0) {
+                    directionComp.setDirection(DirectionComponent.Direction.LEFT);
+                }
             }
         } else {
+            // If Enemy is not moving, set to STILL animation
             setAction(Action.STILL);
         }
-        //Gdx.app.log("Enemy Direction", directionComp.getDirection() + " linearVelocity y" + ai.getLinearVelocity().y);
     }
 
     public void setSteeringAI() {

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Shape;
@@ -108,6 +109,10 @@ public abstract class NewEntity {
 
         bodyComponent = new BodyComponent();
         //defineBody();
+    }
+
+    public Vector2 getPosition() {
+        return  new Vector2(getB2Body().getPosition());
     }
 
     public abstract String getRegionName(DirectionComponent.Direction currentDirection);
