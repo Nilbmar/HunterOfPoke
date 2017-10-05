@@ -70,25 +70,25 @@
   </object>
  </objectgroup>
  <objectgroup name="spawn">
-  <object id="153" x="304" y="100" width="16" height="16">
+  <object id="153" x="304" y="96" width="16" height="16">
    <properties>
     <property name="Decorators" value="none"/>
-    <property name="EnemyType" value="swarm"/>
+    <property name="EnemyType" value="feather"/>
     <property name="monster" value=""/>
    </properties>
   </object>
-  <object id="154" x="640" y="32" width="16" height="16">
+  <object id="154" x="640" y="48" width="16" height="16">
    <properties>
     <property name="BulletProperties" value="twin fire"/>
     <property name="Decorators" value="fire"/>
-    <property name="EnemyType" value="bat"/>
+    <property name="EnemyType" value="cloak"/>
     <property name="monster" value=""/>
    </properties>
   </object>
   <object id="155" x="160" y="112" width="16" height="16">
    <properties>
     <property name="Decorators" value="none"/>
-    <property name="EnemyType" value="bat"/>
+    <property name="EnemyType" value="kultist"/>
     <property name="monster" value=""/>
    </properties>
   </object>

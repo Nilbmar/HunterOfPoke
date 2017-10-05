@@ -76,6 +76,7 @@ public class Player extends NewEntity {
         // Used to set bounds at the feet and lower body
         offsetSpriteY = 8 / HunterOfPoke.PPM;
 
+
         // TODO: PUT IMAGEWIDTH AND IMAGEHEIGHT INTO JSON
         imageComponent.setBounds(0, 0, getImageWidth() / HunterOfPoke.PPM, getImageHeight() / HunterOfPoke.PPM);
     }
@@ -188,6 +189,27 @@ public class Player extends NewEntity {
 
         }
         return spawnBulletOffsetY;
+    }
+
+
+    private void setAction() {
+        previousAction = currentAction;
+        if (moveComponent.isMoving()) {
+            currentAction = Action.WALKING;
+        } else {
+            if (currentAction == Action.USE) { // TODO: SET THIS NUMBER
+                if (charAnim.getKeyFrameIndex(stateTimer) == 3) {
+                    currentAction = Action.STILL;
+                }
+            } else {
+                currentAction = Action.STILL;
+            }
+        }
+
+        // Set action in movement component if it has changed
+        if (currentAction != previousAction) {
+            moveComponent.setAction(currentAction);
+        }
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.nilbmar.hunter.Entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -178,30 +179,22 @@ public abstract class NewEntity {
         }
         stateTimer = (directionComp.getDirection() == directionComp.getPreviouDirection() && currentAction == previousAction)
                 ? stateTimer + deltaTime : 0;
+
+        if (!getName().contains("Dlumps")) {
+            Gdx.app.log("StateTimer", getName() + " " + directionComp.getDirection() + "/" + directionComp.getPreviouDirection()
+                    + " " + currentAction + "/" + previousAction);
+        }
+
         directionComp.setDirection(directionComp.getDirection());
         previousAction = getAction();
         return region;
     }
     public DirectionComponent getDirectionComponent() { return directionComp; }
-    public Action getAction() { return currentAction; }
-    protected void setAction() {
-        previousAction = currentAction;
-        if (moveComponent.isMoving()) {
-            currentAction = Action.WALKING;
-        } else {
-            if (currentAction == Action.USE) { // TODO: SET THIS NUMBER
-                if (charAnim.getKeyFrameIndex(stateTimer) == 3) {
-                    currentAction = Action.STILL;
-                }
-            } else {
-                currentAction = Action.STILL;
-            }
-        }
 
-        // Set action in movement component if it has changed
-        if (currentAction != previousAction) {
-            moveComponent.setAction(currentAction);
-        }
+    public Action getAction() { return currentAction; }
+    protected void setAction(Action currentAction) {
+        //previousAction = currentAction;
+        this.currentAction = currentAction;
     }
 
 

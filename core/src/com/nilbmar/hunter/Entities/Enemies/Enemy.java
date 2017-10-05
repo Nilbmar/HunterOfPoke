@@ -39,8 +39,8 @@ public class Enemy extends NewEntity {
         enemyType = null;
 
         // TODO: THESE WILL BE NEEDED FOR NEW AnimationComp
-        //setImageWidth(20);
-        //setImageHeight(24);
+        setImageWidth(16);
+        setImageHeight(16);
         atlas = screen.getAssetsHandler().getEnemyAtlas();
         destroyed = false;
 
@@ -59,14 +59,12 @@ public class Enemy extends NewEntity {
 
     public void setupAnimationComponents() {
         if (enemyType != null) {
-            String animationFile = enemyType.getName() + "Anim";
             // Set up frame information for animations to use
             framesComp = new FramesComponent(getImageWidth(), getImageHeight());
-            framesComp.setFrames("json/animations/" + animationFile + ".json");
+            framesComp.setFrames("json/animations/" + enemyType.getName() + "Anim.json");
 
             // Set up animations component
             animComp = new AnimationComp(screen, this, framesComp, regionName);
-
 
             // Create initial default animation
             charAnim = animComp.makeTexturesIntoAnimation(0.1f, directionComp.getDirection(), currentAction);
@@ -75,15 +73,43 @@ public class Enemy extends NewEntity {
             //offsetSpriteY = 8 / HunterOfPoke.PPM;
 
             // TODO: PUT IMAGEWIDTH AND IMAGEHEIGHT INTO JSON
-            //imageComponent.setBounds(0, 0, getImageWidth() / HunterOfPoke.PPM, getImageHeight() / HunterOfPoke.PPM);
-            Gdx.app.log("setupAnimationComponents", "enemyType is " + enemyType);
+            imageComponent.setBounds(0, 0, getImageWidth() / HunterOfPoke.PPM, getImageHeight() / HunterOfPoke.PPM);
+            //imageComponent.setBounds(boundsBeginX / HunterOfPoke.PPM, boundsBeginY / HunterOfPoke.PPM,
+              //      boundsWidth / HunterOfPoke.PPM, boundsHeight / HunterOfPoke.PPM);
         } else {
             Gdx.app.log("setupAnimationComponents", "enemyType is null");
         }
     }
 
-    public DirectionComponent getDirectionComponent() { return directionComp; }
     public LifeComponent getLifeComponent() { return lifeComp; }
+
+    // Based on AI movement
+    public void setDirection() {
+        if (!ai.getLinearVelocity().isZero()) {
+            setAction(Action.WALKING);
+            // First set for LEFT or RIGHT
+            /*
+            // TODO: USING AI - DIRECTION IS CONSTANTLY CHANGING
+            // WHICH MAKES IT SO STATETIMER IS NEVER INCREMENTED
+            // AND WALKING ANIMATIONS ARE NEVER PLAYED PAST 0
+            if (ai.getLinearVelocity().x > 0) {
+                directionComp.setDirection(DirectionComponent.Direction.RIGHT);
+            } else if (ai.getLinearVelocity().x < 0) {
+                directionComp.setDirection(DirectionComponent.Direction.LEFT);
+            }
+            */
+
+            // Second set for UP or DOWN, so they take priority
+            if (ai.getLinearVelocity().y > 0) {
+                directionComp.setDirection(DirectionComponent.Direction.UP);
+            } else if (ai.getLinearVelocity().y < 0) {
+                directionComp.setDirection(DirectionComponent.Direction.DOWN);
+            }
+        } else {
+            setAction(Action.STILL);
+        }
+        //Gdx.app.log("Enemy Direction", directionComp.getDirection() + " linearVelocity y" + ai.getLinearVelocity().y);
+    }
 
     public void setSteeringAI() {
         if (b2Body != null) {
@@ -93,23 +119,26 @@ public class Enemy extends NewEntity {
 
     public void setEnemyType(EnemyType enemyType) { this.enemyType = enemyType; }
     public String getRegionName(DirectionComponent.Direction currentDirection) {
-        String dir = null;
+        // TODO: THIS DOESN'T TAKE INTO ACCOUNT ENEMIES LIKE "bat"
+        // THAT DOESN'T HAVE UP/DOWN/SIDE REGIONS
         switch (currentDirection) {
             case UP:
-                dir = "_up";
-                break;
-            case DOWN:
-                dir = "_down";
             case UP_LEFT:
             case UP_RIGHT:
+                regionName = enemyType.getName() + "_up";
+                break;
+            case DOWN:
             case DOWN_LEFT:
             case DOWN_RIGHT:
+                regionName = enemyType.getName() + "_down";
+                break;
             case LEFT:
             case RIGHT:
-                dir = "_side";
+                regionName = enemyType.getName() + "_side";
                 break;
         }
 
+        //Gdx.app.log("Enemy Region Name", regionName);
         return regionName;
     }
 
@@ -182,7 +211,12 @@ public class Enemy extends NewEntity {
         super.update(deltaTime);
 
         if (ai != null) {
-                ai.update(deltaTime);
+            ai.update(deltaTime);
+            setDirection();
         }
+
+        imageComponent.setRegion(getFrame(deltaTime));
     }
+
+
 }
