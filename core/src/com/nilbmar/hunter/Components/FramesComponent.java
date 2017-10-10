@@ -48,7 +48,8 @@ public class FramesComponent {
         //setFrames();
     }
 
-    //public void setAnimFile(String animFile) { this.animFile = animFile; }
+    public void setAnimFile(String animFile) { this.animFile = animFile; }
+    public AnimationData getAnimData() { return animData; }
 
     public int getWalkFramesCount() { return walkFramesCount; }
     public int getUseFramesCount() { return useFramesCount; }
@@ -71,50 +72,51 @@ public class FramesComponent {
         }
     }
 
-    public void setFrames(String animFile) {
-        this.animFile = animFile;
-        setFramesCounts();
-        // TODO: GET THE SCALE FOR X AND  Y FROM JSON
+    public void setFrames() {
+        if (animFile != null) {
+            setFramesCounts();
+            // TODO: GET THE SCALE FOR X AND  Y FROM JSON
 
-        // Multiple steps in walk cycles
+            // Multiple steps in walk cycles
 
-        // Order that previously had to be set
-        // UP, UP_LEFT, DOWN, DOWN_LEFT, LEFT
-        DirectionComponent.Direction[] arrOfDirToSet
-                = { DirectionComponent.Direction.UP, DirectionComponent.Direction. UP_LEFT,
+            // Create an array of directions to be cycled through
+            // So frame can be created for each direction
+            DirectionComponent.Direction[] arrOfDirToSet
+                    = {DirectionComponent.Direction.UP, DirectionComponent.Direction.UP_LEFT,
                     DirectionComponent.Direction.DOWN, DirectionComponent.Direction.DOWN_LEFT,
-                    DirectionComponent.Direction.LEFT };
+                    DirectionComponent.Direction.LEFT};
 
-        DirectionComponent.Direction dirToSet = null;
+            DirectionComponent.Direction dirToSet = null;
 
-        for (int x = 0; x < arrOfDirToSet.length; x++) {
-            dirToSet = arrOfDirToSet[x];
+            for (int x = 0; x < arrOfDirToSet.length; x++) {
+                dirToSet = arrOfDirToSet[x];
 
-            for (int y = 0; y < walkFramesCount; y++) {
-                setWalkFrames(dirToSet, y * scaleSizeX, 0);
-
-                // TODO: REMOVE THIS - TOOK OUT USEFRAMES SWITCH FROM HERE
-            }
-
-            for (int y = 0; y < useFramesCount; y++) {
-                switch (dirToSet) {
-                    case DOWN:
-                        setUseFrames(dirToSet, 0, 0);
-                        break;
-                    default:
-                        setUseFrames(dirToSet, scaleSizeX, 0);
-                        break;
+                for (int y = 0; y < walkFramesCount; y++) {
+                    setWalkFrames(dirToSet, y * scaleSizeX, 0);
                 }
-            }
 
-            for (int y = 0; y < stillFramesCount; y++) {
-                switch (dirToSet) {
-                    case DOWN:
-                        setStillFrames(dirToSet, 0, 0);
-                        break;
-                    default:
-                        setStillFrames(dirToSet, scaleSizeX, 0);
-                        break;
+                // Always set DOWN use frame to to the first frame
+                for (int y = 0; y < useFramesCount; y++) {
+                    switch (dirToSet) {
+                        case DOWN:
+                            setUseFrames(dirToSet, 0, 0);
+                            break;
+                        default:
+                            setUseFrames(dirToSet, scaleSizeX, 0);
+                            break;
+                    }
+                }
+
+                // Always set DOWN still frame to to the first frame
+                for (int y = 0; y < stillFramesCount; y++) {
+                    switch (dirToSet) {
+                        case DOWN:
+                            setStillFrames(dirToSet, 0, 0);
+                            break;
+                        default:
+                            setStillFrames(dirToSet, scaleSizeX, 0);
+                            break;
+                    }
                 }
             }
         }

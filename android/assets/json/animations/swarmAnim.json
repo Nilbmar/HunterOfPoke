@@ -2,7 +2,7 @@
 	"scaleSizeX": 32,
 	"scaleSizeY": 32,
 	"walkFramesCount": 4,
-	"useFramesCount": 1,
+	"useFramesCount": 4,
 	"stillFramesCount": 1,
 	"walkFramesArr":[
 		"swarm_1", 

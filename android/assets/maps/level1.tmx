@@ -73,7 +73,7 @@
   <object id="153" x="304" y="96" width="16" height="16">
    <properties>
     <property name="Decorators" value="none"/>
-    <property name="EnemyType" value="feather"/>
+    <property name="EnemyType" value="swarm"/>
     <property name="monster" value=""/>
    </properties>
   </object>
@@ -88,7 +88,7 @@
   <object id="155" x="160" y="112" width="16" height="16">
    <properties>
     <property name="Decorators" value="none"/>
-    <property name="EnemyType" value="kultist"/>
+    <property name="EnemyType" value="bat"/>
     <property name="monster" value=""/>
    </properties>
   </object>

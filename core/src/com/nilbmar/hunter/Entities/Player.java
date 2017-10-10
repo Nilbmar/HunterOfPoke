@@ -59,7 +59,8 @@ public class Player extends NewEntity {
 
         // Set up frame information for animations to use
         framesComp = new FramesComponent(getImageWidth(), getImageHeight());
-        framesComp.setFrames("json/animations/playerAnim.json");
+        framesComp.setAnimFile("json/animations/playerAnim.json");
+        framesComp.setFrames();
 
         // Set up animations component
         animComp = new AnimationComp(screen, this, framesComp, regionName);

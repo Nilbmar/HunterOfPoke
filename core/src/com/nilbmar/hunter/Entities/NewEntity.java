@@ -185,11 +185,6 @@ public abstract class NewEntity {
         stateTimer = (directionComp.getDirection() == directionComp.getPreviouDirection() && currentAction == previousAction)
                 ? stateTimer + deltaTime : 0;
 
-        if (!getName().contains("Dlumps")) {
-            Gdx.app.log("StateTimer", getName() + " " + directionComp.getDirection() + "/" + directionComp.getPreviouDirection()
-                    + " " + currentAction + "/" + previousAction);
-        }
-
         directionComp.setDirection(directionComp.getDirection());
         previousAction = getAction();
         return region;

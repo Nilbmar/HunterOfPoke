@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Shape;
+import com.badlogic.gdx.utils.Array;
 import com.nilbmar.hunter.AI.SteeringAI;
 import com.nilbmar.hunter.Components.AnimationComp;
 import com.nilbmar.hunter.Components.DirectionComponent;
@@ -61,7 +62,9 @@ public class Enemy extends NewEntity {
         if (enemyType != null) {
             // Set up frame information for animations to use
             framesComp = new FramesComponent(getImageWidth(), getImageHeight());
-            framesComp.setFrames("json/animations/" + enemyType.getName() + "Anim.json");
+            //framesComp.setFrames("json/animations/" + enemyType.getName() + "Anim.json");
+            framesComp.setAnimFile("json/animations/" + enemyType.getName() + "Anim.json");
+            framesComp.setFrames();
 
             // Set up animations component
             animComp = new AnimationComp(screen, this, framesComp, regionName);
@@ -89,7 +92,7 @@ public class Enemy extends NewEntity {
         // relative to player position
         float dirX = getPosition().x - screen.getPlayer().getPosition().x;
         float dirY = getPosition().y - screen.getPlayer().getPosition().y;
-        Gdx.app.log("enemy position", dirX + " " + dirY);
+
         if (!ai.getLinearVelocity().isZero()) {
             setAction(Action.WALKING);
 
@@ -121,23 +124,30 @@ public class Enemy extends NewEntity {
     }
 
     public void setEnemyType(EnemyType enemyType) { this.enemyType = enemyType; }
+
+    // TODO: MOVE THIS INTO FRAMESCOMPONENT
     public String getRegionName(DirectionComponent.Direction currentDirection) {
-        // TODO: THIS DOESN'T TAKE INTO ACCOUNT ENEMIES LIKE "bat"
+        Array<String> regionNames = framesComp.getAnimData().getWalkFramesArr();
+
         // THAT DOESN'T HAVE UP/DOWN/SIDE REGIONS
         switch (currentDirection) {
             case UP:
             case UP_LEFT:
             case UP_RIGHT:
-                regionName = enemyType.getName() + "_up";
+                regionName = regionNames.get(0);
                 break;
             case DOWN:
             case DOWN_LEFT:
             case DOWN_RIGHT:
-                regionName = enemyType.getName() + "_down";
+                if (regionNames.size >= 2) {
+                    regionName = regionNames.get(1);
+                }
                 break;
             case LEFT:
             case RIGHT:
-                regionName = enemyType.getName() + "_side";
+                if (regionNames.size >= 3) {
+                    regionName = regionNames.get(2);
+                }
                 break;
         }
 
