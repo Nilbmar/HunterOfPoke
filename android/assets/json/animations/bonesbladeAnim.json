@@ -1,0 +1,22 @@
+{
+	"scaleSizeX": 16,
+	"scaleSizeY": 16,
+	"walkFramesCount": 4,
+	"useFramesCount": 1,
+	"stillFramesCount": 1
+	"walkFramesArr":[
+		"bonesblade_up",
+		"bonesblade_down",
+		"bonesblade_side"
+	],
+	"useFramesArr":[
+		"bonesblade_up",
+		"bonesblade_down",
+		"bonesblade_side"
+	],
+	"stillFramesArr":[
+		"bonesblade_up",
+		"bonesblade_down",
+		"bonesblade_side"
+	]
+}

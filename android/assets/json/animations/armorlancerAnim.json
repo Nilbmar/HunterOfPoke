@@ -1,0 +1,22 @@
+{
+	"scaleSizeX": 16,
+	"scaleSizeY": 16,
+	"walkFramesCount": 4,
+	"useFramesCount": 1,
+	"stillFramesCount": 1
+	"walkFramesArr":[
+		"armorlancer_up",
+		"armorlancer_down",
+		"armorlancer_side"
+	],
+	"useFramesArr":[
+		"armorlancer_up",
+		"armorlancer_down",
+		"armorlancer_side"
+	],
+	"stillFramesArr":[
+		"armorlancer_up",
+		"armorlancer_down",
+		"armorlancer_side"
+	]
+}

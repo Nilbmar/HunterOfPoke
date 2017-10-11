@@ -1,0 +1,22 @@
+{
+	"scaleSizeX": 16,
+	"scaleSizeY": 16,
+	"walkFramesCount": 4,
+	"useFramesCount": 1,
+	"stillFramesCount": 1
+	"walkFramesArr":[
+		"fanghood_up",
+		"fanghood_down",
+		"fanghood_side"
+	],
+	"useFramesArr":[
+		"fanghood_up",
+		"fanghood_down",
+		"fanghood_side"
+	],
+	"stillFramesArr":[
+		"fanghood_up",
+		"fanghood_down",
+		"fanghood_side"
+	]
+}

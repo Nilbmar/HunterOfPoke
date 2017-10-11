@@ -1,0 +1,22 @@
+{
+	"scaleSizeX": 16,
+	"scaleSizeY": 16,
+	"walkFramesCount": 4,
+	"useFramesCount": 1,
+	"stillFramesCount": 1
+	"walkFramesArr":[
+		"kultist_up",
+		"kultist_down",
+		"kultist_side"
+	],
+	"useFramesArr":[
+		"kultist_up",
+		"kultist_down",
+		"kultist_side"
+	],
+	"stillFramesArr":[
+		"kultist_up",
+		"kultist_down",
+		"kultist_side"
+	]
+}

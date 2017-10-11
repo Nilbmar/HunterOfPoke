@@ -1,0 +1,22 @@
+{
+	"scaleSizeX": 16,
+	"scaleSizeY": 16,
+	"walkFramesCount": 4,
+	"useFramesCount": 1,
+	"stillFramesCount": 1
+	"walkFramesArr":[
+		"fang_up",
+		"fang_down",
+		"fang_side"
+	],
+	"useFramesArr":[
+		"fang_up",
+		"fang_down",
+		"fang_side"
+	],
+	"stillFramesArr":[
+		"fang_up",
+		"fang_down",
+		"fang_side"
+	]
+}

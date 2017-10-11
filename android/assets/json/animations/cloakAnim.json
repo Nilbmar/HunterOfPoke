@@ -1,0 +1,22 @@
+{
+	"scaleSizeX": 16,
+	"scaleSizeY": 16,
+	"walkFramesCount": 4,
+	"useFramesCount": 1,
+	"stillFramesCount": 1
+	"walkFramesArr":[
+		"cloak_up",
+		"cloak_down",
+		"cloak_side"
+	],
+	"useFramesArr":[
+		"cloak_up",
+		"cloak_down",
+		"cloak_side"	
+	],
+	"stillFramesArr":[
+		"cloak_up",
+		"cloak_down",
+		"cloak_side"	
+	]
+}

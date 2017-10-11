@@ -1,0 +1,16 @@
+{
+	"scaleSizeX": 32,
+	"scaleSizeY": 32,
+	"walkFramesCount": 4,
+	"useFramesCount": 4,
+	"stillFramesCount": 1,
+	"walkFramesArr":[
+		"bateye"
+	],
+	"useFramesArr":[
+		"bateye"
+	],
+	"stillFramesArr":[
+		"bateye"
+	]
+}

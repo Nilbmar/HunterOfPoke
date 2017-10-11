@@ -1,0 +1,22 @@
+{
+	"scaleSizeX": 16,
+	"scaleSizeY": 16,
+	"walkFramesCount": 4,
+	"useFramesCount": 1,
+	"stillFramesCount": 1
+	"walkFramesArr":[
+		"feather_up",
+		"feather_down",
+		"feather_side"
+	],
+	"useFramesArr":[
+		"feather_up",
+		"feather_down",
+		"feather_side"
+	],
+	"stillFramesArr":[
+		"feather_up",
+		"feather_down",
+		"feather_side"
+	]
+}

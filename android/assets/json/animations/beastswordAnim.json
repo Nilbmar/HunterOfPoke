@@ -1,0 +1,23 @@
+{
+	"scaleSizeX": 16,
+	"scaleSizeY": 16,
+	"walkFramesCount": 4,
+	"useFramesCount": 1,
+	"stillFramesCount": 1
+	"walkFramesArr":[
+		"beastsword_up",
+		"beastsword_down",
+		"beastsword_side"
+
+	],
+	"useFramesArr":[
+		"beastsword_up",
+		"beastsword_down",
+		"beastsword_side"
+	],
+	"stillFramesArr":[
+		"beastsword_up",
+		"beastsword_down",
+		"beastsword_side"
+	]
+}

@@ -1,0 +1,22 @@
+{
+	"scaleSizeX": 16,
+	"scaleSizeY": 16,
+	"walkFramesCount": 4,
+	"useFramesCount": 1,
+	"stillFramesCount": 1
+	"walkFramesArr":[
+		"notlink_up",
+		"notlink_down",
+		"notlink_side"
+	],
+	"useFramesArr":[
+		"notlink_up",
+		"notlink_down",
+		"notlink_side"
+	],
+	"stillFramesArr":[
+		"notlink_up",
+		"notlink_down",
+		"notlink_side"
+	]
+}
