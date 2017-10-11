@@ -106,7 +106,11 @@ public abstract class Bullet  extends NewEntity implements Poolable {
     protected void defineBody() {
         createBody(startInWorldX, startInWorldY);
         defineShape();
-        defineBits((short) (HunterOfPoke.GROUND_BIT | HunterOfPoke.ENEMY_BIT));
+        if (firedBy.contains("PLAYER")) {
+            defineBits((short) (HunterOfPoke.GROUND_BIT | HunterOfPoke.ENEMY_BIT));
+        } else {
+            defineBits((short) (HunterOfPoke.GROUND_BIT | HunterOfPoke.PLAYER_BIT));
+        }
         finalizeBody();
     }
 

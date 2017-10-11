@@ -280,7 +280,8 @@ public class Player extends NewEntity {
         if (collideWithEnemies) {
             maskBits = (short) HunterOfPoke.GROUND_BIT
                     | HunterOfPoke.ENEMY_BIT
-                    | HunterOfPoke.ITEM_BIT;
+                    | HunterOfPoke.ITEM_BIT
+                    | HunterOfPoke.BULLET_BIT;
         } else {
             maskBits = (short) HunterOfPoke.GROUND_BIT | HunterOfPoke.ITEM_BIT;
         }
@@ -308,7 +309,8 @@ public class Player extends NewEntity {
     protected void defineBody() {
         createBody(startInWorldX, startInWorldY);
         defineShape();
-        defineBits((short) (HunterOfPoke.GROUND_BIT | HunterOfPoke.ENEMY_BIT | HunterOfPoke.ITEM_BIT));
+        defineBits((short) (HunterOfPoke.GROUND_BIT | HunterOfPoke.ENEMY_BIT
+                | HunterOfPoke.ITEM_BIT | HunterOfPoke.BULLET_BIT));
         finalizeBody();
     }
 
