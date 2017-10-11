@@ -5,18 +5,12 @@
 	"useFramesCount": 4,
 	"stillFramesCount": 1,
 	"walkFramesArr":[
-		"swarm_1", 
-		"swarm_2", 
 		"swarm_3"
 	],
 	"useFramesArr":[
-		"swarm_1", 
-		"swarm_2", 
 		"swarm_3"
 	],
 	"stillFramesArr":[
-		"swarm_1", 
-		"swarm_2", 
 		"swarm_3"
 	]
 }

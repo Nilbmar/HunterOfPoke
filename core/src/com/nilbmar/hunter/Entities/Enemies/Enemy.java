@@ -87,7 +87,7 @@ public class Enemy extends NewEntity {
     public LifeComponent getLifeComponent() { return lifeComp; }
 
     // Based on AI movement
-    public void setDirection() {
+    private void setDirection() {
         // Switch Enemy direction based on position
         // relative to player position
         float dirX = getPosition().x - screen.getPlayer().getPosition().x;
@@ -125,7 +125,6 @@ public class Enemy extends NewEntity {
 
     public void setEnemyType(EnemyType enemyType) { this.enemyType = enemyType; }
 
-    // TODO: MOVE THIS INTO FRAMESCOMPONENT
     public String getRegionName(DirectionComponent.Direction currentDirection) {
         Array<String> regionNames = framesComp.getAnimData().getWalkFramesArr();
 
