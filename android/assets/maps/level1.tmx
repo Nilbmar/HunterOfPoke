@@ -70,14 +70,7 @@
   </object>
  </objectgroup>
  <objectgroup name="spawn">
-  <object id="153" x="172" y="224" width="16" height="16">
-   <properties>
-    <property name="Decorators" value="none"/>
-    <property name="EnemyType" value="bateye"/>
-    <property name="monster" value=""/>
-   </properties>
-  </object>
-  <object id="154" x="240" y="224" width="16" height="16">
+  <object id="154" x="80" y="140" width="16" height="16">
    <properties>
     <property name="BulletProperties" value="twin fire"/>
     <property name="Decorators" value="fire"/>
@@ -85,95 +78,21 @@
     <property name="monster" value=""/>
    </properties>
   </object>
-  <object id="155" x="112" y="224" width="16" height="16">
-   <properties>
-    <property name="Decorators" value="none"/>
-    <property name="EnemyType" value="bat"/>
-    <property name="monster" value=""/>
-   </properties>
-  </object>
-  <object id="191" x="44" y="224" width="16" height="16">
-   <properties>
-    <property name="Decorators" value="none"/>
-    <property name="EnemyType" value="armorlancer"/>
-    <property name="monster" value=""/>
-   </properties>
-  </object>
-  <object id="192" x="304" y="224" width="16" height="16">
-   <properties>
-    <property name="Decorators" value="none"/>
-    <property name="EnemyType" value="beastmace"/>
-    <property name="monster" value=""/>
-   </properties>
-  </object>
-  <object id="193" x="372" y="224" width="16" height="16">
-   <properties>
-    <property name="Decorators" value="none"/>
-    <property name="EnemyType" value="beastnormal"/>
-    <property name="monster" value=""/>
-   </properties>
-  </object>
-  <object id="194" x="496" y="224" width="16" height="16">
-   <properties>
-    <property name="BulletProperties" value="twin fire"/>
-    <property name="Decorators" value="fire"/>
-    <property name="EnemyType" value="bones"/>
-    <property name="monster" value=""/>
-   </properties>
-  </object>
-  <object id="195" x="432" y="224" width="16" height="16">
-   <properties>
-    <property name="Decorators" value="none"/>
-    <property name="EnemyType" value="beastsword"/>
-    <property name="monster" value=""/>
-   </properties>
-  </object>
-  <object id="196" x="560" y="224" width="16" height="16">
-   <properties>
-    <property name="BulletProperties" value="twin fire"/>
-    <property name="Decorators" value="fire"/>
-    <property name="EnemyType" value="bonesblade"/>
-    <property name="monster" value=""/>
-   </properties>
-  </object>
-  <object id="197" x="624" y="224" width="16" height="16">
-   <properties>
-    <property name="Decorators" value="none"/>
-    <property name="EnemyType" value="cloak"/>
-    <property name="monster" value=""/>
-   </properties>
-  </object>
-  <object id="198" x="140" y="272" width="16" height="16">
-   <properties>
-    <property name="BulletProperties" value="twin fire"/>
-    <property name="Decorators" value="fire"/>
-    <property name="EnemyType" value="horns"/>
-    <property name="monster" value=""/>
-   </properties>
-  </object>
-  <object id="199" x="76" y="272" width="16" height="16">
-   <properties>
-    <property name="BulletProperties" value="twin fire"/>
-    <property name="Decorators" value="fire"/>
-    <property name="EnemyType" value="goobaby"/>
-    <property name="monster" value=""/>
-   </properties>
-  </object>
-  <object id="200" x="944" y="224" width="16" height="16">
+  <object id="200" x="336" y="236" width="16" height="16">
    <properties>
     <property name="Decorators" value="none"/>
     <property name="EnemyType" value="goo"/>
     <property name="monster" value=""/>
    </properties>
   </object>
-  <object id="201" x="816" y="224" width="16" height="16">
+  <object id="201" x="208" y="236" width="16" height="16">
    <properties>
     <property name="Decorators" value="none"/>
     <property name="EnemyType" value="feather"/>
     <property name="monster" value=""/>
    </properties>
   </object>
-  <object id="202" x="752" y="224" width="16" height="16">
+  <object id="202" x="144" y="236" width="16" height="16">
    <properties>
     <property name="BulletProperties" value="twin fire"/>
     <property name="Decorators" value="fire"/>
@@ -181,60 +100,10 @@
     <property name="monster" value=""/>
    </properties>
   </object>
-  <object id="203" x="884" y="224" width="16" height="16">
+  <object id="203" x="276" y="236" width="16" height="16">
    <properties>
     <property name="Decorators" value="none"/>
     <property name="EnemyType" value="floateye"/>
-    <property name="monster" value=""/>
-   </properties>
-  </object>
-  <object id="204" x="684" y="224" width="16" height="16">
-   <properties>
-    <property name="Decorators" value="none"/>
-    <property name="EnemyType" value="fang"/>
-    <property name="monster" value=""/>
-   </properties>
-  </object>
-  <object id="205" x="208" y="272" width="16" height="16">
-   <properties>
-    <property name="Decorators" value="none"/>
-    <property name="EnemyType" value="locks"/>
-    <property name="monster" value=""/>
-   </properties>
-  </object>
-  <object id="208" x="528" y="272" width="16" height="16">
-   <properties>
-    <property name="Decorators" value="none"/>
-    <property name="EnemyType" value="whelp"/>
-    <property name="monster" value=""/>
-   </properties>
-  </object>
-  <object id="209" x="400" y="272" width="16" height="16">
-   <properties>
-    <property name="Decorators" value="none"/>
-    <property name="EnemyType" value="spider"/>
-    <property name="monster" value=""/>
-   </properties>
-  </object>
-  <object id="210" x="336" y="272" width="16" height="16">
-   <properties>
-    <property name="BulletProperties" value="twin fire"/>
-    <property name="Decorators" value="fire"/>
-    <property name="EnemyType" value="smushroom"/>
-    <property name="monster" value=""/>
-   </properties>
-  </object>
-  <object id="211" x="468" y="272" width="16" height="16">
-   <properties>
-    <property name="Decorators" value="none"/>
-    <property name="EnemyType" value="swarm"/>
-    <property name="monster" value=""/>
-   </properties>
-  </object>
-  <object id="212" x="268" y="272" width="16" height="16">
-   <properties>
-    <property name="Decorators" value="none"/>
-    <property name="EnemyType" value="notlink"/>
     <property name="monster" value=""/>
    </properties>
   </object>

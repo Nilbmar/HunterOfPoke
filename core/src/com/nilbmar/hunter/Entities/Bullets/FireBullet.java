@@ -19,8 +19,8 @@ import com.nilbmar.hunter.Screens.PlayScreen;
 public class FireBullet extends Bullet {
 
 
-    public FireBullet(PlayScreen screen, float startInWorldX, float startInWorldY, Vector2 v, float rotation) {
-        super(screen, startInWorldX, startInWorldY, v, rotation);
+    public FireBullet(PlayScreen screen, float startInWorldX, float startInWorldY, Vector2 v, float rotation, String firedBy) {
+        super(screen, startInWorldX, startInWorldY, v, rotation, firedBy);
 
         regionName = "flamethrower_bullet";
         frames = new Array<TextureRegion>();

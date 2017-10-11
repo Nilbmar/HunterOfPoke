@@ -1,5 +1,6 @@
 package com.nilbmar.hunter.Commands;
 
+import com.badlogic.gdx.Gdx;
 import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.NewEntity;
@@ -19,16 +20,18 @@ public class FireCommand implements Command {
     private BoxPatternHandler boxPatterns;
     private BulletType type;
     private ShotType shot;
+    private String firedBy;
 
     public FireCommand(BulletPatternHandler bulletPatterns, BulletType type, ShotType shot) {
-        //this.entity = entity;
+
         this.bulletPatterns = bulletPatterns;
         this.type = type;
         this.shot = shot;
+        firedBy = null;
     }
 
     public FireCommand(BoxPatternHandler boxPatterns, BulletType type, ShotType shot) {
-        //this.entity = entity;
+
         this.boxPatterns = boxPatterns;
         this.type = type;
         this.shot = shot;
@@ -81,12 +84,14 @@ public class FireCommand implements Command {
         if (fire) {
             switch (shot) {
                 case TWIN:
-                    bulletPatterns.twinShot(type, direction, entity.getSpawnOtherX(), entity.getSpawnOtherY());
+                    bulletPatterns.twinShot(type, direction, entity.getSpawnOtherX(), entity.getSpawnOtherY(), entity.getEntityType().toString());
                     break;
                 case SINGLE:
-                    bulletPatterns.singleShot(type, direction, entity.getSpawnOtherX(), entity.getSpawnOtherY());
+                    bulletPatterns.singleShot(type, direction, entity.getSpawnOtherX(), entity.getSpawnOtherY(), entity.getEntityType().toString());
                     break;
             }
+
+            Gdx.app.log("Fired by", entity.getEntityType().toString());
         }
     }
 }

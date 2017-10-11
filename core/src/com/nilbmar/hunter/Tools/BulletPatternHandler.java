@@ -86,7 +86,7 @@ public class BulletPatternHandler {
         return rotateBulletTexture;
     }
 
-    public void singleShot(BulletType type, DirectionComponent.Direction dir, float spawnX, float spawnY) {
+    public void singleShot(BulletType type, DirectionComponent.Direction dir, float spawnX, float spawnY, String firedBy) {
         Vector2 direction = getDirToShoot(dir);
 
         // Make non-evenly shaped bullets look right
@@ -95,10 +95,10 @@ public class BulletPatternHandler {
         bulletCreator.setBulletType(type);
         bulletCreator.setBulletsPerShot(1);
 
-        bulletCreator.spawnBullet(spawnX, spawnY, direction);
+        bulletCreator.spawnBullet(spawnX, spawnY, direction, firedBy);
     }
 
-    public void twinShot(BulletType type, DirectionComponent.Direction dir, float spawnX, float spawnY) {
+    public void twinShot(BulletType type, DirectionComponent.Direction dir, float spawnX, float spawnY, String firedBy) {
         Vector2 direction = getDirToShoot(dir);
 
         // Make non-evenly shaped bullets look right
@@ -175,7 +175,7 @@ public class BulletPatternHandler {
         // Spawn Bullets
         bulletCreator.setBulletType(type);
         bulletCreator.setBulletsPerShot(2);
-        bulletCreator.spawnBullet(spawnX, spawnY, direction);
-        bulletCreator.spawnBullet(altSpawnX, altSpawnY, altDir);
+        bulletCreator.spawnBullet(spawnX, spawnY, direction, firedBy);
+        bulletCreator.spawnBullet(altSpawnX, altSpawnY, altDir, firedBy);
     }
 }

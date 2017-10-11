@@ -22,8 +22,8 @@ import com.nilbmar.hunter.Screens.PlayScreen;
 public class BulletA extends Bullet {
 
 
-    public BulletA(PlayScreen screen, float x, float y, Vector2 v, float rotation) {
-        super(screen, x, y, v, rotation);
+    public BulletA(PlayScreen screen, float x, float y, Vector2 v, float rotation, String firedBy) {
+        super(screen, x, y, v, rotation, firedBy);
 
         regionName = "bulleta";
         frames = new Array<TextureRegion>();

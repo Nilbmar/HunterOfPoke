@@ -68,10 +68,35 @@ public class WorldContactListener implements ContactListener {
                 //Gdx.app.log("Enemy Collision", "Enemy collided with ground");
                 break;
             case HunterOfPoke.ENEMY_BIT | HunterOfPoke.BULLET_BIT:
+                // If Bullet that hits an Enemy was fired by an Enemy - ignore it
                 if (fixtA.getFilterData().categoryBits == HunterOfPoke.ENEMY_BIT) {
-                    ((Enemy) (fixtA.getUserData())).onHit((NewEntity) fixtB.getUserData());
+                    String firedBy = ((Bullet) (fixtB.getUserData())).getFiredBy();
+                    if (!firedBy.contains("ENEMY")) {
+                        ((Enemy) (fixtA.getUserData())).onHit((NewEntity) fixtB.getUserData());
+                        ((Bullet) (fixtB.getUserData())).onHit();
+                    }
                 } else if (fixtB.getFilterData().categoryBits == HunterOfPoke.ENEMY_BIT) {
-                    ((Enemy) (fixtB.getUserData())).onHit((NewEntity) fixtA.getUserData());
+                    String firedBy = ((Bullet) (fixtA.getUserData())).getFiredBy();
+                    if (!firedBy.contains("ENEMY")) {
+                        ((Enemy) (fixtB.getUserData())).onHit((NewEntity) fixtA.getUserData());
+                        ((Bullet) (fixtA.getUserData())).onHit();
+                    }
+                }
+                break;
+            case HunterOfPoke.PLAYER_BIT | HunterOfPoke.BULLET_BIT:
+                // If Bullet that hits the Player was fired by the Player - ignore it
+                if (fixtA.getFilterData().categoryBits == HunterOfPoke.PLAYER_BIT) {
+                    String firedBy = ((Bullet) (fixtB.getUserData())).getFiredBy();
+                    if (!firedBy.contains("PLAYER")) {
+                        ((Player) (fixtA.getUserData())).onHit((NewEntity) fixtB.getUserData());
+                        ((Bullet) (fixtB.getUserData())).onHit();
+                    }
+                } else if (fixtB.getFilterData().categoryBits == HunterOfPoke.PLAYER_BIT) {
+                    String firedBy = ((Bullet) (fixtA.getUserData())).getFiredBy();
+                    if (!firedBy.contains("PLAYER")) {
+                        ((Player) (fixtB.getUserData())).onHit((NewEntity) fixtA.getUserData());
+                        ((Bullet) (fixtA.getUserData())).onHit();
+                    }
                 }
                 break;
             case HunterOfPoke.ITEM_BIT | HunterOfPoke.PLAYER_BIT:

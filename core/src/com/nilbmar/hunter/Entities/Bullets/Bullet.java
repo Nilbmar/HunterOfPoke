@@ -45,19 +45,24 @@ public abstract class Bullet  extends NewEntity implements Poolable {
     protected float stateTime;
     protected float coolOffTime;
     protected float rotation;
+    protected String firedBy;
 
-    public Bullet(PlayScreen screen, float startInWorldX, float startInWorldY, Vector2 v, float rotation) {
+    public Bullet(PlayScreen screen, float startInWorldX, float startInWorldY, Vector2 v, float rotation, String firedBy) {
         super(screen, startInWorldX, startInWorldY);
         this.world = screen.getWorld();
         this.screen = screen;
         this.bulletCreator = screen.getBulletCreator();
         this.rotation = rotation;
+        this.firedBy = firedBy;
 
         entityType = EntityType.BULLET;
         atlas = screen.getAssetsHandler().getBulletAtlas();
 
         imageComponent.setPosition(startInWorldX, startInWorldY);
     }
+
+    public void setFiredBy(String firedBy) { this.firedBy = firedBy; }
+    public String getFiredBy() { return firedBy; }
 
     @Override
     public void prepareToDraw() {

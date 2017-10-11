@@ -42,17 +42,18 @@ public class BulletCreator {
         bulletsPerShot = 0;
     }
 
-    public void spawnBullet(float x, float y, Vector2 d) {
+    public void spawnBullet(float x, float y, Vector2 d, String f) {
         if (readyToFire) {
             final float posX = x;
             final float posY = y;
             final Vector2 direction = d;
+            final String firedBy = f;
 
             this.bulletPool = new Pool<Bullet>() {
                 @Override
                 protected Bullet newObject() {
                     // TODO: MAKE GETTER AND DETERMINE TYPE OF BULLET
-                    return getBullet(type, posX, posY, direction);
+                    return getBullet(type, posX, posY, direction, firedBy);
                 }
             };
 
@@ -86,15 +87,15 @@ public class BulletCreator {
         stateTime += deltaTime;
     }
 
-    private Bullet getBullet(BulletType type, float posX, float posY, Vector2 direction) {
+    private Bullet getBullet(BulletType type, float posX, float posY, Vector2 direction, String firedBy) {
         Bullet bullet = null;
         switch(type) {
             case FIRE:
-                bullet = new FireBullet(screen, posX, posY, direction, rotation);
+                bullet = new FireBullet(screen, posX, posY, direction, rotation, firedBy);
                 break;
             case BALL:
             default:
-                bullet = new BulletA(screen, posX, posY, direction, rotation);
+                bullet = new BulletA(screen, posX, posY, direction, rotation, firedBy);
                 break;
         }
 
