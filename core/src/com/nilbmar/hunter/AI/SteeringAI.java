@@ -1,6 +1,5 @@
 package com.nilbmar.hunter.AI;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.steer.Steerable;
 import com.badlogic.gdx.ai.steer.SteeringAcceleration;
 import com.badlogic.gdx.ai.steer.SteeringBehavior;
@@ -86,10 +85,10 @@ public class SteeringAI implements Steerable<Vector2> {
             // Apply scaled to delta
             Vector2 force = steerOutput.linear.scl(deltaTime);
             body.applyForceToCenter(force, true);
+
             anyAccelerations = true;
         }
 
-        // TODO: YOUTUBE COMMENT SAYS THIS IS A BUG
         // Check for angle to turn body, so it will face the target
         if (steerOutput.angular != 0) {
             body.applyTorque(steerOutput.angular * deltaTime, true);
@@ -98,11 +97,11 @@ public class SteeringAI implements Steerable<Vector2> {
 
         if (anyAccelerations) {
             Vector2 velocity = body.getLinearVelocity();
+
             float currentSpeedSquare = velocity.len2();
             // Cap linear speed at max
             if (currentSpeedSquare > (maxLinearSpeed * maxLinearSpeed)) {
                 body.setLinearVelocity(velocity.scl(maxLinearSpeed / (float) Math.sqrt(currentSpeedSquare)));
-                //body.setLinearVelocity(velocity.scl(maxLinearSpeed / (float) Math.sqrt(currentSpeedSquare)));
             }
 
             // Cap angular speed
@@ -116,7 +115,6 @@ public class SteeringAI implements Steerable<Vector2> {
                     body.setTransform(body.getPosition(), newOrientation);
                 }
             }
-
 
         }
     }
