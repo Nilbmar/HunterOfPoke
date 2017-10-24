@@ -148,17 +148,10 @@ public abstract class Bullet  extends NewEntity implements Poolable {
         if (!destroyed) {
             setToDestroy = true;
         }
-        // TODO: REMOVE THIS TEST CODE
+        /* TODO: REMOVE THIS TEST CODE
         // TESTING LINE CLASS WITH POINTS BETWEEN PLAYER
         // AND BULLET FIRED BY PLAYER, AFTER IT HITS SOMETHING
         if (firedBy.contains("PLAYER")) {
-            Gdx.app.log("Fired", "" +
-                    screen.getPlayer().getPosition().x + " " +
-                    screen.getPlayer().getPosition().y + " " +
-                    getPosition().x + " " +
-                    getPosition().y
-            );
-
             Line line = new Line();
             Gdx.app.log("Get Distance between points",
                     "" + line.getDistance(screen.getPlayer().getPosition().x,
@@ -167,6 +160,7 @@ public abstract class Bullet  extends NewEntity implements Poolable {
                     getPosition().y)
             );
         }
+        */
 
     }
 
