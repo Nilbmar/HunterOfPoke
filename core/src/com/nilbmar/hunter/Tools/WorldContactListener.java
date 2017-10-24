@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.nilbmar.hunter.AI.Utils.Line;
 import com.nilbmar.hunter.Entities.Boxes.Box;
 import com.nilbmar.hunter.Entities.Bullets.Bullet;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
@@ -68,6 +69,9 @@ public class WorldContactListener implements ContactListener {
                 //Gdx.app.log("Enemy Collision", "Enemy collided with ground");
                 break;
             case HunterOfPoke.ENEMY_BIT | HunterOfPoke.BULLET_BIT:
+                // TODO: BREAKING WHEN BOX HITS ENEMY
+                // BECAUSE IT'S CASTING TO BULLET - MAKE BOTH PROJECTILES
+
                 // If Bullet that hits an Enemy was fired by an Enemy - ignore it
                 if (fixtA.getFilterData().categoryBits == HunterOfPoke.ENEMY_BIT) {
                     String firedBy = ((Bullet) (fixtB.getUserData())).getFiredBy();

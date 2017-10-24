@@ -90,8 +90,6 @@ public class FireCommand implements Command {
                     bulletPatterns.singleShot(type, direction, entity.getSpawnOtherX(), entity.getSpawnOtherY(), entity.getEntityType().toString());
                     break;
             }
-
-            Gdx.app.log("Fired by", entity.getEntityType().toString());
         }
     }
 }

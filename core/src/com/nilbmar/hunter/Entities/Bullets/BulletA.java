@@ -49,13 +49,4 @@ public class BulletA extends Bullet {
         bodyComponent.setFixtureDef(Shape.Type.Circle, 3); // CircleShape - radius of 5
         //bodyComponent.setFixtureDef(Shape.Type.Polygon, 4, 4); // PolygonShape - Set as Box
     }
-
-    @Override
-    public void onHit() {
-        if (!destroyed) {
-            setToDestroy = true;
-
-            // Play sounds
-        }
-    }
 }

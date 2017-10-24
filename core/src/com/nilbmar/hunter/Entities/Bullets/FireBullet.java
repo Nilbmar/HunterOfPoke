@@ -49,15 +49,6 @@ public class FireBullet extends Bullet {
     }
 
     @Override
-    public void onHit() {
-        if (!destroyed) {
-            setToDestroy = true;
-
-            // Play sounds
-        }
-    }
-
-    @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
         imageComponent.setRegion(getFrame(deltaTime, stateTime));
