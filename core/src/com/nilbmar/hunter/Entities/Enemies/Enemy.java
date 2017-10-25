@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.RayCastCallback;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.utils.Array;
 import com.nilbmar.hunter.AI.SteeringAI;
@@ -36,6 +38,11 @@ public class Enemy extends NewEntity {
     private boolean destroyed;
     private boolean aiAssigned;
 
+    private RayCastCallback raycastCallback;
+    private Vector2 rayCollision = new Vector2();
+    private Vector2 rayNormal = new Vector2();
+    private Boolean playerLoS = false;
+
 
     public Enemy(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
@@ -60,7 +67,23 @@ public class Enemy extends NewEntity {
         imageComponent.setPosition(startInWorldX, startInWorldY);
 
         // AI
-        // TODO: REMOVE RADIUS FROM STEERINGAI CONSTRUCTOR
+
+        // Setup Line of Sight to player
+        // TODO: MOVE THIS BACK INTO PLAYSCREEN
+        raycastCallback = new RayCastCallback() {
+            @Override
+            public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
+                rayCollision.set(point);
+                rayNormal.set(normal).add(point); // Have to add because normal is relative to the point
+
+                if (fixture == Enemy.this.screen.getPlayer().getB2Body().getFixtureList().first()) {
+                    playerLoS = true;
+                } else {
+                    playerLoS = false;
+                }
+                return fraction;
+            }
+        };
     }
 
     public void setupAnimationComponents() {
@@ -241,6 +264,15 @@ public class Enemy extends NewEntity {
 
             moveCommand.setMovement(moveVector);
             moveCommand.execute(this);
+        }
+
+        playerLoS = false;
+        world.rayCast(raycastCallback, this.getPosition(), screen.getPlayer().getPosition());
+
+        if (playerLoS) {
+            Gdx.app.log("Player LoS", playerLoS + "");
+        } else {
+            Gdx.app.log("Player LoS", playerLoS + "");
         }
 
         imageComponent.setRegion(getFrame(deltaTime));

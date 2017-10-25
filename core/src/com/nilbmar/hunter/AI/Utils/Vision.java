@@ -14,7 +14,7 @@ import java.util.Iterator;
  * AI Util
  *
  * Purpose: Create a line that can be used
- * in determining Vision of Sight
+ * in determining Line of Sight
  */
 
 public class Vision implements Iterable<Vector2> {

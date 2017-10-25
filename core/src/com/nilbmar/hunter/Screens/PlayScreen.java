@@ -9,6 +9,8 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.RayCastCallback;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -20,6 +22,7 @@ import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.NewEntity;
 import com.nilbmar.hunter.Entities.Player;
 import com.nilbmar.hunter.Entities.Spawns;
+import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Scenes.Hud;
 import com.nilbmar.hunter.Tools.AssetHandler;
@@ -69,6 +72,8 @@ public class PlayScreen implements Screen {
     private Double distanceToPlayer = 0.0;
     private Double spawnWhenUnder = 2.5;
     private Vision visionComponent = new Vision();
+
+
 
     private Box2DDebugRenderer b2dr;
     private boolean viewRenderLines = false;
@@ -134,6 +139,7 @@ public class PlayScreen implements Screen {
 
         input = new InputHandler(this);
 
+
         world.setContactListener(new WorldContactListener());
     }
 
@@ -195,6 +201,9 @@ public class PlayScreen implements Screen {
         // Will allow better control of layering items
         for (NewEntity newEntity : newEntities) {
             newEntity.update(deltaTime);
+            if (newEntity.getEntityType() == EntityType.ENEMY) {
+
+            }
         }
 
         // Update for all bullets
