@@ -1,7 +1,6 @@
 package com.nilbmar.hunter.Entities.Bullets;
 
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -10,7 +9,6 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool.Poolable;
-import com.nilbmar.hunter.AI.Utils.Line;
 import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
 import com.nilbmar.hunter.Entities.NewEntity;
@@ -152,7 +150,7 @@ public abstract class Bullet  extends NewEntity implements Poolable {
         // TESTING LINE CLASS WITH POINTS BETWEEN PLAYER
         // AND BULLET FIRED BY PLAYER, AFTER IT HITS SOMETHING
         if (firedBy.contains("PLAYER")) {
-            Line line = new Line();
+            Vision line = new Vision();
             Gdx.app.log("Get Distance between points",
                     "" + line.getDistance(screen.getPlayer().getPosition().x,
                     screen.getPlayer().getPosition().y,

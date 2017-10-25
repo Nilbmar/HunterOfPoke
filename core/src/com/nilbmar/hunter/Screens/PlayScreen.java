@@ -13,7 +13,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.nilbmar.hunter.AI.Utils.Line;
+import com.nilbmar.hunter.AI.Utils.Vision;
 import com.nilbmar.hunter.Entities.Boxes.Box;
 import com.nilbmar.hunter.Entities.Bullets.Bullet;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
@@ -68,7 +68,7 @@ public class PlayScreen implements Screen {
     // Measure distance to spawn Entities before they're on screen
     private Double distanceToPlayer = 0.0;
     private Double spawnWhenUnder = 2.5;
-    private Line line = new Line();
+    private Vision visionComponent = new Vision();
 
     private Box2DDebugRenderer b2dr;
     private boolean viewRenderLines = false;
@@ -173,7 +173,7 @@ public class PlayScreen implements Screen {
 
         // Spawn Enemy or Items based on string in map
         for (Spawns spawn : worldCreator.getAllSpawnsArray()) {
-            distanceToPlayer = line.getDistance(playerPosX, playerPosY, spawn.getX(), spawn.getY());
+            distanceToPlayer = visionComponent.getDistance(playerPosX, playerPosY, spawn.getX(), spawn.getY());
 
             if (distanceToPlayer <= spawnWhenUnder) {
                 // Spawn Enemy

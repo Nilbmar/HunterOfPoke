@@ -14,15 +14,15 @@ import java.util.Iterator;
  * AI Util
  *
  * Purpose: Create a line that can be used
- * in determining Line of Sight
+ * in determining Vision of Sight
  */
 
-public class Line implements Iterable<Vector2> {
+public class Vision implements Iterable<Vector2> {
     private ArrayList<Vector2> points;
     private Vector2 target;
     private Vector2 origin;
 
-    public Line() {
+    public Vision() {
 
     }
 
