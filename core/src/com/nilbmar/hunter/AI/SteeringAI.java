@@ -242,7 +242,7 @@ public class SteeringAI implements Steerable<Vector2> {
     public void update(float deltaTime) {
         if (steerBehavior != null) {
             steerBehavior.calculateSteering(steerOutput);
-            //applySteering(deltaTime);
+            applySteering(deltaTime);
 
 
             // TODO: INSTEAD OF RESETING BEHAVIOR EACH TIME

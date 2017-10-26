@@ -37,11 +37,8 @@ public class Enemy extends NewEntity {
 
     private boolean destroyed;
     private boolean aiAssigned;
+    private boolean hasLoStoPlayer;
 
-    private RayCastCallback raycastCallback;
-    private Vector2 rayCollision = new Vector2();
-    private Vector2 rayNormal = new Vector2();
-    private Boolean playerLoS = false;
 
 
     public Enemy(PlayScreen screen, float startInWorldX, float startInWorldY) {
@@ -64,26 +61,12 @@ public class Enemy extends NewEntity {
         previousAction = Action.STILL;
         stateTimer = 0;
 
+        hasLoStoPlayer = false;
+
         imageComponent.setPosition(startInWorldX, startInWorldY);
 
         // AI
 
-        // Setup Line of Sight to player
-        // TODO: MOVE THIS BACK INTO PLAYSCREEN
-        raycastCallback = new RayCastCallback() {
-            @Override
-            public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
-                rayCollision.set(point);
-                rayNormal.set(normal).add(point); // Have to add because normal is relative to the point
-
-                if (fixture == Enemy.this.screen.getPlayer().getB2Body().getFixtureList().first()) {
-                    playerLoS = true;
-                } else {
-                    playerLoS = false;
-                }
-                return fraction;
-            }
-        };
     }
 
     public void setupAnimationComponents() {
@@ -103,10 +86,10 @@ public class Enemy extends NewEntity {
             // Used to set bounds at the feet and lower body
             //offsetSpriteY = 8 / HunterOfPoke.PPM;
 
-            // TODO: PUT IMAGEWIDTH AND IMAGEHEIGHT INTO JSON
             imageComponent.setBounds(0, 0, getImageWidth() / HunterOfPoke.PPM, getImageHeight() / HunterOfPoke.PPM);
+            // old setup
             //imageComponent.setBounds(boundsBeginX / HunterOfPoke.PPM, boundsBeginY / HunterOfPoke.PPM,
-              //      boundsWidth / HunterOfPoke.PPM, boundsHeight / HunterOfPoke.PPM);
+            //      boundsWidth / HunterOfPoke.PPM, boundsHeight / HunterOfPoke.PPM);
         } else {
             Gdx.app.log("setupAnimationComponents", "enemyType is null");
         }
@@ -145,12 +128,19 @@ public class Enemy extends NewEntity {
         }
     }
 
+    public void setHasLoStoPlayer(boolean hasLoStoPlayer) {
+        this.hasLoStoPlayer = hasLoStoPlayer;
+    }
+
     public void setSteeringAI() {
         if (b2Body != null) {
             ai = new SteeringAI(this, screen.getPlayer(), 30);
+
+            /*
             moveComponent = new MoveComponent(b2Body);
             moveCommand = new MoveCommand();
             moveVector = new Vector2(0, 0);
+            */
         }
     }
 
@@ -254,8 +244,15 @@ public class Enemy extends NewEntity {
         super.update(deltaTime);
 
         if (ai != null) {
-            ai.update(deltaTime);
+            if (hasLoStoPlayer) {
+                Gdx.app.log("PlayScreen", name + " has a line of sight to player.");
+                ai.update(deltaTime);
+                setDirection();
+            }
+
+            //ai.update(deltaTime);
             setDirection();
+            /*
             if (ai.getLinearVelocity().x >= ai.getLinearVelocity().y) {
                 moveVector.set(ai.getLinearVelocity().x, 0);
             } else {
@@ -264,15 +261,7 @@ public class Enemy extends NewEntity {
 
             moveCommand.setMovement(moveVector);
             moveCommand.execute(this);
-        }
-
-        playerLoS = false;
-        world.rayCast(raycastCallback, this.getPosition(), screen.getPlayer().getPosition());
-
-        if (playerLoS) {
-            Gdx.app.log("Player LoS", playerLoS + "");
-        } else {
-            Gdx.app.log("Player LoS", playerLoS + "");
+            */
         }
 
         imageComponent.setRegion(getFrame(deltaTime));

@@ -71,7 +71,7 @@ public class PlayScreen implements Screen {
     // Measure distance to spawn Entities before they're on screen
     private Double distanceToPlayer = 0.0;
     private Double spawnWhenUnder = 2.5;
-    private Vision visionComponent = new Vision();
+    private Vision visionComponent;
 
 
 
@@ -139,6 +139,8 @@ public class PlayScreen implements Screen {
 
         input = new InputHandler(this);
 
+        visionComponent = new Vision(this);
+        visionComponent.setupRaycast(player);
 
         world.setContactListener(new WorldContactListener());
     }
@@ -202,6 +204,7 @@ public class PlayScreen implements Screen {
         for (NewEntity newEntity : newEntities) {
             newEntity.update(deltaTime);
             if (newEntity.getEntityType() == EntityType.ENEMY) {
+                ((Enemy) newEntity).setHasLoStoPlayer(visionComponent.hasLoS(newEntity, player));
 
             }
         }

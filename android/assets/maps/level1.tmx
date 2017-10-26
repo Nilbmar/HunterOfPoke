@@ -85,7 +85,7 @@
     <property name="monster" value=""/>
    </properties>
   </object>
-  <object id="201" x="208" y="236" width="16" height="16">
+  <object id="201" x="284" y="32" width="16" height="16">
    <properties>
     <property name="Decorators" value="none"/>
     <property name="EnemyType" value="feather"/>
