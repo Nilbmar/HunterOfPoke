@@ -29,6 +29,7 @@ import com.nilbmar.hunter.Enums.EntityType;
  */
 
 public class Enemy extends NewEntity {
+    private Brain brain;
     private SteeringAI ai;
     private LifeComponent lifeComp;
     private EnemyType enemyType;
@@ -56,6 +57,7 @@ public class Enemy extends NewEntity {
 
         lifeComp = new LifeComponent();
         directionComp = new DirectionComponent();
+        brain = new Brain(this);
 
         currentAction = Action.STILL;
         previousAction = Action.STILL;
@@ -245,12 +247,10 @@ public class Enemy extends NewEntity {
 
         if (ai != null) {
             if (hasLoStoPlayer) {
-                Gdx.app.log("PlayScreen", name + " has a line of sight to player.");
+                Gdx.app.log("Enemy", name + " has a line of sight to player.");
                 ai.update(deltaTime);
-                setDirection();
             }
 
-            //ai.update(deltaTime);
             setDirection();
             /*
             if (ai.getLinearVelocity().x >= ai.getLinearVelocity().y) {
