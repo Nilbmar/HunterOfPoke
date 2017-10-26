@@ -12,6 +12,7 @@ import com.nilbmar.hunter.Components.AnimationComp;
 import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Components.FramesComponent;
 import com.nilbmar.hunter.Components.LifeComponent;
+import com.nilbmar.hunter.Components.MoveComponent;
 import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
@@ -169,8 +170,7 @@ public class Enemy extends Entity {
                 }
                 break;
         }
-
-        //Gdx.app.log("Enemy Region Name", regionName);
+        
         return regionName;
     }
 
@@ -249,7 +249,8 @@ public class Enemy extends Entity {
             }
 
             setDirection();
-            /*
+
+            /* TODO: FIGURE OUT HOW TO MAKE THEM WALK WITHOUT ANGLES
             if (ai.getLinearVelocity().x >= ai.getLinearVelocity().y) {
                 moveVector.set(ai.getLinearVelocity().x, 0);
             } else {

@@ -78,21 +78,21 @@
     <property name="monster" value=""/>
    </properties>
   </object>
-  <object id="200" x="336" y="236" width="16" height="16">
+  <object id="200" x="320" y="176" width="16" height="16">
    <properties>
     <property name="Decorators" value="none"/>
     <property name="EnemyType" value="goo"/>
     <property name="monster" value=""/>
    </properties>
   </object>
-  <object id="201" x="284" y="32" width="16" height="16">
+  <object id="201" x="160" y="112" width="16" height="16">
    <properties>
     <property name="Decorators" value="none"/>
     <property name="EnemyType" value="feather"/>
     <property name="monster" value=""/>
    </properties>
   </object>
-  <object id="202" x="144" y="236" width="16" height="16">
+  <object id="202" x="176" y="176" width="16" height="16">
    <properties>
     <property name="BulletProperties" value="twin fire"/>
     <property name="Decorators" value="fire"/>
@@ -100,7 +100,7 @@
     <property name="monster" value=""/>
    </properties>
   </object>
-  <object id="203" x="276" y="236" width="16" height="16">
+  <object id="203" x="252" y="180" width="16" height="16">
    <properties>
     <property name="Decorators" value="none"/>
     <property name="EnemyType" value="floateye"/>

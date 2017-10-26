@@ -1,8 +1,8 @@
 {
-	"name":"Armor Lancer",
+	"name":"Feather",
 	"hitPoints": 6,
 	"maxHitPoints": 6,
-	"regionName": "armorlancer_down",
+	"regionName": "feather_down",
 	"regionBeginX": 0,
 	"regionBeginY": 0,
 	"regionWidth": 16,
