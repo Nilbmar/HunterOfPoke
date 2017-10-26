@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
-import com.nilbmar.hunter.Entities.NewEntity;
+import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Tools.BulletCreator;
@@ -24,7 +24,7 @@ import com.nilbmar.hunter.Enums.EntityType;
  * Purpose: Base class for all Bullets
  */
 
-public abstract class Bullet  extends NewEntity implements Poolable {
+public abstract class Bullet  extends Entity implements Poolable {
     protected World world;
     protected PlayScreen screen;
     protected BulletCreator bulletCreator;

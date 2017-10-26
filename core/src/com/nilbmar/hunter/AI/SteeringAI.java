@@ -1,6 +1,5 @@
 package com.nilbmar.hunter.AI;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.steer.Steerable;
 import com.badlogic.gdx.ai.steer.SteeringAcceleration;
 import com.badlogic.gdx.ai.steer.SteeringBehavior;
@@ -9,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.nilbmar.hunter.AI.Utils.Behaviors;
 import com.nilbmar.hunter.AI.Utils.SteeringUtil;
-import com.nilbmar.hunter.Entities.NewEntity;
+import com.nilbmar.hunter.Entities.Entity;
 
 /**
  * Created by sysgeek on 7/1/17.
@@ -20,8 +19,8 @@ import com.nilbmar.hunter.Entities.NewEntity;
  */
 
 public class SteeringAI implements Steerable<Vector2> {
-    private NewEntity entity;
-    private NewEntity target;
+    private Entity entity;
+    private Entity target;
     private Body body;
 
     private SteeringBehavior<Vector2> steerBehavior;
@@ -37,7 +36,7 @@ public class SteeringAI implements Steerable<Vector2> {
     private float maxAngularSpeed;
     private float maxAngularAcceleration;
 
-    public SteeringAI(NewEntity entity, NewEntity target, float boundingRadius) {
+    public SteeringAI(Entity entity, Entity target, float boundingRadius) {
         this.entity = entity;
         this.target = target;
         this.body = entity.getB2Body();

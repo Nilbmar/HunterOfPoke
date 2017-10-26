@@ -3,7 +3,7 @@ package com.nilbmar.hunter.Tools.Loaders;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
-import com.nilbmar.hunter.Entities.NewEntity;
+import com.nilbmar.hunter.Entities.Entity;
 
 /**
  * Created by sysgeek on 9/25/17.
@@ -12,13 +12,13 @@ import com.nilbmar.hunter.Entities.NewEntity;
  */
 
 public class AnimationLoader implements Loader {
-    private NewEntity entity;
+    private Entity entity;
     private AnimationData data;
     private String file;
 
     // TODO: SHOULD THIS BE ACCEPTING ENTITY TO LOAD INTO OR FRAMESCOMPONENT OR ANIMATIONCOMPONENT
 
-    public void setEntity(NewEntity entity) { this.entity = entity; }
+    public void setEntity(Entity entity) { this.entity = entity; }
     @Override
     public void setFile(String file) { this.file = file; }
 

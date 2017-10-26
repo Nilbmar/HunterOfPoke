@@ -1,10 +1,9 @@
 package com.nilbmar.hunter.AI.Utils;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.RayCastCallback;
-import com.nilbmar.hunter.Entities.NewEntity;
+import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Screens.PlayScreen;
 
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ import java.util.Iterator;
 
 public class Vision implements Iterable<Vector2> {
     private PlayScreen screen;
-    private NewEntity entity;
+    private Entity entity;
 
     private ArrayList<Vector2> points;
     private Vector2 target;
@@ -36,7 +35,7 @@ public class Vision implements Iterable<Vector2> {
         this.screen = screen;
     }
 
-    public void setupRaycast(NewEntity entity) {
+    public void setupRaycast(Entity entity) {
         this.entity = entity;
         // Used for finding Line of Sight to player
         raycastCallback = new RayCastCallback() {
@@ -55,7 +54,7 @@ public class Vision implements Iterable<Vector2> {
         };
     }
 
-    public boolean hasLoS(NewEntity source, NewEntity target) {
+    public boolean hasLoS(Entity source, Entity target) {
         // Checks a ray cast for LoS
         hasLoS = false;
         screen.getWorld().rayCast(raycastCallback, source.getPosition(), target.getPosition());

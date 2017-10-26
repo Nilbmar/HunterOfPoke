@@ -1,6 +1,6 @@
 package com.nilbmar.hunter.AI.Utils;
 
-import com.nilbmar.hunter.Entities.NewEntity;
+import com.nilbmar.hunter.Entities.Entity;
 
 
 /**
@@ -8,14 +8,14 @@ import com.nilbmar.hunter.Entities.NewEntity;
  */
 
 public class FieldOfView {
-    private NewEntity target;
-    private NewEntity source;
+    private Entity target;
+    private Entity source;
 
     public FieldOfView() {
 
     }
 
-    public void setTarget(NewEntity target) { this.target = target; }
-    public void setSource(NewEntity source) { this.source = source; }
+    public void setTarget(Entity target) { this.target = target; }
+    public void setSource(Entity source) { this.source = source; }
 
 }

@@ -1,24 +1,24 @@
 package com.nilbmar.hunter.Commands;
 
-import com.nilbmar.hunter.Entities.NewEntity;
+import com.nilbmar.hunter.Entities.Entity;
 
 /**
  * Created by sysgeek on 6/11/17.
  */
 
 public class AccelerationCommand implements Command {
-    NewEntity entity;
+    Entity entity;
     private int acceleration;
     private int prevAcceleration;
     private float stateTimer;
 
-    public AccelerationCommand(NewEntity entity, int acceleration) {
+    public AccelerationCommand(Entity entity, int acceleration) {
         this.entity = entity;
         this.acceleration = acceleration;
     }
 
     @Override
-    public void execute(NewEntity entity) {
+    public void execute(Entity entity) {
         prevAcceleration = entity.getBaseAcceleration();
         acceleration = prevAcceleration + acceleration;
         entity.setCurrentAcceleration(acceleration);
@@ -29,7 +29,7 @@ public class AccelerationCommand implements Command {
     }
 
     // TODO: MAKE PRIVATE AGAIN AFTER TESTING AND IMPLEMENTING TIMER
-    public void undo(NewEntity entity) {
+    public void undo(Entity entity) {
         entity.setCurrentAcceleration(entity.getBaseAcceleration());
     }
 

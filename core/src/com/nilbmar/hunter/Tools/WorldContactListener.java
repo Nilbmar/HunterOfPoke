@@ -9,8 +9,8 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.nilbmar.hunter.Entities.Boxes.Box;
 import com.nilbmar.hunter.Entities.Bullets.Bullet;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
+import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Entities.Items.Item;
-import com.nilbmar.hunter.Entities.NewEntity;
 import com.nilbmar.hunter.Entities.Player;
 import com.nilbmar.hunter.HunterOfPoke;
 
@@ -75,13 +75,13 @@ public class WorldContactListener implements ContactListener {
                 if (fixtA.getFilterData().categoryBits == HunterOfPoke.ENEMY_BIT) {
                     String firedBy = ((Bullet) (fixtB.getUserData())).getFiredBy();
                     if (!firedBy.contains("ENEMY")) {
-                        ((Enemy) (fixtA.getUserData())).onHit((NewEntity) fixtB.getUserData());
+                        ((Enemy) (fixtA.getUserData())).onHit((Entity) fixtB.getUserData());
                         ((Bullet) (fixtB.getUserData())).onHit();
                     }
                 } else if (fixtB.getFilterData().categoryBits == HunterOfPoke.ENEMY_BIT) {
                     String firedBy = ((Bullet) (fixtA.getUserData())).getFiredBy();
                     if (!firedBy.contains("ENEMY")) {
-                        ((Enemy) (fixtB.getUserData())).onHit((NewEntity) fixtA.getUserData());
+                        ((Enemy) (fixtB.getUserData())).onHit((Entity) fixtA.getUserData());
                         ((Bullet) (fixtA.getUserData())).onHit();
                     }
                 }
@@ -91,13 +91,13 @@ public class WorldContactListener implements ContactListener {
                 if (fixtA.getFilterData().categoryBits == HunterOfPoke.PLAYER_BIT) {
                     String firedBy = ((Bullet) (fixtB.getUserData())).getFiredBy();
                     if (!firedBy.contains("PLAYER")) {
-                        ((Player) (fixtA.getUserData())).onHit((NewEntity) fixtB.getUserData());
+                        ((Player) (fixtA.getUserData())).onHit((Entity) fixtB.getUserData());
                         ((Bullet) (fixtB.getUserData())).onHit();
                     }
                 } else if (fixtB.getFilterData().categoryBits == HunterOfPoke.PLAYER_BIT) {
                     String firedBy = ((Bullet) (fixtA.getUserData())).getFiredBy();
                     if (!firedBy.contains("PLAYER")) {
-                        ((Player) (fixtB.getUserData())).onHit((NewEntity) fixtA.getUserData());
+                        ((Player) (fixtB.getUserData())).onHit((Entity) fixtA.getUserData());
                         ((Bullet) (fixtA.getUserData())).onHit();
                     }
                 }

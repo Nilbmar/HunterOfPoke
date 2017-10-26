@@ -9,8 +9,6 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.RayCastCallback;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -19,7 +17,7 @@ import com.nilbmar.hunter.AI.Utils.Vision;
 import com.nilbmar.hunter.Entities.Boxes.Box;
 import com.nilbmar.hunter.Entities.Bullets.Bullet;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
-import com.nilbmar.hunter.Entities.NewEntity;
+import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Entities.Player;
 import com.nilbmar.hunter.Entities.Spawns;
 import com.nilbmar.hunter.Enums.EntityType;
@@ -57,7 +55,7 @@ public class PlayScreen implements Screen {
     // Player Variables
     private Player player;
     private Array<Enemy> enemies;
-    private Array<NewEntity> newEntities;
+    private Array<Entity> newEntities;
 
     // Map Variables
     private TmxMapLoader mapLoader;
@@ -109,7 +107,7 @@ public class PlayScreen implements Screen {
         assets.setTextureAtlases();
 
         //enemies = new Array<Enemy>();
-        newEntities = new Array<NewEntity>();
+        newEntities = new Array<Entity>();
 
         // Load Maps
         mapLoader = new TmxMapLoader();
@@ -201,10 +199,10 @@ public class PlayScreen implements Screen {
 
         // TODO: SEPARATE INTO UPDATES FOR ENEMIES/ITEMS/ETC..
         // Will allow better control of layering items
-        for (NewEntity newEntity : newEntities) {
-            newEntity.update(deltaTime);
-            if (newEntity.getEntityType() == EntityType.ENEMY) {
-                ((Enemy) newEntity).setHasLoStoPlayer(visionComponent.hasLoS(newEntity, player));
+        for (Entity entity : newEntities) {
+            entity.update(deltaTime);
+            if (entity.getEntityType() == EntityType.ENEMY) {
+                ((Enemy) entity).setHasLoStoPlayer(visionComponent.hasLoS(entity, player));
 
             }
         }
@@ -285,8 +283,8 @@ public class PlayScreen implements Screen {
                 on top of each other
          */
 
-        for (NewEntity newEntity : newEntities) {
-            newEntity.draw(game.batch);
+        for (Entity entity : newEntities) {
+            entity.draw(game.batch);
         }
 
         /*for (Enemy enemy : enemies) {

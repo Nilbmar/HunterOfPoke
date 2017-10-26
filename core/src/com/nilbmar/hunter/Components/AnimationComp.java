@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
-import com.nilbmar.hunter.Entities.NewEntity;
+import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Enums.Action;
 import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Screens.PlayScreen;
@@ -15,7 +15,7 @@ import com.nilbmar.hunter.Screens.PlayScreen;
 
 public class AnimationComp {
     private PlayScreen screen;
-    private NewEntity entity;
+    private Entity entity;
     private TextureAtlas atlas;
     private Action currentAction;
     private DirectionComponent.Direction currentDirection;
@@ -30,7 +30,7 @@ public class AnimationComp {
 
     private Array<TextureRegion> frames;
 
-    public AnimationComp(PlayScreen screen, NewEntity entity, FramesComponent framesComp, String regionName) {
+    public AnimationComp(PlayScreen screen, Entity entity, FramesComponent framesComp, String regionName) {
         this.screen = screen;
         this.entity = entity;
         this.framesComp = framesComp;

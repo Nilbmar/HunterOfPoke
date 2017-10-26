@@ -1,9 +1,7 @@
 package com.nilbmar.hunter.Entities;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -31,7 +29,7 @@ import com.nilbmar.hunter.Tools.AssetHandler;
  * as a component instead of extending Image directly
  */
 
-public abstract class NewEntity {
+public abstract class Entity {
     protected PlayScreen screen;
     protected World world;
     protected Body b2Body;
@@ -83,7 +81,7 @@ public abstract class NewEntity {
 
     protected String name;
 
-    public NewEntity(PlayScreen screen, float startInWorldX, float startInWorldY) {
+    public Entity(PlayScreen screen, float startInWorldX, float startInWorldY) {
         this.screen = screen;
         world = this.screen.getWorld();
 
@@ -273,7 +271,7 @@ public abstract class NewEntity {
     }
 
     // TODO: MAKE THIS ABSTRACT AFTER SETTING UP MORE
-    public void onHit(NewEntity entity) {}
+    public void onHit(Entity entity) {}
 
     public Body getB2Body() { return b2Body; }
 

@@ -25,7 +25,7 @@ import com.nilbmar.hunter.Enums.InventorySlotType;
  * Purpose: The character the player controls
  */
 
-public class Player extends NewEntity {
+public class Player extends Entity {
     private LifeComponent lifeComp;
     private Item holdItem;
 
@@ -214,7 +214,7 @@ public class Player extends NewEntity {
     }
 
     @Override
-    public void onHit(NewEntity entity) {
+    public void onHit(Entity entity) {
         switch (entity.getEntityType()) {
             case ENEMY:
             case BULLET:

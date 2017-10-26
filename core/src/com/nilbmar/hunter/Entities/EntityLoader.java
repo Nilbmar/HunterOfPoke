@@ -24,7 +24,7 @@ import com.nilbmar.hunter.Tools.Loaders.Loader;
  */
 
 public class EntityLoader implements Loader {
-    private NewEntity entity;
+    private Entity entity;
     private String file;
     private EntityType entityType;
 
@@ -83,7 +83,7 @@ public class EntityLoader implements Loader {
         //return entity;
     }
 
-    public NewEntity decorate(PlayScreen screen, float startX, float startY, String properties) {
+    public Entity decorate(PlayScreen screen, float startX, float startY, String properties) {
         entity = null;
         // Custom Properties set in Tiled
         // Full Properties contain: Decorations + ":" + BulletProperties

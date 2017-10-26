@@ -1,9 +1,8 @@
 package com.nilbmar.hunter.Commands;
 
-import com.badlogic.gdx.Gdx;
 import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
-import com.nilbmar.hunter.Entities.NewEntity;
+import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Entities.Player;
 import com.nilbmar.hunter.Tools.BoxPatternHandler;
 import com.nilbmar.hunter.Tools.BulletPatternHandler;
@@ -40,7 +39,7 @@ public class FireCommand implements Command {
     public void setType(BulletType type) { this.type = type; }
 
 
-    public void boxExecute(NewEntity entity) {
+    public void boxExecute(Entity entity) {
         boolean fire = false;
         DirectionComponent.Direction direction = DirectionComponent.Direction.DOWN;
 
@@ -67,7 +66,7 @@ public class FireCommand implements Command {
     }
 
     @Override
-    public void execute(NewEntity entity) {
+    public void execute(Entity entity) {
         boolean fire = false;
         DirectionComponent.Direction direction = DirectionComponent.Direction.DOWN;
 

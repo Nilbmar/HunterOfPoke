@@ -1,6 +1,6 @@
 package com.nilbmar.hunter.Commands;
 
-import com.nilbmar.hunter.Entities.NewEntity;
+import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Entities.Player;
 
 /**
@@ -15,12 +15,12 @@ public class ChangeCollisionCommand implements Command {
 
 
     @Override
-    public void execute(NewEntity entity) {
+    public void execute(Entity entity) {
         // boolean collideWithEnemies
         ((Player) entity).resetCollision(false);
     }
 
-    public void undo(NewEntity entity) {
+    public void undo(Entity entity) {
         // boolean collideWithEnemies
         ((Player) entity).resetCollision(true);
     }

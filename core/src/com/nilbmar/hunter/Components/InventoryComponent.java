@@ -2,8 +2,8 @@ package com.nilbmar.hunter.Components;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
+import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Entities.Items.Item;
-import com.nilbmar.hunter.Entities.NewEntity;
 import com.nilbmar.hunter.Enums.InventorySlotType;
 
 /**
@@ -14,7 +14,7 @@ import com.nilbmar.hunter.Enums.InventorySlotType;
  */
 
 public class InventoryComponent {
-    private NewEntity entity;
+    private Entity entity;
     private int slotsTotal;
     private int slotsMax;
     private InventorySlotType slotType;
@@ -22,7 +22,7 @@ public class InventoryComponent {
     private Array<InventorySlotType> arrCurrentSlots;
     private Array<Integer> arrCountInSlots;
 
-    public InventoryComponent(NewEntity entity, int slotsMax) {
+    public InventoryComponent(Entity entity, int slotsMax) {
         this.entity = entity;
         this.slotsMax = slotsMax;
 

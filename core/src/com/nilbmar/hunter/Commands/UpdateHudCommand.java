@@ -1,6 +1,6 @@
 package com.nilbmar.hunter.Commands;
 
-import com.nilbmar.hunter.Entities.NewEntity;
+import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Scenes.Hud;
 import com.nilbmar.hunter.Enums.HudLabels;
 
@@ -22,7 +22,7 @@ public class UpdateHudCommand implements Command {
         this.newText = newText;
     }
     @Override
-    public void execute(NewEntity entity) {
+    public void execute(Entity entity) {
         switch(label) {
             case PLAYER:
                 hud.setPlayerName(newText);

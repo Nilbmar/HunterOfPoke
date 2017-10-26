@@ -3,9 +3,7 @@ package com.nilbmar.hunter.Entities.Items;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.nilbmar.hunter.Commands.AccelerationCommand;
 import com.nilbmar.hunter.Commands.UpdateHudCommand;
-import com.nilbmar.hunter.Entities.Enemies.Enemy;
-import com.nilbmar.hunter.Entities.NewEntity;
-import com.nilbmar.hunter.Entities.Player;
+import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Enums.EntityType;
@@ -46,7 +44,7 @@ public class SpeedBoostItem extends Item {
     }
 
     @Override
-    public void use(NewEntity entity) {
+    public void use(Entity entity) {
 
         entityThatUsed = entity;
 

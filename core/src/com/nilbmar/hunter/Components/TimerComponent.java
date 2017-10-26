@@ -1,6 +1,6 @@
 package com.nilbmar.hunter.Components;
 
-import com.nilbmar.hunter.Entities.NewEntity;
+import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Enums.ItemType;
 
 /**
@@ -8,13 +8,13 @@ import com.nilbmar.hunter.Enums.ItemType;
  */
 
 public class TimerComponent {
-    private NewEntity entity;
+    private Entity entity;
     private float stateTime;
     private float setTime;
     private boolean endTimer;
     private ItemType itemType;
 
-    public TimerComponent(NewEntity entity, float setTime, ItemType itemType, float deltaTime) {
+    public TimerComponent(Entity entity, float setTime, ItemType itemType, float deltaTime) {
         // TODO: RE-ENABLE SETTING OF THIS.ENTITY
         //this.entity = entity;
         this.setTime = setTime;

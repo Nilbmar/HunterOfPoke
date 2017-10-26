@@ -4,8 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.RayCastCallback;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.utils.Array;
 import com.nilbmar.hunter.AI.SteeringAI;
@@ -14,8 +12,7 @@ import com.nilbmar.hunter.Components.AnimationComp;
 import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Components.FramesComponent;
 import com.nilbmar.hunter.Components.LifeComponent;
-import com.nilbmar.hunter.Components.MoveComponent;
-import com.nilbmar.hunter.Entities.NewEntity;
+import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Enums.Action;
@@ -28,7 +25,7 @@ import com.nilbmar.hunter.Enums.EntityType;
  * Purpose: Base class for all Enemies
  */
 
-public class Enemy extends NewEntity {
+public class Enemy extends Entity {
     private Brain brain;
     private SteeringAI ai;
     private LifeComponent lifeComp;
@@ -188,7 +185,7 @@ public class Enemy extends NewEntity {
     }
 
     @Override
-    public void onHit(NewEntity entity) {
+    public void onHit(Entity entity) {
         switch (entity.getEntityType()) {
             case BULLET:
                 Gdx.app.log("Enemy Hit", "You got me!");

@@ -3,7 +3,7 @@ package com.nilbmar.hunter.Entities.Items;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.nilbmar.hunter.Commands.UpdateHudCommand;
 import com.nilbmar.hunter.Components.DirectionComponent;
-import com.nilbmar.hunter.Entities.NewEntity;
+import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Enums.Action;
@@ -18,9 +18,9 @@ import com.nilbmar.hunter.Enums.ItemType;
  * Purpose: Base class for all pickup Items
  */
 
-public abstract class Item extends NewEntity {
+public abstract class Item extends Entity {
 
-    protected NewEntity entityThatUsed;
+    protected Entity entityThatUsed;
     protected UpdateHudCommand hudUpdate;
     protected boolean destroyed;
     protected float stateTimer;
@@ -63,7 +63,7 @@ public abstract class Item extends NewEntity {
         return regionName;
     }
 
-    public abstract void use(NewEntity entity);
+    public abstract void use(Entity entity);
     protected abstract void updateHud();
 
     public float getAmountOfEffect() { return amountOfEffect; }

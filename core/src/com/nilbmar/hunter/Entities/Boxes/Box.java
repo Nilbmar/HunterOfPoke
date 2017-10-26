@@ -1,6 +1,5 @@
 package com.nilbmar.hunter.Entities.Boxes;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -10,7 +9,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
-import com.nilbmar.hunter.Entities.NewEntity;
+import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
@@ -21,7 +20,7 @@ import com.badlogic.gdx.utils.Pool.Poolable;
  * Created by sysgeek on 8/22/17.
  */
 
-public abstract class Box extends NewEntity implements Poolable {
+public abstract class Box extends Entity implements Poolable {
     protected World world;
     protected PlayScreen screen;
     protected BoxCreator boxCreator;

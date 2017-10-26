@@ -2,7 +2,7 @@ package com.nilbmar.hunter.Commands;
 
 import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
-import com.nilbmar.hunter.Entities.NewEntity;
+import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Entities.Player;
 import com.nilbmar.hunter.Enums.BulletType;
 import com.nilbmar.hunter.Enums.ShotType;
@@ -27,7 +27,7 @@ public class FireBoxCommand implements Command {
     public void setType(BulletType type) { this.type = type; }
 
     @Override
-    public void execute(NewEntity entity) {
+    public void execute(Entity entity) {
         boolean fire = false;
         DirectionComponent.Direction direction = DirectionComponent.Direction.DOWN;
 
