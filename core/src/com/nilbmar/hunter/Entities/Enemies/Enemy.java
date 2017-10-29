@@ -101,9 +101,9 @@ public class Enemy extends Entity {
     // Based on AI movement
     private void setDirection() {
         // Switch Enemy direction based on position
-        // relative to player position
-        float dirX = getPosition().x - screen.getPlayer().getPosition().x;
-        float dirY = getPosition().y - screen.getPlayer().getPosition().y;
+        // relative to AITarget position
+        float dirX = getPosition().x - target.getPosition().x;
+        float dirY = getPosition().y - target.getPosition().y;
 
         if (!ai.getLinearVelocity().isZero()) {
             setAction(Action.WALKING);
@@ -217,6 +217,7 @@ public class Enemy extends Entity {
     }
 
     public void onArrived() {
+        // Stops enemy movement until a new target is set
         b2Body.setAwake(false);
     }
 
