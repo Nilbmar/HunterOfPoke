@@ -31,7 +31,8 @@ public class Enemy extends Entity {
     private EnemyType enemyType;
 
     private boolean destroyed;
-    private boolean hasLoStoPlayer;
+    private boolean hasLOStoPlayer;
+    private double distanceForLOS;
     private AITarget target;
 
     public Enemy(PlayScreen screen, float startInWorldX, float startInWorldY) {
@@ -55,7 +56,8 @@ public class Enemy extends Entity {
         previousAction = Action.STILL;
         stateTimer = 0;
 
-        hasLoStoPlayer = false;
+        hasLOStoPlayer = false;
+        distanceForLOS = 2;
 
         imageComponent.setPosition(startInWorldX, startInWorldY);
 
@@ -122,12 +124,18 @@ public class Enemy extends Entity {
         }
     }
 
-    public void setHasLoStoPlayer(boolean hasLoStoPlayer) {
-        this.hasLoStoPlayer = hasLoStoPlayer;
+    public void setHasLoStoPlayer(boolean los, double distance ) {
+        // This function is only called when visionComponent DOES have LoS
+        // between Enemy and Player
+        hasLOStoPlayer = los;
+
+        if (distance > distanceForLOS) {
+            hasLOStoPlayer = false;
+        }
     }
 
     private void getNewTarget() {
-        if (hasLoStoPlayer) {
+        if (hasLOStoPlayer) {
             target.setPosition(screen.getPlayer().getPosition());
         } else {
             target.setPosition(getPosition());

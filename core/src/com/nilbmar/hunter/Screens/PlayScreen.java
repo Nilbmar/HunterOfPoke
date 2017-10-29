@@ -179,7 +179,7 @@ public class PlayScreen implements Screen {
 
         // Spawn Enemy or Items based on string in map
         for (Spawns spawn : worldCreator.getAllSpawnsArray()) {
-            distanceToPlayer = visionComponent.getDistance(playerPosX, playerPosY, spawn.getX(), spawn.getY());
+            distanceToPlayer = visionComponent.getDistance(player.getPosition(), spawn.getPosition());
 
             if (distanceToPlayer <= spawnWhenUnder) {
                 // Spawn Enemy
@@ -201,9 +201,13 @@ public class PlayScreen implements Screen {
         // Will allow better control of layering items
         for (Entity entity : newEntities) {
             entity.update(deltaTime);
-            if (entity.getEntityType() == EntityType.ENEMY) {
-                ((Enemy) entity).setHasLoStoPlayer(visionComponent.hasLoS(entity, player));
 
+            // Set LoS for Enemy->Player within distance
+            if (entity.getEntityType() == EntityType.ENEMY) {
+                ((Enemy) entity).setHasLoStoPlayer(
+                        visionComponent.hasLoS(entity, player),
+                        visionComponent.getDistance(entity.getPosition(), player.getPosition()
+                        ));
             }
         }
 

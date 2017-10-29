@@ -2,6 +2,7 @@ package com.nilbmar.hunter.Entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.Items.InvincibilityItem;
@@ -36,6 +37,10 @@ public class Spawns implements Disposable {
         this.posY = posY / HunterOfPoke.PPM;
         this.type = type;
         decorators = "";
+    }
+
+    public Vector2 getPosition() {
+        return new Vector2(getX(), getY());
     }
 
     public Enemy spawnEnemy() {

@@ -62,12 +62,13 @@ public class Vision implements Iterable<Vector2> {
         return hasLoS;
     }
 
-    public double getDistance(float x0, float y0, float x1, float y1) {
+    public double getDistance(Vector2 firstPoint, Vector2 secondPoint) {
         double distance = 0.0f;
-        target = new Vector2(x0, y0);
-        origin = new Vector2(x1, y1);
+        target = firstPoint;
+        origin = secondPoint;
 
-        distance = ((x1 - x0) * (x1 - x0)) + ((y1 - y0) * (y1 - y0));
+        distance = ((secondPoint.x - firstPoint.x) * (secondPoint.x - firstPoint.x))
+                + ((secondPoint.y - firstPoint.y) * (secondPoint.y - firstPoint.y));
 
         return Math.sqrt(distance);
     }
