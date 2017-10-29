@@ -3,17 +3,14 @@ package com.nilbmar.hunter.Entities.Enemies;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.utils.Array;
 import com.nilbmar.hunter.AI.AITarget;
 import com.nilbmar.hunter.AI.SteeringAI;
-import com.nilbmar.hunter.Commands.MoveCommand;
 import com.nilbmar.hunter.Components.AnimationComp;
 import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Components.FramesComponent;
 import com.nilbmar.hunter.Components.LifeComponent;
-import com.nilbmar.hunter.Components.MoveComponent;
 import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
@@ -32,11 +29,8 @@ public class Enemy extends Entity {
     private SteeringAI ai;
     private LifeComponent lifeComp;
     private EnemyType enemyType;
-    private MoveCommand moveCommand;
-    private Vector2 moveVector;
 
     private boolean destroyed;
-    private boolean aiAssigned;
     private boolean hasLoStoPlayer;
     private AITarget target;
 
@@ -132,7 +126,7 @@ public class Enemy extends Entity {
         this.hasLoStoPlayer = hasLoStoPlayer;
     }
 
-    public void getNewTarget() {
+    private void getNewTarget() {
         if (hasLoStoPlayer) {
             target.setPosition(screen.getPlayer().getPosition());
         } else {
