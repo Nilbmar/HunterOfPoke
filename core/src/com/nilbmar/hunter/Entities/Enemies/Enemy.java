@@ -38,7 +38,6 @@ public class Enemy extends Entity {
     private boolean destroyed;
     private boolean aiAssigned;
     private boolean hasLoStoPlayer;
-    private boolean arrived;
     private AITarget target;
 
     public Enemy(PlayScreen screen, float startInWorldX, float startInWorldY) {
@@ -160,9 +159,6 @@ public class Enemy extends Entity {
         }
     }
 
-    public void setArrived(boolean arrived) { this.arrived = arrived; }
-
-
     public void setEnemyType(EnemyType enemyType) { this.enemyType = enemyType; }
 
     public String getRegionName(DirectionComponent.Direction currentDirection) {
@@ -268,6 +264,7 @@ public class Enemy extends Entity {
 
         // Set the target for and update AI movement
         if (ai != null) {
+
             getNewTarget();
             ai.update(deltaTime);
 
