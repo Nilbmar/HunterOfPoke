@@ -13,5 +13,6 @@
 	"boundsHeight": 16,
 	"offsetSpriteX": 0,
 	"offsetSpriteY": 0,
-	"acceleration": 1
+	"acceleration": 1,
+	"distanceForLOS": 2
 }

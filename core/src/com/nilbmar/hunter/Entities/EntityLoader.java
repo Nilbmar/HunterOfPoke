@@ -44,6 +44,7 @@ public class EntityLoader implements Loader {
             case ENEMY:
                 ((Enemy) entity).getLifeComponent().setHitPoints(data.getHitPoints());
                 ((Enemy) entity).getLifeComponent().setMaxHitPoints(data.getMaxHitPoints());
+                ((Enemy) entity).setDistanceForLOS(data.getDistanceForLOS());
                 break;
             case PLAYER:
                 //((Player) entity).setHitPoints(data.getHitPoints());

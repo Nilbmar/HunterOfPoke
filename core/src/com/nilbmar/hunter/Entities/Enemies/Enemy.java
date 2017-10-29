@@ -57,7 +57,7 @@ public class Enemy extends Entity {
         stateTimer = 0;
 
         hasLOStoPlayer = false;
-        distanceForLOS = 2;
+        distanceForLOS = 0;
 
         imageComponent.setPosition(startInWorldX, startInWorldY);
 
@@ -124,6 +124,9 @@ public class Enemy extends Entity {
         }
     }
 
+    public void setDistanceForLOS(double distanceForLOS) {
+        this.distanceForLOS = distanceForLOS;
+    }
     public void setHasLoStoPlayer(boolean los, double distance ) {
         // This function is only called when visionComponent DOES have LoS
         // between Enemy and Player

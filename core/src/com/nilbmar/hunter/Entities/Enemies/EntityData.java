@@ -21,6 +21,7 @@ public class EntityData {
     protected int offsetSpriteX;
     protected int offsetSpriteY;
     protected int acceleration;
+    protected double distanceForLOS;
 
     public String getName() {
         return name;
@@ -81,6 +82,8 @@ public class EntityData {
     public int getAcceleration() {
         return acceleration;
     }
+
+    public double getDistanceForLOS() { return distanceForLOS; }
 }
 
 
