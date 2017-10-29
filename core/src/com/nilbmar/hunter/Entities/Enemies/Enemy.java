@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.utils.Array;
+import com.nilbmar.hunter.AI.AITarget;
 import com.nilbmar.hunter.AI.SteeringAI;
 import com.nilbmar.hunter.Commands.MoveCommand;
 import com.nilbmar.hunter.Components.AnimationComp;
@@ -37,8 +38,8 @@ public class Enemy extends Entity {
     private boolean destroyed;
     private boolean aiAssigned;
     private boolean hasLoStoPlayer;
-
-
+    private boolean arrived;
+    private AITarget target;
 
     public Enemy(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
@@ -132,9 +133,24 @@ public class Enemy extends Entity {
         this.hasLoStoPlayer = hasLoStoPlayer;
     }
 
+    public void getNewTarget() {
+        if (hasLoStoPlayer) {
+            target.setPosition(screen.getPlayer().getPosition());
+        } else {
+            target.setPosition(getPosition());
+        }
+
+        ai.setTarget(target);
+    }
+
     public void setSteeringAI() {
+        float boundingRadius = 30f;
         if (b2Body != null) {
-            ai = new SteeringAI(this, screen.getPlayer(), 30);
+
+            if (target == null) {
+                target = new AITarget(getPosition());
+            }
+            ai = new SteeringAI(this, target, boundingRadius);
 
             /*
             moveComponent = new MoveComponent(b2Body);
@@ -143,6 +159,9 @@ public class Enemy extends Entity {
             */
         }
     }
+
+    public void setArrived(boolean arrived) { this.arrived = arrived; }
+
 
     public void setEnemyType(EnemyType enemyType) { this.enemyType = enemyType; }
 
@@ -170,7 +189,7 @@ public class Enemy extends Entity {
                 }
                 break;
         }
-        
+
         return regionName;
     }
 
@@ -195,6 +214,10 @@ public class Enemy extends Entity {
                 }
                 break;
         }
+    }
+
+    public void onArrived() {
+        b2Body.setAwake(false);
     }
 
     @Override
@@ -242,11 +265,10 @@ public class Enemy extends Entity {
     public void update(float deltaTime) {
         super.update(deltaTime);
 
+        // Set the target for and update AI movement
         if (ai != null) {
-            if (hasLoStoPlayer) {
-                Gdx.app.log("Enemy", name + " has a line of sight to player.");
-                ai.update(deltaTime);
-            }
+            getNewTarget();
+            ai.update(deltaTime);
 
             setDirection();
 

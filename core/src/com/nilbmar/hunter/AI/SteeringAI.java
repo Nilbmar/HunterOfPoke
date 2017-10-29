@@ -1,5 +1,6 @@
 package com.nilbmar.hunter.AI;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.steer.Steerable;
 import com.badlogic.gdx.ai.steer.SteeringAcceleration;
 import com.badlogic.gdx.ai.steer.SteeringBehavior;
@@ -8,7 +9,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.nilbmar.hunter.AI.Utils.Behaviors;
 import com.nilbmar.hunter.AI.Utils.SteeringUtil;
+import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.Entity;
+import com.nilbmar.hunter.Enums.EntityType;
 
 /**
  * Created by sysgeek on 7/1/17.
@@ -20,7 +23,7 @@ import com.nilbmar.hunter.Entities.Entity;
 
 public class SteeringAI implements Steerable<Vector2> {
     private Entity entity;
-    private Entity target;
+    private AITarget target;
     private Body body;
 
     private SteeringBehavior<Vector2> steerBehavior;
@@ -36,7 +39,7 @@ public class SteeringAI implements Steerable<Vector2> {
     private float maxAngularSpeed;
     private float maxAngularAcceleration;
 
-    public SteeringAI(Entity entity, Entity target, float boundingRadius) {
+    public SteeringAI(Entity entity, AITarget target, float boundingRadius) {
         this.entity = entity;
         this.target = target;
         this.body = entity.getB2Body();
@@ -73,6 +76,10 @@ public class SteeringAI implements Steerable<Vector2> {
     }
     public void setSteeringBehavior(SteeringBehavior<Vector2> steerBehavior) {
         this.steerBehavior = steerBehavior;
+    }
+
+    public void setTarget(AITarget target) {
+        this.target = target;
     }
 
     public Body getBody() { return body; }
@@ -240,15 +247,25 @@ public class SteeringAI implements Steerable<Vector2> {
 
     public void update(float deltaTime) {
         if (steerBehavior != null) {
-            steerBehavior.calculateSteering(steerOutput);
-            applySteering(deltaTime);
+
+            // Has not arrived at target
+            if (!target.getPosition().equals(getPosition())) {
+                setSteerBehavior(Behaviors.Behavior.ARRIVE);
+                steerBehavior.calculateSteering(steerOutput);
+                applySteering(deltaTime);
+            } else {
+                if (entity.getEntityType() == EntityType.ENEMY) {
+                    ((Enemy) entity).onArrived();
+                }
+            }
 
 
             // TODO: INSTEAD OF RESETING BEHAVIOR EACH TIME
             // USE ARRIVE.SETTARGET(TARGET)
             // MAYBE USE "BRAIN" TO CREATE BEHAVIOR
             // AND SETOWNER TO ASSIGN THEM TO ENEMY
-            setSteerBehavior(Behaviors.Behavior.ARRIVE);
+
+
         }
     }
 }
