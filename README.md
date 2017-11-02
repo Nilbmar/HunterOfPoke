@@ -18,3 +18,6 @@ _choppiness is a product of recording and not present in gameplay_
 * [Enemy Sprites](https://opengameart.org/content/overhead-action-rpg-characters)
 * [Terrain](http://fanart.pokefans.net/tutorials/mapping/tilesets) "Dawn" tileset
 
+## Code
+The majority of code is in the [Core](/core/src/com/nilbmar/hunter) subfolder
+
