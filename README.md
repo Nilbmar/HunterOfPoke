@@ -10,4 +10,4 @@ Explore the world as a robot, sent out to collect parts for your inventor. Captu
 * Capture Shot: Z Key (No rapid fire)
 
 ## Gif
-![Robot running through partial level while firing at enemies](/blob/master/Hunter%202017-11-01%2021-17.gif?raw=true "Hunter of Poke Screencap")
+![Robot running through partial level while firing at enemies](/Hunter%202017-11-01%2021-17.gif?raw=true "Hunter of Poke Screencap")
