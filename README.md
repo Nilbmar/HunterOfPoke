@@ -9,5 +9,11 @@ Explore the world as a robot, sent out to collect parts for your inventor. Captu
 * Flame Shot: X Key (No rapid fire)
 * Capture Shot: Z Key (No rapid fire)
 
-## Gif
+## Demonstration GIF
 ![Robot running through partial level while firing at enemies](/Hunter%202017-11-01%2021-17.gif?raw=true "Hunter of Poke Screencap")
+
+_Temporary Graphics Used for Demonstration and Testing_
+* [Player and Ammo Sprites](https://finalbossblues.itch.io/pixel-shooter-towers-asset-pack)
+* [Enemy Sprites](https://opengameart.org/content/overhead-action-rpg-characters)
+* [Terrain](http://fanart.pokefans.net/tutorials/mapping/tilesets) "Dawn" tileset
+
