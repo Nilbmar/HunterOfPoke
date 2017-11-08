@@ -6,7 +6,7 @@ import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
-import com.nilbmar.hunter.Enums.Action;
+import com.nilbmar.hunter.AI.States.Action;
 import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Enums.InventorySlotType;
 import com.nilbmar.hunter.Enums.ItemType;

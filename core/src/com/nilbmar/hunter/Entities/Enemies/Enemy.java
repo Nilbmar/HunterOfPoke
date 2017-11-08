@@ -14,7 +14,7 @@ import com.nilbmar.hunter.Components.LifeComponent;
 import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
-import com.nilbmar.hunter.Enums.Action;
+import com.nilbmar.hunter.AI.States.Action;
 import com.nilbmar.hunter.Enums.EntityType;
 
 /**
@@ -25,7 +25,7 @@ import com.nilbmar.hunter.Enums.EntityType;
  */
 
 public class Enemy extends Entity {
-    private Brain brain;
+    private com.nilbmar.hunter.AI.States.Brain brain;
     private SteeringAI ai;
     private LifeComponent lifeComp;
     private EnemyType enemyType;
@@ -50,7 +50,7 @@ public class Enemy extends Entity {
 
         lifeComp = new LifeComponent();
         directionComp = new DirectionComponent();
-        brain = new Brain(this);
+        brain = new com.nilbmar.hunter.AI.States.Brain(this);
 
         currentAction = Action.STILL;
         previousAction = Action.STILL;

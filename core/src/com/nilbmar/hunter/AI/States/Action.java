@@ -1,4 +1,4 @@
-package com.nilbmar.hunter.Enums;
+package com.nilbmar.hunter.AI.States;
 
 /**
  * Created by sysgeek on 4/29/17.

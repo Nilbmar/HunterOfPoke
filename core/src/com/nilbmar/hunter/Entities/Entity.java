@@ -16,7 +16,7 @@ import com.nilbmar.hunter.Components.FramesComponent;
 import com.nilbmar.hunter.Components.ImageComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
 import com.nilbmar.hunter.Components.TimerComponent;
-import com.nilbmar.hunter.Enums.Action;
+import com.nilbmar.hunter.AI.States.Action;
 import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Enums.ItemType;
 import com.nilbmar.hunter.Screens.PlayScreen;
