@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.utils.Array;
 import com.nilbmar.hunter.AI.AITarget;
+import com.nilbmar.hunter.AI.Brains.Brain;
 import com.nilbmar.hunter.AI.SteeringAI;
 import com.nilbmar.hunter.Components.AnimationComp;
 import com.nilbmar.hunter.Components.DirectionComponent;
@@ -25,7 +26,7 @@ import com.nilbmar.hunter.Enums.EntityType;
  */
 
 public class Enemy extends Entity {
-    private com.nilbmar.hunter.AI.States.Brain brain;
+    private Brain brain;
     private SteeringAI ai;
     private LifeComponent lifeComp;
     private EnemyType enemyType;
@@ -50,7 +51,7 @@ public class Enemy extends Entity {
 
         lifeComp = new LifeComponent();
         directionComp = new DirectionComponent();
-        brain = new com.nilbmar.hunter.AI.States.Brain(this);
+        brain = new Brain(this);
 
         currentAction = Action.STILL;
         previousAction = Action.STILL;
