@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
+import com.nilbmar.hunter.AI.States.Temperament;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.Items.InvincibilityItem;
 import com.nilbmar.hunter.Entities.Items.Item;
@@ -52,6 +53,10 @@ public class Spawns implements Disposable {
         Enemy enemy = (Enemy) loader.decorate(screen, getX(), getY(), decorators);
         enemy.setEnemyType(enemyType);
         enemy.setupAnimationComponents();
+
+        // TODO: REPLACE THIS HARDCODING
+        // GET FROM SPAWN POINT IN MAP
+        enemy.setupBrain(Temperament.SCARED);
 
         return enemy;
         //enemy.prepareToDraw();

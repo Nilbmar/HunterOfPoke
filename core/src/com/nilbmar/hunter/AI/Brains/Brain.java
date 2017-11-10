@@ -1,9 +1,12 @@
 package com.nilbmar.hunter.AI.Brains;
 
+import com.badlogic.gdx.math.Vector2;
+import com.nilbmar.hunter.AI.AITarget;
 import com.nilbmar.hunter.AI.States.Action;
 import com.nilbmar.hunter.AI.States.Goal;
 import com.nilbmar.hunter.AI.States.Temperament;
-import com.nilbmar.hunter.Entities.Entity;
+import com.nilbmar.hunter.AI.Utils.Vision;
+import com.nilbmar.hunter.Entities.Enemies.Enemy;
 
 /**
  * Created by sysgeek on 10/26/17.
@@ -12,22 +15,31 @@ import com.nilbmar.hunter.Entities.Entity;
  */
 
 public abstract class Brain {
-    private Entity entity;
+    private Enemy enemy;
+    private AITarget target;
 
     private Goal currentGoal;
     private Action currentAction;
     private Temperament currentTemperament;
 
-    private boolean hasLOStoPlayer;
+    protected boolean hasLOStoPlayer;
+    protected boolean helpIsNear;
+    protected boolean alarmed;
 
-    public Brain(Entity entity) {
-        this.entity = entity;
-        currentGoal = Goal.PATROL;
+    public Brain(Enemy enemy) {
+        this.enemy = enemy;
+
+        // Set target to current position so it doesn't move yet
+        target = new AITarget(enemy.getPosition());
+
+        hasLOStoPlayer = false;
+        alarmed = false;
+        currentGoal = Goal.NONE;
         currentAction = Action.STILL;
         currentTemperament = Temperament.DOCILE;
     }
 
-    public Entity getEntity() { return  entity; }
+    public Enemy getEnemy() { return enemy; }
 
     public Goal getGoal() { return currentGoal; }
     public void setGoal(Goal goal) { currentGoal = goal; }
@@ -44,6 +56,11 @@ public abstract class Brain {
 
     public boolean getHasLOStoPlayer() { return hasLOStoPlayer; }
     public void setHasLOStoPlayer(boolean hasLOStoPlayer) { this.hasLOStoPlayer = hasLOStoPlayer; }
+
+    public AITarget getTarget() { return target; }
+    public void setTarget(Vector2 position) {
+        target.setPosition(position);
+    }
 
     private void goalIs() {
         switch (currentGoal) {

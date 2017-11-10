@@ -1,6 +1,9 @@
 package com.nilbmar.hunter.AI.Brains;
 
 import com.badlogic.gdx.Gdx;
+import com.nilbmar.hunter.AI.States.Goal;
+import com.nilbmar.hunter.AI.Utils.Vision;
+import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.Entity;
 
 /**
@@ -8,8 +11,8 @@ import com.nilbmar.hunter.Entities.Entity;
  */
 
 public class ScaredBrain extends Brain {
-    public ScaredBrain(Entity entity) {
-        super(entity);
+    public ScaredBrain(Enemy enemy) {
+        super(enemy);
     }
 
     @Override
@@ -19,22 +22,39 @@ public class ScaredBrain extends Brain {
 
     @Override
     public void patrol() {
+        if (hasLOStoPlayer) {
+            setGoal(Goal.FIND_HELP);
+        }
         Gdx.app.log("Scared Brain", "Patrol");
     }
 
     @Override
     public void attack() {
         Gdx.app.log("Scared Brain", "Attack");
+        if (hasLOStoPlayer) {
+            if (helpIsNear) {
+                getEnemy().attack();
+            } else {
+                setGoal(Goal.FIND_HELP);
+            }
+        } else {
+            setGoal(Goal.PATROL);
+        }
     }
 
     @Override
     public void findHelp() {
         Gdx.app.log("Scared Brain", "Find Help");
+        if (helpIsNear) {
+            setGoal(Goal.ATTACK);
+        } else {
+            getEnemy().findHelp();
+        }
     }
 
     @Override
     public void hide() {
-        Gdx.app.log("Scared Brain", "Run");
+        Gdx.app.log("Scared Brain", "Hide");
     }
 
     @Override

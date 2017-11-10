@@ -3,12 +3,15 @@ package com.nilbmar.hunter.Entities.Enemies;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.utils.Array;
 import com.nilbmar.hunter.AI.AITarget;
 import com.nilbmar.hunter.AI.Brains.Brain;
 import com.nilbmar.hunter.AI.Brains.ScaredBrain;
+import com.nilbmar.hunter.AI.States.Temperament;
 import com.nilbmar.hunter.AI.SteeringAI;
+import com.nilbmar.hunter.AI.Utils.Vision;
 import com.nilbmar.hunter.Components.AnimationComp;
 import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Components.FramesComponent;
@@ -35,6 +38,7 @@ public class Enemy extends Entity {
     private boolean destroyed;
     private boolean hasLOStoPlayer;
     private double distanceForLOS;
+    private Vision vision;
     private AITarget target;
 
     public Enemy(PlayScreen screen, float startInWorldX, float startInWorldY) {
@@ -44,6 +48,8 @@ public class Enemy extends Entity {
         entityType = EntityType.ENEMY;
         enemyType = null;
 
+        vision = new Vision(screen);
+
         // TODO: THESE WILL BE NEEDED FOR NEW AnimationComp
         setImageWidth(16);
         setImageHeight(16);
@@ -52,9 +58,6 @@ public class Enemy extends Entity {
 
         lifeComp = new LifeComponent();
         directionComp = new DirectionComponent();
-
-        // TODO: REMOVE THIS HARD CODED BRAIN TYPE
-        brain = new ScaredBrain(this);
 
         currentAction = Action.STILL;
         previousAction = Action.STILL;
@@ -67,6 +70,8 @@ public class Enemy extends Entity {
 
         // AI
 
+        // TODO: REMOVE THIS HARD CODED BRAIN TYPE
+        //brain = new ScaredBrain(this);
     }
 
     public void setupAnimationComponents() {
@@ -92,6 +97,26 @@ public class Enemy extends Entity {
             //      boundsWidth / HunterOfPoke.PPM, boundsHeight / HunterOfPoke.PPM);
         } else {
             Gdx.app.log("setupAnimationComponents", "enemyType is null");
+        }
+    }
+
+    public void setupBrain(Temperament temperament) {
+        switch (temperament) {
+            case SCARED:
+                brain = new ScaredBrain(this);
+                break;
+            case CAUTIOUS:
+
+                break;
+            case DOCILE:
+
+                break;
+            case AGGRESSIVE:
+
+                break;
+            case VICIOUS:
+
+                break;
         }
     }
 
@@ -143,11 +168,14 @@ public class Enemy extends Entity {
 
     private void getNewTarget() {
         if (hasLOStoPlayer) {
-            target.setPosition(screen.getPlayer().getPosition());
+            setTarget(screen.getPlayer().getPosition());
         } else {
-            target.setPosition(getPosition());
+            setTarget(getPosition());
         }
+    }
 
+    private void setTarget(Vector2 position) {
+        target.setPosition(position);
         ai.setTarget(target);
     }
 
@@ -206,6 +234,33 @@ public class Enemy extends Entity {
     @Override
     public float getSpawnOtherY() {
         return imageComponent.getY() + imageComponent.getHeight() / 2;
+    }
+
+    public void attack() {
+        Gdx.app.log(getName(), " is attacking.");
+    }
+
+    public void findHelp() {
+        Vector2 currentClosestEnemy = new Vector2(999, 999);
+        Double distToLastEnemy = 999.0;
+        Double distToCurrentEnemy = 999.0;
+
+        // Look for the closest enemy to help attack
+        for (Enemy enemy : screen.getEnemies()) {
+            if (vision.hasLoS(this, enemy)) {
+                distToCurrentEnemy = vision.getDistance(this.getPosition(), enemy.getPosition());
+
+                if (distToCurrentEnemy < distToLastEnemy) {
+                    currentClosestEnemy.set(enemy.getPosition());
+                    distToLastEnemy = distToCurrentEnemy;
+                }
+            }
+        }
+
+        if (currentClosestEnemy.x <= distanceForLOS && currentClosestEnemy.y <= distanceForLOS) {
+            setTarget(currentClosestEnemy);
+        }
+
     }
 
     @Override
@@ -271,7 +326,11 @@ public class Enemy extends Entity {
     public void update(float deltaTime) {
         super.update(deltaTime);
 
-        brain.update(hasLOStoPlayer);
+        if (brain != null) {
+            brain.update(hasLOStoPlayer);
+        } else {
+            setupBrain(Temperament.SCARED);
+        }
 
         // Set the target for and update AI movement
         if (ai != null) {

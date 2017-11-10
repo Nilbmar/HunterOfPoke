@@ -55,7 +55,7 @@ public class PlayScreen implements Screen {
     // Player Variables
     private Player player;
     private Array<Enemy> enemies;
-    private Array<Entity> newEntities;
+    private Array<Entity> entities;
 
     // Map Variables
     private TmxMapLoader mapLoader;
@@ -106,8 +106,8 @@ public class PlayScreen implements Screen {
         assets.manager.finishLoading();
         assets.setTextureAtlases();
 
-        //enemies = new Array<Enemy>();
-        newEntities = new Array<Entity>();
+        enemies = new Array<Enemy>();
+        entities = new Array<Entity>();
 
         // Load Maps
         mapLoader = new TmxMapLoader();
@@ -155,6 +155,8 @@ public class PlayScreen implements Screen {
     public BulletCreator getBulletCreator() { return bulletCreator; }
     public BulletPatternHandler getBulletPatterns() { return bulletPatterns; }
     public Player getPlayer() { return player; }
+    public Array<Entity> getEntities() { return entities; }
+    public Array<Enemy> getEnemies() { return enemies; }
     public boolean getViewRenderLines() { return viewRenderLines; }
     public boolean getViewHUD() { return viewHUD; }
 
@@ -187,10 +189,11 @@ public class PlayScreen implements Screen {
                     Enemy enemy = spawn.spawnEnemy();
                     enemy.setSteeringAI();
                     //entities.add(enemy); //spawn.spawnEnemy());
-                    newEntities.add(enemy);
+                    entities.add(enemy);
+                    enemies.add(enemy);
                 } else if (spawn.getType() == SpawnType.ITEM) {
                     // Spawn Item
-                    newEntities.add(spawn.spawnItem());
+                    entities.add(spawn.spawnItem());
                 }
                 worldCreator.getAllSpawnsArray().removeValue(spawn, true);
                 spawn.dispose();
@@ -199,7 +202,7 @@ public class PlayScreen implements Screen {
 
         // TODO: SEPARATE INTO UPDATES FOR ENEMIES/ITEMS/ETC..
         // Will allow better control of layering items
-        for (Entity entity : newEntities) {
+        for (Entity entity : entities) {
             entity.update(deltaTime);
 
             // Set LoS for Enemy->Player within distance
@@ -287,7 +290,7 @@ public class PlayScreen implements Screen {
                 on top of each other
          */
 
-        for (Entity entity : newEntities) {
+        for (Entity entity : entities) {
             entity.draw(game.batch);
         }
 
