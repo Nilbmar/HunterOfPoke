@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.utils.Array;
 import com.nilbmar.hunter.AI.AITarget;
 import com.nilbmar.hunter.AI.Brains.Brain;
+import com.nilbmar.hunter.AI.Brains.ScaredBrain;
 import com.nilbmar.hunter.AI.SteeringAI;
 import com.nilbmar.hunter.Components.AnimationComp;
 import com.nilbmar.hunter.Components.DirectionComponent;
@@ -51,7 +52,9 @@ public class Enemy extends Entity {
 
         lifeComp = new LifeComponent();
         directionComp = new DirectionComponent();
-        brain = new Brain(this);
+
+        // TODO: REMOVE THIS HARD CODED BRAIN TYPE
+        brain = new ScaredBrain(this);
 
         currentAction = Action.STILL;
         previousAction = Action.STILL;
@@ -267,6 +270,8 @@ public class Enemy extends Entity {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
+
+        brain.update(hasLOStoPlayer);
 
         // Set the target for and update AI movement
         if (ai != null) {

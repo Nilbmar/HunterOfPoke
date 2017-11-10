@@ -11,12 +11,14 @@ import com.nilbmar.hunter.Entities.Entity;
  * Base class to control enemy AI
  */
 
-public class Brain {
+public abstract class Brain {
     private Entity entity;
 
     private Goal currentGoal;
     private Action currentAction;
     private Temperament currentTemperament;
+
+    private boolean hasLOStoPlayer;
 
     public Brain(Entity entity) {
         this.entity = entity;
@@ -40,27 +42,49 @@ public class Brain {
         currentTemperament = temperament;
     }
 
+    public boolean getHasLOStoPlayer() { return hasLOStoPlayer; }
+    public void setHasLOStoPlayer(boolean hasLOStoPlayer) { this.hasLOStoPlayer = hasLOStoPlayer; }
+
     private void goalIs() {
         switch (currentGoal) {
             case NONE:
-                // 
-                // setGoal(Goal.PATROL);
+                noGoal();
                 break;
             case PATROL:
+                patrol();
                 // Look for player
                 // if player found, set target to player
                 // else set target to next patrol point
                 //setTarget(nextPatrolPoint);
                 break;
             case ATTACK:
+                attack();
                 //setTarget(player);
                 break;
             case FIND_HELP:
+                findHelp();
+                //setTarget(closestFamiliar);
+                break;
+            case HIDE:
+                hide();
                 //setTarget(closestFamiliar);
                 break;
             case RUN:
+                run();
                 //setTarget(closestBarrier);
                 break;
         }
+    }
+
+    public abstract void noGoal();
+    public abstract void patrol();
+    public abstract void attack();
+    public abstract void findHelp();
+    public abstract void hide();
+    public abstract void run();
+
+    public void update(boolean hasLOStoPlayer) {
+        this.hasLOStoPlayer = hasLOStoPlayer;
+        goalIs();
     }
 }
