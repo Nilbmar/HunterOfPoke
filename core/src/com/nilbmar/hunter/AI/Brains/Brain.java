@@ -8,6 +8,8 @@ import com.nilbmar.hunter.AI.States.Temperament;
 import com.nilbmar.hunter.AI.Utils.Vision;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
 
+import java.util.Stack;
+
 /**
  * Created by sysgeek on 10/26/17.
  *
@@ -18,7 +20,7 @@ public abstract class Brain {
     private Enemy enemy;
     private AITarget target;
 
-    private Goal currentGoal;
+    private Stack<Goal> stack;
     private Action currentAction;
     private Temperament currentTemperament;
 
@@ -29,20 +31,28 @@ public abstract class Brain {
     public Brain(Enemy enemy) {
         this.enemy = enemy;
 
+        stack = new Stack<Goal>();
         // Set target to current position so it doesn't move yet
         target = new AITarget(enemy.getPosition());
 
         hasLOStoPlayer = false;
         alarmed = false;
-        currentGoal = Goal.NONE;
+        stack.push(Goal.NONE);
         currentAction = Action.STILL;
         currentTemperament = Temperament.DOCILE;
     }
 
     public Enemy getEnemy() { return enemy; }
 
-    public Goal getGoal() { return currentGoal; }
-    public void setGoal(Goal goal) { currentGoal = goal; }
+    public Goal getGoal() { return stack.peek(); }
+    public void addGoal(Goal goal) {
+        stack.push(goal);
+    }
+    public void removeGoal() {
+        if (stack.peek() != Goal.NONE) {
+            stack.pop();
+        }
+    }
 
     public Action getAction() { return currentAction; }
     public void setAction(Action action) {
@@ -63,32 +73,24 @@ public abstract class Brain {
     }
 
     private void goalIs() {
-        switch (currentGoal) {
+        switch (stack.peek()) {
             case NONE:
                 noGoal();
                 break;
             case PATROL:
                 patrol();
-                // Look for player
-                // if player found, set target to player
-                // else set target to next patrol point
-                //setTarget(nextPatrolPoint);
                 break;
             case ATTACK:
                 attack();
-                //setTarget(player);
                 break;
             case FIND_HELP:
                 findHelp();
-                //setTarget(closestFamiliar);
                 break;
             case HIDE:
                 hide();
-                //setTarget(closestFamiliar);
                 break;
             case RUN:
                 run();
-                //setTarget(closestBarrier);
                 break;
         }
     }

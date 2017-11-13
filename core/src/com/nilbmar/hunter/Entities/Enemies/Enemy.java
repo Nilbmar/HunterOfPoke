@@ -245,9 +245,9 @@ public class Enemy extends Entity {
         Double distToLastEnemy = 999.0;
         Double distToCurrentEnemy = 999.0;
 
-        // Look for the closest enemy to help attack
+        // Look for the closest enemy (that isn't itself) to help attack
         for (Enemy enemy : screen.getEnemies()) {
-            if (vision.hasLoS(this, enemy)) {
+            if (this != enemy && vision.hasLoS(this, enemy)) {
                 distToCurrentEnemy = vision.getDistance(this.getPosition(), enemy.getPosition());
 
                 if (distToCurrentEnemy < distToLastEnemy) {

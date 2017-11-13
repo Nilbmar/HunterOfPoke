@@ -18,14 +18,18 @@ public class ScaredBrain extends Brain {
     @Override
     public void noGoal() {
         Gdx.app.log("Scared Brain", "No Goal");
+        addGoal(Goal.PATROL);
     }
 
     @Override
     public void patrol() {
-        if (hasLOStoPlayer) {
-            setGoal(Goal.FIND_HELP);
-        }
         Gdx.app.log("Scared Brain", "Patrol");
+        if (hasLOStoPlayer) {
+            addGoal(Goal.FIND_HELP);
+        } else {
+            // Set next patrol target
+        }
+
     }
 
     @Override
@@ -35,10 +39,10 @@ public class ScaredBrain extends Brain {
             if (helpIsNear) {
                 getEnemy().attack();
             } else {
-                setGoal(Goal.FIND_HELP);
+                addGoal(Goal.FIND_HELP);
             }
         } else {
-            setGoal(Goal.PATROL);
+            addGoal(Goal.PATROL);
         }
     }
 
@@ -46,7 +50,7 @@ public class ScaredBrain extends Brain {
     public void findHelp() {
         Gdx.app.log("Scared Brain", "Find Help");
         if (helpIsNear) {
-            setGoal(Goal.ATTACK);
+            addGoal(Goal.ATTACK);
         } else {
             getEnemy().findHelp();
         }
