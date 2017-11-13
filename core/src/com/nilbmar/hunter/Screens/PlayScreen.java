@@ -208,9 +208,7 @@ public class PlayScreen implements Screen {
             // Set LoS for Enemy->Player within distance
             if (entity.getEntityType() == EntityType.ENEMY) {
                 ((Enemy) entity).setHasLoStoPlayer(
-                        visionComponent.hasLoS(entity, player),
-                        visionComponent.getDistance(entity.getPosition(), player.getPosition()
-                        ));
+                        visionComponent.hasLoS(entity, player, ((Enemy) entity).getDistanceForLOS()));
             }
         }
 

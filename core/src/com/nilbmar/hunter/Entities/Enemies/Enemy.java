@@ -1,6 +1,7 @@
 package com.nilbmar.hunter.Entities.Enemies;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.btree.utils.DistributionAdapters;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -41,6 +42,8 @@ public class Enemy extends Entity {
     private Vision vision;
     private AITarget target;
 
+    private Array<Enemy> nearForHelp;
+
     public Enemy(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
 
@@ -69,9 +72,7 @@ public class Enemy extends Entity {
         imageComponent.setPosition(startInWorldX, startInWorldY);
 
         // AI
-
-        // TODO: REMOVE THIS HARD CODED BRAIN TYPE
-        //brain = new ScaredBrain(this);
+        nearForHelp = new Array<Enemy>();
     }
 
     public void setupAnimationComponents() {
@@ -153,18 +154,11 @@ public class Enemy extends Entity {
         }
     }
 
+    public double getDistanceForLOS() { return distanceForLOS; }
     public void setDistanceForLOS(double distanceForLOS) {
         this.distanceForLOS = distanceForLOS;
     }
-    public void setHasLoStoPlayer(boolean los, double distance ) {
-        // This function is only called when visionComponent DOES have LoS
-        // between Enemy and Player
-        hasLOStoPlayer = los;
-
-        if (distance > distanceForLOS) {
-            hasLOStoPlayer = false;
-        }
-    }
+    public void setHasLoStoPlayer(boolean los) { hasLOStoPlayer = los; }
 
     private void getNewTarget() {
         if (hasLOStoPlayer) {
@@ -245,18 +239,22 @@ public class Enemy extends Entity {
         Double distToLastEnemy = 999.0;
         Double distToCurrentEnemy = 999.0;
 
-        // Look for the closest enemy (that isn't itself) to help attack
+        // Look for the closest enemy,that isn't itself, to help attack
         for (Enemy enemy : screen.getEnemies()) {
-            if (this != enemy && vision.hasLoS(this, enemy)) {
+            if (this != enemy && vision.hasLoS(this, enemy, distanceForLOS)) {
                 distToCurrentEnemy = vision.getDistance(this.getPosition(), enemy.getPosition());
 
+                // Get shortest distance to help
                 if (distToCurrentEnemy < distToLastEnemy) {
                     currentClosestEnemy.set(enemy.getPosition());
                     distToLastEnemy = distToCurrentEnemy;
                 }
+
+                nearForHelp.add(enemy);
             }
         }
 
+        // Is closest help within sight
         if (currentClosestEnemy.x <= distanceForLOS && currentClosestEnemy.y <= distanceForLOS) {
             setTarget(currentClosestEnemy);
         }

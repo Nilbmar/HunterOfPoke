@@ -54,10 +54,15 @@ public class Vision implements Iterable<Vector2> {
         };
     }
 
-    public boolean hasLoS(Entity source, Entity target) {
+    public boolean hasLoS(Entity source, Entity target, Double distanceForLOS) {
         // Checks a ray cast for LoS
         hasLoS = false;
         screen.getWorld().rayCast(raycastCallback, source.getPosition(), target.getPosition());
+
+        // Only allow LOS within given distance
+        if (!(getDistance(source.getPosition(), target.getPosition()) <= distanceForLOS)) {
+            hasLoS = false;
+        }
 
         return hasLoS;
     }
