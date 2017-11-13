@@ -1,7 +1,6 @@
 package com.nilbmar.hunter.Entities.Enemies;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.ai.btree.utils.DistributionAdapters;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -42,8 +41,6 @@ public class Enemy extends Entity {
     private Vision vision;
     private AITarget target;
 
-    private Array<Enemy> nearForHelp;
-
     public Enemy(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
 
@@ -72,7 +69,6 @@ public class Enemy extends Entity {
         imageComponent.setPosition(startInWorldX, startInWorldY);
 
         // AI
-        nearForHelp = new Array<Enemy>();
     }
 
     public void setupAnimationComponents() {
@@ -234,8 +230,9 @@ public class Enemy extends Entity {
         Gdx.app.log(getName(), " is attacking.");
     }
 
-    public void findHelp() {
-        Vector2 currentClosestEnemy = new Vector2(999, 999);
+    public Enemy findHelp() {
+        //Vector2 currentClosestEnemy = new Vector2(999, 999);
+        Enemy currentClosestEnemy = null;
         Double distToLastEnemy = 999.0;
         Double distToCurrentEnemy = 999.0;
 
@@ -246,19 +243,19 @@ public class Enemy extends Entity {
 
                 // Get shortest distance to help
                 if (distToCurrentEnemy < distToLastEnemy) {
-                    currentClosestEnemy.set(enemy.getPosition());
+                    currentClosestEnemy = enemy;
                     distToLastEnemy = distToCurrentEnemy;
                 }
-
-                nearForHelp.add(enemy);
             }
         }
 
         // Is closest help within sight
+        /* TODO: I WANT THE BRAIN MAKING DECISION WHERE TO GO
         if (currentClosestEnemy.x <= distanceForLOS && currentClosestEnemy.y <= distanceForLOS) {
             setTarget(currentClosestEnemy);
         }
-
+        */
+        return currentClosestEnemy;
     }
 
     @Override

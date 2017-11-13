@@ -1,11 +1,11 @@
 package com.nilbmar.hunter.AI.Brains;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Queue;
 import com.nilbmar.hunter.AI.AITarget;
 import com.nilbmar.hunter.AI.States.Action;
 import com.nilbmar.hunter.AI.States.Goal;
 import com.nilbmar.hunter.AI.States.Temperament;
-import com.nilbmar.hunter.AI.Utils.Vision;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
 
 import java.util.Stack;
@@ -20,37 +20,44 @@ public abstract class Brain {
     private Enemy enemy;
     private AITarget target;
 
-    private Stack<Goal> stack;
+    private Stack<Goal> goalsStack;
     private Action currentAction;
     private Temperament currentTemperament;
 
-    protected boolean hasLOStoPlayer;
+    private int amtHelpRequired;
+    protected Queue<Enemy> nearbyHelpQ;
     protected boolean helpIsNear;
+
+    protected boolean hasLOStoPlayer;
     protected boolean alarmed;
 
     public Brain(Enemy enemy) {
         this.enemy = enemy;
 
-        stack = new Stack<Goal>();
+        goalsStack = new Stack<Goal>();
         // Set target to current position so it doesn't move yet
         target = new AITarget(enemy.getPosition());
 
+        nearbyHelpQ = new Queue<Enemy>();
         hasLOStoPlayer = false;
         alarmed = false;
-        stack.push(Goal.NONE);
+        goalsStack.push(Goal.NONE);
         currentAction = Action.STILL;
         currentTemperament = Temperament.DOCILE;
     }
 
+    public int getAmtHelpRequired() { return amtHelpRequired; }
+    public void setAmtHelpRequired(int amt) { amtHelpRequired = amt; }
+
     public Enemy getEnemy() { return enemy; }
 
-    public Goal getGoal() { return stack.peek(); }
+    public Goal getGoal() { return goalsStack.peek(); }
     public void addGoal(Goal goal) {
-        stack.push(goal);
+        goalsStack.push(goal);
     }
     public void removeGoal() {
-        if (stack.peek() != Goal.NONE) {
-            stack.pop();
+        if (goalsStack.peek() != Goal.NONE) {
+            goalsStack.pop();
         }
     }
 
@@ -73,7 +80,7 @@ public abstract class Brain {
     }
 
     private void goalIs() {
-        switch (stack.peek()) {
+        switch (goalsStack.peek()) {
             case NONE:
                 noGoal();
                 break;

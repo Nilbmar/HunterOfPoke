@@ -1,6 +1,7 @@
 package com.nilbmar.hunter.AI.Brains;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.Queue;
 import com.nilbmar.hunter.AI.States.Goal;
 import com.nilbmar.hunter.AI.Utils.Vision;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
@@ -13,6 +14,9 @@ import com.nilbmar.hunter.Entities.Entity;
 public class ScaredBrain extends Brain {
     public ScaredBrain(Enemy enemy) {
         super(enemy);
+
+
+        setAmtHelpRequired(1);
     }
 
     @Override
@@ -36,7 +40,10 @@ public class ScaredBrain extends Brain {
     public void attack() {
         Gdx.app.log("Scared Brain", "Attack");
         if (hasLOStoPlayer) {
-            if (helpIsNear) {
+            // Keep this check in for Scared
+            // so they can go back to finding help
+            // if they lose a friend
+            if (nearbyHelpQ.size >= getAmtHelpRequired()) {
                 getEnemy().attack();
             } else {
                 addGoal(Goal.FIND_HELP);
@@ -49,10 +56,10 @@ public class ScaredBrain extends Brain {
     @Override
     public void findHelp() {
         Gdx.app.log("Scared Brain", "Find Help");
-        if (helpIsNear) {
+        if (nearbyHelpQ.size >= getAmtHelpRequired()) {
             addGoal(Goal.ATTACK);
         } else {
-            getEnemy().findHelp();
+            nearbyHelpQ.addLast(getEnemy().findHelp());
         }
     }
 
