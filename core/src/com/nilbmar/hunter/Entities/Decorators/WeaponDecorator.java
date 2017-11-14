@@ -69,7 +69,6 @@ public class WeaponDecorator extends EnemyDecorator {
         // split it apart with a blank space as the separator
         if (!fullProperties.get(1).equals("null")) {
             fireProperties = new Array<String>(fullProperties.get(1).split(" "));
-            System.out.println(fullProperties.get(1));
         }
 
         // Switch the BulletType and ShotType based on

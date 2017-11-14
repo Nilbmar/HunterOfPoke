@@ -63,9 +63,9 @@ public class FramesComponent {
             useFramesCount = animData.getUseFramesCount();
             stillFramesCount = animData.getStillFramesCount();
             if (animData.getWalkFramesArr() != null) {
-                Gdx.app.log("AnimationData in FramesComponent", animData.getWalkFramesArr().toString());
+                //Gdx.app.log("AnimationData in FramesComponent", animData.getWalkFramesArr().toString());
             } else {
-                Gdx.app.log("AnimationData in FramesComponenet", "getWalkFramesArr is null");
+                Gdx.app.log("AnimationData in FramesComponent", "Failed to load " + animFile.toString());
             }
         } else {
             Gdx.app.log("animFile", " is null");

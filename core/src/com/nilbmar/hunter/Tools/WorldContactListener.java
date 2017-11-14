@@ -12,6 +12,7 @@ import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Entities.Items.Item;
 import com.nilbmar.hunter.Entities.Player;
+import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.HunterOfPoke;
 
 /**
@@ -31,27 +32,28 @@ public class WorldContactListener implements ContactListener {
         // Handle collisions and who dies
         switch(collisionDef) {
             case HunterOfPoke.BULLET_BIT | HunterOfPoke.GROUND_BIT:
+                // TODO: SEPARATE BULLETS AND BOXES
                 if (fixtA.getFilterData().categoryBits == HunterOfPoke.BULLET_BIT) {
                     try {
                         ((Bullet) fixtA.getUserData()).onHit();
                     } catch (ClassCastException castEx) {
-                        Gdx.app.log("ClassCastException", "not a bullet");
+                        //Gdx.app.log("ClassCastException", "not a bullet");
                     }
                     try {
                         ((Box) fixtA.getUserData()).onHit();
                     } catch (ClassCastException castEx) {
-                        Gdx.app.log("ClassCastException", "not a box");
+                        //Gdx.app.log("ClassCastException", "not a box");
                     }
                 } else {
                     try {
                         ((Bullet) fixtB.getUserData()).onHit();
                     } catch (ClassCastException castEx) {
-                        Gdx.app.log("ClassCastException", "not a bullet");
+                        //Gdx.app.log("ClassCastException", "not a bullet");
                     }
                     try {
                         ((Box) fixtB.getUserData()).onHit();
                     } catch (ClassCastException castEx) {
-                        Gdx.app.log("ClassCastException", "not a box");
+                        //Gdx.app.log("ClassCastException", "not a box");
                     }
                 }
                 break;
