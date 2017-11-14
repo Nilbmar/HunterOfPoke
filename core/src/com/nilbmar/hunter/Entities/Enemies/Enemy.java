@@ -164,7 +164,7 @@ public class Enemy extends Entity {
         }
     }
 
-    private void setTarget(Vector2 position) {
+    public void setTarget(Vector2 position) {
         target.setPosition(position);
         ai.setTarget(target);
     }
@@ -227,7 +227,13 @@ public class Enemy extends Entity {
     }
 
     public void attack() {
-        Gdx.app.log(getName(), " is attacking.");
+        //Gdx.app.log(getName(), " is attacking.");
+        /* If no weapon, setTarget to player
+            if does have a weapon:
+                PICK ANOTHER STEERING BEHAVIOR TO KEEP A CERTAIN DISTANCE
+         */
+
+        setTarget(screen.getPlayer().getPosition());
     }
 
     public Enemy findHelp() {
@@ -264,6 +270,7 @@ public class Enemy extends Entity {
             case BULLET:
                 Gdx.app.log("Enemy Hit", "You got me!");
                 lifeComp.loseHitPoints(1);
+                Gdx.app.log("On Hit - NearbyHelpQ", brain.getGoalsStack().toString());
                 if (!lifeComp.isDead()) {
                     Gdx.app.log("Enemy Death", "AAaaaaaaggghhh! I'm dying!");
                 }
@@ -330,7 +337,7 @@ public class Enemy extends Entity {
         // Set the target for and update AI movement
         if (ai != null) {
 
-            getNewTarget();
+            //getNewTarget();
             ai.update(deltaTime);
 
             setDirection();

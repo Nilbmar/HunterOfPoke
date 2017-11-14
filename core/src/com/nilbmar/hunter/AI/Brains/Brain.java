@@ -46,6 +46,7 @@ public abstract class Brain {
         currentTemperament = Temperament.DOCILE;
     }
 
+    public Stack<Goal> getGoalsStack() { return goalsStack; }
     public int getAmtHelpRequired() { return amtHelpRequired; }
     public void setAmtHelpRequired(int amt) { amtHelpRequired = amt; }
 
@@ -84,6 +85,9 @@ public abstract class Brain {
             case NONE:
                 noGoal();
                 break;
+            case GO_TO:
+                goTo();
+                break;
             case PATROL:
                 patrol();
                 break;
@@ -100,6 +104,11 @@ public abstract class Brain {
                 run();
                 break;
         }
+    }
+
+    public void goTo() {
+        // Set SteeringBehavior's target
+        getEnemy().setTarget(target.getPosition());
     }
 
     public abstract void noGoal();

@@ -6,4 +6,4 @@ package com.nilbmar.hunter.AI.States;
  * What the enemy wants to do
  */
 
-public enum Goal { NONE, PATROL, ATTACK, FIND_HELP, HIDE, RUN }
+public enum Goal { NONE, GO_TO, PATROL, ATTACK, FIND_HELP, HIDE, RUN }
