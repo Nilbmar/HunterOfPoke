@@ -1,11 +1,14 @@
 package com.nilbmar.hunter.AI.Brains;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Queue;
 import com.nilbmar.hunter.AI.AITarget;
 import com.nilbmar.hunter.AI.States.Action;
 import com.nilbmar.hunter.AI.States.Goal;
 import com.nilbmar.hunter.AI.States.Temperament;
+import com.nilbmar.hunter.AI.SteeringAI;
+import com.nilbmar.hunter.AI.Utils.Behaviors;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
 
 import java.util.Stack;
@@ -18,6 +21,7 @@ import java.util.Stack;
 
 public abstract class Brain {
     private Enemy enemy;
+    private SteeringAI ai;
     private AITarget target;
 
     private Stack<Goal> goalsStack;
@@ -31,8 +35,9 @@ public abstract class Brain {
     protected boolean hasLOStoPlayer;
     protected boolean alarmed;
 
-    public Brain(Enemy enemy) {
+    public Brain(Enemy enemy, SteeringAI ai) {
         this.enemy = enemy;
+        this.ai = ai;
 
         goalsStack = new Stack<Goal>();
         // Set target to current position so it doesn't move yet
@@ -111,12 +116,20 @@ public abstract class Brain {
         getEnemy().setTarget(target.getPosition());
     }
 
+    public void run() {
+        ai.setCurrentBehavior(Behaviors.Behavior.SEEK);
+        getEnemy().setTarget(new Vector2(
+                getEnemy().getPosition().x - 10,
+                getEnemy().getPosition().y - 10));
+        Gdx.app.log("Brain", "Running to " + getEnemy().getPosition() + " - behavior is " + ai.getCurrentBehavior());
+    }
+
     public abstract void noGoal();
     public abstract void patrol();
     public abstract void attack();
     public abstract void findHelp();
     public abstract void hide();
-    public abstract void run();
+    //public abstract void run();
 
     public void update(boolean hasLOStoPlayer) {
         this.hasLOStoPlayer = hasLOStoPlayer;

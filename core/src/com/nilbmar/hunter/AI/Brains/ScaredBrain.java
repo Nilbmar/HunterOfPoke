@@ -3,6 +3,7 @@ package com.nilbmar.hunter.AI.Brains;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Queue;
 import com.nilbmar.hunter.AI.States.Goal;
+import com.nilbmar.hunter.AI.SteeringAI;
 import com.nilbmar.hunter.AI.Utils.Vision;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.Entity;
@@ -12,11 +13,11 @@ import com.nilbmar.hunter.Entities.Entity;
  */
 
 public class ScaredBrain extends Brain {
-    public ScaredBrain(Enemy enemy) {
-        super(enemy);
+    public ScaredBrain(Enemy enemy, SteeringAI ai) {
+        super(enemy, ai);
 
-        //setAmtHelpRequired(1);
-        setAmtHelpRequired(0);
+        setAmtHelpRequired(1);
+        //setAmtHelpRequired(0);
     }
 
     @Override
@@ -49,6 +50,7 @@ public class ScaredBrain extends Brain {
             if (nearbyHelpQ.size >= getAmtHelpRequired()) {
                 getEnemy().attack();
             } else {
+                run();
                 addGoal(Goal.FIND_HELP);
             }
         } else {
@@ -61,11 +63,17 @@ public class ScaredBrain extends Brain {
     @Override
     public void findHelp() {
         //Gdx.app.log("Scared Brain", "Find Help");
-        if (nearbyHelpQ.size >= getAmtHelpRequired()) {
-            addGoal(Goal.ATTACK);
+        if (nearbyHelpQ.size < getAmtHelpRequired()) {
+            nearbyHelpQ.addFirst(getEnemy().findHelp());
+            Gdx.app.log("Help", getEnemy().findHelp() + "");
+            if (nearbyHelpQ.size >= 1) {
+                //getEnemy().setTarget(nearbyHelpQ.first().getPosition());
+                Gdx.app.log("ScaredBrain - Find Help", nearbyHelpQ.toString());
+            }
         } else {
-            nearbyHelpQ.addLast(getEnemy().findHelp());
-            getEnemy().setTarget(nearbyHelpQ.get(0).getPosition());
+            if (nearbyHelpQ.first() != null) {
+                addGoal(Goal.ATTACK);
+            }
         }
     }
 

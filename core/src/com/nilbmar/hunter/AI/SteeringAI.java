@@ -29,6 +29,8 @@ public class SteeringAI implements Steerable<Vector2> {
     private SteeringBehavior<Vector2> steerBehavior;
     private SteeringAcceleration<Vector2> steerOutput;
 
+    private Behaviors.Behavior currentBehavior;
+
     private Vector2 position;
 
     private boolean tagged;
@@ -62,7 +64,8 @@ public class SteeringAI implements Steerable<Vector2> {
         position = body.getPosition();
 
         // Set initial steering behavior
-        setSteerBehavior(Behaviors.Behavior.ARRIVE);
+        setCurrentBehavior(Behaviors.Behavior.ARRIVE);
+        setSteerBehavior(currentBehavior);
     }
 
     // Used to make the target (aka player) Steerable without adding it to the Player class
@@ -76,6 +79,11 @@ public class SteeringAI implements Steerable<Vector2> {
     }
     public void setSteeringBehavior(SteeringBehavior<Vector2> steerBehavior) {
         this.steerBehavior = steerBehavior;
+    }
+
+    public Behaviors.Behavior getCurrentBehavior() { return currentBehavior; }
+    public void setCurrentBehavior(Behaviors.Behavior behavior) {
+        currentBehavior = behavior;
     }
 
     public void setTarget(AITarget target) {
@@ -250,7 +258,7 @@ public class SteeringAI implements Steerable<Vector2> {
 
             // Has not arrived at target
             if (!target.getPosition().equals(getPosition())) {
-                setSteerBehavior(Behaviors.Behavior.ARRIVE);
+                setSteerBehavior(currentBehavior);
                 steerBehavior.calculateSteering(steerOutput);
                 applySteering(deltaTime);
             } else {

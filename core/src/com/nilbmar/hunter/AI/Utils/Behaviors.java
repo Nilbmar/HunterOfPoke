@@ -2,6 +2,7 @@ package com.nilbmar.hunter.AI.Utils;
 
 import com.badlogic.gdx.ai.steer.SteeringBehavior;
 import com.badlogic.gdx.ai.steer.behaviors.Arrive;
+import com.badlogic.gdx.ai.steer.behaviors.Seek;
 import com.badlogic.gdx.math.Vector2;
 import com.nilbmar.hunter.AI.AITarget;
 import com.nilbmar.hunter.AI.SteeringAI;
@@ -30,6 +31,11 @@ public abstract class Behaviors {
         }
 
         return steeringBehavior;
+    }
+
+    public static SteeringBehavior<Vector2> seekBehavior(SteeringAI steerable, AITarget target) {
+        return new Seek<Vector2>(steerable, new SteeringAI(target.getPosition()));
+
     }
 
     public static SteeringBehavior<Vector2> arriveBehavior(SteeringAI steerable, AITarget target) {

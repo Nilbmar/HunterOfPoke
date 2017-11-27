@@ -100,7 +100,7 @@ public class Enemy extends Entity {
     public void setupBrain(Temperament temperament) {
         switch (temperament) {
             case SCARED:
-                brain = new ScaredBrain(this);
+                brain = new ScaredBrain(this, ai);
                 break;
             case CAUTIOUS:
 
@@ -237,13 +237,13 @@ public class Enemy extends Entity {
     }
 
     public Enemy findHelp() {
-        //Vector2 currentClosestEnemy = new Vector2(999, 999);
         Enemy currentClosestEnemy = null;
         Double distToLastEnemy = 999.0;
         Double distToCurrentEnemy = 999.0;
 
         // Look for the closest enemy,that isn't itself, to help attack
         for (Enemy enemy : screen.getEnemies()) {
+            vision.setupRaycast(enemy);
             if (this != enemy && vision.hasLoS(this, enemy, distanceForLOS)) {
                 distToCurrentEnemy = vision.getDistance(this.getPosition(), enemy.getPosition());
 
@@ -255,12 +255,6 @@ public class Enemy extends Entity {
             }
         }
 
-        // Is closest help within sight
-        /* TODO: I WANT THE BRAIN MAKING DECISION WHERE TO GO
-        if (currentClosestEnemy.x <= distanceForLOS && currentClosestEnemy.y <= distanceForLOS) {
-            setTarget(currentClosestEnemy);
-        }
-        */
         return currentClosestEnemy;
     }
 
