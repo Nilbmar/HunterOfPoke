@@ -238,6 +238,7 @@ public class Enemy extends Entity {
 
     public Enemy findHelp() {
         Enemy currentClosestEnemy = null;
+        // Set high because looking for lowest
         Double distToLastEnemy = 999.0;
         Double distToCurrentEnemy = 999.0;
 
