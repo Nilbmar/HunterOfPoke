@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
  * Created by sysgeek on 8/22/17.
  */
 
-public class ImageComponent extends Sprite {
+public class ImageComponent extends Sprite implements Component {
     private float startInWorldX;
     private float startInWorldY;
 

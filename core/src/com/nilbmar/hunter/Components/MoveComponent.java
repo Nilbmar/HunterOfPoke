@@ -12,7 +12,7 @@ import com.nilbmar.hunter.AI.States.Action;
  * Enemies use SteeringAI instead
  */
 
-public class MoveComponent {
+public class MoveComponent implements Component {
     private DirectionComponent.Direction currentDirection;
     private DirectionComponent.Direction previousDirection;
     private Action currentAction;

@@ -18,7 +18,7 @@ import com.nilbmar.hunter.Screens.PlayScreen;
  * Created by sysgeek on 4/29/17.
  */
 
-public class BodyComponent {
+public class BodyComponent implements Component {
     private Shape shape;
     private BodyDef bDef;
     private FixtureDef fDef;

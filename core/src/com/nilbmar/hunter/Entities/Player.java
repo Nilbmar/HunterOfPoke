@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.nilbmar.hunter.Commands.ChangeCollisionCommand;
 import com.nilbmar.hunter.Commands.UseCommand;
-import com.nilbmar.hunter.Components.AnimationComp;
+import com.nilbmar.hunter.Components.AnimationComponent;
 import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Components.FramesComponent;
 import com.nilbmar.hunter.Components.InventoryComponent;
@@ -63,7 +63,7 @@ public class Player extends Entity {
         framesComp.setFrames();
 
         // Set up animations component
-        animComp = new AnimationComp(screen, this, framesComp, regionName);
+        animComp = new AnimationComponent(screen, this, framesComp, regionName);
 
         // Create Body
         defineBody();

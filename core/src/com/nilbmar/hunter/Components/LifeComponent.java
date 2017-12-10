@@ -4,7 +4,7 @@ package com.nilbmar.hunter.Components;
  * Created by sysgeek on 9/24/17.
  */
 
-public class LifeComponent {
+public class LifeComponent implements Component {
 
     private int hitPoints;
     private int maxHitPoints;

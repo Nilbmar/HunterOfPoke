@@ -12,7 +12,7 @@ import com.nilbmar.hunter.AI.Brains.ScaredBrain;
 import com.nilbmar.hunter.AI.States.Temperament;
 import com.nilbmar.hunter.AI.SteeringAI;
 import com.nilbmar.hunter.AI.Utils.Vision;
-import com.nilbmar.hunter.Components.AnimationComp;
+import com.nilbmar.hunter.Components.AnimationComponent;
 import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Components.FramesComponent;
 import com.nilbmar.hunter.Components.LifeComponent;
@@ -50,7 +50,7 @@ public class Enemy extends Entity {
 
         vision = new Vision(screen);
 
-        // TODO: THESE WILL BE NEEDED FOR NEW AnimationComp
+        // TODO: THESE WILL BE NEEDED FOR NEW AnimationComponent
         setImageWidth(16);
         setImageHeight(16);
         atlas = screen.getAssetsHandler().getEnemyAtlas();
@@ -80,7 +80,7 @@ public class Enemy extends Entity {
             framesComp.setFrames();
 
             // Set up animations component
-            animComp = new AnimationComp(screen, this, framesComp, regionName);
+            animComp = new AnimationComponent(screen, this, framesComp, regionName);
 
             // Create initial default animation
             charAnim = animComp.makeTexturesIntoAnimation(0.1f, directionComp.getDirection(), currentAction);

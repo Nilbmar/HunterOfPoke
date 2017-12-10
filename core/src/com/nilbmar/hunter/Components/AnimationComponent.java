@@ -13,7 +13,7 @@ import com.nilbmar.hunter.Screens.PlayScreen;
  * Created by sysgeek on 7/28/17.
  */
 
-public class AnimationComp {
+public class AnimationComponent implements Component {
     private PlayScreen screen;
     private Entity entity;
     private TextureAtlas atlas;
@@ -30,7 +30,7 @@ public class AnimationComp {
 
     private Array<TextureRegion> frames;
 
-    public AnimationComp(PlayScreen screen, Entity entity, FramesComponent framesComp, String regionName) {
+    public AnimationComponent(PlayScreen screen, Entity entity, FramesComponent framesComp, String regionName) {
         this.screen = screen;
         this.entity = entity;
         this.framesComp = framesComp;

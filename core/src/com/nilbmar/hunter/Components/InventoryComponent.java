@@ -13,7 +13,7 @@ import com.nilbmar.hunter.Enums.InventorySlotType;
  * Purpose: Allows an Entity to have an inventory
  */
 
-public class InventoryComponent {
+public class InventoryComponent implements Component {
     private Entity entity;
     private int slotsTotal;
     private int slotsMax;

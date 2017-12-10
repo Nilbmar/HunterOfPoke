@@ -16,7 +16,7 @@ import com.nilbmar.hunter.Enums.ShotType;
  * Purpose: Add a weapon to Player or Enemy entities
  */
 
-public class WeaponComponent {
+public class WeaponComponent implements Component {
     private BulletPatternHandler bulletPatterns;
     private BoxPatternHandler boxPatterns;
     private BulletType type;

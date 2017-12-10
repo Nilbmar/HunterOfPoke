@@ -20,8 +20,6 @@ public class WeaponDecorator extends EnemyDecorator {
     private BulletType bulletType;
     private ShotType shotType;
 
-
-
     public WeaponDecorator(PlayScreen screen, float startInWorldX, float startInWorldY,
                            BulletType bulletType, ShotType shotType) {
         super(screen, startInWorldX, startInWorldY);

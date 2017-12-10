@@ -7,7 +7,7 @@ import com.nilbmar.hunter.Enums.ItemType;
  * Created by sysgeek on 6/13/17.
  */
 
-public class TimerComponent {
+public class TimerComponent implements Component {
     private Entity entity;
     private float stateTime;
     private float setTime;

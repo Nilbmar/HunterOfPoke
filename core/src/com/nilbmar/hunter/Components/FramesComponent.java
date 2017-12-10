@@ -9,10 +9,10 @@ import com.nilbmar.hunter.Tools.Loaders.AnimationLoader;
 /**
  * Created by sysgeek on 5/4/17.
  *
- * Purpose: Grab the correct frame from an AnimationComp
+ * Purpose: Grab the correct frame from an AnimationComponent
  */
 
-public class FramesComponent {
+public class FramesComponent implements Component {
     private AnimationLoader animLoader;
     private AnimationData animData;
     private String animFile;

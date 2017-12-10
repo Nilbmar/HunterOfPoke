@@ -9,8 +9,9 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.nilbmar.hunter.Components.AnimationComp;
+import com.nilbmar.hunter.Components.AnimationComponent;
 import com.nilbmar.hunter.Components.BodyComponent;
+import com.nilbmar.hunter.Components.Component;
 import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Components.FramesComponent;
 import com.nilbmar.hunter.Components.ImageComponent;
@@ -21,6 +22,8 @@ import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Enums.ItemType;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Tools.AssetHandler;
+
+import java.util.HashMap;
 
 /**
  * Created by sysgeek on 8/22/17.
@@ -40,8 +43,10 @@ public abstract class Entity {
     protected boolean updateTextureAtlas = false;
 
     // Components
+    protected HashMap<String, Component> componentMap;
+
     protected FramesComponent framesComp;
-    protected AnimationComp animComp;
+    protected AnimationComponent animComp;
     protected Animation charAnim;
     protected ImageComponent imageComponent;
     protected BodyComponent bodyComponent;
@@ -115,7 +120,7 @@ public abstract class Entity {
 
     public abstract String getRegionName(DirectionComponent.Direction currentDirection);
 
-    // Change TextureAtlas in the AnimationComp
+    // Change TextureAtlas in the AnimationComponent
     public void setUpdateTextureAtlas(boolean updateTextureAtlas) {
         switch (entityType) {
             case PLAYER:

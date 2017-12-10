@@ -5,7 +5,7 @@ package com.nilbmar.hunter.Components;
  * Created by sysgeek on 7/28/17.
  */
 
-public class DirectionComponent {
+public class DirectionComponent implements Component {
 
 
     public enum Direction { UP, DOWN, LEFT, RIGHT,
