@@ -33,7 +33,7 @@ public class SomeOtherDecorator extends EnemyDecorator {
         // ONLY ALLOWS SINGLE SHOT
         if (fireCount >= 1) {
             weapon.setType(BulletType.FIRE);
-            weapon.execute(this);
+            weapon.fire(this);
             fireCount--;
         }
     }

@@ -57,7 +57,7 @@ public class WeaponDecorator extends EnemyDecorator {
         // ONLY ALLOWS SINGLE SHOT
         if (fireCount >= 1) {
             weapon.setType(bulletType);
-            weapon.execute(this);
+            weapon.fire(this);
             fireCount--;
         }
     }

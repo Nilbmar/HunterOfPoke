@@ -104,13 +104,13 @@ public class InputHandler {
 
         if (Gdx.input.isKeyPressed(Input.Keys.C)) {
             twinShot.setType(BulletType.BALL);
-            twinShot.execute(player);
+            twinShot.fire(player);
         }
 
         // Single Shot
         if (Gdx.input.isKeyJustPressed(Input.Keys.X)) {
             singleShot.setType(BulletType.FIRE);
-            singleShot.execute(player);
+            singleShot.fire(player);
         }
     }
 
@@ -136,9 +136,9 @@ public class InputHandler {
 
         player.getB2Body().setAwake(awake);
         if (type == ShotType.SINGLE) {
-            singleShot.execute(player);
+            singleShot.fire(player);
         } else if (type == ShotType.TWIN) {
-            twinShot.execute(player);
+            twinShot.fire(player);
         }
     }
 

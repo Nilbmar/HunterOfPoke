@@ -12,62 +12,28 @@ import com.nilbmar.hunter.Enums.ShotType;
 
 /**
  * Created by sysgeek on 6/10/17.
+ *
+ * Purpose: Add a weapon to Player or Enemy entities
  */
 
-public class WeaponComponent implements Command {
-    // TODO: REMOVE BULLETS
+public class WeaponComponent {
     private BulletPatternHandler bulletPatterns;
     private BoxPatternHandler boxPatterns;
     private BulletType type;
     private ShotType shot;
-    private String firedBy;
+    //private String firedBy;
 
     public WeaponComponent(BulletPatternHandler bulletPatterns, BulletType type, ShotType shot) {
-
         this.bulletPatterns = bulletPatterns;
         this.type = type;
         this.shot = shot;
-        firedBy = null;
-    }
-
-    public WeaponComponent(BoxPatternHandler boxPatterns, BulletType type, ShotType shot) {
-
-        this.boxPatterns = boxPatterns;
-        this.type = type;
-        this.shot = shot;
+        //firedBy = null;
     }
 
     public void setType(BulletType type) { this.type = type; }
 
 
-    public void boxExecute(Entity entity) {
-        boolean fire = false;
-        DirectionComponent.Direction direction = DirectionComponent.Direction.DOWN;
-
-        switch (entity.getEntityType()) {
-            case PLAYER:
-                direction = ((Player) entity).getDirectionComponent().getDirection();
-                fire = true;
-                break;
-            case ENEMY:
-                direction = ((Enemy) entity).getDirectionComponent().getDirection();
-                fire = true;
-                break;
-        }
-        if (fire) {
-            switch (shot) {
-                case TWIN:
-                    boxPatterns.twinShot(type, direction, entity.getSpawnOtherX(), entity.getSpawnOtherY());
-                    break;
-                case SINGLE:
-                    boxPatterns.singleShot(type, direction, entity.getSpawnOtherX(), entity.getSpawnOtherY());
-                    break;
-            }
-        }
-    }
-
-    @Override
-    public void execute(Entity entity) {
+    public void fire(Entity entity) {
         boolean fire = false;
         DirectionComponent.Direction direction = DirectionComponent.Direction.DOWN;
 
