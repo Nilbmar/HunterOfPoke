@@ -114,7 +114,7 @@ public class EntityLoader implements Loader {
                 case FIRE:
                     entity = new WeaponDecorator(screen, startX, startY, fullProperties);
                     break;
-                case NO_COLLISION: // TODO: THIS IS CURRENTLY STILL ADDING A FIRECOMMAND
+                case NO_COLLISION: // TODO: THIS IS CURRENTLY STILL ADDING A WEAPONCOMMAND
                     entity = new SomeOtherDecorator(screen, startX, startY);
                     break;
                 case NONE:

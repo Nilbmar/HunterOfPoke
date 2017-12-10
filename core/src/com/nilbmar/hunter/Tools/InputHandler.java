@@ -5,10 +5,9 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.nilbmar.hunter.Commands.AccelerationCommand;
 import com.nilbmar.hunter.Commands.FireBoxCommand;
-import com.nilbmar.hunter.Commands.FireCommand;
+import com.nilbmar.hunter.Components.WeaponComponent;
 import com.nilbmar.hunter.Commands.MoveCommand;
 import com.nilbmar.hunter.Commands.SetPlayerPackCommand;
-import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Entities.Player;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Enums.BulletType;
@@ -33,8 +32,8 @@ public class InputHandler {
 
     // TODO: REMOVE THE BULLET SHOTS
     private FireBoxCommand boxSingleShot;
-    private FireCommand singleShot;
-    private FireCommand twinShot;
+    private WeaponComponent singleShot;
+    private WeaponComponent twinShot;
 
 
     public InputHandler(PlayScreen screen) {
@@ -45,8 +44,8 @@ public class InputHandler {
         acclCommand = new AccelerationCommand(player, acceleration);
         moveCommand = new MoveCommand();
         boxSingleShot = new FireBoxCommand(screen.getBoxPatterns(), BulletType.BALL, ShotType.SINGLE);
-        singleShot = new FireCommand(screen.getBulletPatterns(), BulletType.BALL, ShotType.SINGLE);
-        twinShot = new FireCommand(screen.getBulletPatterns(), BulletType.BALL, ShotType.TWIN);
+        singleShot = new WeaponComponent(screen.getBulletPatterns(), BulletType.BALL, ShotType.SINGLE);
+        twinShot = new WeaponComponent(screen.getBulletPatterns(), BulletType.BALL, ShotType.TWIN);
     }
 
     private void accelerate(float deltaTime) {

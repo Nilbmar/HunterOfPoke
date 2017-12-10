@@ -1,7 +1,7 @@
 package com.nilbmar.hunter.Entities.Decorators;
 
 import com.badlogic.gdx.utils.Array;
-import com.nilbmar.hunter.Commands.FireCommand;
+import com.nilbmar.hunter.Components.WeaponComponent;
 import com.nilbmar.hunter.Enums.BulletType;
 import com.nilbmar.hunter.Enums.ShotType;
 import com.nilbmar.hunter.Screens.PlayScreen;
@@ -10,13 +10,13 @@ import com.nilbmar.hunter.Screens.PlayScreen;
  * Created by sysgeek on 6/27/17.
  *
  * EnemyDecorator: WeaponDecorator
- * Purpose: Add a FireCommand to Enemy
+ * Purpose: Add a WeaponComponent to Enemy
  * from Tiled custom property
  */
 
 public class WeaponDecorator extends EnemyDecorator {
     private int fireCount = 1;
-    private FireCommand fire;
+    private WeaponComponent weapon;
     private BulletType bulletType;
     private ShotType shotType;
 
@@ -28,7 +28,7 @@ public class WeaponDecorator extends EnemyDecorator {
 
         this.bulletType = bulletType;
         this.shotType = shotType;
-        fire = new FireCommand(screen.getBulletPatterns(), bulletType, shotType);
+        weapon = new WeaponComponent(screen.getBulletPatterns(), bulletType, shotType);
     }
 
     public WeaponDecorator(PlayScreen screen, float startInWorldX, float startInWorldY,
@@ -41,7 +41,7 @@ public class WeaponDecorator extends EnemyDecorator {
 
         parseProperties(shotProperties);
 
-        fire = new FireCommand(screen.getBulletPatterns(), bulletType, shotType);
+        weapon = new WeaponComponent(screen.getBulletPatterns(), bulletType, shotType);
     }
 
     // Might use these setters to change bullet properties later on
@@ -53,35 +53,35 @@ public class WeaponDecorator extends EnemyDecorator {
     public void update(float deltaTime) {
         super.update(deltaTime);
 
-        // TODO: REMOVE - ONLY USING THIS FOR TESTING FIRECOMMAND
+        // TODO: REMOVE - ONLY USING THIS FOR TESTING WEAPONCOMPONENT
         // ONLY ALLOWS SINGLE SHOT
         if (fireCount >= 1) {
-            fire.setType(bulletType);
-            fire.execute(this);
+            weapon.setType(bulletType);
+            weapon.execute(this);
             fireCount--;
         }
     }
 
     private void parseProperties(Array<String> fullProperties) {
-        Array<String> fireProperties = null;
+        Array<String> weaponProperties = null;
 
         // If the Tiled custom property "ShotType" contains data
         // split it apart with a blank space as the separator
         if (!fullProperties.get(1).equals("null")) {
-            fireProperties = new Array<String>(fullProperties.get(1).split(" "));
+            weaponProperties = new Array<String>(fullProperties.get(1).split(" "));
         }
 
         // Switch the BulletType and ShotType based on
         // custom property "ShotType" in Tiled
         // index[0] is the ShotType enum
         // index[1] is the BulletType enum
-        if (fireProperties != null) {
-            shotType = ShotType.contains(fireProperties.get(0));
+        if (weaponProperties != null) {
+            shotType = ShotType.contains(weaponProperties.get(0));
             if (shotType == null) {
                 shotType = ShotType.SINGLE;
             }
 
-            bulletType = BulletType.contains(fireProperties.get(1));
+            bulletType = BulletType.contains(weaponProperties.get(1));
             if (bulletType == null) {
                 bulletType = BulletType.BALL;
             }

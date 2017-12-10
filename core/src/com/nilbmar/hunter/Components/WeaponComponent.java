@@ -1,5 +1,6 @@
-package com.nilbmar.hunter.Commands;
+package com.nilbmar.hunter.Components;
 
+import com.nilbmar.hunter.Commands.Command;
 import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.Entity;
@@ -13,7 +14,7 @@ import com.nilbmar.hunter.Enums.ShotType;
  * Created by sysgeek on 6/10/17.
  */
 
-public class FireCommand implements Command {
+public class WeaponComponent implements Command {
     // TODO: REMOVE BULLETS
     private BulletPatternHandler bulletPatterns;
     private BoxPatternHandler boxPatterns;
@@ -21,7 +22,7 @@ public class FireCommand implements Command {
     private ShotType shot;
     private String firedBy;
 
-    public FireCommand(BulletPatternHandler bulletPatterns, BulletType type, ShotType shot) {
+    public WeaponComponent(BulletPatternHandler bulletPatterns, BulletType type, ShotType shot) {
 
         this.bulletPatterns = bulletPatterns;
         this.type = type;
@@ -29,7 +30,7 @@ public class FireCommand implements Command {
         firedBy = null;
     }
 
-    public FireCommand(BoxPatternHandler boxPatterns, BulletType type, ShotType shot) {
+    public WeaponComponent(BoxPatternHandler boxPatterns, BulletType type, ShotType shot) {
 
         this.boxPatterns = boxPatterns;
         this.type = type;
