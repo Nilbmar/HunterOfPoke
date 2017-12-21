@@ -42,9 +42,6 @@ public abstract class Entity {
     protected TextureAtlas atlas;
     protected boolean updateTextureAtlas = false;
 
-    // Components
-    protected HashMap<String, Component> componentMap;
-
     protected FramesComponent framesComp;
     protected AnimationComponent animComp;
     protected Animation charAnim;
