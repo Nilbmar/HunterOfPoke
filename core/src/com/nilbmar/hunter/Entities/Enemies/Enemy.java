@@ -13,6 +13,7 @@ import com.nilbmar.hunter.AI.States.Temperament;
 import com.nilbmar.hunter.AI.SteeringAI;
 import com.nilbmar.hunter.AI.Utils.Vision;
 import com.nilbmar.hunter.Components.AnimationComponent;
+import com.nilbmar.hunter.Components.Component;
 import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Components.FramesComponent;
 import com.nilbmar.hunter.Components.LifeComponent;
@@ -21,6 +22,8 @@ import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.AI.States.Action;
 import com.nilbmar.hunter.Enums.EntityType;
+
+import java.util.HashMap;
 
 /**
  * Created by sysgeek on 5/26/17.
@@ -40,6 +43,9 @@ public class Enemy extends Entity {
     private double distanceForLOS;
     private Vision vision;
     private AITarget target;
+
+    // Weapons HashMap
+    private HashMap<String, Boolean> weaponMap;
 
     public Enemy(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
