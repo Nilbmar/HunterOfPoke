@@ -87,16 +87,6 @@ public abstract class Bullet  extends Entity implements Poolable {
     }
 
     @Override
-    public float getSpawnOtherX() {
-        return imageComponent.getX() + imageComponent.getWidth() / 2;
-    }
-
-    @Override
-    public float getSpawnOtherY() {
-        return imageComponent.getY() + imageComponent.getHeight() / 2;
-    }
-
-    @Override
     protected void defineShape() {
         //bodyComponent.setFixtureDef(Shape.Type.Circle, 5); // CircleShape - radius of 5
         bodyComponent.setFixtureDef(Shape.Type.Polygon, 5, 5); // PolygonShape - Set as Box

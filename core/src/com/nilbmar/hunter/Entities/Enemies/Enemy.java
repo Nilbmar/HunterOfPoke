@@ -222,16 +222,6 @@ public class Enemy extends Entity {
         return regionName;
     }
 
-    @Override
-    public float getSpawnOtherX() {
-        return imageComponent.getX() + imageComponent.getWidth() / 2;
-    }
-
-    @Override
-    public float getSpawnOtherY() {
-        return imageComponent.getY() + imageComponent.getHeight() / 2;
-    }
-
     public void attack() {
         //Gdx.app.log(getName(), " is attacking.");
         /* If no weapon, setTarget to player

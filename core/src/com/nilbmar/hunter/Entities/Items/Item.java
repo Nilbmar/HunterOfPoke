@@ -81,13 +81,6 @@ public abstract class Item extends Entity {
     public InventorySlotType getInventoryType() { return inventoryType; }
     public int getInventoryLimit() { return inventoryLimit; }
 
-
-    @Override
-    public float getSpawnOtherX() {return imageComponent.getX() + imageComponent.getWidth() / 2; }
-
-    @Override
-    public float getSpawnOtherY() { return imageComponent.getY() + imageComponent.getHeight() / 2; }
-
     @Override
     protected void defineShape() {
         //bodyComponent.setFixtureDef(Shape.Type.Circle, 5); // CircleShape - radius of 5

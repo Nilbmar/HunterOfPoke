@@ -126,6 +126,7 @@ public class Player extends Entity {
         return regionName;
     }
 
+    @Override
     public float getSpawnOtherX() {
         float spawnBulletOffsetX = imageComponent.getX() + imageComponent.getWidth() / 2;
         float offset = 10 / HunterOfPoke.PPM;
@@ -159,6 +160,8 @@ public class Player extends Entity {
         }
         return spawnBulletOffsetX;
     }
+
+    @Override
     public float getSpawnOtherY() {
         float spawnBulletOffsetY = imageComponent.getY() + imageComponent.getHeight() / 2;
         float offset = 10 / HunterOfPoke.PPM;

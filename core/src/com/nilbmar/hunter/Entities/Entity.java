@@ -115,6 +115,14 @@ public abstract class Entity {
         return  new Vector2(getB2Body().getPosition());
     }
 
+    public float getSpawnOtherX() {
+        return imageComponent.getX() + imageComponent.getWidth() / 2;
+    }
+
+    public float getSpawnOtherY() {
+        return imageComponent.getY() + imageComponent.getHeight() / 2;
+    }
+
     public abstract String getRegionName(DirectionComponent.Direction currentDirection);
 
     // Change TextureAtlas in the AnimationComponent
@@ -197,9 +205,6 @@ public abstract class Entity {
         this.currentAction = currentAction;
     }
 
-
-    public abstract float getSpawnOtherX();
-    public abstract float getSpawnOtherY();
     public abstract void prepareToDraw();
 
     protected void setName(String name) {
