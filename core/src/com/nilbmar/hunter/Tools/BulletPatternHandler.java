@@ -2,11 +2,15 @@ package com.nilbmar.hunter.Tools;
 
 import com.badlogic.gdx.math.Vector2;
 import com.nilbmar.hunter.Components.DirectionComponent;
+import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Enums.BulletType;
 
 /**
  * Created by sysgeek on 5/11/17.
+ *
+ * Purpose: Handle firing in various patterns
+ * ie: Single Shot, Twin Shot, ...
  */
 
 public class BulletPatternHandler {
@@ -86,7 +90,7 @@ public class BulletPatternHandler {
         return rotateBulletTexture;
     }
 
-    public void singleShot(BulletType type, DirectionComponent.Direction dir, float spawnX, float spawnY, String firedBy) {
+    public void singleShot(BulletType type, DirectionComponent.Direction dir, float spawnX, float spawnY, Entity firedBy) {
         Vector2 direction = getDirToShoot(dir);
 
         // Make non-evenly shaped bullets look right
@@ -98,7 +102,7 @@ public class BulletPatternHandler {
         bulletCreator.spawnBullet(spawnX, spawnY, direction, firedBy);
     }
 
-    public void twinShot(BulletType type, DirectionComponent.Direction dir, float spawnX, float spawnY, String firedBy) {
+    public void twinShot(BulletType type, DirectionComponent.Direction dir, float spawnX, float spawnY, Entity firedBy) {
         Vector2 direction = getDirToShoot(dir);
 
         // Make non-evenly shaped bullets look right

@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.nilbmar.hunter.Entities.Bullets.Bullet;
 import com.nilbmar.hunter.Entities.Bullets.BulletA;
 import com.nilbmar.hunter.Entities.Bullets.FireBullet;
+import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Enums.BulletType;
 
@@ -42,12 +43,12 @@ public class BulletCreator {
         bulletsPerShot = 0;
     }
 
-    public void spawnBullet(float x, float y, Vector2 d, String f) {
+    public void spawnBullet(float x, float y, Vector2 d, Entity f) {
         if (readyToFire) {
             final float posX = x;
             final float posY = y;
             final Vector2 direction = d;
-            final String firedBy = f;
+            final Entity firedBy = f;
 
             this.bulletPool = new Pool<Bullet>() {
                 @Override
@@ -87,7 +88,7 @@ public class BulletCreator {
         stateTime += deltaTime;
     }
 
-    private Bullet getBullet(BulletType type, float posX, float posY, Vector2 direction, String firedBy) {
+    private Bullet getBullet(BulletType type, float posX, float posY, Vector2 direction, Entity firedBy) {
         Bullet bullet = null;
         switch(type) {
             case FIRE:

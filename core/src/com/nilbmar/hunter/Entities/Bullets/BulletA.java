@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.utils.Array;
 import com.nilbmar.hunter.Components.MoveComponent;
+import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 
@@ -22,7 +23,7 @@ import com.nilbmar.hunter.Screens.PlayScreen;
 public class BulletA extends Bullet {
 
 
-    public BulletA(PlayScreen screen, float x, float y, Vector2 v, float rotation, String firedBy) {
+    public BulletA(PlayScreen screen, float x, float y, Vector2 v, float rotation, Entity firedBy) {
         super(screen, x, y, v, rotation, firedBy);
 
         regionName = "bulleta";

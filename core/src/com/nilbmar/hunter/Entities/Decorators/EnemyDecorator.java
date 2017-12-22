@@ -5,6 +5,9 @@ import com.nilbmar.hunter.Screens.PlayScreen;
 
 /**
  * Created by sysgeek on 6/27/17.
+ *
+ * Purpose: Base for decorating an Enemy
+ * ie: Add weapons or remove collision
  */
 
 public abstract class EnemyDecorator extends Enemy {

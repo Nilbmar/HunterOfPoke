@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.utils.Array;
 import com.nilbmar.hunter.Components.MoveComponent;
+import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 
@@ -19,7 +20,7 @@ import com.nilbmar.hunter.Screens.PlayScreen;
 public class FireBullet extends Bullet {
 
 
-    public FireBullet(PlayScreen screen, float startInWorldX, float startInWorldY, Vector2 v, float rotation, String firedBy) {
+    public FireBullet(PlayScreen screen, float startInWorldX, float startInWorldY, Vector2 v, float rotation, Entity firedBy) {
         super(screen, startInWorldX, startInWorldY, v, rotation, firedBy);
 
         regionName = "flamethrower_bullet";

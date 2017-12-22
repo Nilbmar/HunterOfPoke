@@ -11,6 +11,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
+import com.nilbmar.hunter.Entities.Decorators.WeaponDecorator;
+import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
@@ -45,9 +47,9 @@ public abstract class Bullet  extends Entity implements Poolable {
     protected float stateTime;
     protected float coolOffTime;
     protected float rotation;
-    protected String firedBy;
+    protected Entity firedBy;
 
-    public Bullet(PlayScreen screen, float startInWorldX, float startInWorldY, Vector2 v, float rotation, String firedBy) {
+    public Bullet(PlayScreen screen, float startInWorldX, float startInWorldY, Vector2 v, float rotation, Entity firedBy) {
         super(screen, startInWorldX, startInWorldY);
         this.world = screen.getWorld();
         this.screen = screen;
@@ -61,8 +63,8 @@ public abstract class Bullet  extends Entity implements Poolable {
         imageComponent.setPosition(startInWorldX, startInWorldY);
     }
 
-    public void setFiredBy(String firedBy) { this.firedBy = firedBy; }
-    public String getFiredBy() { return firedBy; }
+    //public void setFiredBy(Entity firedBy) { this.firedBy = firedBy; }
+    public Entity getFiredBy() { return firedBy; }
 
     @Override
     public void prepareToDraw() {
@@ -96,11 +98,14 @@ public abstract class Bullet  extends Entity implements Poolable {
     protected void defineBody() {
         createBody(startInWorldX, startInWorldY);
         defineShape();
-        if (firedBy.contains("PLAYER")) {
-            defineBits((short) (HunterOfPoke.GROUND_BIT | HunterOfPoke.ENEMY_BIT));
-        } else {
-            defineBits((short) (HunterOfPoke.GROUND_BIT | HunterOfPoke.PLAYER_BIT));
+        switch (firedBy.getEntityType()) {
+            case PLAYER:
+                defineBits((short) (HunterOfPoke.GROUND_BIT | HunterOfPoke.ENEMY_BIT));
+                break;
+            case ENEMY:defineBits((short) (HunterOfPoke.GROUND_BIT | HunterOfPoke.PLAYER_BIT));
+                break;
         }
+
         finalizeBody();
     }
 
@@ -157,6 +162,7 @@ public abstract class Bullet  extends Entity implements Poolable {
         destroyed = true;
 
         stateTime = 0;
+
         bulletCreator.reduceBulletCount();
         screen.getBulletCreator().getAllBulletsPool().free(this);
         screen.getBulletCreator().getAllBulletsArray().removeValue(this, true);

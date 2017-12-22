@@ -17,6 +17,7 @@ import com.nilbmar.hunter.Components.Component;
 import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Components.FramesComponent;
 import com.nilbmar.hunter.Components.LifeComponent;
+import com.nilbmar.hunter.Components.WeaponComponent;
 import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
@@ -45,7 +46,7 @@ public class Enemy extends Entity {
     private AITarget target;
 
     // Weapons HashMap
-    private HashMap<String, Boolean> weaponMap;
+    private HashMap<String, WeaponComponent> weaponMap;
 
     public Enemy(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
@@ -55,6 +56,8 @@ public class Enemy extends Entity {
         enemyType = null;
 
         vision = new Vision(screen);
+        weaponMap = new HashMap<String, WeaponComponent>();
+        weaponMap.put("weapon", null);
 
         // TODO: THESE WILL BE NEEDED FOR NEW AnimationComponent
         setImageWidth(16);
@@ -121,6 +124,18 @@ public class Enemy extends Entity {
 
                 break;
         }
+    }
+
+    public void setupWeapon(WeaponComponent weaponComponent) {
+        if (weaponMap == null) {
+            weaponMap = new HashMap<String, WeaponComponent>();
+        }
+
+        weaponMap.put("weapon", weaponComponent);
+    }
+
+    public WeaponComponent getWeapon() {
+        return weaponMap.get("weapon");
     }
 
     public LifeComponent getLifeComponent() { return lifeComp; }
@@ -229,7 +244,13 @@ public class Enemy extends Entity {
                 PICK ANOTHER STEERING BEHAVIOR TO KEEP A CERTAIN DISTANCE
          */
 
+        // Move toward Player no matter what
         setTarget(screen.getPlayer().getPosition());
+
+        // If Enemy has a weapon - fire
+        if (weaponMap.get("weapon") != null) {
+            weaponMap.get("weapon").fire(this);
+        }
     }
 
     public Enemy findHelp() {

@@ -40,6 +40,8 @@ public class WeaponDecorator extends EnemyDecorator {
         parseProperties(shotProperties);
 
         weapon = new WeaponComponent(screen.getBulletPatterns(), bulletType, shotType);
+
+        setupWeapon(weapon);
     }
 
     // Might use these setters to change bullet properties later on
@@ -47,6 +49,11 @@ public class WeaponDecorator extends EnemyDecorator {
 
     public void setShotType(ShotType shotType) { this.shotType = shotType; }
 
+
+    // WeaponDecorator extends EnemyDecorator which extends Enemy
+    // WeaponDecorator IS AN Enemy
+    // It changes the update() method to fire once on loading
+    /*
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
@@ -59,6 +66,7 @@ public class WeaponDecorator extends EnemyDecorator {
             fireCount--;
         }
     }
+    */
 
     private void parseProperties(Array<String> fullProperties) {
         Array<String> weaponProperties = null;

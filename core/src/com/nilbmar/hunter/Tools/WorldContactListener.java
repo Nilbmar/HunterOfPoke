@@ -75,14 +75,16 @@ public class WorldContactListener implements ContactListener {
 
                 // If Bullet that hits an Enemy was fired by an Enemy - ignore it
                 if (fixtA.getFilterData().categoryBits == HunterOfPoke.ENEMY_BIT) {
-                    String firedBy = ((Bullet) (fixtB.getUserData())).getFiredBy();
-                    if (!firedBy.contains("ENEMY")) {
+                    EntityType firedBy = ((Bullet) (fixtB.getUserData())).getFiredBy().getEntityType();
+                    // If not fired by an enemy
+                    if (firedBy != EntityType.ENEMY) {
                         ((Enemy) (fixtA.getUserData())).onHit((Entity) fixtB.getUserData());
                         ((Bullet) (fixtB.getUserData())).onHit();
                     }
                 } else if (fixtB.getFilterData().categoryBits == HunterOfPoke.ENEMY_BIT) {
-                    String firedBy = ((Bullet) (fixtA.getUserData())).getFiredBy();
-                    if (!firedBy.contains("ENEMY")) {
+                    EntityType firedBy = ((Bullet) (fixtA.getUserData())).getFiredBy().getEntityType();
+                    // If not fired by an enemy
+                    if (firedBy != EntityType.ENEMY) {
                         ((Enemy) (fixtB.getUserData())).onHit((Entity) fixtA.getUserData());
                         ((Bullet) (fixtA.getUserData())).onHit();
                     }
@@ -91,14 +93,16 @@ public class WorldContactListener implements ContactListener {
             case HunterOfPoke.PLAYER_BIT | HunterOfPoke.BULLET_BIT:
                 // If Bullet that hits the Player was fired by the Player - ignore it
                 if (fixtA.getFilterData().categoryBits == HunterOfPoke.PLAYER_BIT) {
-                    String firedBy = ((Bullet) (fixtB.getUserData())).getFiredBy();
-                    if (!firedBy.contains("PLAYER")) {
+                    EntityType firedBy = ((Bullet) (fixtB.getUserData())).getFiredBy().getEntityType();
+                    // If not fired by an enemy
+                    if (firedBy != EntityType.PLAYER) {
                         ((Player) (fixtA.getUserData())).onHit((Entity) fixtB.getUserData());
                         ((Bullet) (fixtB.getUserData())).onHit();
                     }
                 } else if (fixtB.getFilterData().categoryBits == HunterOfPoke.PLAYER_BIT) {
-                    String firedBy = ((Bullet) (fixtA.getUserData())).getFiredBy();
-                    if (!firedBy.contains("PLAYER")) {
+                    EntityType firedBy = ((Bullet) (fixtA.getUserData())).getFiredBy().getEntityType();
+                    // If not fired by an enemy
+                    if (firedBy != EntityType.PLAYER) {
                         ((Player) (fixtB.getUserData())).onHit((Entity) fixtA.getUserData());
                         ((Bullet) (fixtA.getUserData())).onHit();
                     }

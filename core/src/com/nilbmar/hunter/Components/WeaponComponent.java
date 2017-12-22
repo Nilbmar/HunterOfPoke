@@ -21,17 +21,14 @@ public class WeaponComponent implements Component {
     private BoxPatternHandler boxPatterns;
     private BulletType type;
     private ShotType shot;
-    //private String firedBy;
 
     public WeaponComponent(BulletPatternHandler bulletPatterns, BulletType type, ShotType shot) {
         this.bulletPatterns = bulletPatterns;
         this.type = type;
         this.shot = shot;
-        //firedBy = null;
     }
 
     public void setType(BulletType type) { this.type = type; }
-
 
     public void fire(Entity entity) {
         boolean fire = false;
@@ -47,13 +44,14 @@ public class WeaponComponent implements Component {
                 fire = true;
                 break;
         }
+
         if (fire) {
             switch (shot) {
                 case TWIN:
-                    bulletPatterns.twinShot(type, direction, entity.getSpawnOtherX(), entity.getSpawnOtherY(), entity.getEntityType().toString());
+                    bulletPatterns.twinShot(type, direction, entity.getSpawnOtherX(), entity.getSpawnOtherY(), entity);
                     break;
                 case SINGLE:
-                    bulletPatterns.singleShot(type, direction, entity.getSpawnOtherX(), entity.getSpawnOtherY(), entity.getEntityType().toString());
+                    bulletPatterns.singleShot(type, direction, entity.getSpawnOtherX(), entity.getSpawnOtherY(), entity);
                     break;
             }
         }
