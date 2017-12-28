@@ -12,7 +12,7 @@ public abstract class TimerComponent implements Component {
     private Entity entity;
     private float stateTime;
     private float setTime;
-    private boolean endTimer;
+    private boolean timerHasEnded;
     private TimerType timerType;
 
     public enum TimerType { ITEM, ATTACK, REMOVE_COLLISION, RESET_COLLISION }
@@ -20,12 +20,12 @@ public abstract class TimerComponent implements Component {
     public TimerComponent(Entity entity, float setTime, float deltaTime) {
         this.entity = entity;
         this.setTime = setTime;
-        endTimer = false;
+        timerHasEnded = false;
         stateTime = stateTime + deltaTime;
     }
 
-    public boolean endTimer() {
-        return endTimer;
+    public boolean timerHasEnded() {
+        return timerHasEnded;
     }
     public Entity getEntity() { return entity; }
 
@@ -34,7 +34,7 @@ public abstract class TimerComponent implements Component {
 
     public void update(float deltaTime) {
         if (stateTime >= setTime) {
-            endTimer = true;
+            timerHasEnded = true;
         } else {
             stateTime = stateTime + deltaTime;
         }

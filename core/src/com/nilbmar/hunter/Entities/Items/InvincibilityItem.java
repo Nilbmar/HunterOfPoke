@@ -3,7 +3,6 @@ package com.nilbmar.hunter.Entities.Items;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.nilbmar.hunter.Commands.ChangeCollisionCommand;
 import com.nilbmar.hunter.Commands.UpdateHudCommand;
-import com.nilbmar.hunter.Components.TimerComponent;
 import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Enums.HudLabels;
@@ -70,7 +69,7 @@ public class InvincibilityItem extends Item {
         if (timerMap != null) {
             if (timerMap.containsKey(timerType) && timerMap.get(timerType) != null) {
                 ItemTimer timer = (ItemTimer) timerMap.get(timerType);
-                if (timer.endTimer()) {
+                if (timer.timerHasEnded()) {
                     if (collisionCommand != null) {
                         collisionCommand.undo(entityThatUsed);
                         collisionCommand = null;

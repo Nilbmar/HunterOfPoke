@@ -20,8 +20,10 @@ import com.nilbmar.hunter.AI.States.Action;
 import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Enums.InventorySlotType;
 import com.nilbmar.hunter.Timers.ItemTimer;
+import com.nilbmar.hunter.Timers.ResetCollisionTimer;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by sysgeek on 4/7/17.
@@ -234,11 +236,11 @@ public class Player extends Entity {
         switch (timerType) {
             case REMOVE_COLLISION:
                 timerMap.put(TimerComponent.TimerType.REMOVE_COLLISION,
-                        new ItemTimer(this, setTimer, ItemType.INVINCIBILITY, deltaTime));
+                        new ResetCollisionTimer(this, setTimer, deltaTime, TimerComponent.TimerType.REMOVE_COLLISION));
                 break;
             case RESET_COLLISION:
                 timerMap.put(TimerComponent.TimerType.RESET_COLLISION,
-                        new ItemTimer(this, setTimer, ItemType.INVINCIBILITY, deltaTime));
+                        new ResetCollisionTimer(this, setTimer, deltaTime, TimerComponent.TimerType.REMOVE_COLLISION));
                 break;
         }
     }
@@ -345,44 +347,49 @@ public class Player extends Entity {
         finalizeBody();
     }
 
-    private boolean checkTimer(TimerComponent.TimerType timerType, float deltaTime) {
-        boolean timerEnded = false;
+    private void checkTimer(float deltaTime) {
+        if (timerMap != null) {
+            System.out.println("Timer Map:");
+            for (Map.Entry<TimerComponent.TimerType, TimerComponent> entry : timerMap.entrySet()) {
+                System.out.print(" " + entry.getKey().toString() + ":" + entry.getValue());
+            }
+            System.out.println();
 
-        // Does this timer exist?
-        if (timerMap != null && timerMap.containsKey(timerType)) {
-            // Has the timer finished?
-            if (timerMap.get(timerType).endTimer()) {
-                TimerComponent timer = null;
-                Command command = null;
+            for (Map.Entry<TimerComponent.TimerType, TimerComponent> entry : timerMap.entrySet()) {
 
-                switch (timerType) {
-                    case REMOVE_COLLISION:
-                        timer = (ItemTimer) timerMap.get(timerType);
-                        Gdx.app.log("Update", "Removing Collision");
-                        command = new ChangeCollisionCommand();
-                        command.execute(this);
-                        timerMap.put(TimerComponent.TimerType.REMOVE_COLLISION, null);
+                if (entry.getValue() != null) {
 
-                        // Add a timer to reset the collision to enabled
-                        //addItemTimer(2f, ItemType.RESET_COLLISION);
-                        addTimer(2f, TimerComponent.TimerType.RESET_COLLISION);
-                        break;
+                    // Where the real code begins
+                    if (entry.getValue().timerHasEnded()) {
+                        //TimerComponent timer = null;
+                        Command command = null;
+                        switch (entry.getValue().getTimerType()) {
+                            case REMOVE_COLLISION:
+                                Gdx.app.log("Update", "Removing Collision");
+                                command = new ChangeCollisionCommand();
+                                command.execute(this);
+                                timerMap.put(TimerComponent.TimerType.REMOVE_COLLISION, null);
 
-                    case RESET_COLLISION:
-                        timer = (ItemTimer) timerMap.get(timerType);
-                        Gdx.app.log("Update", "Resetting Collision");
-                        command = new ChangeCollisionCommand();
-                        ((ChangeCollisionCommand) command).undo(this);
-                        timerMap.put(TimerComponent.TimerType.RESET_COLLISION, null);
-                        break;
+                                // Add a timer to reset the collision to enabled
+                                //addItemTimer(2f, ItemType.RESET_COLLISION);
+                                addTimer(2f, TimerComponent.TimerType.RESET_COLLISION);
+                                break;
 
+                            case RESET_COLLISION:
+                                Gdx.app.log("Update", "Resetting Collision");
+                                command = new ChangeCollisionCommand();
+                                ((ChangeCollisionCommand) command).undo(this);
+                                timerMap.put(TimerComponent.TimerType.RESET_COLLISION, null);
+                                break;
+
+                        }
+                    } else {
+                        entry.getValue().update(deltaTime);
+                    }
                 }
-            } else {
-                timerMap.get(timerType).update(deltaTime);
             }
         }
 
-        return timerEnded;
     }
 
     @Override
@@ -390,7 +397,7 @@ public class Player extends Entity {
         super.update(deltaTime);
 
         // Check if its ok to resetCollision()
-        checkTimer(TimerComponent.TimerType.RESET_COLLISION, deltaTime);
+        checkTimer(deltaTime);
 
         directionComp.setDirection(moveComponent.getCurrentDirection());
 

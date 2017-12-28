@@ -9,8 +9,27 @@ import com.nilbmar.hunter.Enums.ItemType;
  */
 
 public class ResetCollisionTimer extends TimerComponent {
-    public ResetCollisionTimer(Entity entity, float setTime, float deltaTime) {
+    private TimerType timerType;
+
+    public ResetCollisionTimer(Entity entity, float setTime, float deltaTime, TimerType timerType) {
         super(entity, setTime, deltaTime);
-        setTimerType(TimerType.RESET_COLLISION);
+
+        // Default to RESET_COLLISION in case correct type isn't passed
+        // Player will be placed in a "normal" state
+        this.timerType = TimerType.RESET_COLLISION;
+
+        switch (timerType) {
+            case REMOVE_COLLISION:
+                this.timerType = TimerType.REMOVE_COLLISION;
+                break;
+            case RESET_COLLISION:
+                this.timerType = TimerType.RESET_COLLISION;
+                break;
+        }
+
+
+        setTimerType(this.timerType);
     }
+
+    public TimerType getCurrentTimerType() { return timerType; }
 }

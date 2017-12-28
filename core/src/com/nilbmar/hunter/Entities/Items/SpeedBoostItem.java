@@ -77,7 +77,7 @@ public class SpeedBoostItem extends Item {
         if (timerMap != null) {
             if (timerMap.containsKey(timerType) && timerMap.get(timerType) != null) {
                 ItemTimer timer = (ItemTimer) timerMap.get(timerType);
-                if (timer.endTimer()) {
+                if (timer.timerHasEnded()) {
                     if (accelerationCommand != null) {
                         accelerationCommand.undo(entityThatUsed);
                         accelerationCommand = null;
