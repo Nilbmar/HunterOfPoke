@@ -17,6 +17,7 @@ import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.AI.States.Action;
 import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Enums.InventorySlotType;
+import com.nilbmar.hunter.Timers.ItemTimer;
 
 /**
  * Created by sysgeek on 4/7/17.
@@ -216,6 +217,10 @@ public class Player extends Entity {
         }
     }
 
+    protected void setTimerComponent(float setTimer, ItemType itemType) {
+        itemTimer = new ItemTimer(this, setTimer, itemType, deltaTime);
+    }
+
     @Override
     public void onHit(Entity entity) {
         switch (entity.getEntityType()) {
@@ -239,7 +244,7 @@ public class Player extends Entity {
         switch (item.getItemType()){
             case DEATH:
                 // TODO: KILL ME!
-                timerComponent = null;
+                itemTimer = null;
                 break;
             default:
                 // TODO: CHANGE WHEN ADD IN NEW INVENTORY TYPES
@@ -322,22 +327,22 @@ public class Player extends Entity {
         super.update(deltaTime);
 
         // Check if its ok to resetCollision()
-        if (timerComponent != null) {
-            if (timerComponent.endTimer()) {
-                if (timerComponent.getItemType() == ItemType.REMOVE_COLLISION) {
+        if (itemTimer != null) {
+            if (itemTimer.endTimer()) {
+                if (itemTimer.getItemType() == ItemType.REMOVE_COLLISION) {
                     Gdx.app.log("Update", "Removing Collision");
                     ChangeCollisionCommand reset = new ChangeCollisionCommand();
                     reset.execute(this);
-                    timerComponent = null;
+                    itemTimer = null;
                     setTimerComponent(2f, ItemType.RESET_COLLISION);
-                } else if (timerComponent.getItemType() == ItemType.RESET_COLLISION) {
+                } else if (itemTimer.getItemType() == ItemType.RESET_COLLISION) {
                     Gdx.app.log("Update", "Resetting Collision");
                     ChangeCollisionCommand reset = new ChangeCollisionCommand();
                     reset.undo(this);
-                    timerComponent = null;
+                    itemTimer = null;
                 }
             } else {
-                timerComponent.update(deltaTime);
+                itemTimer.update(deltaTime);
             }
         }
 

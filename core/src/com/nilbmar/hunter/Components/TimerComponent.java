@@ -1,24 +1,22 @@
 package com.nilbmar.hunter.Components;
 
 import com.nilbmar.hunter.Entities.Entity;
-import com.nilbmar.hunter.Enums.ItemType;
 
 /**
- * Created by sysgeek on 6/13/17.
+ * Created by sysgeek on 12/28/17.
+ *
+ * Purpose: Base class for setting timers
  */
 
-public class TimerComponent implements Component {
+public abstract class TimerComponent implements Component {
     private Entity entity;
     private float stateTime;
     private float setTime;
     private boolean endTimer;
-    private ItemType itemType;
 
-    public TimerComponent(Entity entity, float setTime, ItemType itemType, float deltaTime) {
-        // TODO: RE-ENABLE SETTING OF THIS.ENTITY
-        //this.entity = entity;
+    public TimerComponent(Entity entity, float setTime, float deltaTime) {
+        this.entity = entity;
         this.setTime = setTime;
-        this.itemType = itemType;
         endTimer = false;
         stateTime = stateTime + deltaTime;
     }
@@ -26,7 +24,7 @@ public class TimerComponent implements Component {
     public boolean endTimer() {
         return endTimer;
     }
-    public ItemType getItemType() { return itemType; }
+    public Entity getEntity() { return entity; }
 
     public void update(float deltaTime) {
         if (stateTime >= setTime) {

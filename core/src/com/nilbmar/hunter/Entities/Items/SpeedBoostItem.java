@@ -73,12 +73,12 @@ public class SpeedBoostItem extends Item {
         super.update(deltaTime);
 
         // Undo the effect after timer
-        if (timerComponent != null) {
-            if (timerComponent.endTimer()) {
+        if (itemTimer != null) {
+            if (itemTimer.endTimer()) {
                 if (accelerationCommand != null) {
                     accelerationCommand.undo(entityThatUsed);
                     accelerationCommand = null;
-                    timerComponent = null;
+                    itemTimer = null;
 
                     // TODO: CHANGE HOW HUD UPDATES
                     // CURRENTLY, THIS WILL BLANK THE LABEL NO MATTER WHAT
@@ -89,7 +89,7 @@ public class SpeedBoostItem extends Item {
                     hudUpdate.execute(this);
                 }
             } else {
-                timerComponent.update(deltaTime);
+                itemTimer.update(deltaTime);
             }
         }
 

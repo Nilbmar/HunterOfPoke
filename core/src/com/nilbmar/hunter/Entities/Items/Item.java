@@ -10,6 +10,7 @@ import com.nilbmar.hunter.AI.States.Action;
 import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Enums.InventorySlotType;
 import com.nilbmar.hunter.Enums.ItemType;
+import com.nilbmar.hunter.Timers.ItemTimer;
 
 /**
  * Created by sysgeek on 6/12/17.
@@ -65,6 +66,11 @@ public abstract class Item extends Entity {
 
     public abstract void use(Entity entity);
     protected abstract void updateHud();
+
+    protected void setTimerComponent(float setTimer, ItemType itemType) {
+        itemTimer = new ItemTimer(this, setTimer, itemType, deltaTime);
+    }
+
 
     public float getAmountOfEffect() { return amountOfEffect; }
     public ItemType getItemType() { return itemType; }

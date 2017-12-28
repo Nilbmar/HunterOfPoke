@@ -11,19 +11,16 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.nilbmar.hunter.Components.AnimationComponent;
 import com.nilbmar.hunter.Components.BodyComponent;
-import com.nilbmar.hunter.Components.Component;
 import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Components.FramesComponent;
 import com.nilbmar.hunter.Components.ImageComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
-import com.nilbmar.hunter.Components.TimerComponent;
+import com.nilbmar.hunter.Timers.ItemTimer;
 import com.nilbmar.hunter.AI.States.Action;
 import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Enums.ItemType;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Tools.AssetHandler;
-
-import java.util.HashMap;
 
 /**
  * Created by sysgeek on 8/22/17.
@@ -48,7 +45,7 @@ public abstract class Entity {
     protected ImageComponent imageComponent;
     protected BodyComponent bodyComponent;
     protected MoveComponent moveComponent;
-    protected TimerComponent timerComponent;
+    protected ItemTimer itemTimer;
     protected DirectionComponent directionComp;
 
     protected float startInWorldX;
@@ -71,7 +68,7 @@ public abstract class Entity {
 
     protected EntityType entityType;
 
-    protected float deltaTime; // Used for TimerComponent - set in update()
+    protected float deltaTime;
 
     protected int acceleration;
     protected int baseAcceleration;
@@ -265,9 +262,10 @@ public abstract class Entity {
 
 
     public MoveComponent getMoveComponent() { return moveComponent; }
-    protected void setTimerComponent(float setTimer, ItemType itemType) {
-        // TODO: CHANGE TIMER COMPONENT WHEN TESTING
-        timerComponent = new TimerComponent(this, setTimer, itemType, deltaTime);
+
+    //protected void setTimerComponent(float setTimer, ItemType itemType) {
+    protected void setTimerComponent(float setTimer) {
+
     }
 
     // Boosts from items or reset

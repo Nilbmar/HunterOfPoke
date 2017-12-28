@@ -65,12 +65,12 @@ public class InvincibilityItem extends Item {
         super.update(deltaTime);
 
         // Undo the effect after timer
-        if (timerComponent != null) {
-            if (timerComponent.endTimer()) {
+        if (itemTimer != null) {
+            if (itemTimer.endTimer()) {
                 if (collisionCommand != null) {
                     collisionCommand.undo(entityThatUsed);
                     collisionCommand = null;
-                    timerComponent = null;
+                    itemTimer = null;
 
                     // TODO: CHANGE HOW HUD UPDATES
                     // CURRENTLY, THIS WILL BLANK THE LABEL NO MATTER WHAT
@@ -81,7 +81,7 @@ public class InvincibilityItem extends Item {
                     hudUpdate.execute(this);
                 }
             } else {
-                timerComponent.update(deltaTime);
+                itemTimer.update(deltaTime);
             }
         }
 
