@@ -11,5 +11,6 @@ import com.nilbmar.hunter.Enums.ItemType;
 public class ResetCollisionTimer extends TimerComponent {
     public ResetCollisionTimer(Entity entity, float setTime, float deltaTime) {
         super(entity, setTime, deltaTime);
+        setTimerType(TimerType.RESET_COLLISION);
     }
 }

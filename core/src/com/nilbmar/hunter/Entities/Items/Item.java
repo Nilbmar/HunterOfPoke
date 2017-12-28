@@ -1,8 +1,10 @@
 package com.nilbmar.hunter.Entities.Items;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.nilbmar.hunter.Commands.UpdateHudCommand;
 import com.nilbmar.hunter.Components.DirectionComponent;
+import com.nilbmar.hunter.Components.TimerComponent;
 import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
@@ -11,6 +13,8 @@ import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Enums.InventorySlotType;
 import com.nilbmar.hunter.Enums.ItemType;
 import com.nilbmar.hunter.Timers.ItemTimer;
+
+import java.util.HashMap;
 
 /**
  * Created by sysgeek on 6/12/17.
@@ -32,6 +36,7 @@ public abstract class Item extends Entity {
     protected int addToCountOnPickup;
     protected int inventoryLimit;
     protected float amountOfEffect; // Different for different items - cast when needed
+    protected TimerComponent.TimerType timerType = TimerComponent.TimerType.ITEM;
 
     public Item(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
@@ -43,6 +48,8 @@ public abstract class Item extends Entity {
         destroyed = false;
         itemEffectTime = 1f;
         amountOfEffect = 0;
+
+        timerMap = new HashMap<TimerComponent.TimerType, TimerComponent>();
 
         defineBody();
         currentAction = Action.STILL;
@@ -67,8 +74,8 @@ public abstract class Item extends Entity {
     public abstract void use(Entity entity);
     protected abstract void updateHud();
 
-    protected void setTimerComponent(float setTimer, ItemType itemType) {
-        itemTimer = new ItemTimer(this, setTimer, itemType, deltaTime);
+    protected void addItemTimer(float setTimer, ItemType itemType) {
+        timerMap.put(TimerComponent.TimerType.ITEM, new ItemTimer(this, setTimer, itemType, deltaTime));
     }
 
 

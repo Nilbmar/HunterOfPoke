@@ -16,6 +16,7 @@ public class ItemTimer extends TimerComponent {
     public ItemTimer(Entity entity, float setTime, ItemType itemType, float deltaTime) {
         super(entity, setTime, deltaTime);
         this.itemType = itemType;
+        setTimerType(TimerType.ITEM);
     }
 
     public ItemType getItemType() { return itemType; }

@@ -3,6 +3,7 @@ package com.nilbmar.hunter.Entities.Items;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.nilbmar.hunter.Commands.ChangeCollisionCommand;
 import com.nilbmar.hunter.Commands.UpdateHudCommand;
+import com.nilbmar.hunter.Components.TimerComponent;
 import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Enums.HudLabels;
@@ -10,6 +11,7 @@ import com.nilbmar.hunter.Enums.InventorySlotType;
 import com.nilbmar.hunter.Enums.ItemType;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
+import com.nilbmar.hunter.Timers.ItemTimer;
 
 /**
  * Created by sysgeek on 6/24/17.
@@ -46,7 +48,7 @@ public class InvincibilityItem extends Item {
         entityThatUsed = entity;
 
         if (entity.getEntityType() == EntityType.PLAYER) {
-            setTimerComponent(getItemEffectTime(), getItemType());
+            addItemTimer(getItemEffectTime(), getItemType());
             collisionCommand = new ChangeCollisionCommand();
             collisionCommand.execute(entityThatUsed);
             updateHud();
@@ -65,23 +67,26 @@ public class InvincibilityItem extends Item {
         super.update(deltaTime);
 
         // Undo the effect after timer
-        if (itemTimer != null) {
-            if (itemTimer.endTimer()) {
-                if (collisionCommand != null) {
-                    collisionCommand.undo(entityThatUsed);
-                    collisionCommand = null;
-                    itemTimer = null;
+        if (timerMap != null) {
+            if (timerMap.containsKey(timerType) && timerMap.get(timerType) != null) {
+                ItemTimer timer = (ItemTimer) timerMap.get(timerType);
+                if (timer.endTimer()) {
+                    if (collisionCommand != null) {
+                        collisionCommand.undo(entityThatUsed);
+                        collisionCommand = null;
+                        timerMap.put(timerType, null);
 
-                    // TODO: CHANGE HOW HUD UPDATES
-                    // CURRENTLY, THIS WILL BLANK THE LABEL NO MATTER WHAT
-                    // EVEN IF ANOTHER ITEM IS MORE RECENT
-                    // POSSIBLY STORE AN ARRAY OF ITEMS WITH TIMERS
-                    // THEN REMOVE THEM FROM ARRAY WHEN THEY TIME OUT
-                    hudUpdate = new UpdateHudCommand(screen.getHUD(), HudLabels.USER_INFO, "");
-                    hudUpdate.execute(this);
+                        // TODO: CHANGE HOW HUD UPDATES
+                        // CURRENTLY, THIS WILL BLANK THE LABEL NO MATTER WHAT
+                        // EVEN IF ANOTHER ITEM IS MORE RECENT
+                        // POSSIBLY STORE AN ARRAY OF ITEMS WITH TIMERS
+                        // THEN REMOVE THEM FROM ARRAY WHEN THEY TIME OUT
+                        hudUpdate = new UpdateHudCommand(screen.getHUD(), HudLabels.USER_INFO, "");
+                        hudUpdate.execute(this);
+                    }
+                } else {
+                    timer.update(deltaTime);
                 }
-            } else {
-                itemTimer.update(deltaTime);
             }
         }
 

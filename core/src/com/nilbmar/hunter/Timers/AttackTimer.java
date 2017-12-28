@@ -12,5 +12,6 @@ public class AttackTimer extends TimerComponent {
 
     public AttackTimer(Entity entity, float setTime, float deltaTime) {
         super(entity, setTime, deltaTime);
+        setTimerType(TimerType.ATTACK);
     }
 }

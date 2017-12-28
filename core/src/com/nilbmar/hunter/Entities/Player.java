@@ -3,6 +3,7 @@ package com.nilbmar.hunter.Entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.nilbmar.hunter.Commands.ChangeCollisionCommand;
+import com.nilbmar.hunter.Commands.Command;
 import com.nilbmar.hunter.Commands.UseCommand;
 import com.nilbmar.hunter.Components.AnimationComponent;
 import com.nilbmar.hunter.Components.DirectionComponent;
@@ -10,6 +11,7 @@ import com.nilbmar.hunter.Components.FramesComponent;
 import com.nilbmar.hunter.Components.InventoryComponent;
 import com.nilbmar.hunter.Components.LifeComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
+import com.nilbmar.hunter.Components.TimerComponent;
 import com.nilbmar.hunter.Entities.Items.Item;
 import com.nilbmar.hunter.Enums.ItemType;
 import com.nilbmar.hunter.HunterOfPoke;
@@ -18,6 +20,8 @@ import com.nilbmar.hunter.AI.States.Action;
 import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Enums.InventorySlotType;
 import com.nilbmar.hunter.Timers.ItemTimer;
+
+import java.util.HashMap;
 
 /**
  * Created by sysgeek on 4/7/17.
@@ -51,6 +55,9 @@ public class Player extends Entity {
         currentAction = Action.STILL;
         previousAction = Action.STILL;
         stateTimer = 0;
+
+
+        timerMap = new HashMap<TimerComponent.TimerType, TimerComponent>();
 
         // int is inventory slots available
         inventoryComponent = new InventoryComponent(this, 5);
@@ -217,8 +224,23 @@ public class Player extends Entity {
         }
     }
 
-    protected void setTimerComponent(float setTimer, ItemType itemType) {
-        itemTimer = new ItemTimer(this, setTimer, itemType, deltaTime);
+    private void addItemTimer(float setTimer, ItemType itemType) {
+
+        timerMap.put(TimerComponent.TimerType.ITEM, new ItemTimer(this, setTimer, itemType, deltaTime));
+    }
+
+    // TODO: NOT REMOVING COLLISION RIGHT NOW
+    private void addTimer(float setTimer, TimerComponent.TimerType timerType) {
+        switch (timerType) {
+            case REMOVE_COLLISION:
+                timerMap.put(TimerComponent.TimerType.REMOVE_COLLISION,
+                        new ItemTimer(this, setTimer, ItemType.INVINCIBILITY, deltaTime));
+                break;
+            case RESET_COLLISION:
+                timerMap.put(TimerComponent.TimerType.RESET_COLLISION,
+                        new ItemTimer(this, setTimer, ItemType.INVINCIBILITY, deltaTime));
+                break;
+        }
     }
 
     @Override
@@ -228,7 +250,8 @@ public class Player extends Entity {
             case BULLET:
                 // Call timer, after timer, then resetCollision
                 // Otherwise game crashes trying to reset collision while still colliding
-                setTimerComponent(0.5f, ItemType.REMOVE_COLLISION);
+                //addItemTimer(0.5f, ItemType.REMOVE_COLLISION);
+                addTimer(0.5f, TimerComponent.TimerType.REMOVE_COLLISION);
                 lifeComp.loseHitPoints(1);
 
                 if (lifeComp.isDead()) {
@@ -244,7 +267,7 @@ public class Player extends Entity {
         switch (item.getItemType()){
             case DEATH:
                 // TODO: KILL ME!
-                itemTimer = null;
+                timerMap.put(TimerComponent.TimerType.ITEM, null);
                 break;
             default:
                 // TODO: CHANGE WHEN ADD IN NEW INVENTORY TYPES
@@ -322,29 +345,52 @@ public class Player extends Entity {
         finalizeBody();
     }
 
+    private boolean checkTimer(TimerComponent.TimerType timerType, float deltaTime) {
+        boolean timerEnded = false;
+
+        // Does this timer exist?
+        if (timerMap != null && timerMap.containsKey(timerType)) {
+            // Has the timer finished?
+            if (timerMap.get(timerType).endTimer()) {
+                TimerComponent timer = null;
+                Command command = null;
+
+                switch (timerType) {
+                    case REMOVE_COLLISION:
+                        timer = (ItemTimer) timerMap.get(timerType);
+                        Gdx.app.log("Update", "Removing Collision");
+                        command = new ChangeCollisionCommand();
+                        command.execute(this);
+                        timerMap.put(TimerComponent.TimerType.REMOVE_COLLISION, null);
+
+                        // Add a timer to reset the collision to enabled
+                        //addItemTimer(2f, ItemType.RESET_COLLISION);
+                        addTimer(2f, TimerComponent.TimerType.RESET_COLLISION);
+                        break;
+
+                    case RESET_COLLISION:
+                        timer = (ItemTimer) timerMap.get(timerType);
+                        Gdx.app.log("Update", "Resetting Collision");
+                        command = new ChangeCollisionCommand();
+                        ((ChangeCollisionCommand) command).undo(this);
+                        timerMap.put(TimerComponent.TimerType.RESET_COLLISION, null);
+                        break;
+
+                }
+            } else {
+                timerMap.get(timerType).update(deltaTime);
+            }
+        }
+
+        return timerEnded;
+    }
+
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
 
         // Check if its ok to resetCollision()
-        if (itemTimer != null) {
-            if (itemTimer.endTimer()) {
-                if (itemTimer.getItemType() == ItemType.REMOVE_COLLISION) {
-                    Gdx.app.log("Update", "Removing Collision");
-                    ChangeCollisionCommand reset = new ChangeCollisionCommand();
-                    reset.execute(this);
-                    itemTimer = null;
-                    setTimerComponent(2f, ItemType.RESET_COLLISION);
-                } else if (itemTimer.getItemType() == ItemType.RESET_COLLISION) {
-                    Gdx.app.log("Update", "Resetting Collision");
-                    ChangeCollisionCommand reset = new ChangeCollisionCommand();
-                    reset.undo(this);
-                    itemTimer = null;
-                }
-            } else {
-                itemTimer.update(deltaTime);
-            }
-        }
+        checkTimer(TimerComponent.TimerType.RESET_COLLISION, deltaTime);
 
         directionComp.setDirection(moveComponent.getCurrentDirection());
 

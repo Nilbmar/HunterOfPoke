@@ -10,6 +10,7 @@ import com.nilbmar.hunter.Enums.EntityType;
 import com.nilbmar.hunter.Enums.HudLabels;
 import com.nilbmar.hunter.Enums.InventorySlotType;
 import com.nilbmar.hunter.Enums.ItemType;
+import com.nilbmar.hunter.Timers.ItemTimer;
 
 /**
  * Created by sysgeek on 6/12/17.
@@ -49,7 +50,7 @@ public class SpeedBoostItem extends Item {
         entityThatUsed = entity;
 
         if (entity.getEntityType() == EntityType.PLAYER) {
-            setTimerComponent(getItemEffectTime(), getItemType());
+            addItemTimer(getItemEffectTime(), getItemType());
             accelerationCommand = new AccelerationCommand(entityThatUsed, 1);
             accelerationCommand.execute(entityThatUsed);
             updateHud();
@@ -73,23 +74,26 @@ public class SpeedBoostItem extends Item {
         super.update(deltaTime);
 
         // Undo the effect after timer
-        if (itemTimer != null) {
-            if (itemTimer.endTimer()) {
-                if (accelerationCommand != null) {
-                    accelerationCommand.undo(entityThatUsed);
-                    accelerationCommand = null;
-                    itemTimer = null;
+        if (timerMap != null) {
+            if (timerMap.containsKey(timerType) && timerMap.get(timerType) != null) {
+                ItemTimer timer = (ItemTimer) timerMap.get(timerType);
+                if (timer.endTimer()) {
+                    if (accelerationCommand != null) {
+                        accelerationCommand.undo(entityThatUsed);
+                        accelerationCommand = null;
+                        timerMap.put(timerType, null);
 
-                    // TODO: CHANGE HOW HUD UPDATES
-                    // CURRENTLY, THIS WILL BLANK THE LABEL NO MATTER WHAT
-                    // EVEN IF ANOTHER ITEM IS MORE RECENT
-                    // POSSIBLY STORE AN ARRAY OF ITEMS WITH TIMERS
-                    // THEN REMOVE THEM FROM ARRAY WHEN THEY TIME OUT
-                    hudUpdate = new UpdateHudCommand(screen.getHUD(), HudLabels.USER_INFO, "");
-                    hudUpdate.execute(this);
+                        // TODO: CHANGE HOW HUD UPDATES
+                        // CURRENTLY, THIS WILL BLANK THE LABEL NO MATTER WHAT
+                        // EVEN IF ANOTHER ITEM IS MORE RECENT
+                        // POSSIBLY STORE AN ARRAY OF ITEMS WITH TIMERS
+                        // THEN REMOVE THEM FROM ARRAY WHEN THEY TIME OUT
+                        hudUpdate = new UpdateHudCommand(screen.getHUD(), HudLabels.USER_INFO, "");
+                        hudUpdate.execute(this);
+                    }
+                } else {
+                    timer.update(deltaTime);
                 }
-            } else {
-                itemTimer.update(deltaTime);
             }
         }
 
