@@ -27,6 +27,7 @@ public class BulletA extends Bullet {
         super(screen, x, y, v, rotation, firedBy);
 
         regionName = "bulleta";
+        setName("Regular Bullet");
         frames = new Array<TextureRegion>();
         frames.add(new TextureRegion(atlas.findRegion(regionName), 0, 0, 6, 6));
         animation = new Animation<TextureRegion>(0f, frames);

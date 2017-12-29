@@ -226,25 +226,6 @@ public class Player extends Entity {
         }
     }
 
-    private void addItemTimer(float setTimer, ItemType itemType) {
-
-        timerMap.put(TimerComponent.TimerType.ITEM, new ItemTimer(this, setTimer, itemType, deltaTime));
-    }
-
-    // TODO: NOT REMOVING COLLISION RIGHT NOW
-    private void addTimer(float setTimer, TimerComponent.TimerType timerType) {
-        switch (timerType) {
-            case REMOVE_COLLISION:
-                timerMap.put(TimerComponent.TimerType.REMOVE_COLLISION,
-                        new ResetCollisionTimer(this, setTimer, deltaTime, TimerComponent.TimerType.REMOVE_COLLISION));
-                break;
-            case RESET_COLLISION:
-                timerMap.put(TimerComponent.TimerType.RESET_COLLISION,
-                        new ResetCollisionTimer(this, setTimer, deltaTime, TimerComponent.TimerType.REMOVE_COLLISION));
-                break;
-        }
-    }
-
     @Override
     public void onHit(Entity entity) {
         switch (entity.getEntityType()) {
@@ -252,8 +233,9 @@ public class Player extends Entity {
             case BULLET:
                 // Call timer, after timer, then resetCollision
                 // Otherwise game crashes trying to reset collision while still colliding
-                //addItemTimer(0.5f, ItemType.REMOVE_COLLISION);
-                addTimer(0.5f, TimerComponent.TimerType.REMOVE_COLLISION);
+                addTimer(0.1f, TimerComponent.TimerType.REMOVE_COLLISION);
+
+                // TODO: GET AMOUNT OF HP TO LOSE
                 lifeComp.loseHitPoints(1);
 
                 if (lifeComp.isDead()) {
@@ -262,7 +244,6 @@ public class Player extends Entity {
                 break;
         }
         Gdx.app.log("Player HP = " + lifeComp.getHitPoints(), "Ouch! " + entity.getName() + " hit me!");
-
     }
 
     public void onPickup(Item item) {
@@ -347,21 +328,30 @@ public class Player extends Entity {
         finalizeBody();
     }
 
+    private void addItemTimer(float setTimer, ItemType itemType) {
+        timerMap.put(TimerComponent.TimerType.ITEM, new ItemTimer(this, setTimer, itemType, deltaTime));
+    }
+    private void addTimer(float setTimer, TimerComponent.TimerType timerType) {
+        switch (timerType) {
+            case REMOVE_COLLISION:
+                timerMap.put(TimerComponent.TimerType.REMOVE_COLLISION,
+                        new ResetCollisionTimer(this, setTimer, deltaTime, TimerComponent.TimerType.REMOVE_COLLISION));
+                break;
+            case RESET_COLLISION:
+                timerMap.put(TimerComponent.TimerType.RESET_COLLISION,
+                        new ResetCollisionTimer(this, setTimer, deltaTime, TimerComponent.TimerType.RESET_COLLISION));
+                break;
+        }
+    }
+
     private void checkTimer(float deltaTime) {
         if (timerMap != null) {
-            System.out.println("Timer Map:");
             for (Map.Entry<TimerComponent.TimerType, TimerComponent> entry : timerMap.entrySet()) {
-                System.out.print(" " + entry.getKey().toString() + ":" + entry.getValue());
-            }
-            System.out.println();
-
-            for (Map.Entry<TimerComponent.TimerType, TimerComponent> entry : timerMap.entrySet()) {
-
                 if (entry.getValue() != null) {
 
                     // Where the real code begins
                     if (entry.getValue().timerHasEnded()) {
-                        //TimerComponent timer = null;
+
                         Command command = null;
                         switch (entry.getValue().getTimerType()) {
                             case REMOVE_COLLISION:

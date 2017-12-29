@@ -24,6 +24,7 @@ public class FireBullet extends Bullet {
         super(screen, startInWorldX, startInWorldY, v, rotation, firedBy);
 
         regionName = "flamethrower_bullet";
+        setName("Flame Bullet");
         frames = new Array<TextureRegion>();
         frames.add(new TextureRegion(atlas.findRegion(regionName), 0, 0, 13, 10));
         frames.add(new TextureRegion(atlas.findRegion(regionName), 13, 0, 13, 10));
