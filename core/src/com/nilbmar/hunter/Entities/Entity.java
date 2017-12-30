@@ -303,6 +303,7 @@ public abstract class Entity {
         bodyComponent.dispose();
     }
 
+    protected float getDeltaTime() { return deltaTime; }
     public void update(float deltaTime) {
         this.deltaTime = deltaTime;
 

@@ -109,7 +109,7 @@
   </object>
  </objectgroup>
  <objectgroup name="player">
-  <object id="180" x="68" y="32" width="16" height="16">
+  <object id="180" x="112" y="176" width="16" height="16">
    <properties>
     <property name="player" value=""/>
    </properties>

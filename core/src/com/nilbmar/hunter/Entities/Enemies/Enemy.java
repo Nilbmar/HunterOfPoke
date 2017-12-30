@@ -23,6 +23,7 @@ import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.AI.States.Action;
 import com.nilbmar.hunter.Enums.EntityType;
+import com.nilbmar.hunter.Timers.AttackTimer;
 
 import java.util.HashMap;
 
@@ -44,6 +45,8 @@ public class Enemy extends Entity {
     private double distanceForLOS;
     private Vision vision;
     private AITarget target;
+
+    private AttackTimer attackTimer;
 
     // Weapons HashMap
     private HashMap<String, WeaponComponent> weaponMap;
@@ -238,18 +241,24 @@ public class Enemy extends Entity {
     }
 
     public void attack() {
-        //Gdx.app.log(getName(), " is attacking.");
-        /* If no weapon, setTarget to player
-            if does have a weapon:
-                PICK ANOTHER STEERING BEHAVIOR TO KEEP A CERTAIN DISTANCE
-         */
+        if (attackTimer == null || attackTimer.timerHasEnded()) {
+            // TODO: GET VARIABLE FOR setTime
+            attackTimer = new AttackTimer(this, 1.5f, deltaTime);
+            //Gdx.app.log(getName(), " is attacking.");
+            /* If no weapon, setTarget to player
+                if does have a weapon:
+                    PICK ANOTHER STEERING BEHAVIOR TO KEEP A CERTAIN DISTANCE
+             */
 
-        // Move toward Player no matter what
-        setTarget(screen.getPlayer().getPosition());
+            // Move toward Player no matter what
+            setTarget(screen.getPlayer().getPosition());
 
-        // If Enemy has a weapon - fire
-        if (weaponMap.get("weapon") != null) {
-            weaponMap.get("weapon").fire(this);
+            // If Enemy has a weapon - fire
+            if (weaponMap.get("weapon") != null) {
+                weaponMap.get("weapon").fire(this);
+            }
+        } else {
+            attackTimer.update(deltaTime);
         }
     }
 
@@ -343,6 +352,7 @@ public class Enemy extends Entity {
         if (brain != null) {
             brain.update(hasLOStoPlayer);
         } else {
+            // TODO: GET BRAIN TYPE WHEN ALL ARE IMPLEMENTED
             setupBrain(Temperament.SCARED);
         }
 
