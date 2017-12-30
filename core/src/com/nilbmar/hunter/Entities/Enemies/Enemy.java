@@ -42,6 +42,7 @@ public class Enemy extends Entity {
 
     private boolean destroyed;
     private boolean hasLOStoPlayer;
+    private boolean isFacingPlayer;
     private double distanceForLOS;
     private Vision vision;
     private AITarget target;
@@ -179,6 +180,7 @@ public class Enemy extends Entity {
         this.distanceForLOS = distanceForLOS;
     }
     public void setHasLoStoPlayer(boolean los) { hasLOStoPlayer = los; }
+    public void setIsFacingPlayer(boolean facing) { isFacingPlayer = facing; }
 
     private void getNewTarget() {
         if (hasLOStoPlayer) {
@@ -253,8 +255,13 @@ public class Enemy extends Entity {
             // Move toward Player no matter what
             setTarget(screen.getPlayer().getPosition());
 
-            // If Enemy has a weapon - fire
-            if (weaponMap.get("weapon") != null) {
+            // Fire Weapon
+            // Only if enemy has a weapon, otherwise just run at player
+            // Only if enemy is facing the player
+            //      otherwise, have situations where enemy fires
+            //      then immediately turns, causing it to look like
+            //      they fired behind themselves
+            if (weaponMap.get("weapon") != null && isFacingPlayer) {
                 weaponMap.get("weapon").fire(this);
             }
         } else {

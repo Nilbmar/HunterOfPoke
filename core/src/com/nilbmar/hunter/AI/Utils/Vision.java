@@ -67,6 +67,59 @@ public class Vision implements Iterable<Vector2> {
         return hasLoS;
     }
 
+    public boolean isFacing(Entity source, Entity target) {
+        boolean facing = false;
+        float sourceX = source.getB2Body().getPosition().x;
+        float sourceY = source.getB2Body().getPosition().y;
+        float targetX = target.getB2Body().getPosition().x;
+        float targetY = target.getB2Body().getPosition().y;
+
+        switch(source.getDirectionComponent().getDirection()) {
+            case LEFT:
+                if (sourceX > targetX) {
+                    facing = true;
+                }
+                break;
+            case RIGHT:
+                if (sourceX < targetX) {
+                    facing = true;
+                }
+                break;
+            case UP:
+                if (sourceY < targetY) {
+                    facing = true;
+                }
+                break;
+            case UP_LEFT:
+                if (sourceY < targetY || sourceX > targetX) {
+                    facing = true;
+                }
+                break;
+            case UP_RIGHT:
+                if (sourceY < targetY || sourceX < targetX) {
+                    facing = true;
+                }
+                break;
+            case DOWN:
+                if (sourceY > targetY) {
+                    facing = true;
+                }
+                break;
+            case DOWN_LEFT:
+                if (sourceY > targetY || sourceX > targetX) {
+                    facing = true;
+                }
+                break;
+            case DOWN_RIGHT:
+                if (sourceY > targetY || sourceX < targetX) {
+                    facing = true;
+                }
+                break;
+        }
+
+        return facing;
+    }
+
     public double getDistance(Vector2 firstPoint, Vector2 secondPoint) {
         double distance = 0.0f;
         target = firstPoint;
