@@ -17,6 +17,8 @@ public class ScaredBrain extends Brain {
         super(enemy, ai);
 
         setAmtHelpRequired(1);
+
+        setHowOftenToAttack(1.5f);
         //setAmtHelpRequired(0);
     }
 

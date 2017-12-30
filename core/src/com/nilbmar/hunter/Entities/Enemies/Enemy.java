@@ -244,14 +244,9 @@ public class Enemy extends Entity {
 
     public void attack() {
         if (attackTimer == null || attackTimer.timerHasEnded()) {
-            // TODO: GET VARIABLE FOR setTime
-            attackTimer = new AttackTimer(this, 1.5f, deltaTime);
-            //Gdx.app.log(getName(), " is attacking.");
-            /* If no weapon, setTarget to player
-                if does have a weapon:
-                    PICK ANOTHER STEERING BEHAVIOR TO KEEP A CERTAIN DISTANCE
-             */
+            attackTimer = new AttackTimer(this, brain.getHowOftenToAttack(), deltaTime);
 
+            // TODO: CHANGE STEERING BEHAVIORS WHEN MORE ARE IMPLEMENTED
             // Move toward Player no matter what
             setTarget(screen.getPlayer().getPosition());
 

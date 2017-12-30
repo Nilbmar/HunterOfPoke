@@ -28,6 +28,8 @@ public abstract class Brain {
     private Action currentAction;
     private Temperament currentTemperament;
 
+    private float howOftenToAttack = 10f;
+
     private int amtHelpRequired;
     protected Queue<Enemy> nearbyHelpQ;
     protected boolean helpIsNear;
@@ -54,6 +56,8 @@ public abstract class Brain {
     public Stack<Goal> getGoalsStack() { return goalsStack; }
     public int getAmtHelpRequired() { return amtHelpRequired; }
     public void setAmtHelpRequired(int amt) { amtHelpRequired = amt; }
+    public float getHowOftenToAttack() { return howOftenToAttack; }
+    public void setHowOftenToAttack(float howOften) { howOftenToAttack = howOften; }
 
     public Enemy getEnemy() { return enemy; }
 
