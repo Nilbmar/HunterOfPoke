@@ -12,6 +12,7 @@ import com.nilbmar.hunter.Entities.Player;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Enums.BulletType;
 import com.nilbmar.hunter.Enums.ShotType;
+import com.nilbmar.hunter.Timers.AttackTimer;
 
 /**
  * Created by sysgeek on 4/27/17.
@@ -97,20 +98,27 @@ public class InputHandler {
             //player.resetCollision();
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
-            boxSingleShot.setType(BulletType.BALL);
-            boxSingleShot.execute(player);
-        }
+        // TODO: CHANGE THIS SETUP TO A WEAPONCOMPONENT LIKE IN ENEMY - MOVE IT INTO PLAYER
+        // TODO: GET THE OFFSET FOR ATTACK TIMER FROM WEAPON
+        if (player.getAttackTimer() == null || player.getAttackTimer().timerHasEnded()) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
+                boxSingleShot.setType(BulletType.BALL);
+                boxSingleShot.execute(player);
+                player.setAttackTimer(0f);
+            }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.C)) {
-            twinShot.setType(BulletType.BALL);
-            twinShot.fire(player);
-        }
+            if (Gdx.input.isKeyPressed(Input.Keys.C)) {
+                twinShot.setType(BulletType.BALL);
+                twinShot.fire(player);
+                player.setAttackTimer(0f);
+            }
 
-        // Single Shot
-        if (Gdx.input.isKeyJustPressed(Input.Keys.X)) {
-            singleShot.setType(BulletType.FIRE);
-            singleShot.fire(player);
+            // Single Shot
+            if (Gdx.input.isKeyJustPressed(Input.Keys.X)) {
+                singleShot.setType(BulletType.FIRE);
+                singleShot.fire(player);
+                player.setAttackTimer(0.2f);
+            }
         }
     }
 
@@ -165,8 +173,9 @@ public class InputHandler {
             movement(deltaTime);
             useItem(deltaTime);
             fireWeapon(deltaTime);
-            setPlayerPack();
+            setPlayerPack();        // Change player graphic if needed
         } else {
+            // Auto movement/fire for taking screenshot
             int moveX = 1;
             int moveY = -1;
             boolean awake = false;

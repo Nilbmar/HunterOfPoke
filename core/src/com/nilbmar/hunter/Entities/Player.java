@@ -11,6 +11,7 @@ import com.nilbmar.hunter.Components.FramesComponent;
 import com.nilbmar.hunter.Components.InventoryComponent;
 import com.nilbmar.hunter.Components.LifeComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
+import com.nilbmar.hunter.Timers.AttackTimer;
 import com.nilbmar.hunter.Timers.TimerComponent;
 import com.nilbmar.hunter.Entities.Items.Item;
 import com.nilbmar.hunter.Enums.ItemType;
@@ -36,6 +37,9 @@ public class Player extends Entity {
     private LifeComponent lifeComp;
     private Item holdItem;
 
+    private AttackTimer attackTimer;
+    private float howOftenCanAttack;
+
     // Components
     private InventoryComponent inventoryComponent;
 
@@ -60,6 +64,8 @@ public class Player extends Entity {
 
 
         timerMap = new HashMap<TimerComponent.TimerType, TimerComponent>();
+        howOftenCanAttack = 0.5f;
+        attackTimer = null;
 
         // int is inventory slots available
         inventoryComponent = new InventoryComponent(this, 5);
@@ -277,11 +283,16 @@ public class Player extends Entity {
 
             currentAction = Action.USE;
         }
-
     }
 
     public Item getHoldItem() { return holdItem; }
     public void setHoldItem(Item item) { holdItem = item; }
+
+    public AttackTimer getAttackTimer() { return attackTimer; }
+    public void setAttackTimer(float offsetTimer) {
+        float setTime = howOftenCanAttack + offsetTimer;
+        attackTimer = new AttackTimer(this, setTime, deltaTime);
+    }
 
     // Change maskBits to not collide with enemies
     // or go back to colliding with enemies
@@ -371,7 +382,6 @@ public class Player extends Entity {
                                 ((ChangeCollisionCommand) command).undo(this);
                                 timerMap.put(TimerComponent.TimerType.RESET_COLLISION, null);
                                 break;
-
                         }
                     } else {
                         entry.getValue().update(deltaTime);
@@ -388,6 +398,9 @@ public class Player extends Entity {
 
         // Check if its ok to resetCollision()
         checkTimer(deltaTime);
+        if (attackTimer != null) {
+            attackTimer.update(deltaTime);
+        }
 
         directionComp.setDirection(moveComponent.getCurrentDirection());
 
