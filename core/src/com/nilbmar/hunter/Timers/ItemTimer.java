@@ -2,7 +2,6 @@ package com.nilbmar.hunter.Timers;
 
 import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Enums.ItemType;
-import com.nilbmar.hunter.Components.TimerComponent;
 
 /**
  * Created by sysgeek on 6/13/17.

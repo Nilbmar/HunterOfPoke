@@ -1,5 +1,6 @@
-package com.nilbmar.hunter.Components;
+package com.nilbmar.hunter.Timers;
 
+import com.nilbmar.hunter.Components.Component;
 import com.nilbmar.hunter.Entities.Entity;
 
 /**

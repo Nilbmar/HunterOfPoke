@@ -1,11 +1,12 @@
 package com.nilbmar.hunter.Timers;
 
-import com.nilbmar.hunter.Components.TimerComponent;
 import com.nilbmar.hunter.Entities.Entity;
-import com.nilbmar.hunter.Enums.ItemType;
 
 /**
  * Created by sysgeek on 12/28/17.
+ *
+ * Purpose: Remove collision or Reset collision for player
+ * - most likely used when hit by enemy for invincibility frames
  */
 
 public class ResetCollisionTimer extends TimerComponent {

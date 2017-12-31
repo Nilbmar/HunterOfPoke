@@ -2,10 +2,11 @@ package com.nilbmar.hunter.Timers;
 
 import com.nilbmar.hunter.Entities.Entity;
 
-import com.nilbmar.hunter.Components.TimerComponent;
-
 /**
  * Created by sysgeek on 12/28/17.
+ *
+ * Purpose: Only allow attacking again
+ * - after a set time from the previous attack
  */
 
 public class AttackTimer extends TimerComponent {

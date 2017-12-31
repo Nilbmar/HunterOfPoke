@@ -11,7 +11,7 @@ import com.nilbmar.hunter.Components.FramesComponent;
 import com.nilbmar.hunter.Components.InventoryComponent;
 import com.nilbmar.hunter.Components.LifeComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
-import com.nilbmar.hunter.Components.TimerComponent;
+import com.nilbmar.hunter.Timers.TimerComponent;
 import com.nilbmar.hunter.Entities.Items.Item;
 import com.nilbmar.hunter.Enums.ItemType;
 import com.nilbmar.hunter.HunterOfPoke;

@@ -1,10 +1,9 @@
 package com.nilbmar.hunter.Entities.Items;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.nilbmar.hunter.Commands.UpdateHudCommand;
 import com.nilbmar.hunter.Components.DirectionComponent;
-import com.nilbmar.hunter.Components.TimerComponent;
+import com.nilbmar.hunter.Timers.TimerComponent;
 import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
