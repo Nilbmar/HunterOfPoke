@@ -1,12 +1,12 @@
 <resources>
 
-    <style info="GdxTheme" parent="android:Theme">
-		<item info="android:windowBackground">@android:color/transparent</item>
-        <item info="android:colorBackgroundCacheHint">@null</item>
-        <item info="android:windowAnimationStyle">@android:style/Animation</item>
-        <item info="android:windowNoTitle">true</item>
-        <item info="android:windowContentOverlay">@null</item>
-        <item info="android:windowFullscreen">true</item>
+    <style text="GdxTheme" parent="android:Theme">
+		<item text="android:windowBackground">@android:color/transparent</item>
+        <item text="android:colorBackgroundCacheHint">@null</item>
+        <item text="android:windowAnimationStyle">@android:style/Animation</item>
+        <item text="android:windowNoTitle">true</item>
+        <item text="android:windowContentOverlay">@null</item>
+        <item text="android:windowFullscreen">true</item>
     </style>
 
 </resources>

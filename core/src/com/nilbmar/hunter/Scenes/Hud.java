@@ -133,9 +133,10 @@ public class Hud implements Disposable {
     }
 
     public void update(float deltaTime) {
-        nameHUD.setName(playerName);
-        userInfoHUD.setInfo(userInfo);
+        nameHUD.setLabel(playerName);
+        userInfoHUD.setLabel(userInfo);
         userInfoHUD.update();
+        lifeHUD.update();
     }
 
     @Override
