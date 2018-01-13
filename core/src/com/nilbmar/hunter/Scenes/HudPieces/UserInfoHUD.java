@@ -7,25 +7,23 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 /**
  * Created by sysgeek on 1/13/18.
- *
- * Purpose: Hud piece for the player's name
  */
 
-public class NameHUD implements HudPiece {
-    private String name;
+public class UserInfoHUD implements HudPiece {
+    private String info;
     private Vector2 position = new Vector2(-50, -50);
 
-    private Label nameLabel;
+    private Label infoLabel;
 
-    public NameHUD(String name) {
-        this.name = name;
-        nameLabel = new Label(this.name,
-                new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+    public UserInfoHUD(String info) {
+        this.info = info;
+        infoLabel = new Label(this.info,
+                new Label.LabelStyle(new BitmapFont(), Color.CHARTREUSE));
     }
 
     // THIS MIGHT NOT CHANGE THE NAME DISPLAYED SINCE LABEL IS SET IN CONSTRUCTOR
-    public void setName(String name) { this.name = name; }
-    public Label getLabel() { return nameLabel; }
+    public void setInfo(String info) { this.info = info; }
+    public Label getLabel() { return infoLabel; }
 
     @Override
     public void setPosition(float x, float y) {
@@ -39,6 +37,6 @@ public class NameHUD implements HudPiece {
 
     @Override
     public void update() {
-        nameLabel.setText(name);
+        infoLabel.setText(info);
     }
 }

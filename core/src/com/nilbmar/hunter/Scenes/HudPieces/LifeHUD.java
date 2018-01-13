@@ -24,7 +24,7 @@ public class LifeHUD implements HudPiece {
         this.hpTotal = hpTotal;
     }
 
-    public Label getLifeLabel() { return lifeLabel; }
+    public Label getLabel() { return lifeLabel; }
 
     public void setHP(int hp) { this.hp = hp; }
     public void setHpTotal(int hpTotal) { this.hpTotal = hpTotal; }

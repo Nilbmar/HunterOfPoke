@@ -11,9 +11,9 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.nilbmar.hunter.HunterOfPoke;
-import com.nilbmar.hunter.Observers.Observer;
 import com.nilbmar.hunter.Scenes.HudPieces.LifeHUD;
 import com.nilbmar.hunter.Scenes.HudPieces.NameHUD;
+import com.nilbmar.hunter.Scenes.HudPieces.UserInfoHUD;
 
 import java.util.Locale;
 
@@ -44,9 +44,10 @@ public class Hud implements Disposable {
     private Label levelLabel;
     private Label worldLabel;
     //private Label playerNameLabel;
-    private Label userInfoLabel;
+    //private Label userInfoLabel;
 
     private NameHUD nameHUD;
+    private UserInfoHUD userInfoHUD;
     private LifeHUD lifeHUD = new LifeHUD(0, 0);
 
     public Hud(SpriteBatch spriteBatch) {
@@ -77,12 +78,12 @@ public class Hud implements Disposable {
         levelLabel = new Label(levelName,
                 new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         nameHUD = new NameHUD(playerName);
+        userInfoHUD = new UserInfoHUD("");
         /*playerNameLabel = new Label(playerName,
                 new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        */
-
         userInfoLabel = new Label(userInfo,
                 new Label.LabelStyle(new BitmapFont(), Color.CHARTREUSE));
+        */
         // TODO: DROP SHADOWS
 
         /* ADD LABELS TO TABLE */
@@ -90,11 +91,11 @@ public class Hud implements Disposable {
         Table topRows = new Table();
         topRows.top();
         topRows.setFillParent(true);
-        topRows.add(nameHUD.getNameLabel()).expandX().padTop(10);
+        topRows.add(nameHUD.getLabel()).expandX().padTop(10);
         topRows.add(worldLabel).expandX().padTop(10);
         topRows.add(timeLabel).expandX().padTop(10);
         // TODO: CHANGE THESE TO ACCEPTING HudPIece's instead of labels
-        topRows.add(lifeHUD.getLifeLabel()).expandX().padTop(10);
+        topRows.add(lifeHUD.getLabel()).expandX().padTop(10);
 
 
         topRows.row();
@@ -105,7 +106,7 @@ public class Hud implements Disposable {
         Table userInfo = new Table();
         userInfo.bottom();
         userInfo.setFillParent(true);
-        userInfo.add(userInfoLabel).expandX().padBottom(25);
+        userInfo.add(userInfoHUD.getLabel()).expandX().padBottom(25);
 
         /*
         Table table = new Table();
@@ -133,7 +134,8 @@ public class Hud implements Disposable {
 
     public void update(float deltaTime) {
         nameHUD.setName(playerName);
-        userInfoLabel.setText(userInfo);
+        userInfoHUD.setInfo(userInfo);
+        userInfoHUD.update();
     }
 
     @Override
