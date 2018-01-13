@@ -21,6 +21,7 @@ public class UpdateHudCommand implements Command {
         this.label = label;
         this.newText = newText;
     }
+
     @Override
     public void execute(Entity entity) {
         switch(label) {

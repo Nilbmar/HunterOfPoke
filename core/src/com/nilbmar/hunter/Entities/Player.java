@@ -11,6 +11,8 @@ import com.nilbmar.hunter.Components.FramesComponent;
 import com.nilbmar.hunter.Components.InventoryComponent;
 import com.nilbmar.hunter.Components.LifeComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
+import com.nilbmar.hunter.Observers.HudObserver;
+import com.nilbmar.hunter.Observers.ObservableComponent;
 import com.nilbmar.hunter.Timers.AttackTimer;
 import com.nilbmar.hunter.Timers.TimerComponent;
 import com.nilbmar.hunter.Entities.Items.Item;
@@ -42,6 +44,7 @@ public class Player extends Entity {
 
     // Components
     private InventoryComponent inventoryComponent;
+    private ObservableComponent observable;
 
     public Player(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
@@ -70,6 +73,9 @@ public class Player extends Entity {
         // int is inventory slots available
         inventoryComponent = new InventoryComponent(this, 5);
         holdItem = null;
+
+        observable = new ObservableComponent();
+        //observable.addObserver(HudObserver);
 
         //regionName = "default";
 
