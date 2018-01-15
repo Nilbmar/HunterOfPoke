@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.nilbmar.hunter.HunterOfPoke;
+import com.nilbmar.hunter.Observers.Observer;
 import com.nilbmar.hunter.Scenes.HudPieces.LabelHUD;
 import com.nilbmar.hunter.Scenes.HudPieces.LevelHUD;
 import com.nilbmar.hunter.Scenes.HudPieces.LifeHUD;
@@ -28,7 +29,8 @@ import java.util.Locale;
  */
 
 public class Hud implements Disposable {
-    public Stage stage;
+    private Stage stage;
+
 
     // Don't want Hud to move with other viewport
     private Viewport viewport;
@@ -102,12 +104,20 @@ public class Hud implements Disposable {
         stage.addActor(userInfo);   // Set at the bottom of the screen
     }
 
+    public Stage getStage() { return stage; }
+
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
     }
 
     public void setUserInfo(String userInfo) {
         this.userInfo = userInfo;
+    }
+
+    public Observer getObserver() {
+        Observer obs = null;
+
+        return obs;
     }
 
     public void update(float deltaTime) {

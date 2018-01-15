@@ -319,8 +319,8 @@ public class PlayScreen implements Screen {
         // Set batch to now draw what the HUD camera sees
         // ONLY if viewHUD is enabled (H key) - default is false
         if (viewHUD) {
-            game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
-            hud.stage.draw();
+            game.batch.setProjectionMatrix(hud.getStage().getCamera().combined);
+            hud.getStage().draw();
         }
 
     }
