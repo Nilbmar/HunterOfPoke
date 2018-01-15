@@ -1,5 +1,6 @@
 package com.nilbmar.hunter.Scenes.HudPieces;
 
+import com.nilbmar.hunter.Observers.Observer;
 import java.util.Locale;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Locale;
  * Purpose: Hud Piece to store and display player's score
  */
 
-public class ScoreHUD extends LabelHUD {
+public class ScoreHUD extends LabelHUD implements Observer {
     private int score;
 
     public ScoreHUD(String text) {

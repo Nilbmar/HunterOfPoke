@@ -98,8 +98,6 @@ public class PlayScreen implements Screen {
         this.game = game;
         gameCam = new OrthographicCamera();
         gamePort = new FitViewport(HunterOfPoke.V_WIDTH / HunterOfPoke.PPM, HunterOfPoke.V_HEIGHT / HunterOfPoke.PPM, gameCam);
-        hud = new Hud(game.batch);
-        viewHUD = true;
 
         // Load Assets
         assets.loadImages();
@@ -133,6 +131,9 @@ public class PlayScreen implements Screen {
         boxPatterns = new BoxPatternHandler(boxCreator);
 
         player = new Player(this, worldCreator.getPlayerSpawnX(), worldCreator.getPlayerSpawnY());
+        hud = new Hud(game.batch, player);
+        viewHUD = true;
+        player.setupHud(hud);
         hud.setPlayerName(player.getName());
 
         input = new InputHandler(this);

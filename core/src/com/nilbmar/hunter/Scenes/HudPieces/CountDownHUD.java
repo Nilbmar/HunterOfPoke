@@ -1,9 +1,5 @@
 package com.nilbmar.hunter.Scenes.HudPieces;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-
 import java.util.Locale;
 
 /**
@@ -22,6 +18,7 @@ public class CountDownHUD extends LabelHUD {
         time = Integer.parseInt(text);
     }
 
+    // This update is for HudPieces
     @Override
     public void update() {
         // "%03d" is how many digits long = 3 digits

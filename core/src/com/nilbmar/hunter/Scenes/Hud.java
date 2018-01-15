@@ -1,17 +1,17 @@
 package com.nilbmar.hunter.Scenes;
 
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.nilbmar.hunter.Entities.Player;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Observers.Observer;
+import com.nilbmar.hunter.Observers.Subject;
 import com.nilbmar.hunter.Scenes.HudPieces.LabelHUD;
 import com.nilbmar.hunter.Scenes.HudPieces.LevelHUD;
 import com.nilbmar.hunter.Scenes.HudPieces.LifeHUD;
@@ -20,8 +20,6 @@ import com.nilbmar.hunter.Scenes.HudPieces.CountDownHUD;
 import com.nilbmar.hunter.Scenes.HudPieces.ScoreHUD;
 import com.nilbmar.hunter.Scenes.HudPieces.UserInfoHUD;
 
-import java.util.Locale;
-
 /**
  * Created by sysgeek on 4/7/17.
  *
@@ -29,6 +27,7 @@ import java.util.Locale;
  */
 
 public class Hud implements Disposable {
+    private Player player;
     private Stage stage;
 
 
@@ -42,19 +41,21 @@ public class Hud implements Disposable {
     private String userInfo = "";
     private float timeCount;
 
-    // TODO: PASS LEVEL AND PLAYER NAMES THROUGH CONSTRUCTOR
-
-    private NameHUD nameHUD;
-    private LevelHUD levelHUD;
-    private UserInfoHUD userInfoHUD;
-    private LifeHUD lifeHUD = new LifeHUD(0, 0);
-    private CountDownHUD countDownHUD;
-    private ScoreHUD scoreHUD;
-
+    /* HUD PIECES */
     private LabelHUD worldHUD;
     private LabelHUD timeHUD;
+    private CountDownHUD countDownHUD;
+    private NameHUD nameHUD;
+    private LevelHUD levelHUD;
+    // TODO: PASS LEVEL AND PLAYER NAMES THROUGH CONSTRUCTOR
+    // Observable HUD Pieces
+    public enum HudObservers { USER_INFO, LIFE, SCORE }
+    private UserInfoHUD userInfoHUD;
+    private LifeHUD lifeHUD;
+    private ScoreHUD scoreHUD;
 
-    public Hud(SpriteBatch spriteBatch) {
+    public Hud(SpriteBatch spriteBatch, Player player) {
+        this.player = player;
         worldTimer = 300;
         timeCount = 0;
         score = 0;
@@ -70,6 +71,7 @@ public class Hud implements Disposable {
         // TODO: CHANGE LEVEL NAME AND PLAYER NAME, ADD TO Hud(PARAMETERS)
         nameHUD = new NameHUD(playerName);
         levelHUD = new LevelHUD(levelName);
+        lifeHUD = new LifeHUD(0, 0, player);
         userInfoHUD = new UserInfoHUD(userInfo);
         worldHUD = new LabelHUD("WORLD");   // Currently uses default LabelHUD
         timeHUD = new LabelHUD("TIME");     // Currently uses default LabelHUD
@@ -104,7 +106,7 @@ public class Hud implements Disposable {
         stage.addActor(userInfo);   // Set at the bottom of the screen
     }
 
-    public Stage getStage() { return stage; }
+
 
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
@@ -114,10 +116,25 @@ public class Hud implements Disposable {
         this.userInfo = userInfo;
     }
 
-    public Observer getObserver() {
-        Observer obs = null;
+    public Stage getStage() { return stage; }
 
-        return obs;
+    public Observer getObserver(HudObservers obsToGet) {
+        Observer observer = null;
+        // USER_INFO, LIFE, SCORE
+        switch (obsToGet) {
+            case LIFE:
+                observer = lifeHUD;
+                break;
+            case USER_INFO:
+                observer = userInfoHUD;
+                break;
+            case SCORE:
+                observer = scoreHUD;
+                break;
+        }
+
+
+        return observer;
     }
 
     public void update(float deltaTime) {

@@ -1,9 +1,9 @@
 package com.nilbmar.hunter.Scenes.HudPieces;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.Gdx;
+import com.nilbmar.hunter.Entities.Player;
+import com.nilbmar.hunter.Observers.Observer;
+import com.nilbmar.hunter.Observers.Subject;
 
 /**
  * Created by sysgeek on 1/13/18.
@@ -11,21 +11,30 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
  * Purpose: Piece of the HUD to display player's HP
  */
 
-public class LifeHUD extends LabelHUD {
+public class LifeHUD extends LabelHUD implements Observer {
+    private Subject subject;
     private int hp = 0;
     private int hpTotal = 0;
 
-    public LifeHUD(int hp, int hpTotal) {
+    public LifeHUD(int hp, int hpTotal, Subject subject) {
         super(hp + " / " + hpTotal);
-        this.hp = hp;
-        this.hpTotal = hpTotal;
+        this.subject = subject;
+        setHP();
     }
 
-    public void setHP(int hp) { this.hp = hp; }
-    public void setHpTotal(int hpTotal) { this.hpTotal = hpTotal; }
+    public void setHP() {
+
+        try {
+            hp = ((Player) subject).getLifeComp().getHitPoints();
+            hpTotal = ((Player) subject).getLifeComp().getMaxHitPoints();
+        } catch (Exception ex) {
+            Gdx.app.log("Exception", "Subject can not be converted to Player");
+        }
+    }
 
     @Override
     public void update() {
+        setHP();
         label.setText(hp + " / " + hpTotal);
     }
 }

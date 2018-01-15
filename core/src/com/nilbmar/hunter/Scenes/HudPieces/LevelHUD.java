@@ -15,4 +15,5 @@ public class LevelHUD extends LabelHUD {
     }
 
     public String getLevelName() { return levelName; }
+    public void setLevelName(String levelName) { this.levelName = levelName; }
 }

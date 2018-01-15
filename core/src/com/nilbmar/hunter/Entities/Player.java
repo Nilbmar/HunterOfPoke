@@ -2,6 +2,7 @@ package com.nilbmar.hunter.Entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Shape;
+import com.badlogic.gdx.utils.Array;
 import com.nilbmar.hunter.Commands.ChangeCollisionCommand;
 import com.nilbmar.hunter.Commands.Command;
 import com.nilbmar.hunter.Commands.UseCommand;
@@ -11,8 +12,9 @@ import com.nilbmar.hunter.Components.FramesComponent;
 import com.nilbmar.hunter.Components.InventoryComponent;
 import com.nilbmar.hunter.Components.LifeComponent;
 import com.nilbmar.hunter.Components.MoveComponent;
-import com.nilbmar.hunter.Observers.HudObserver;
-import com.nilbmar.hunter.Observers.ObservableComponent;
+import com.nilbmar.hunter.Observers.Observer;
+import com.nilbmar.hunter.Observers.Subject;
+import com.nilbmar.hunter.Scenes.Hud;
 import com.nilbmar.hunter.Timers.AttackTimer;
 import com.nilbmar.hunter.Timers.TimerComponent;
 import com.nilbmar.hunter.Entities.Items.Item;
@@ -35,16 +37,17 @@ import java.util.Map;
  * Purpose: The character the player controls
  */
 
-public class Player extends Entity {
-    private LifeComponent lifeComp;
-    private Item holdItem;
+public class Player extends Entity implements Subject {
+    private Array<Observer> observers;
 
     private AttackTimer attackTimer;
     private float howOftenCanAttack;
 
     // Components
     private InventoryComponent inventoryComponent;
-    private ObservableComponent observable;
+    private LifeComponent lifeComp;
+
+    private Item holdItem;
 
     public Player(PlayScreen screen, float startInWorldX, float startInWorldY) {
         super(screen, startInWorldX, startInWorldY);
@@ -73,9 +76,6 @@ public class Player extends Entity {
         // int is inventory slots available
         inventoryComponent = new InventoryComponent(this, 5);
         holdItem = null;
-
-        observable = new ObservableComponent();
-        //observable.addObserver(HudObserver);
 
         //regionName = "default";
 
@@ -238,6 +238,14 @@ public class Player extends Entity {
         }
     }
 
+    public void setupHud(Hud hud) {
+        observers = new Array<Observer>();
+        addObserver(hud.getObserver(Hud.HudObservers.LIFE));
+        addObserver(hud.getObserver(Hud.HudObservers.USER_INFO));
+        addObserver(hud.getObserver(Hud.HudObservers.SCORE));
+    }
+
+    public LifeComponent getLifeComp() { return lifeComp; }
     @Override
     public void onHit(Entity entity) {
         switch (entity.getEntityType()) {
@@ -256,6 +264,7 @@ public class Player extends Entity {
                 break;
         }
         Gdx.app.log("Player HP = " + lifeComp.getHitPoints(), "Ouch! " + entity.getName() + " hit me!");
+        notifyObserver();
     }
 
     public void onPickup(Item item) {
@@ -396,6 +405,26 @@ public class Player extends Entity {
             }
         }
 
+    }
+
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        //int obsToDelete = observers.indexOf(observer, false);
+        //observers.removeIndex(obsToDelete);
+
+        observers.removeValue(observer, false);
+    }
+
+    @Override
+    public void notifyObserver() {
+        for (Observer observer : observers) {
+            observer.update();
+        }
     }
 
     @Override
