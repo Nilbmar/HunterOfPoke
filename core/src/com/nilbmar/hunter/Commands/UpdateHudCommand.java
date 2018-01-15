@@ -25,9 +25,6 @@ public class UpdateHudCommand implements Command {
     @Override
     public void execute(Entity entity) {
         switch(label) {
-            case PLAYER:
-                hud.setPlayerName(newText);
-                break;
             case USER_INFO:
                 hud.setUserInfo(newText);
                 break;

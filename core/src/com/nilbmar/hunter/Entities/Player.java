@@ -238,7 +238,7 @@ public class Player extends Entity implements Subject {
         }
     }
 
-    public void setupHud(Hud hud) {
+    public void setupHudObservers(Hud hud) {
         observers = new Array<Observer>();
         addObserver(hud.getObserver(Hud.HudObservers.LIFE));
         addObserver(hud.getObserver(Hud.HudObservers.USER_INFO));

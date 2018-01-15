@@ -30,14 +30,12 @@ public class Hud implements Disposable {
     private Player player;
     private Stage stage;
 
-
     // Don't want Hud to move with other viewport
     private Viewport viewport;
 
     private int worldTimer;
     private int score;
     private String levelName = "CHANGE";
-    private String playerName = "DOOPSY";
     private String userInfo = "";
     private float timeCount;
 
@@ -59,7 +57,6 @@ public class Hud implements Disposable {
         worldTimer = 300;
         timeCount = 0;
         score = 0;
-        playerName = playerName.toUpperCase();
         levelName = levelName.toLowerCase(); // Change this to actual lvl formatting
 
         viewport = new FitViewport(HunterOfPoke.V_WIDTH,
@@ -69,7 +66,7 @@ public class Hud implements Disposable {
 
         /* CREATE HUD PIECES (currently all labels) */
         // TODO: CHANGE LEVEL NAME AND PLAYER NAME, ADD TO Hud(PARAMETERS)
-        nameHUD = new NameHUD(playerName);
+        nameHUD = new NameHUD(player.getName());
         levelHUD = new LevelHUD(levelName);
         lifeHUD = new LifeHUD(0, 0, player);
         userInfoHUD = new UserInfoHUD(userInfo);
@@ -106,12 +103,6 @@ public class Hud implements Disposable {
         stage.addActor(userInfo);   // Set at the bottom of the screen
     }
 
-
-
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
     public void setUserInfo(String userInfo) {
         this.userInfo = userInfo;
     }
@@ -138,7 +129,7 @@ public class Hud implements Disposable {
     }
 
     public void update(float deltaTime) {
-        nameHUD.setLabel(playerName);
+        //nameHUD.setLabel(player.getName());
         userInfoHUD.setLabel(userInfo);
         userInfoHUD.update();
         lifeHUD.update();

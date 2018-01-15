@@ -133,8 +133,7 @@ public class PlayScreen implements Screen {
         player = new Player(this, worldCreator.getPlayerSpawnX(), worldCreator.getPlayerSpawnY());
         hud = new Hud(game.batch, player);
         viewHUD = true;
-        player.setupHud(hud);
-        hud.setPlayerName(player.getName());
+        player.setupHudObservers(hud);
 
         input = new InputHandler(this);
 
