@@ -2,7 +2,6 @@ package com.nilbmar.hunter.Entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Shape;
-import com.badlogic.gdx.utils.Array;
 import com.nilbmar.hunter.Commands.ChangeCollisionCommand;
 import com.nilbmar.hunter.Commands.Command;
 import com.nilbmar.hunter.Commands.UseCommand;
@@ -15,6 +14,7 @@ import com.nilbmar.hunter.Components.MoveComponent;
 import com.nilbmar.hunter.Observers.Observer;
 import com.nilbmar.hunter.Observers.Subject;
 import com.nilbmar.hunter.Scenes.Hud;
+import com.nilbmar.hunter.Scenes.HudPieces.UserInfoHUD;
 import com.nilbmar.hunter.Timers.AttackTimer;
 import com.nilbmar.hunter.Timers.TimerComponent;
 import com.nilbmar.hunter.Entities.Items.Item;
@@ -28,6 +28,7 @@ import com.nilbmar.hunter.Timers.ItemTimer;
 import com.nilbmar.hunter.Timers.ResetCollisionTimer;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -38,7 +39,8 @@ import java.util.Map;
  */
 
 public class Player extends Entity implements Subject {
-    private Array<Observer> observers;
+    //private Array<Observer> observers;
+    private HashMap<String, Observer> observers;
 
     private AttackTimer attackTimer;
     private float howOftenCanAttack;
@@ -238,12 +240,7 @@ public class Player extends Entity implements Subject {
         }
     }
 
-    public void setupHudObservers(Hud hud) {
-        observers = new Array<Observer>();
-        addObserver(hud.getObserver(Hud.HudObservers.LIFE));
-        addObserver(hud.getObserver(Hud.HudObservers.USER_INFO));
-        addObserver(hud.getObserver(Hud.HudObservers.SCORE));
-    }
+
 
     public LifeComponent getLifeComp() { return lifeComp; }
     @Override
@@ -297,6 +294,18 @@ public class Player extends Entity implements Subject {
             inventoryComponent.reduceInventory(holdItem.getInventoryType());
 
             currentAction = Action.USE;
+
+            /* TODO: THIS WON'T SET THE HUD PROPERLY IF GET HIT BEFORE REACHING ITEM
+             * AND DOESN'T UNSET WHEN TIMER ENDS
+             */
+            if (observers.containsKey(Hud.HudObservers.USER_INFO.toString())) {
+                Gdx.app.log("user info", holdItem.getName());
+                UserInfoHUD uiHud = (UserInfoHUD) observers.get(Hud.HudObservers.USER_INFO.toString());
+                uiHud.setInfo(holdItem.getName());
+                observers.get(Hud.HudObservers.USER_INFO.toString()).update();
+            }
+
+            notifyObserver();
         }
     }
 
@@ -407,9 +416,16 @@ public class Player extends Entity implements Subject {
 
     }
 
+    public void setupHudObservers(Hud hud) {
+        observers = new HashMap<String, Observer>();
+        addObserver(hud.getObserver(Hud.HudObservers.LIFE));
+        addObserver(hud.getObserver(Hud.HudObservers.USER_INFO));
+        addObserver(hud.getObserver(Hud.HudObservers.SCORE));
+    }
+
     @Override
     public void addObserver(Observer observer) {
-        observers.add(observer);
+        observers.put(observer.getType(), observer);
     }
 
     @Override
@@ -417,13 +433,18 @@ public class Player extends Entity implements Subject {
         //int obsToDelete = observers.indexOf(observer, false);
         //observers.removeIndex(obsToDelete);
 
-        observers.removeValue(observer, false);
+        observers.remove(observer);
+        //observers.removeValue(observer, false);
     }
 
     @Override
     public void notifyObserver() {
-        for (Observer observer : observers) {
-            observer.update();
+        HashMap.Entry<String, Observer> entry;
+        Iterator<HashMap.Entry<String, Observer>> it = observers.entrySet().iterator();
+        while (it.hasNext()) {
+            entry = it.next();
+            entry.getValue().update();
+            it.remove();
         }
     }
 

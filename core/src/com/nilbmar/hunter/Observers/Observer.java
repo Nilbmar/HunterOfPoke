@@ -7,7 +7,6 @@ package com.nilbmar.hunter.Observers;
  */
 
 public interface Observer {
-
-
     void update();
+    String getType();
 }

@@ -1,7 +1,5 @@
 package com.nilbmar.hunter.Observers;
 
-import com.nilbmar.hunter.Observers.Observer;
-
 /**
  * Created by sysgeek on 1/12/18.
  *

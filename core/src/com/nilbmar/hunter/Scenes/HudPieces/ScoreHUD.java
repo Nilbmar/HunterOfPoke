@@ -1,6 +1,8 @@
 package com.nilbmar.hunter.Scenes.HudPieces;
 
 import com.nilbmar.hunter.Observers.Observer;
+import com.nilbmar.hunter.Scenes.Hud;
+
 import java.util.Locale;
 
 /**
@@ -20,6 +22,9 @@ public class ScoreHUD extends LabelHUD implements Observer {
     public void addToScore(int add) {
         score = score + add;
     }
+
+    @Override
+    public String getType() { return Hud.HudObservers.SCORE.toString(); }
 
     @Override
     public void update() {

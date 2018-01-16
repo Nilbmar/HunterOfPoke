@@ -2,6 +2,7 @@ package com.nilbmar.hunter.Scenes.HudPieces;
 
 import com.badlogic.gdx.graphics.Color;
 import com.nilbmar.hunter.Observers.Observer;
+import com.nilbmar.hunter.Scenes.Hud;
 
 /**
  * Created by sysgeek on 1/13/18.
@@ -22,6 +23,9 @@ public class UserInfoHUD extends LabelHUD implements Observer {
 
     public void setInfo(String info) { this.info = info; }
     public void setColor(Color color) { this.color = color; }
+
+    @Override
+    public String getType() { return Hud.HudObservers.USER_INFO.toString(); }
 
     @Override
     public void update() {

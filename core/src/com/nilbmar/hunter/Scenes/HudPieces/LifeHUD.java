@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.nilbmar.hunter.Entities.Player;
 import com.nilbmar.hunter.Observers.Observer;
 import com.nilbmar.hunter.Observers.Subject;
+import com.nilbmar.hunter.Scenes.Hud;
 
 /**
  * Created by sysgeek on 1/13/18.
@@ -31,6 +32,9 @@ public class LifeHUD extends LabelHUD implements Observer {
             Gdx.app.log("Exception", "Subject can not be converted to Player");
         }
     }
+
+    @Override
+    public String getType() { return Hud.HudObservers.LIFE.toString(); }
 
     @Override
     public void update() {

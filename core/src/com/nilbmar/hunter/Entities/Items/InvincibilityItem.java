@@ -57,8 +57,8 @@ public class InvincibilityItem extends Item {
     @Override
     protected void updateHud() {
     // TODO: THIS NEEDS TO GO ELSEWHERE - BUT WHERE?
-        hudUpdate = new UpdateHudCommand(screen.getHUD(), HudLabels.USER_INFO, getName());
-        hudUpdate.execute(this);
+        //hudUpdate = new UpdateHudCommand(screen.getHUD(), HudLabels.USER_INFO, getName());
+        //hudUpdate.execute(this);
     }
 
     @Override
