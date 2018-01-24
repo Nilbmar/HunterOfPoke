@@ -1,6 +1,9 @@
 package com.nilbmar.hunter.Scenes.HudPieces;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.nilbmar.hunter.Commands.UpdateHudCommand;
+import com.nilbmar.hunter.Enums.HudLabels;
 import com.nilbmar.hunter.Observers.Observer;
 import com.nilbmar.hunter.Scenes.Hud;
 
@@ -12,6 +15,7 @@ import com.nilbmar.hunter.Scenes.Hud;
  */
 
 public class UserInfoHUD extends LabelHUD implements Observer {
+    protected UpdateHudCommand hudUpdate;
     private String info;
     private Color color;
 
@@ -21,7 +25,10 @@ public class UserInfoHUD extends LabelHUD implements Observer {
         color = Color.CHARTREUSE;
     }
 
-    public void setInfo(String info) { this.info = info; }
+    public void setInfo(String info) { this.info = info;
+        Gdx.app.log("UserInfoHUD", "Setting info to " + info);
+
+    }
     public void setColor(Color color) { this.color = color; }
 
     @Override
@@ -29,7 +36,10 @@ public class UserInfoHUD extends LabelHUD implements Observer {
 
     @Override
     public void update() {
-        label.setColor(color);
-        label.setText(info);
+        if (info != null) {
+            Gdx.app.log("UserInfoHUD update", info.toString());
+            label.setColor(color);
+            label.setText(info);
+        }
     }
 }

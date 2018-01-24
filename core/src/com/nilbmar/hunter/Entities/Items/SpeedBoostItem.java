@@ -2,15 +2,15 @@ package com.nilbmar.hunter.Entities.Items;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.nilbmar.hunter.Commands.AccelerationCommand;
-import com.nilbmar.hunter.Commands.UpdateHudCommand;
 import com.nilbmar.hunter.Entities.Entity;
+import com.nilbmar.hunter.Entities.Player;
 import com.nilbmar.hunter.HunterOfPoke;
 import com.nilbmar.hunter.Screens.PlayScreen;
 import com.nilbmar.hunter.Enums.EntityType;
-import com.nilbmar.hunter.Enums.HudLabels;
 import com.nilbmar.hunter.Enums.InventorySlotType;
 import com.nilbmar.hunter.Enums.ItemType;
 import com.nilbmar.hunter.Timers.ItemTimer;
+import com.nilbmar.hunter.Timers.TimerComponent;
 
 /**
  * Created by sysgeek on 6/12/17.
@@ -53,20 +53,10 @@ public class SpeedBoostItem extends Item {
             addItemTimer(getItemEffectTime(), getItemType());
             accelerationCommand = new AccelerationCommand(entityThatUsed, 1);
             accelerationCommand.execute(entityThatUsed);
-            updateHud();
         }
         if (entity.getEntityType() == EntityType.ENEMY) {
             // TODO: WILL ENEMIES TRAMPLE ITEMS?
         }
-
-
-    }
-
-    @Override
-    protected void updateHud() {
-        // TODO: THIS NEEDS TO GO ELSEWHERE - BUT WHERE?
-        hudUpdate = new UpdateHudCommand(screen.getHUD(), HudLabels.USER_INFO, getName());
-        hudUpdate.execute(this);
     }
 
     @Override
@@ -82,14 +72,6 @@ public class SpeedBoostItem extends Item {
                         accelerationCommand.undo(entityThatUsed);
                         accelerationCommand = null;
                         timerMap.put(timerType, null);
-
-                        // TODO: CHANGE HOW HUD UPDATES
-                        // CURRENTLY, THIS WILL BLANK THE LABEL NO MATTER WHAT
-                        // EVEN IF ANOTHER ITEM IS MORE RECENT
-                        // POSSIBLY STORE AN ARRAY OF ITEMS WITH TIMERS
-                        // THEN REMOVE THEM FROM ARRAY WHEN THEY TIME OUT
-                        hudUpdate = new UpdateHudCommand(screen.getHUD(), HudLabels.USER_INFO, "");
-                        hudUpdate.execute(this);
                     }
                 } else {
                     timer.update(deltaTime);

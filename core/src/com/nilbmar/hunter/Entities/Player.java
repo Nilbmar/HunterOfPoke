@@ -2,6 +2,7 @@ package com.nilbmar.hunter.Entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Shape;
+import com.badlogic.gdx.utils.Array;
 import com.nilbmar.hunter.Commands.ChangeCollisionCommand;
 import com.nilbmar.hunter.Commands.Command;
 import com.nilbmar.hunter.Commands.UseCommand;
@@ -284,7 +285,6 @@ public class Player extends Entity implements Subject {
         String newText = "";
         InventorySlotType slotType = holdItem.getInventoryType();
 
-
         if (inventoryComponent.countInInventory(slotType) > 0) {
             Gdx.app.log("Inventory", getEntityType() + " used " + slotType);
             newText = holdItem.getName();
@@ -298,14 +298,15 @@ public class Player extends Entity implements Subject {
             /* TODO: THIS WON'T SET THE HUD PROPERLY IF GET HIT BEFORE REACHING ITEM
              * AND DOESN'T UNSET WHEN TIMER ENDS
              */
-            if (observers.containsKey(Hud.HudObservers.USER_INFO.toString())) {
+            if (observers.containsKey(Hud.HudObservers.USER_INFO.name())
+                    && observers.get(Hud.HudObservers.USER_INFO.name()) != null) {
                 Gdx.app.log("user info", holdItem.getName());
-                UserInfoHUD uiHud = (UserInfoHUD) observers.get(Hud.HudObservers.USER_INFO.toString());
-                uiHud.setInfo(holdItem.getName());
-                observers.get(Hud.HudObservers.USER_INFO.toString()).update();
+                ((UserInfoHUD) observers.get(Hud.HudObservers.USER_INFO.name())).setInfo(holdItem.getName());
+                observers.get(Hud.HudObservers.USER_INFO.name()).update();
+                notifyObserver();
+            } else {
+                Gdx.app.log("Observers", Hud.HudObservers.USER_INFO.name());
             }
-
-            notifyObserver();
         }
     }
 
@@ -363,7 +364,7 @@ public class Player extends Entity implements Subject {
         finalizeBody();
     }
 
-    private void addItemTimer(float setTimer, ItemType itemType) {
+    public void addItemTimer(float setTimer, ItemType itemType) {
         timerMap.put(TimerComponent.TimerType.ITEM, new ItemTimer(this, setTimer, itemType, deltaTime));
     }
     private void addTimer(float setTimer, TimerComponent.TimerType timerType) {
@@ -379,8 +380,16 @@ public class Player extends Entity implements Subject {
         }
     }
 
+    public void clearTimer(TimerComponent.TimerType timerType) {
+        if (timerMap.containsKey(timerType)) {
+            timerMap.put(timerType, null);
+        }
+    }
+
     private void checkTimer(float deltaTime) {
         if (timerMap != null) {
+            // Save timers that should be set to null after iterating over map
+            Array<TimerComponent.TimerType> setTimerNull = new Array<TimerComponent.TimerType>();
             for (Map.Entry<TimerComponent.TimerType, TimerComponent> entry : timerMap.entrySet()) {
                 if (entry.getValue() != null) {
 
@@ -393,7 +402,7 @@ public class Player extends Entity implements Subject {
                                 Gdx.app.log("Update", "Removing Collision");
                                 command = new ChangeCollisionCommand();
                                 command.execute(this);
-                                timerMap.put(TimerComponent.TimerType.REMOVE_COLLISION, null);
+                                setTimerNull.add(TimerComponent.TimerType.REMOVE_COLLISION);
 
                                 // Add a timer to reset the collision to enabled
                                 //addItemTimer(2f, ItemType.RESET_COLLISION);
@@ -404,7 +413,19 @@ public class Player extends Entity implements Subject {
                                 Gdx.app.log("Update", "Resetting Collision");
                                 command = new ChangeCollisionCommand();
                                 ((ChangeCollisionCommand) command).undo(this);
-                                timerMap.put(TimerComponent.TimerType.RESET_COLLISION, null);
+                                setTimerNull.add(TimerComponent.TimerType.RESET_COLLISION);
+
+                                break;
+                            case ITEM:
+                                if (observers.containsKey(Hud.HudObservers.USER_INFO.name())
+                                        && observers.get(Hud.HudObservers.USER_INFO.name()) != null) {
+                                    ((UserInfoHUD) observers.get(Hud.HudObservers.USER_INFO.name()))
+                                            .setInfo("");
+                                    observers.get(Hud.HudObservers.USER_INFO.name()).update();
+                                    //notifyObserver();
+                                    setTimerNull.add(TimerComponent.TimerType.ITEM);
+                                }
+
                                 break;
                         }
                     } else {
@@ -412,15 +433,19 @@ public class Player extends Entity implements Subject {
                     }
                 }
             }
+
+            for (TimerComponent.TimerType timerType : setTimerNull) {
+                timerMap.put(timerType, null);
+            }
         }
 
     }
 
     public void setupHudObservers(Hud hud) {
         observers = new HashMap<String, Observer>();
-        addObserver(hud.getObserver(Hud.HudObservers.LIFE));
-        addObserver(hud.getObserver(Hud.HudObservers.USER_INFO));
-        addObserver(hud.getObserver(Hud.HudObservers.SCORE));
+        observers.put(Hud.HudObservers.LIFE.name(), hud.getObserver(Hud.HudObservers.LIFE));
+        observers.put(Hud.HudObservers.USER_INFO.name(), hud.getObserver(Hud.HudObservers.USER_INFO));
+        observers.put(Hud.HudObservers.SCORE.name(), hud.getObserver(Hud.HudObservers.SCORE));
     }
 
     @Override
@@ -439,13 +464,18 @@ public class Player extends Entity implements Subject {
 
     @Override
     public void notifyObserver() {
+        /*
+        for (HashMap.Entry<String, Observer> entry : observers.entrySet()) {
+            entry.getValue().update();
+        }*/
+
         HashMap.Entry<String, Observer> entry;
         Iterator<HashMap.Entry<String, Observer>> it = observers.entrySet().iterator();
         while (it.hasNext()) {
             entry = it.next();
             entry.getValue().update();
-            it.remove();
         }
+        //*/
     }
 
     @Override
@@ -457,7 +487,7 @@ public class Player extends Entity implements Subject {
         if (attackTimer != null) {
             attackTimer.update(deltaTime);
         }
-
+        notifyObserver();
         directionComp.setDirection(moveComponent.getCurrentDirection());
 
         imageComponent.setRegion(getFrame(deltaTime));

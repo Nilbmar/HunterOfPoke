@@ -6,6 +6,8 @@ import com.nilbmar.hunter.Entities.Entity;
 
 /**
  * Created by sysgeek on 6/19/17.
+ *
+ * Purpose: Command for using items
  */
 
 public class UseCommand implements Command {

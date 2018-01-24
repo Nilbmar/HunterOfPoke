@@ -26,7 +26,7 @@ public class UpdateHudCommand implements Command {
     public void execute(Entity entity) {
         switch(label) {
             case USER_INFO:
-                //hud.setUserInfo(newText);
+                hud.setUserInfo(newText);
                 break;
         }
     }

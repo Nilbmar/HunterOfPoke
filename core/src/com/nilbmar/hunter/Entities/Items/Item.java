@@ -1,8 +1,8 @@
 package com.nilbmar.hunter.Entities.Items;
 
 import com.badlogic.gdx.physics.box2d.Shape;
-import com.nilbmar.hunter.Commands.UpdateHudCommand;
 import com.nilbmar.hunter.Components.DirectionComponent;
+import com.nilbmar.hunter.Entities.Player;
 import com.nilbmar.hunter.Timers.TimerComponent;
 import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.HunterOfPoke;
@@ -23,9 +23,7 @@ import java.util.HashMap;
  */
 
 public abstract class Item extends Entity {
-
     protected Entity entityThatUsed;
-    protected UpdateHudCommand hudUpdate;
     protected boolean destroyed;
     protected float stateTimer;
     protected ItemType itemType;
@@ -71,9 +69,10 @@ public abstract class Item extends Entity {
     }
 
     public abstract void use(Entity entity);
-    protected abstract void updateHud();
 
     protected void addItemTimer(float setTimer, ItemType itemType) {
+        Player player = screen.getPlayer();
+        player.addItemTimer(setTimer, itemType);
         timerMap.put(TimerComponent.TimerType.ITEM, new ItemTimer(this, setTimer, itemType, deltaTime));
     }
 

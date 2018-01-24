@@ -50,15 +50,7 @@ public class InvincibilityItem extends Item {
             addItemTimer(getItemEffectTime(), getItemType());
             collisionCommand = new ChangeCollisionCommand();
             collisionCommand.execute(entityThatUsed);
-            updateHud();
         }
-    }
-
-    @Override
-    protected void updateHud() {
-    // TODO: THIS NEEDS TO GO ELSEWHERE - BUT WHERE?
-        //hudUpdate = new UpdateHudCommand(screen.getHUD(), HudLabels.USER_INFO, getName());
-        //hudUpdate.execute(this);
     }
 
     @Override
@@ -74,14 +66,6 @@ public class InvincibilityItem extends Item {
                         collisionCommand.undo(entityThatUsed);
                         collisionCommand = null;
                         timerMap.put(timerType, null);
-
-                        // TODO: CHANGE HOW HUD UPDATES
-                        // CURRENTLY, THIS WILL BLANK THE LABEL NO MATTER WHAT
-                        // EVEN IF ANOTHER ITEM IS MORE RECENT
-                        // POSSIBLY STORE AN ARRAY OF ITEMS WITH TIMERS
-                        // THEN REMOVE THEM FROM ARRAY WHEN THEY TIME OUT
-                        hudUpdate = new UpdateHudCommand(screen.getHUD(), HudLabels.USER_INFO, "");
-                        hudUpdate.execute(this);
                     }
                 } else {
                     timer.update(deltaTime);

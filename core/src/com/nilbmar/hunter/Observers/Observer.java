@@ -1,5 +1,7 @@
 package com.nilbmar.hunter.Observers;
 
+import com.nilbmar.hunter.Scenes.Hud;
+
 /**
  * Created by sysgeek on 1/12/18.
  *
