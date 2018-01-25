@@ -14,8 +14,7 @@ import com.nilbmar.hunter.Scenes.Hud;
  * ie. current item usage
  */
 
-public class UserInfoHUD extends LabelHUD implements Observer {
-    protected UpdateHudCommand hudUpdate;
+public class UserInfoHUD extends LabelHUD {
     private String info;
     private Color color;
 
@@ -25,19 +24,12 @@ public class UserInfoHUD extends LabelHUD implements Observer {
         color = Color.CHARTREUSE;
     }
 
-    public void setInfo(String info) { this.info = info;
-        Gdx.app.log("UserInfoHUD", "Setting info to " + info);
-
-    }
+    public void setInfo(String info) { this.info = info; }
     public void setColor(Color color) { this.color = color; }
-
-    @Override
-    public String getType() { return Hud.HudObservers.USER_INFO.toString(); }
 
     @Override
     public void update() {
         if (info != null) {
-            Gdx.app.log("UserInfoHUD update", info.toString());
             label.setColor(color);
             label.setText(info);
         }

@@ -293,8 +293,16 @@ public class Enemy extends Entity {
             case BULLET:
                 Gdx.app.log("Enemy Hit", "You got me!");
                 lifeComp.loseHitPoints(1);
+
+                // Add to player's score for successful hit
+                // TODO: GET THESE FROM SCORECOMPONENTz
+                screen.getPlayer().onAttackSuccess(2);
                 Gdx.app.log("On Hit - NearbyHelpQ", brain.getGoalsStack().toString());
+
                 if (!lifeComp.isDead()) {
+                    // Add extra to player's score if killed enemy
+                    // TODO: GET THESE FROM SCORECOMPONENT
+                    screen.getPlayer().onAttackSuccess(5);
                     Gdx.app.log("Enemy Death", "AAaaaaaaggghhh! I'm dying!");
                 }
                 break;

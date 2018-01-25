@@ -29,7 +29,6 @@ import com.nilbmar.hunter.Timers.ItemTimer;
 import com.nilbmar.hunter.Timers.ResetCollisionTimer;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -40,7 +39,6 @@ import java.util.Map;
  */
 
 public class Player extends Entity implements Subject {
-    //private Array<Observer> observers;
     private HashMap<String, Observer> observers;
 
     private AttackTimer attackTimer;
@@ -49,7 +47,10 @@ public class Player extends Entity implements Subject {
     // Components
     private InventoryComponent inventoryComponent;
     private LifeComponent lifeComp;
+    // TODO: CREATE SCORE COMPONENT
+    private int score;
 
+    private Array<String> statusFX;
     private Item holdItem;
 
     public Player(PlayScreen screen, float startInWorldX, float startInWorldY) {
@@ -60,6 +61,10 @@ public class Player extends Entity implements Subject {
         lifeComp = new LifeComponent();
         lifeComp.setHitPoints(10);     // TODO: GET FROM GAMEMANAGER
         lifeComp.setMaxHitPoints(20);
+        statusFX = new Array<String>();
+        statusFX.add("");
+
+        observers = new HashMap<String, Observer>();
 
         entityType = EntityType.PLAYER;
         setImageWidth(20);
@@ -241,13 +246,17 @@ public class Player extends Entity implements Subject {
         }
     }
 
-
+    public Array<String> getStatusFX() { return statusFX; }
+    public int getScore() { return score; }
 
     public LifeComponent getLifeComp() { return lifeComp; }
     @Override
     public void onHit(Entity entity) {
         switch (entity.getEntityType()) {
             case ENEMY:
+                score = score - 10;
+                // If its an enemy, will get reduced twice
+                // because of intentional lack of break;
             case BULLET:
                 // Call timer, after timer, then resetCollision
                 // Otherwise game crashes trying to reset collision while still colliding
@@ -255,6 +264,7 @@ public class Player extends Entity implements Subject {
 
                 // TODO: GET AMOUNT OF HP TO LOSE
                 lifeComp.loseHitPoints(1);
+                score = score - 10;
 
                 if (lifeComp.isDead()) {
                     Gdx.app.log("Player Death", "What a world!");
@@ -263,6 +273,12 @@ public class Player extends Entity implements Subject {
         }
         Gdx.app.log("Player HP = " + lifeComp.getHitPoints(), "Ouch! " + entity.getName() + " hit me!");
         notifyObserver();
+    }
+
+    public void onAttackSuccess(int scoreValue) {
+        // Successfully hitting enemy with bullet gets you points
+        // value is based on type of enemy
+        score = score + scoreValue;
     }
 
     public void onPickup(Item item) {
@@ -274,6 +290,7 @@ public class Player extends Entity implements Subject {
             default:
                 // TODO: CHANGE WHEN ADD IN NEW INVENTORY TYPES
                 inventoryComponent.placeInInventory(item, item.getAddToCountOnPickup());
+                score = score + 5;
                 break;
         }
 
@@ -282,31 +299,26 @@ public class Player extends Entity implements Subject {
     }
 
     public void useItem() {
-        String newText = "";
-        InventorySlotType slotType = holdItem.getInventoryType();
+        // Only allow one status item at a time
+        // this may change laters
+        if (statusFX.size < 1 || (statusFX.size > 0 && statusFX.first().isEmpty())) {
+            InventorySlotType slotType = holdItem.getInventoryType();
 
-        if (inventoryComponent.countInInventory(slotType) > 0) {
-            Gdx.app.log("Inventory", getEntityType() + " used " + slotType);
-            newText = holdItem.getName();
+            if (inventoryComponent.countInInventory(slotType) > 0) {
+                Gdx.app.log("Inventory", getEntityType() + " used " + slotType);
 
-            UseCommand use = new UseCommand(holdItem);
-            use.execute(this);
-            inventoryComponent.reduceInventory(holdItem.getInventoryType());
+                UseCommand use = new UseCommand(holdItem);
+                use.execute(this);
+                inventoryComponent.reduceInventory(holdItem.getInventoryType());
 
-            currentAction = Action.USE;
+                currentAction = Action.USE;
 
-            /* TODO: THIS WON'T SET THE HUD PROPERLY IF GET HIT BEFORE REACHING ITEM
-             * AND DOESN'T UNSET WHEN TIMER ENDS
-             */
-            if (observers.containsKey(Hud.HudObservers.USER_INFO.name())
-                    && observers.get(Hud.HudObservers.USER_INFO.name()) != null) {
-                Gdx.app.log("user info", holdItem.getName());
-                ((UserInfoHUD) observers.get(Hud.HudObservers.USER_INFO.name())).setInfo(holdItem.getName());
-                observers.get(Hud.HudObservers.USER_INFO.name()).update();
-                notifyObserver();
-            } else {
-                Gdx.app.log("Observers", Hud.HudObservers.USER_INFO.name());
+                statusFX.set(0, holdItem.getName());
+                score = score + 20;
             }
+        } else {
+            score = score - 2; // Just want to test scoreObserver
+            Gdx.app.log("useItem fail", "size: " + statusFX.size + ": " + statusFX.first().toString());
         }
     }
 
@@ -417,15 +429,7 @@ public class Player extends Entity implements Subject {
 
                                 break;
                             case ITEM:
-                                if (observers.containsKey(Hud.HudObservers.USER_INFO.name())
-                                        && observers.get(Hud.HudObservers.USER_INFO.name()) != null) {
-                                    ((UserInfoHUD) observers.get(Hud.HudObservers.USER_INFO.name()))
-                                            .setInfo("");
-                                    observers.get(Hud.HudObservers.USER_INFO.name()).update();
-                                    //notifyObserver();
-                                    setTimerNull.add(TimerComponent.TimerType.ITEM);
-                                }
-
+                                statusFX.set(0, "");
                                 break;
                         }
                     } else {
@@ -442,10 +446,12 @@ public class Player extends Entity implements Subject {
     }
 
     public void setupHudObservers(Hud hud) {
-        observers = new HashMap<String, Observer>();
+        //observers = new HashMap<String, Observer>();
+        /*
         observers.put(Hud.HudObservers.LIFE.name(), hud.getObserver(Hud.HudObservers.LIFE));
         observers.put(Hud.HudObservers.USER_INFO.name(), hud.getObserver(Hud.HudObservers.USER_INFO));
         observers.put(Hud.HudObservers.SCORE.name(), hud.getObserver(Hud.HudObservers.SCORE));
+        */
     }
 
     @Override
@@ -464,10 +470,10 @@ public class Player extends Entity implements Subject {
 
     @Override
     public void notifyObserver() {
-        /*
+        //*
         for (HashMap.Entry<String, Observer> entry : observers.entrySet()) {
             entry.getValue().update();
-        }*/
+        }/*/
 
         HashMap.Entry<String, Observer> entry;
         Iterator<HashMap.Entry<String, Observer>> it = observers.entrySet().iterator();

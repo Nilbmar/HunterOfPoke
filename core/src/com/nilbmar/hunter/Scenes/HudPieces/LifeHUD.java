@@ -12,7 +12,7 @@ import com.nilbmar.hunter.Scenes.Hud;
  * Purpose: Piece of the HUD to display player's HP
  */
 
-public class LifeHUD extends LabelHUD implements Observer {
+public class LifeHUD extends LabelHUD {
     private Subject subject;
     private int hp = 0;
     private int hpTotal = 0;
@@ -24,7 +24,6 @@ public class LifeHUD extends LabelHUD implements Observer {
     }
 
     public void setHP() {
-
         try {
             hp = ((Player) subject).getLifeComp().getHitPoints();
             hpTotal = ((Player) subject).getLifeComp().getMaxHitPoints();
@@ -34,11 +33,7 @@ public class LifeHUD extends LabelHUD implements Observer {
     }
 
     @Override
-    public String getType() { return Hud.HudObservers.LIFE.toString(); }
-
-    @Override
     public void update() {
-        setHP();
         label.setText(hp + " / " + hpTotal);
     }
 }

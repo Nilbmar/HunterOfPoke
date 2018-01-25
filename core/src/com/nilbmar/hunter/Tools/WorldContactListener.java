@@ -76,7 +76,7 @@ public class WorldContactListener implements ContactListener {
                 // If Bullet that hits an Enemy was fired by an Enemy - ignore it
                 if (fixtA.getFilterData().categoryBits == HunterOfPoke.ENEMY_BIT) {
                     EntityType firedBy = ((Bullet) (fixtB.getUserData())).getFiredBy().getEntityType();
-                    // If not fired by an enemy
+                    // If bullet hits enemy, but is not fired by an enemy
                     if (firedBy != EntityType.ENEMY) {
                         ((Enemy) (fixtA.getUserData())).onHit((Entity) fixtB.getUserData());
                         ((Bullet) (fixtB.getUserData())).onHit();

@@ -10,7 +10,10 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.nilbmar.hunter.Entities.Player;
 import com.nilbmar.hunter.HunterOfPoke;
+import com.nilbmar.hunter.Observers.LifeObserver;
 import com.nilbmar.hunter.Observers.Observer;
+import com.nilbmar.hunter.Observers.ScoreObserver;
+import com.nilbmar.hunter.Observers.StatusObserver;
 import com.nilbmar.hunter.Observers.Subject;
 import com.nilbmar.hunter.Scenes.HudPieces.LabelHUD;
 import com.nilbmar.hunter.Scenes.HudPieces.LevelHUD;
@@ -48,9 +51,13 @@ public class Hud implements Disposable {
     // TODO: PASS LEVEL AND PLAYER NAMES THROUGH CONSTRUCTOR
     // Observable HUD Pieces
     public enum HudObservers { USER_INFO, LIFE, SCORE }
-    private UserInfoHUD userInfoHUD;
     private LifeHUD lifeHUD;
+    private UserInfoHUD userInfoHUD;
     private ScoreHUD scoreHUD;
+    // Observers
+    private ScoreObserver scoreObserver;
+    private LifeObserver lifeObserver;
+    private StatusObserver statusObserver;
 
     public Hud(SpriteBatch spriteBatch, Player player) {
         this.player = player;
@@ -75,6 +82,13 @@ public class Hud implements Disposable {
 
         countDownHUD = new CountDownHUD(worldTimer + "");
         scoreHUD = new ScoreHUD(score + "");
+
+        // CREATE OBSERVERS
+        lifeObserver = new LifeObserver(lifeHUD, player);
+        statusObserver = new StatusObserver(userInfoHUD, player);
+        scoreObserver = new ScoreObserver(scoreHUD, player);
+
+
 
         // TODO: CHANGE THESE TO ACCEPTING HudPiece's instead of labels
         /* ADD LABELS TO TABLE */
@@ -114,16 +128,15 @@ public class Hud implements Disposable {
         // USER_INFO, LIFE, SCORE
         switch (obsToGet) {
             case LIFE:
-                observer = lifeHUD;
+                observer = lifeObserver;
                 break;
             case USER_INFO:
-                observer = userInfoHUD;
+                observer = statusObserver;
                 break;
             case SCORE:
-                observer = scoreHUD;
+                observer = scoreObserver;
                 break;
         }
-
 
         return observer;
     }

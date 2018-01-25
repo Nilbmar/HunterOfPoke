@@ -11,7 +11,7 @@ import java.util.Locale;
  * Purpose: Hud Piece to store and display player's score
  */
 
-public class ScoreHUD extends LabelHUD implements Observer {
+public class ScoreHUD extends LabelHUD {
     private int score;
 
     public ScoreHUD(String text) {
@@ -19,12 +19,9 @@ public class ScoreHUD extends LabelHUD implements Observer {
         score = Integer.parseInt(text);
     }
 
-    public void addToScore(int add) {
-        score = score + add;
+    public void setScore(int score) {
+        this.score = score;
     }
-
-    @Override
-    public String getType() { return Hud.HudObservers.SCORE.toString(); }
 
     @Override
     public void update() {
