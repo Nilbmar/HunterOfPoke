@@ -1,8 +1,5 @@
 package com.nilbmar.hunter.Scenes.HudPieces;
 
-import com.nilbmar.hunter.Observers.Observer;
-import com.nilbmar.hunter.Scenes.Hud;
-
 import java.util.Locale;
 
 /**

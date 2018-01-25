@@ -21,10 +21,6 @@ public class StatusObserver implements Observer {
         subject.addObserver(this);
     }
 
-    public void setSubject(Subject subject) {
-        this.subject = subject;
-    }
-
     @Override
     public void update() {
         if (subject != null) {
