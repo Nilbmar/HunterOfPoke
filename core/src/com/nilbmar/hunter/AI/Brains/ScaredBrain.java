@@ -7,6 +7,7 @@ import com.nilbmar.hunter.AI.SteeringAI;
 import com.nilbmar.hunter.AI.Utils.Vision;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.Entity;
+import com.sun.crypto.provider.GCMParameters;
 
 /**
  * Created by sysgeek on 11/10/17.
@@ -19,7 +20,6 @@ public class ScaredBrain extends Brain {
         setAmtHelpRequired(1);
 
         setHowOftenToAttack(1.5f);
-        //setAmtHelpRequired(0);
     }
 
     @Override
@@ -77,11 +77,16 @@ public class ScaredBrain extends Brain {
                 addGoal(Goal.ATTACK);
             }
         }
+
+        if (nearbyHelpQ.first() == null) {
+            //addGoal(Goal.HIDE);
+            addGoal(Goal.PATROL);
+        }
     }
 
     @Override
     public void hide() {
-        //Gdx.app.log("Scared Brain", "Hide");
+        Gdx.app.log("Scared Brain", "Hide");
     }
 
     @Override

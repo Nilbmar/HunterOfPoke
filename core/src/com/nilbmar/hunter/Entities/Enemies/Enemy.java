@@ -80,8 +80,6 @@ public class Enemy extends Entity {
         distanceForLOS = 0;
 
         imageComponent.setPosition(startInWorldX, startInWorldY);
-
-        // AI
     }
 
     public void setupAnimationComponents() {
@@ -144,10 +142,10 @@ public class Enemy extends Entity {
 
     public LifeComponent getLifeComponent() { return lifeComp; }
 
-    // Based on AI movement
+    // Switch Enemy direction based on position
+    // relative to AITarget position
+    // (aka: face the player)
     private void setDirection() {
-        // Switch Enemy direction based on position
-        // relative to AITarget position
         float dirX = getPosition().x - target.getPosition().x;
         float dirY = getPosition().y - target.getPosition().y;
 
@@ -199,16 +197,11 @@ public class Enemy extends Entity {
         float boundingRadius = 30f;
         if (b2Body != null) {
 
+            // No target? Set own position as target (don't move)
             if (target == null) {
                 target = new AITarget(getPosition());
             }
             ai = new SteeringAI(this, target, boundingRadius);
-
-            /*
-            moveComponent = new MoveComponent(b2Body);
-            moveCommand = new MoveCommand();
-            moveVector = new Vector2(0, 0);
-            */
         }
     }
 

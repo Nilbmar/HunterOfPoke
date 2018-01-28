@@ -318,7 +318,7 @@ public class Player extends Entity implements Subject {
             }
         } else {
             score = score - 2; // Just want to test scoreObserver
-            Gdx.app.log("useItem fail", "size: " + statusFX.size + ": " + statusFX.first().toString());
+            Gdx.app.log("useItem fail", "size: " + statusFX.size + ": " + statusFX.first());
         }
     }
 
