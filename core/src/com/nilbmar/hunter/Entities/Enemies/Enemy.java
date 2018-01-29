@@ -17,6 +17,7 @@ import com.nilbmar.hunter.Components.Component;
 import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Components.FramesComponent;
 import com.nilbmar.hunter.Components.LifeComponent;
+import com.nilbmar.hunter.Components.MoveComponent;
 import com.nilbmar.hunter.Components.WeaponComponent;
 import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.HunterOfPoke;
@@ -201,6 +202,8 @@ public class Enemy extends Entity {
             if (target == null) {
                 target = new AITarget(getPosition());
             }
+
+            moveComponent = new MoveComponent(b2Body);
             ai = new SteeringAI(this, target, boundingRadius);
         }
     }

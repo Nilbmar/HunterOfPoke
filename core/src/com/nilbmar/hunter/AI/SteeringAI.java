@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.nilbmar.hunter.AI.Utils.Behaviors;
 import com.nilbmar.hunter.AI.Utils.SteeringUtil;
+import com.nilbmar.hunter.Commands.MoveCommand;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
 import com.nilbmar.hunter.Entities.Entity;
 import com.nilbmar.hunter.Enums.EntityType;
@@ -26,6 +27,7 @@ public class SteeringAI implements Steerable<Vector2> {
     private AITarget target;
     private Body body;
 
+    private MoveCommand moveCommand;
     private SteeringBehavior<Vector2> steerBehavior;
     private SteeringAcceleration<Vector2> steerOutput;
 
@@ -62,6 +64,7 @@ public class SteeringAI implements Steerable<Vector2> {
         steerOutput = new SteeringAcceleration<Vector2>(new Vector2());
 
         position = body.getPosition();
+        moveCommand = new MoveCommand();
 
         // Set initial steering behavior
         setCurrentBehavior(Behaviors.Behavior.ARRIVE);
@@ -252,18 +255,55 @@ public class SteeringAI implements Steerable<Vector2> {
         return (Location<Vector2>) new Vector2();
     }
 
+    private Vector2 getDirectionToTarget() {
+        Vector2 direction = new Vector2(0, 0);
+        float targetX = target.getPosition().x;
+        float targetY = target.getPosition().y;
+
+        // Should move UP
+        if (targetY > getPosition().y) {
+            direction.y += 1;
+        }
+
+        // Should move DOWN
+        if (targetY < getPosition().y) {
+            direction.y -= 1;
+        }
+
+        // Should move RIGHT
+        if (targetX > getPosition().x) {
+            direction.x += 1;
+        }
+
+        // Should move LEFT
+        if (targetX < getPosition().x) {
+            direction.x -= 1;
+        }
+
+        return direction;
+    }
 
     public void update(float deltaTime) {
         if (steerBehavior != null) {
 
             // Has not arrived at target
             if (!target.getPosition().equals(getPosition())) {
+                // Get direction need to go (AITarget - getPosition)
+
+                Gdx.app.log("getDirectionToTarget", getDirectionToTarget() + "");
+                //moveCommand.setMovement(getDirectionToTarget());
+                //moveCommand.execute(entity);
+                ((Enemy) entity).getMoveComponent().move(getDirectionToTarget(), 1);
+
+                /* Actual steering behavior code that I'm trying to replace
                 setSteerBehavior(currentBehavior);
                 steerBehavior.calculateSteering(steerOutput);
                 applySteering(deltaTime);
+                */
             } else {
                 if (entity.getEntityType() == EntityType.ENEMY) {
                     ((Enemy) entity).onArrived();
+                    Gdx.app.log("SteeringAI update", "enemy.onArrived");
                 }
             }
 
