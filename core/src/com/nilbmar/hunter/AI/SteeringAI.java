@@ -293,13 +293,13 @@ public class SteeringAI implements Steerable<Vector2> {
                 Gdx.app.log("getDirectionToTarget", getDirectionToTarget() + "");
                 //moveCommand.setMovement(getDirectionToTarget());
                 //moveCommand.execute(entity);
-                ((Enemy) entity).getMoveComponent().move(getDirectionToTarget(), 1);
+                //((Enemy) entity).getMoveComponent().move(getDirectionToTarget(), 1);
 
-                /* Actual steering behavior code that I'm trying to replace
+                //* Actual steering behavior code that I'm trying to replace
                 setSteerBehavior(currentBehavior);
                 steerBehavior.calculateSteering(steerOutput);
                 applySteering(deltaTime);
-                */
+                //*/
             } else {
                 if (entity.getEntityType() == EntityType.ENEMY) {
                     ((Enemy) entity).onArrived();
