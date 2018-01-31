@@ -1,6 +1,5 @@
 package com.nilbmar.hunter.AI;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.steer.Steerable;
 import com.badlogic.gdx.ai.steer.SteeringAcceleration;
 import com.badlogic.gdx.ai.steer.SteeringBehavior;
@@ -288,14 +287,8 @@ public class SteeringAI implements Steerable<Vector2> {
 
             // Has not arrived at target
             if (!target.getPosition().equals(getPosition())) {
-                // Get direction need to go (AITarget - getPosition)
 
-                Gdx.app.log("getDirectionToTarget", getDirectionToTarget() + "");
-                //moveCommand.setMovement(getDirectionToTarget());
-                //moveCommand.execute(entity);
-                //((Enemy) entity).getMoveComponent().move(getDirectionToTarget(), 1);
-
-                //* Actual steering behavior code that I'm trying to replace
+                //* Setting steering behavior
                 setSteerBehavior(currentBehavior);
                 steerBehavior.calculateSteering(steerOutput);
                 applySteering(deltaTime);
@@ -303,17 +296,8 @@ public class SteeringAI implements Steerable<Vector2> {
             } else {
                 if (entity.getEntityType() == EntityType.ENEMY) {
                     ((Enemy) entity).onArrived();
-                    Gdx.app.log("SteeringAI update", "enemy.onArrived");
                 }
             }
-
-
-            // TODO: INSTEAD OF RESETING BEHAVIOR EACH TIME
-            // USE ARRIVE.SETTARGET(TARGET)
-            // MAYBE USE "BRAIN" TO CREATE BEHAVIOR
-            // AND SETOWNER TO ASSIGN THEM TO ENEMY
-
-
         }
     }
 }
