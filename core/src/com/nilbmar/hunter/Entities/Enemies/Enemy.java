@@ -13,7 +13,6 @@ import com.nilbmar.hunter.AI.States.Temperament;
 import com.nilbmar.hunter.AI.SteeringAI;
 import com.nilbmar.hunter.AI.Utils.Vision;
 import com.nilbmar.hunter.Components.AnimationComponent;
-import com.nilbmar.hunter.Components.Component;
 import com.nilbmar.hunter.Components.DirectionComponent;
 import com.nilbmar.hunter.Components.FramesComponent;
 import com.nilbmar.hunter.Components.LifeComponent;
@@ -37,7 +36,7 @@ import java.util.HashMap;
 
 public class Enemy extends Entity {
     private Brain brain;
-    private SteeringAI ai;
+    private SteeringAI steering;
     private LifeComponent lifeComp;
     private EnemyType enemyType;
 
@@ -112,7 +111,7 @@ public class Enemy extends Entity {
     public void setupBrain(Temperament temperament) {
         switch (temperament) {
             case SCARED:
-                brain = new ScaredBrain(this, ai);
+                brain = new ScaredBrain(this, steering);
                 break;
             case CAUTIOUS:
 
@@ -150,7 +149,7 @@ public class Enemy extends Entity {
         float dirX = getPosition().x - target.getPosition().x;
         float dirY = getPosition().y - target.getPosition().y;
 
-        if (!ai.getLinearVelocity().isZero()) {
+        if (!steering.getLinearVelocity().isZero()) {
             setAction(Action.WALKING);
 
             // If player is above enemy, face UP
@@ -191,7 +190,7 @@ public class Enemy extends Entity {
 
     public void setTarget(Vector2 position) {
         target.setPosition(position);
-        ai.setTarget(target);
+        steering.setTarget(target);
     }
 
     public void setSteeringAI() {
@@ -204,7 +203,7 @@ public class Enemy extends Entity {
             }
 
             moveComponent = new MoveComponent(b2Body);
-            ai = new SteeringAI(this, target, boundingRadius);
+            steering = new SteeringAI(this, target, boundingRadius);
         }
     }
 
@@ -363,23 +362,12 @@ public class Enemy extends Entity {
         }
 
         // Set the target for and update AI movement
-        if (ai != null) {
+        if (steering != null) {
 
             //getNewTarget();
-            ai.update(deltaTime);
+            steering.update(deltaTime);
 
             setDirection();
-
-            /* TODO: FIGURE OUT HOW TO MAKE THEM WALK WITHOUT ANGLES
-            if (ai.getLinearVelocity().x >= ai.getLinearVelocity().y) {
-                moveVector.set(ai.getLinearVelocity().x, 0);
-            } else {
-                moveVector.set(0, ai.getLinearVelocity().y);
-            }
-
-            moveCommand.setMovement(moveVector);
-            moveCommand.execute(this);
-            */
         }
 
         imageComponent.setRegion(getFrame(deltaTime));

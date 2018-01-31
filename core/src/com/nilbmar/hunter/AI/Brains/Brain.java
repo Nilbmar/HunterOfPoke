@@ -121,11 +121,15 @@ public abstract class Brain {
     }
 
     public void run() {
-        ai.setCurrentBehavior(Behaviors.Behavior.SEEK);
-        getEnemy().setTarget(new Vector2(
-                getEnemy().getPosition().x - 10,
-                getEnemy().getPosition().y - 10));
-        Gdx.app.log("Brain", "Running to " + getEnemy().getPosition() + " - behavior is " + ai.getCurrentBehavior());
+        if (ai != null) {
+            ai.setCurrentBehavior(Behaviors.Behavior.SEEK);
+
+            getEnemy().setTarget(new Vector2(
+                    getEnemy().getPosition().x - 10,
+                    getEnemy().getPosition().y - 10));
+            Gdx.app.log("Brain", "Running to " + getEnemy().getPosition()
+                    + " - behavior is " + ai.getCurrentBehavior());
+        }
     }
 
     public abstract void noGoal();

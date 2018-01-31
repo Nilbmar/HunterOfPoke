@@ -1,21 +1,19 @@
 package com.nilbmar.hunter.AI.Brains;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.Queue;
 import com.nilbmar.hunter.AI.States.Goal;
 import com.nilbmar.hunter.AI.SteeringAI;
-import com.nilbmar.hunter.AI.Utils.Vision;
 import com.nilbmar.hunter.Entities.Enemies.Enemy;
-import com.nilbmar.hunter.Entities.Entity;
-import com.sun.crypto.provider.GCMParameters;
 
 /**
- * Created by sysgeek on 11/10/17.
+ * Created by sysgeek on 11/10/17
+ *
+ * Purpose: Brain for scared characters
  */
 
 public class ScaredBrain extends Brain {
-    public ScaredBrain(Enemy enemy, SteeringAI ai) {
-        super(enemy, ai);
+    public ScaredBrain(Enemy enemy, SteeringAI steering) {
+        super(enemy, steering);
 
         setAmtHelpRequired(1);
 
@@ -91,6 +89,7 @@ public class ScaredBrain extends Brain {
 
     @Override
     public void run() {
+        super.run();
         //Gdx.app.log("Scared Brain", "Run");
     }
 }
