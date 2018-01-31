@@ -3,6 +3,7 @@ package com.nilbmar.hunter.AI;
 import com.badlogic.gdx.ai.steer.Steerable;
 import com.badlogic.gdx.ai.steer.SteeringAcceleration;
 import com.badlogic.gdx.ai.steer.SteeringBehavior;
+import com.badlogic.gdx.ai.steer.behaviors.Wander;
 import com.badlogic.gdx.ai.utils.Location;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -66,7 +67,7 @@ public class SteeringAI implements Steerable<Vector2> {
         moveCommand = new MoveCommand();
 
         // Set initial steering behavior
-        setCurrentBehavior(Behaviors.Behavior.ARRIVE);
+        setCurrentBehavior(Behaviors.Behavior.WANDER);
         setSteerBehavior(currentBehavior);
     }
 
@@ -251,35 +252,37 @@ public class SteeringAI implements Steerable<Vector2> {
         // https://libgdx.badlogicgames.com/gdx-ai/docs/com/badlogic/gdx/ai/utils/Location.html
         // TODO: NO CLUE IF THIS WORKS AT ALL, HOBBLED TOGETHER
         //return null;
-        return (Location<Vector2>) new Vector2();
-    }
+        return new Location<Vector2>() {
+            @Override
+            public Vector2 getPosition() {
+                return null;
+            }
 
-    private Vector2 getDirectionToTarget() {
-        Vector2 direction = new Vector2(0, 0);
-        float targetX = target.getPosition().x;
-        float targetY = target.getPosition().y;
+            @Override
+            public float getOrientation() {
+                return 0;
+            }
 
-        // Should move UP
-        if (targetY > getPosition().y) {
-            direction.y += 1;
-        }
+            @Override
+            public void setOrientation(float orientation) {
 
-        // Should move DOWN
-        if (targetY < getPosition().y) {
-            direction.y -= 1;
-        }
+            }
 
-        // Should move RIGHT
-        if (targetX > getPosition().x) {
-            direction.x += 1;
-        }
+            @Override
+            public float vectorToAngle(Vector2 vector) {
+                return 0;
+            }
 
-        // Should move LEFT
-        if (targetX < getPosition().x) {
-            direction.x -= 1;
-        }
+            @Override
+            public Vector2 angleToVector(Vector2 outVector, float angle) {
+                return null;
+            }
 
-        return direction;
+            @Override
+            public Location<Vector2> newLocation() {
+                return null;
+            }
+        };
     }
 
     public void update(float deltaTime) {
