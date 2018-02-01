@@ -67,7 +67,7 @@ public class SteeringAI implements Steerable<Vector2> {
         moveCommand = new MoveCommand();
 
         // Set initial steering behavior
-        setCurrentBehavior(Behaviors.Behavior.WANDER);
+        setCurrentBehavior(Behaviors.Behavior.SEEK);
         setSteerBehavior(currentBehavior);
     }
 

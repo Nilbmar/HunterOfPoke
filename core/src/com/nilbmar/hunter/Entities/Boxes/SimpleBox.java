@@ -1,6 +1,5 @@
 package com.nilbmar.hunter.Entities.Boxes;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -13,12 +12,12 @@ import com.nilbmar.hunter.Screens.PlayScreen;
 
 /**
  * Created by sysgeek on 8/22/17.
+ *
+ * Purpose: Standard box thrown by player to capture enemies
  */
 
 public class SimpleBox extends Box {
     private DirectionComponent.Direction dirThrown;
-
-
 
     public SimpleBox(PlayScreen screen, float x, float y, Vector2 v, float rotation) {
         super(screen, x, y, v, rotation);
@@ -48,8 +47,8 @@ public class SimpleBox extends Box {
 
     @Override
     protected void defineShape() {
-        bodyComponent.setFixtureDef(Shape.Type.Circle, 3); // CircleShape - radius of 5
-        //bodyComponent.setFixtureDef(Shape.Type.Polygon, 4, 4); // PolygonShape - Set as Box
+        //bodyComponent.setFixtureDef(Shape.Type.Circle, 3); // CircleShape - radius of 5
+        bodyComponent.setFixtureDef(Shape.Type.Polygon, 4, 4); // PolygonShape - Set as Box
     }
 
     @Override

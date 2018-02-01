@@ -61,7 +61,7 @@ public abstract class Box extends Entity implements Poolable {
 
         landed = false;
 
-        entityType = EntityType.BULLET;
+        entityType = EntityType.BOX;
         atlas = screen.getAssetsHandler().getBulletAtlas();
 
         imageComponent.setPosition(startInWorldX, startInWorldY);
@@ -116,7 +116,7 @@ public abstract class Box extends Entity implements Poolable {
 
     @Override
     protected void defineBits(short maskBits) {
-        bodyComponent.setCategoryBit(HunterOfPoke.BULLET_BIT);
+        bodyComponent.setCategoryBit(HunterOfPoke.BOX_BIT);
         bodyComponent.setMaskBits(maskBits);
     }
 

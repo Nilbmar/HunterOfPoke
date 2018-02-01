@@ -69,6 +69,16 @@ public class WorldContactListener implements ContactListener {
             case HunterOfPoke.ENEMY_BIT | HunterOfPoke.GROUND_BIT:
                 //Gdx.app.log("Enemy Collision", "Enemy collided with ground");
                 break;
+            case HunterOfPoke.ENEMY_BIT | HunterOfPoke.BOX_BIT:
+                // TODO: CODE onCapture()
+                if (fixtA.getFilterData().categoryBits == HunterOfPoke.ENEMY_BIT) {
+                    ((Enemy) (fixtA.getUserData())).onHit((Entity) fixtB.getUserData());
+                    ((Box) (fixtB.getUserData())).onHit();
+                } else if (fixtB.getFilterData().categoryBits == HunterOfPoke.ENEMY_BIT) {
+                    ((Enemy) (fixtB.getUserData())).onHit((Entity) fixtA.getUserData());
+                    ((Box) (fixtA.getUserData())).onHit();
+                }
+                break;
             case HunterOfPoke.ENEMY_BIT | HunterOfPoke.BULLET_BIT:
                 // TODO: BREAKING WHEN BOX HITS ENEMY
                 // BECAUSE IT'S CASTING TO BULLET - MAKE BOTH PROJECTILES

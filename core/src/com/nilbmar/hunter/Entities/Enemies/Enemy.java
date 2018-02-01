@@ -301,6 +301,11 @@ public class Enemy extends Entity {
                     Gdx.app.log("Enemy Death", "AAaaaaaaggghhh! I'm dying!");
                 }
                 break;
+            case BOX:
+                // TODO: GET THESE FROM SCORECOMPONENT
+                screen.getPlayer().onAttackSuccess(10);
+                Gdx.app.log("Enemy", "Captured!");
+                break;
         }
     }
 
@@ -320,7 +325,8 @@ public class Enemy extends Entity {
         createBody(startInWorldX, startInWorldY);
         defineShape();
         defineBits((short) (HunterOfPoke.PLAYER_BIT | HunterOfPoke.GROUND_BIT
-                | HunterOfPoke.ENEMY_BIT | HunterOfPoke.ITEM_BIT | HunterOfPoke.BULLET_BIT));
+                | HunterOfPoke.ENEMY_BIT | HunterOfPoke.ITEM_BIT
+                | HunterOfPoke.BULLET_BIT | HunterOfPoke.BOX_BIT));
         finalizeBody();
     }
 
